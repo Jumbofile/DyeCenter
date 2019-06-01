@@ -34,7 +34,7 @@
 							<form>
 								<div class="form-label-group">
 
-									<input type="email" name="u" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+									<input type="email" name="e" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
 									<label for="inputEmail">Email address</label>
 								</div>
 

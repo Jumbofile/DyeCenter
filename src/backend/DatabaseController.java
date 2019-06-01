@@ -139,7 +139,39 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
             }
         });
 	}
-	public boolean accountExist(String username, String password){ ///checks if account exists
+	public String getAccountName(String username) throws SQLException{
+		return executeTransaction(new Transaction<String>() {
+			@Override
+			public String execute(Connection conn) throws SQLException {
+				String username = null;
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement(
+						"login_id " // user attribute
+						+ "  from account " // from account table
+						+ "  where userName = ?"
+
+				);
+
+				resultSet = stmt.executeQuery();
+
+				if (!resultSet.next()) {
+					username = resultSet.getString(1);
+				}
+
+
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				return username;
+			}
+		});
+	}
+	public boolean accountExist(String email, String password){ ///checks if account exists
 		//Checks if the user exist and if the password matches
         return executeTransaction(new Transaction<Boolean>() {
             @Override
@@ -164,10 +196,10 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 
                     //harry = resultSet.getString("username");/// this might not work
                     while (resultSet.next()) {
-                        user = resultSet.getString("userName");
+                        user = resultSet.getString("email");
                         //System.out.println("9" + username + "9");
                         //System.out.println("9" + user + "9");
-                        if (username.equals(user)) {
+                        if (email.equals(user)) {
 
                             pass = resultSet.getString("password");
                             //System.out.println(password);

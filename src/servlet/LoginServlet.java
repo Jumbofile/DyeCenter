@@ -38,18 +38,19 @@ public class LoginServlet extends HttpServlet {
 
 		
 		// gets username and password
-		String userName = (req.getParameter("u")).toLowerCase();
+		String email = (req.getParameter("e")).toLowerCase();
 		String password = req.getParameter("p");
 		
 		//checks if the account is valid
-		boolean validAccount = db.accountExist(userName, password);
+		boolean validAccount = db.accountExist(email, password);
 
 		//If account is valid, continue, if it isnt, spit out error
 		if(validAccount == true){
 			// Forward to view to render the result HTML document
 			resp.sendRedirect(req.getContextPath() + "/index");
 			System.out.println("Login Servlet: Login Successful");
-			req.getSession().setAttribute("username", userName); // adds username to session
+
+			//req.getSession().setAttribute("username", userName); // adds username to session
 		}else{
 			req.setAttribute("response", "Incorrect Username or Password");
 			System.out.println("Login Servlet: Login Failed");
