@@ -139,7 +139,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
             }
         });
 	}
-	public String getAccountName(String username) throws SQLException{
+	public String getAccountName(String email) throws SQLException{
 		return executeTransaction(new Transaction<String>() {
 			@Override
 			public String execute(Connection conn) throws SQLException {
@@ -150,12 +150,10 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 
 				// retreive username attribute from login
 				stmt = conn.prepareStatement(
-						"login_id " // user attribute
-						+ "  from account " // from account table
-						+ "  where userName = ?"
-
+						"select username from account where email = ?"
 				);
 
+				stmt.setString(1, email);
 				resultSet = stmt.executeQuery();
 
 				if (!resultSet.next()) {
