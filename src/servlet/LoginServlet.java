@@ -49,8 +49,14 @@ public class LoginServlet extends HttpServlet {
 			// Forward to view to render the result HTML document
 			resp.sendRedirect(req.getContextPath() + "/index");
 			System.out.println("Login Servlet: Login Successful");
+			String username = null;
+			try{
+			username = db.getAccountName(email);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 
-			//req.getSession().setAttribute("username", userName); // adds username to session
+			req.getSession().setAttribute("username", username); // adds username to session
 		}else{
 			req.setAttribute("response", "Incorrect Username or Password");
 			System.out.println("Login Servlet: Login Failed");

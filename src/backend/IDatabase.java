@@ -15,7 +15,7 @@ public interface IDatabase {
 	void insertCardData(String namee, String descs, String descl, String authorid, String image, String slack, String typee);
 	ArrayList<String> getCardAccountData(String username) throws SQLException;//gets all card data
 	int getCardCount()throws SQLException;
-	public String getAccountName(String username) throws SQLException;
+	public String getAccountName(String email) throws SQLException;
 
 
 }
