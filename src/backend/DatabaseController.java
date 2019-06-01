@@ -49,7 +49,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////// REGISTER ACCOUNT////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
-	public boolean registerAccount(String userName, String pass, String email, String name, String gender, String age, String location) throws SQLException {
+	public boolean registerAccount(String username, String pass, String email, String name, String gender, String age, String location) throws SQLException {
         return executeTransaction(new Transaction<Boolean>() {
             @Override
             public Boolean execute(Connection conn) throws SQLException {
@@ -60,15 +60,15 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 
                 try {
                     // retreive username attribute from login
-                    stmt = conn.prepareStatement("select userName " // user attribute
+                    stmt = conn.prepareStatement("select username " // user attribute
                             + "  from account " // from account table
-                            + "  where userName = ?"
+                            + "  where username = ?"
 
                     );
 
                     // substitute the title entered by the user for the placeholder in
                     // the query
-                    stmt.setString(1, userName);
+                    stmt.setString(1, username);
 
                     // execute the query
                     resultSet = stmt.executeQuery();
@@ -76,9 +76,9 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
                     if (!resultSet.next()) { /// if username doesnt exist
 
                         stmt2 = conn.prepareStatement( // enter username
-                                "insert into account(userName, password, email, name, gender, age, location, profpic)" + "values(?, ?, ?, ?, ?, ?, ?, ?)");
+                                "insert into account(username, password, email, name, gender, age, location, profpic)" + "values(?, ?, ?, ?, ?, ?, ?, ?)");
 
-                        stmt2.setString(1, userName);
+                        stmt2.setString(1, username);
                         stmt2.setString(2, pass);
                         stmt2.setString(3, email);
                         stmt2.setString(4, name);
@@ -88,7 +88,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
                         stmt2.setString(8, "pinkPonies");
                         stmt2.execute();
 
-                        //int accountID = getAccountID(userName);
+                        //int accountID = getAccountID(username);
 
 
                         return true;
@@ -120,7 +120,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
                 // retreive username attribute from login
                 stmt = conn.prepareStatement("login_id " // user attribute
                         + "  from account " // from account table
-                        + "  where userName = ?"
+                        + "  where username = ?"
 
                 );
 
@@ -152,7 +152,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 				stmt = conn.prepareStatement(
 						"login_id " // user attribute
 						+ "  from account " // from account table
-						+ "  where userName = ?"
+						+ "  where username = ?"
 
 				);
 
@@ -341,47 +341,66 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 		executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
-				PreparedStatement stmt1 = null;
-				PreparedStatement stmt2 = null;
+				PreparedStatement stmt = null;
 								
 				try {
 					System.out.println("Making account table");
 
-					stmt1 = conn.prepareStatement( //creates account table
+					stmt = conn.prepareStatement( //creates account table
 						"create table account (" +
-						"	login_id bigint auto_increment," +
-						"	userName varchar(40),"  +
+						"	UID bigint auto_increment," +
+						"	username varchar(40),"  +
 						"	password varchar(100)," +
 						"   email varchar(40),"     +
 						"   name varchar(40),"      +
-						"   gender varchar(40),"    +
-						"   age varchar(40),"		+
-						"   location varchar(40),"  +
-						"   profpic varchar(40)"	+
+						"	timestamp DATE DEFAULT (datetime('now','localtime')), "+
+						" PRIMARY KEY(UID)" 		+
 						")"
 					);
-					stmt1.executeUpdate();
+					stmt.executeUpdate();
+
 					
-					System.out.println("Making idea table");
-					stmt2 = conn.prepareStatement( //creates idea table
-							"create table idea (" +
-							"	idea_id bigint auto_increment, " +
-							"	name varchar(40),"  +
-							"	descs varchar(300)," +
-							"   descl varchar(2000),"     +
-							"   authorid varchar(40),"      +
-							"   otherid varchar(40),"    +
-							"   image varchar(500),"    +
-							"   slack varchar(500),"    +
-							"   type varchar(40)"    +
-							")"
-						);	
-						stmt2.executeUpdate();
+					System.out.println("Making userstats table");
+					stmt = conn.prepareStatement( //creates userstats table
+						"create table userstats ("  +
+						"	points INTEGER DEFAULT 0," +
+						"	plunks INTEGER DEFAULT 0," +
+						"   wins INTEGER DEFAULT 0,"   +
+						"   loss INTEGER DEFAULT 0,"   +
+						"	FOREIGN KEY(UID) REFERENCES account(UID))," +
+						"	PRIMARY KEY(UID)" +
+						")"
+					);
+					stmt.executeUpdate();
+
+					System.out.println("Making dyetable table");
+					stmt = conn.prepareStatement( //creates dyetable table
+						"create table dyetable ("  +
+						"	TID bigint auto_increment," +
+						"	name varchar(50)," +
+						"	FOREIGN KEY(UID) REFERENCES account(UID))," +
+						"	PRIMARY KEY(TID)" +
+						")"
+					);
+					stmt.executeUpdate();
+
+					System.out.println("Making game table");
+					stmt = conn.prepareStatement( //creates game table
+						"create table game ("  +
+						"	GID bigint auto_increment," +
+						"	players varchar(255) NULL," +
+						"	score_1 INTEGER DEFAULT 0," +
+						"	score_2 INTEGER DEFAULT 0," +
+						"	timestamp DATE DEFAULT (datetime('now','localtime'))," +
+						"	FOREIGN KEY(TID) REFERENCES dyetable(TID))," +
+						"	PRIMARY KEY(GID)" +
+						")"
+					);
+					stmt.executeUpdate();
 				
 					return true;
 				} finally {
-					DBUtil.closeQuietly(stmt1);
-                    DBUtil.closeQuietly(stmt2);
+					DBUtil.closeQuietly(stmt);
                 }
 			}
 		});
