@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="annotations">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib/annotations" />
+      <root url="file://$PROJECT_DIR$/lib/apache-jstl" />
+      <root url="file://$PROJECT_DIR$/lib/apache-jsp" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/annotations" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/apache-jsp" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/apache-jstl" recursive="false" />
+  </library>
+</component>

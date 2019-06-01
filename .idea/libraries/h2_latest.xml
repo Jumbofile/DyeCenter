@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="h2-latest">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/h2-latest.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

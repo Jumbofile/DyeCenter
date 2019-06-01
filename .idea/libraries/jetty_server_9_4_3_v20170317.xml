@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="jetty-server-9.4.3.v20170317">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jetty-server-9.4.3.v20170317.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-servlet-9.4.3.v20170317.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-annotations-9.4.3.v20170317.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-util-9.4.3.v20170317.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-xml-9.4.3.v20170317.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-webapp-9.4.3.v20170317.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-security-9.4.3.v20170317.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-jmx-9.4.3.v20170317.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-plus-9.4.3.v20170317.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-io-9.4.3.v20170317.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-http-9.4.3.v20170317.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

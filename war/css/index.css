@@ -1,0 +1,320 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,300,600,700,900);
+div.content{
+    position: absolute;
+    overflow-y:auto;
+    margin-top : 60px;
+    margin-left: 4%;
+    height: 93.2%;
+    width : 96%;
+    z-index:0;
+}
+h1 {
+    color: #fafafa;
+    text-shadow: 1px 1px 2px #111111;
+}
+a.btn {
+    background: #4f7bab;
+    border-radius: 4px;
+    box-shadow: 0 2px 0px 0 rgba(0, 0, 0, 0.25);
+    color: #fafafa;
+    display: inline-block;
+    padding: 6px 30px 8px;
+    position: relative;
+    text-decoration: none;
+    -webkit-transition: all 0.1s 0s ease-out;
+    transition: all 0.1s 0s ease-out;
+}
+.no-touch a.btn:hover {
+    background: #4f7bab;
+    box-shadow: 0px 8px 2px 0 rgba(0, 0, 0, 0.075);
+    -webkit-transform: translateY(-2px);
+    transform: translateY(-2px);
+    -webkit-transition: all 0.25s 0s ease-out;
+    transition: all 0.25s 0s ease-out;
+}
+.no-touch a.btn:active,
+a.btn:active {
+    background: #4f7bab;
+    box-shadow: 0 1px 0px 0 rgba(255, 255, 255, 0.25);
+    -webkit-transform: translate3d(0, 1px, 0);
+    transform: translate3d(0, 1px, 0);
+    -webkit-transition: all 0.025s 0s ease-out;
+    transition: all 0.025s 0s ease-out;
+}
+*{padding:0;margin:0;}
+
+.float{
+    position:fixed;
+    width:50px;
+    height:50px;
+    top:4px;
+    right:5px;
+    background-color:#4f7bab;
+    color:#fafafa;
+    border-radius:50px;
+    text-align:center;
+    box-shadow: 2px 2px 3px #999;
+}
+
+.float2{
+    position:fixed;
+    width:50px;
+    height:50px;
+    top:4px;
+    left:5px;
+    background-color:#4f7bab;
+    color:#fafafa;
+    border-radius:5px;
+    text-align:center;
+    box-shadow: 2px 2px 3px #999;
+}
+.logo{
+    position:fixed;
+    width:auto;
+    height:50px;
+    top:4px;
+    left:70px;
+}
+
+.profile{
+    position:fixed;
+    width:auto;
+    top:4px;
+    right:120px;
+}
+.username{
+    position:fixed;
+    width:auto;
+    top:21px;
+    right:114px;
+}
+
+.my-float{
+    margin-top:19px;
+    margin-left: 1px;
+}
+
+div.cards {
+
+    margin-top : 3px;
+    max-width: 1800px;
+    text-align: center;
+    margin: auto;
+}
+div.card {
+    background: #fafafa;
+    display: inline-block;
+    margin: 8px;
+    max-width: 300px;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+    position: relative;
+    text-align: left;
+    -webkit-transition: all 0.3s 0s ease-in;
+    transition: all 0.3s 0s ease-in;
+    z-index: 1;
+    box-shadow: 2px 2px 2px  rgba(0, 0, 0, 0.50);
+}
+div.card img {
+    max-width: 300px;
+}
+div.card div.card-title {
+    background: #fafafa;
+    padding: 6px 15px 10px;
+    position: relative;
+    z-index: 0;
+}
+div.card div.card-title a.toggle-info {
+    border-radius: 32px;
+    height: 32px;
+    padding: 0;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    width: 32px;
+}
+div.card div.card-title a.toggle-info span {
+    background: #fafafa;
+    display: block;
+    height: 2px;
+    position: absolute;
+    top: 16px;
+    -webkit-transition: all 0.15s 0s ease-out;
+    transition: all 0.15s 0s ease-out;
+    width: 12px;
+}
+div.card div.card-title a.toggle-info span.left {
+    right: 14px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+div.card div.card-title a.toggle-info span.right {
+    left: 14px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+div.card div.card-title h2 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    margin: 0;
+    padding: 0;
+}
+div.card div.card-title h2 small {
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+}
+div.card div.card-description {
+    padding: 0 15px 10px;
+    position: relative;
+    font-size: 14px;
+}
+div.card div.card-actions {
+    box-shadow: 0 2px 0px 0 rgba(0, 0, 0, 0.075);
+    padding: 10px 15px 20px;
+    text-align: center;
+}
+div.card div.card-flap {
+    background: #d9d9d9;
+    position: absolute;
+    width: 100%;
+    -webkit-transform-origin: top;
+    transform-origin: top;
+    -webkit-transform: rotateX(-90deg);
+    transform: rotateX(-90deg);
+}
+div.card div.flap1 {
+    -webkit-transition: all 0.3s 0.3s ease-out;
+    transition: all 0.3s 0.3s ease-out;
+    z-index: -1;
+}
+div.card div.flap2 {
+    -webkit-transition: all 0.3s 0s ease-out;
+    transition: all 0.3s 0s ease-out;
+    z-index: -2;
+}
+div.cards.showing div.card {
+    cursor: pointer;
+    opacity: 0.6;
+    -webkit-transform: scale(0.88);
+    transform: scale(0.88);
+}
+.no-touch div.cards.showing div.card:hover {
+    opacity: 0.94;
+    -webkit-transform: scale(0.92);
+    transform: scale(0.92);
+}
+div.card.show {
+    opacity: 1 !important;
+    -webkit-transform: scale(1) !important;
+    transform: scale(1) !important;
+}
+div.card.show div.card-title a.toggle-info {
+    background: #ff6666 !important;
+}
+div.card.show div.card-title a.toggle-info span {
+    top: 15px;
+}
+div.card.show div.card-title a.toggle-info span.left {
+    right: 10px;
+}
+div.card.show div.card-title a.toggle-info span.right {
+    left: 10px;
+}
+div.card.show div.card-flap {
+    background: #fafafa;
+    -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+}
+div.card.show div.flap1 {
+    -webkit-transition: all 0.3s 0s ease-out;
+    transition: all 0.3s 0s ease-out;
+}
+div.card.show div.flap2 {
+    -webkit-transition: all 0.3s 0.2s ease-out;
+    transition: all 0.3s 0.2s ease-out;
+}
+div.dropdown {
+    color: #555;
+    margin: 3px -22px 0 0;
+    width: 143px;
+    position: relative;
+    height: 17px;
+    text-align:left;
+}
+div.submenu
+{
+    position: absolute;
+    z-index: 100;
+    width: 135px;
+    display: none;
+    margin-left: 10px;
+    padding: 40px 0 5px;
+    border-radius: 6px;
+}
+.dropdown  li a {
+    color: #555555;
+    display: block;
+    font-family: arial;
+    font-weight: bold;
+    padding: 6px 15px;
+    cursor: pointer;
+    text-decoration:none;
+}
+.dropdown li a:hover{
+    background:#155FB0;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+a.account {
+    font-size: 11px;
+    line-height: 16px;
+    color: #555;
+    position: absolute;
+    z-index: 110;
+    display: block;
+    padding: 11px 0 0 20px;
+    height: 28px;
+    width: 121px;
+    margin: -11px 0 0 -10px;
+    text-decoration: none;
+    background: url(images/arrow.png) 80px 32px no-repeat;
+    cursor:pointer;
+}
+.root
+{
+    list-style: none;
+    font-size: 11px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+    background: #fff;
+    padding: 10px 0 10px 0;
+    border-radius: 5px 5px 5px 5px;
+    margin: 21px 0 0 0;
+}
+.root:before {
+    content: '';
+    display: inline-block;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #ccc;
+    border-bottom-color: #ffffff;
+    position: absolute;
+    color: #ffffff;
+    top: 54px;
+    left: 17px;
+}
+.profile-circle {
+    width: 45px;
+    height: 44px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    -webkit-border-radius: 99em;
+    -moz-border-radius: 99em;
+    border-radius: 99em;
+    border: 2px solid #eee;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+    vertical-align: middle;
+}
