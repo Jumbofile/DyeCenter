@@ -85,9 +85,18 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
                         stmt2.setString(5, date);
                         stmt2.execute();
 
-                        //int accountID = getAccountID(username);
 
+                        Integer uid = getAccountID(username) ;
+                        stmt2 = conn.prepareStatement(
+							"insert into userstats(UID, points, plunks, wins, loss) values (?,?,?,?,?)");
 
+						stmt2.setInt(1, uid);
+						stmt2.setInt(2, 0);
+						stmt2.setInt(3, 0);
+						stmt2.setInt(4, 0);
+						stmt2.setInt(5, 0);
+						stmt2.execute() ;
+						
                         return true;
 
                     } else {
@@ -358,10 +367,11 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 					System.out.println("Making userstats table");
 					stmt = conn.prepareStatement( //creates userstats table
 						"create table userstats ("  +
+						"	UID INT,"	 +
 						"	points INT," +
 						"	plunks INT," +
 						"   wins INT,"   +
-						"	UID INT"	+
+						"	loss INT"	 +
 						")"
 					);
 					stmt.executeUpdate();
