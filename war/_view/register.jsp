@@ -19,6 +19,7 @@
 	<title>Register and throw</title>
 </head>
 <body>
+<form action="${pageContext.servletContext.contextPath}/register" method="post">
 <div class="container-fluid">
 	<div class="row no-gutter">
 		<div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
@@ -32,18 +33,18 @@
 								<div class="form-label-group">
 
 									<input type="text" name="u" id="inputUsername" class="form-control" placeholder="username" required autofocus>
-									<label for="inputEmail">Username</label>
+									<label for="inputUsername">Username</label>
 								</div>
 
 								<div class="form-label-group">
 
-									<input type="email" name="n" id="inputName" class="form-control" placeholder="Your Name" required autofocus>
-									<label for="inputEmail">Your name</label>
+									<input type="text" name="n" id="inputName" class="form-control" placeholder="Your Name" required autofocus>
+									<label for="inputName">Your name</label>
 								</div>
 
 								<div class="form-label-group">
 
-									<input type="email" name="e" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+									<input type="text" name="e" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
 									<label for="inputEmail">Email address</label>
 								</div>
 
@@ -53,10 +54,10 @@
 								</div>
 								<div class="form-label-group">
 									<input type="password" name="p2" id="inputPassword2" class="form-control" placeholder="Password" required>
-									<label for="inputPassword">Retype Password</label>
+									<label for="inputPassword2">Retype Password</label>
 								</div>
 
-								<button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" name="sumbit">Register</button>
+								<button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" name="submit">Register</button>
 
 							</form>
 						</div>
@@ -71,8 +72,7 @@
 	</div>
 	<div class="login">
 		<h1>Register</h1>
-		<form action="${pageContext.servletContext.contextPath}/register"
-			method="post">
+
 
 			<button type="submit" name="submit"
 				class="btn btn-primary btn-block btn-large">Register Account</button>

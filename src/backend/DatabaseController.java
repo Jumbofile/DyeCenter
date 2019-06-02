@@ -84,7 +84,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 						System.out.println(date);
 
                         stmt2 = conn.prepareStatement( // enter username
-                                "insert into account(username, password, email, name, date)" + "values(?, ?, ?, ?, ?)");
+                                "insert into account(username, password, email, name, timestamp)" + "values(?, ?, ?, ?, ?)");
 
                         stmt2.setString(1, username);
                         stmt2.setString(2, pass);
@@ -93,10 +93,10 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
                         stmt2.setString(5, date);
                         stmt2.execute();
 
-
                         Integer uid = getAccountID(username) ;
+                        System.out.println(uid);
                         stmt2 = conn.prepareStatement(
-							"insert into userstats(UID, points, plunks, wins, loss) values (?,?,?,?,?)");
+							"insert into userstats(points, plunks, wins, loss) values (?,?,?,?)");
 
 						stmt2.setInt(1, uid);
 						stmt2.setInt(2, 0);
@@ -110,8 +110,6 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
                     } else {
                         return false; // username already exists
                     }
-
-
 
                 } finally {
                     DBUtil.closeQuietly(resultSet);
@@ -133,19 +131,13 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
                 ResultSet resultSet = null;
 
                 // retreive username attribute from login
-                stmt = conn.prepareStatement("login_id " // user attribute
-                        + "  from account " // from account table
-                        + "  where username = ?"
-
-                );
-
+                stmt = conn.prepareStatement("SELECT UID from account where username = ?" );// user attribute
+				stmt.setString( 1, username);
                 resultSet = stmt.executeQuery();
 
                 if (!resultSet.next()) {
-                    id = resultSet.getRow();
+                    id = resultSet.getInt(1);
                 }
-
-
 
                 DBUtil.closeQuietly(resultSet);
                 DBUtil.closeQuietly(stmt);
@@ -174,8 +166,6 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 				if (!resultSet.next()) {
 					username = resultSet.getString(1);
 				}
-
-
 
 				DBUtil.closeQuietly(resultSet);
 				DBUtil.closeQuietly(stmt);
@@ -375,7 +365,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 					System.out.println("Making userstats table");
 					stmt = conn.prepareStatement( //creates userstats table
 						"create table userstats ("  +
-						"	UID INT,"	 +
+						"	UID INT,	"+
 						"	points INT," +
 						"	plunks INT," +
 						"   wins INT,"   +
