@@ -1,11 +1,7 @@
 package backend;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,8 +46,8 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 
 	private static final int MAX_ATTEMPTS = 10;
 
-///////////////////////////////////////////////////////////////////////////////////
-///////////////////// REGISTER ACCOUNT////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+///////////////////// REGISTER ACCOUNT///////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 	public boolean registerAccount(String username, String pass, String email, String name) throws SQLException {
         return executeTransaction(new Transaction<Boolean>() {
@@ -83,27 +79,31 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 						String date = sdf.format(myDate);
 						System.out.println(date);
 
-                        stmt2 = conn.prepareStatement( // enter username
-                                "insert into account(username, password, email, name, timestamp)" + "values(?, ?, ?, ?, ?)");
+						String sql = "insert into account(username, password, email, name, timestamp)" + " values(?, ?, ?, ?, ?)" ;
+
+                        stmt2 = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
                         stmt2.setString(1, username);
                         stmt2.setString(2, pass);
                         stmt2.setString(3, email);
                         stmt2.setString(4, name);
                         stmt2.setString(5, date);
-                        stmt2.execute();
+                        stmt2.executeUpdate();
 
-                        Integer uid = getAccountID(username) ;
-                        System.out.println(uid);
-                        stmt2 = conn.prepareStatement(
-							"insert into userstats(points, plunks, wins, loss) values (?,?,?,?)");
+                        ResultSet rs = stmt2.getGeneratedKeys();
+                        rs.next();
+                        int uid = rs.getInt(1) ;
+
+						stmt2 = conn.prepareStatement(
+								"insert into userstats(UID, points, plunks, wins, loss) values (?,?,?,?,?)"
+						);
 
 						stmt2.setInt(1, uid);
 						stmt2.setInt(2, 0);
 						stmt2.setInt(3, 0);
 						stmt2.setInt(4, 0);
 						stmt2.setInt(5, 0);
-						stmt2.execute() ;
+						stmt2.executeUpdate() ;
 						
                         return true;
 
@@ -336,7 +336,13 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 	}
 	
 	public void loadInitialData() { ///taken from lab06
-
+		System.out.println("Loading initial data...");
+		try {
+			registerAccount("milk", "test", "test@test.test", "zach") ;
+		}
+		catch (Exception sqle) {
+			System.out.println(sqle);
+		}
 	}
 
 	//shutdown=true
@@ -575,8 +581,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 		System.out.println("Creating tables...");
 		DatabaseController db = new DatabaseController();
 		db.createTables();
-		
-		System.out.println("Loading initial data...");
+
 		db.loadInitialData();
 		
 		System.out.println("Success!");
