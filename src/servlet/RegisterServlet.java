@@ -48,7 +48,7 @@ public class RegisterServlet extends HttpServlet {
 		String password = req.getParameter("p");
 		String password2 = req.getParameter("p2");
 		String email = req.getParameter("e");
-		String name = req.getParameter("n") + req.getParameter("n2");
+		String name = req.getParameter("n");
 		
 		//checks if account exist
 		boolean validAccount = false;
