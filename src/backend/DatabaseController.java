@@ -49,7 +49,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////// REGISTER ACCOUNT////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
-	public boolean registerAccount(String username, String pass, String email, String name, String gender, String age, String location) throws SQLException {
+	public boolean registerAccount(String username, String pass, String email, String name, String date) throws SQLException {
         return executeTransaction(new Transaction<Boolean>() {
             @Override
             public Boolean execute(Connection conn) throws SQLException {
@@ -76,16 +76,13 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
                     if (!resultSet.next()) { /// if username doesnt exist
 
                         stmt2 = conn.prepareStatement( // enter username
-                                "insert into account(username, password, email, name, gender, age, location, profpic)" + "values(?, ?, ?, ?, ?, ?, ?, ?)");
+                                "insert into account(username, password, email, name, date)" + "values(?, ?, ?, ?, ?)");
 
                         stmt2.setString(1, username);
                         stmt2.setString(2, pass);
                         stmt2.setString(3, email);
                         stmt2.setString(4, name);
-                        stmt2.setString(5, gender);
-                        stmt2.setString(6, age);
-                        stmt2.setString(7, location);
-                        stmt2.setString(8, "pinkPonies");
+                        stmt2.setString(5, date);
                         stmt2.execute();
 
                         //int accountID = getAccountID(username);
@@ -96,6 +93,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
                     } else {
                         return false; // username already exists
                     }
+
 
 
                 } finally {

@@ -1,7 +1,10 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +20,7 @@ import backend.IDatabase;
 import backend.DatabaseController;
 
 public class RegisterServlet extends HttpServlet {
+	private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 	private static final long serialVersionUID = 1L;
 	
 	@Override
@@ -45,9 +49,6 @@ public class RegisterServlet extends HttpServlet {
 		String password2 = req.getParameter("p2");
 		String email = req.getParameter("e");
 		String name = req.getParameter("n") + req.getParameter("n2");
-		String gender = "placeholder";
-		String age = "placeholder";
-		String loc = "placeholder";
 		
 		//checks if account exist
 		boolean validAccount = false;
@@ -56,7 +57,10 @@ public class RegisterServlet extends HttpServlet {
 		if(password.equals(password2)){
 			try {
 				password = BCrypt.hashpw(password, BCrypt.gensalt());
-				validAccount = db.registerAccount(user, password, email, name, gender, age, loc);
+				Date myDate = new Date();
+				String date = sdf.format(myDate);
+				System.out.println(date);
+				validAccount = db.registerAccount(user, password, email, name, date);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

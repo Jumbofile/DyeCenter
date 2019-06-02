@@ -10,7 +10,7 @@ public interface IDatabase {
 	
 	//int createArea(String name, String para, ArrayList<String> options) throws SQLException;
 	boolean accountExist(String username, String password);
-	boolean registerAccount(String userName, String pass, String email, String name, String gender, String age, String location) throws SQLException;
+	boolean registerAccount(String userName, String pass, String email, String name, String date) throws SQLException;
 	ArrayList<String> getCardData(int area_id) throws SQLException;
 	void insertCardData(String namee, String descs, String descl, String authorid, String image, String slack, String typee);
 	ArrayList<String> getCardAccountData(String username) throws SQLException;//gets all card data
