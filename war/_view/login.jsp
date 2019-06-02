@@ -52,6 +52,10 @@
 								<button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" name="sumbit">Sign in</button>
 								<div class="text-center">
 									<a class="small" href="#">Forgot password?</a></div>
+
+								<div class="text-center">
+									Need an account? <a class="medium" href="/register">Sign Up.</a>
+								</div>
 							</form>
 						</div>
 					</div>
