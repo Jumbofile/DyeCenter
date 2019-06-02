@@ -20,7 +20,6 @@ import backend.IDatabase;
 import backend.DatabaseController;
 
 public class RegisterServlet extends HttpServlet {
-	private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 	private static final long serialVersionUID = 1L;
 	
 	@Override
@@ -57,10 +56,7 @@ public class RegisterServlet extends HttpServlet {
 		if(password.equals(password2)){
 			try {
 				password = BCrypt.hashpw(password, BCrypt.gensalt());
-				Date myDate = new Date();
-				String date = sdf.format(myDate);
-				System.out.println(date);
-				validAccount = db.registerAccount(user, password, email, name, date);
+				validAccount = db.registerAccount(user, password, email, name);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

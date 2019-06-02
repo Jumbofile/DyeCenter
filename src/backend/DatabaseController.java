@@ -6,7 +6,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -15,6 +18,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 
 public class DatabaseController implements IDatabase { /// most of the gamePersist package taken from Lab06 ----CITING
+	private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 	static {
 		try {
 			Class.forName("org.h2.Driver");
@@ -49,7 +53,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////// REGISTER ACCOUNT////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
-	public boolean registerAccount(String username, String pass, String email, String name, String date) throws SQLException {
+	public boolean registerAccount(String username, String pass, String email, String name) throws SQLException {
         return executeTransaction(new Transaction<Boolean>() {
             @Override
             public Boolean execute(Connection conn) throws SQLException {
@@ -74,6 +78,10 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
                     resultSet = stmt.executeQuery();
 
                     if (!resultSet.next()) { /// if username doesnt exist
+
+						Date myDate = new Date();
+						String date = sdf.format(myDate);
+						System.out.println(date);
 
                         stmt2 = conn.prepareStatement( // enter username
                                 "insert into account(username, password, email, name, date)" + "values(?, ?, ?, ?, ?)");
