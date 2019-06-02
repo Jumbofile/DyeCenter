@@ -351,8 +351,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 						"	password varchar(100)," +
 						"   email varchar(40),"     +
 						"   name varchar(40),"      +
-						"	timestamp DATE DEFAULT (datetime('now','localtime')), "+
-						" PRIMARY KEY(UID)" 		+
+						"	timestamp varchar(100) "+
 						")"
 					);
 					stmt.executeUpdate();
@@ -361,12 +360,10 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 					System.out.println("Making userstats table");
 					stmt = conn.prepareStatement( //creates userstats table
 						"create table userstats ("  +
-						"	points INTEGER DEFAULT 0," +
-						"	plunks INTEGER DEFAULT 0," +
-						"   wins INTEGER DEFAULT 0,"   +
-						"   loss INTEGER DEFAULT 0,"   +
-						"	FOREIGN KEY(UID) REFERENCES account(UID))," +
-						"	PRIMARY KEY(UID)" +
+						"	points INT," +
+						"	plunks INT," +
+						"   wins INT,"   +
+						"	UID INT"	+
 						")"
 					);
 					stmt.executeUpdate();
@@ -376,8 +373,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 						"create table dyetable ("  +
 						"	TID bigint auto_increment," +
 						"	name varchar(50)," +
-						"	FOREIGN KEY(UID) REFERENCES account(UID))," +
-						"	PRIMARY KEY(TID)" +
+						"	UID INT,"+
 						")"
 					);
 					stmt.executeUpdate();
@@ -386,12 +382,10 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 					stmt = conn.prepareStatement( //creates game table
 						"create table game ("  +
 						"	GID bigint auto_increment," +
-						"	players varchar(255) NULL," +
-						"	score_1 INTEGER DEFAULT 0," +
-						"	score_2 INTEGER DEFAULT 0," +
-						"	timestamp DATE DEFAULT (datetime('now','localtime'))," +
-						"	FOREIGN KEY(TID) REFERENCES dyetable(TID))," +
-						"	PRIMARY KEY(GID)" +
+						"	players varchar(255)," +
+						"	score_1 INT," +
+						"	score_2 INT," +
+						"	timestamp varchar(100) "	+
 						")"
 					);
 					stmt.executeUpdate();
