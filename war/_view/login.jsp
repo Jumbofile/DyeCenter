@@ -24,6 +24,19 @@
 
 
 <body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<a class="nav-link" href="/">Home</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="/login">Login</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="/register">Register</a>
+		</li>
+	</ul>
+</nav>
 <div class="container-fluid">
 	<div class="row no-gutter">
 		<div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
