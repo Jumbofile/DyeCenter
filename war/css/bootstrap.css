@@ -4154,6 +4154,9 @@ input[type="button"].btn-block {
   -ms-flex-pack: justify;
   justify-content: space-between;
   padding: 0.5rem 1rem;
+    -webkit-box-shadow: 0 8px 6px -6px #011;
+    -moz-box-shadow: 0 8px 6px -6px #011;
+    box-shadow: 0 8px 6px -6px #011;
 }
 
 .navbar > .container,
@@ -10005,6 +10008,9 @@ a.text-dark:hover, a.text-dark:focus {
   }
   .navbar {
     display: none;
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;
   }
   .badge {
     border: 1px solid #000;
