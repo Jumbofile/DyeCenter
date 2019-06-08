@@ -62,9 +62,15 @@
 									<input type="checkbox" class="custom-control-input" id="customCheck1">
 									<label class="custom-control-label" for="customCheck1">Remember password</label>
 								</div>
+
+								<div id="errorDiv" class="text-center">
+									<c:out value="${response}" escapeXml="false"/>
+								</div>
+
 								<button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" name="sumbit">Sign in</button>
 								<div class="text-center">
-									<a class="small" href="#">Forgot password?</a></div>
+									<a class="small" href="#">Forgot password?</a>
+								</div>
 
 								<div class="text-center">
 									Need an account? <a class="medium" href="/register">Sign Up.</a>
@@ -82,4 +88,13 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </body>
+	<style>
+		#error {
+			border-radius: 25px;
+			background-color: rgba(255, 0, 0, 0.1) ;
+			color:red;
+			padding: 5px;
+			margin-bottom: 20px;
+		}
+	</style>
 </html>

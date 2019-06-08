@@ -72,6 +72,10 @@
 										<label for="inputPassword2">Retype Password</label>
 									</div>
 
+									<div id="errorDiv" class="text-center">
+										<c:out value="${response}" escapeXml="false"/>
+									</div>
+
 									<button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" name="submit">Register</button>
 									<div class="text-center">
 										Have an account? <a class="medium" href="/login">Sign in.</a>
@@ -90,4 +94,14 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	</body>
+
+	<style>
+		#error {
+			border-radius: 25px;
+			background-color: rgba(255, 0, 0, 0.1) ;
+			color:red;
+			padding: 5px;
+			margin-bottom: 20px;
+		}
+	</style>
 </html>

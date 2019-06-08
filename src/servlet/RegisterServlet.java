@@ -75,7 +75,7 @@ public class RegisterServlet extends HttpServlet {
 			req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
 			System.out.println("Register Servlet: Register Successful");
 		}else{
-			req.setAttribute("response", "Account already exists or passwords dont match");
+			req.setAttribute("response", "<div id='error'>Email already in use or passwords don't match!</div>");
 			System.out.println("Register Servlet: Register Failed");
 			req.getRequestDispatcher("/_view/register.jsp").forward(req, resp);
 		}
