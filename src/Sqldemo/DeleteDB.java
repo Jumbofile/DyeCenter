@@ -6,8 +6,8 @@ public class DeleteDB {
 	// Java program to delete a file
 	public static void main(String[] args)
 	{
-		File file1 = new File("/DyeCenter/idea.db.mv.db");
-		File file2 = new File("/DyeCenter/idea.db.trace.db");
+		File file1 = new File("../DyeCenter/idea.db.mv.db");
+		File file2 = new File("../DyeCenter/idea.db.trace.db");
 
 		if(file1.delete())
 		{
