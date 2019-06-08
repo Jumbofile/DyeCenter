@@ -25,22 +25,35 @@
 		-->
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 		<link rel="stylesheet" type="text/css" href="css/login.css" />
+
+		<!-- Custom styles for this template -->
+		<link href="css/agency-login.css" rel="stylesheet">
 		<title>Register and throw</title>
 	</head>
 	<body>
 	<form action="${pageContext.servletContext.contextPath}/register" method="post">
-		<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" href="/">Home</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/login">Login</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/register">Register</a>
-				</li>
-			</ul>
+		<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top" id="mainNav">
+
+			<a class="navbar-brand js-scroll-trigger" href="#page-top"></a>
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				Menu
+				<i class="fas fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive" style="margin: -8px;">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="/">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="/login">Login</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="/register">Register</a>
+					</li>
+				</ul>
+			</div>
+
+
 		</nav>
 	<div class="container-fluid">
 		<div class="row no-gutter">
