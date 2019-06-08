@@ -22,16 +22,6 @@
     <servlet-class>servlet.LoginServlet</servlet-class>
   </servlet>
 
-    <servlet>
-        <servlet-name>CreateServlet</servlet-name>
-        <servlet-class>servlet.CreateServlet</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>HelpServlet</servlet-name>
-        <servlet-class>servlet.HelpServlet</servlet-class>
-    </servlet>
-
   
   <!-- Servlet mappings -->
   
@@ -55,15 +45,7 @@
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
 
-    <servlet-mapping>
-        <servlet-name>CreateServlet</servlet-name>
-        <url-pattern>/create</url-pattern>
-    </servlet-mapping>
 
-    <servlet-mapping>
-        <servlet-name>HelpServlet</servlet-name>
-        <url-pattern>/help</url-pattern>
-    </servlet-mapping>
 
 
 </web-app>
