@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
 
 			req.getSession().setAttribute("username", username); // adds username to session
 		}else{
-			req.setAttribute("response", "Incorrect Username or Password");
+			req.setAttribute("response", "Email or password is incorrect!");
 			System.out.println("Login Servlet: Login Failed");
 			req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
 		}
