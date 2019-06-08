@@ -57,8 +57,7 @@ public class CreateServlet extends HttpServlet {
 		boolean validAccount = false;
 	
 		//try to create a idea
-
-		db.insertCardData(name, descs, descl, username, image, slack, type);
+		
 			/*
 			 * make this automatically login for you
 			 */

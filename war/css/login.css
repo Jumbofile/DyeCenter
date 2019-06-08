@@ -9,7 +9,7 @@
 }
 
 .bg-image {
-    background-image: url('https://i.imgur.com/VsE8oQF.jpg');
+    background-image: url('../webresources/login-bg.jpg');
     background-size: cover;
     background-position: center;
 }

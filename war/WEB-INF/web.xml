@@ -23,11 +23,6 @@
   </servlet>
 
     <servlet>
-        <servlet-name>ProfileServlet</servlet-name>
-        <servlet-class>servlet.ProfileServlet</servlet-class>
-    </servlet>
-
-    <servlet>
         <servlet-name>CreateServlet</servlet-name>
         <servlet-class>servlet.CreateServlet</servlet-class>
     </servlet>
@@ -59,11 +54,6 @@
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>ProfileServlet</servlet-name>
-        <url-pattern>/profile</url-pattern>
-    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>CreateServlet</servlet-name>
