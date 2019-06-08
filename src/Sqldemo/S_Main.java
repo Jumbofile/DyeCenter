@@ -2,19 +2,15 @@ package Sqldemo;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
+import javax.swing.text.Keymap;
+
 import Sqldemo.SQLDemo;
 
 public class S_Main {
@@ -23,6 +19,7 @@ public class S_Main {
 	public static boolean sqlOn = false;
 	private static ArrayList<String> history = new ArrayList<String>();
 	private static int index = -1;
+	private static int width = 1800;
 	
 	public static void main(String[] args) {
 		//Initialize the server
@@ -34,31 +31,40 @@ public class S_Main {
 		JTextArea sqlTextBox = new JTextArea();
 		JPanel panel = new JPanel();
 
+		//Adds scroll to the console
 		JScrollPane scroll = new JScrollPane (consoleWin);
 		JScrollPane scroll2 = new JScrollPane (sqlTextBox);
+
+		//Adds the exit button on top right
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1800, 604);
+		frame.setSize(width, 604);
+
+		//Not resizable
 		frame.setResizable(false);
 
 		consoleWin.setEditable(false);
 		consoleWin.setFont(new Font("Consolas", Font.PLAIN, 12));  // make a new font object);
-		scroll.setBounds(10,10,1775,420);
+		scroll.setBounds(10,10,width - 25,420);
 		consoleWin.setLineWrap(true);
 		sqlTextBox.setFont(new Font("Consolas", Font.PLAIN, 12));
-		//consoleBox.setBackground(Color.BLUE);
 		sqlTextBox.setLineWrap(true);
-		//sqlTextBox.setBounds(10,432,775,104);
 		scroll2.setBounds(10,432,875,104);
 		frame.getContentPane().add(scroll);
 		frame.getContentPane().add(scroll2);
-		
-		JButton button = new JButton();
-		button.setBounds(10, 538, 100, 30);
-		button.setText("Submit");
+
+		//Adds enter button
+		JButton enterButton = new JButton();
+		enterButton.setBounds(10, 538, 100, 30);
+		enterButton.setText("Submit");
+
+		//adds copy button
+		JButton copyButton = new JButton();
+		copyButton.setBounds(115, 538, 100, 30);
+		copyButton.setText("Copy");
 
 		
 		//is enter hit
-        Action action = new AbstractAction()
+        Action enterAction = new AbstractAction()
         {
             /**
 			 * eclipse made me do this
@@ -77,10 +83,29 @@ public class S_Main {
 				}
                 index = history.size() - 1;
 				//consoleWin.append(statement);
-                sqlTextBox.setText("");
+                //sqlTextBox.setText("");
                 
         	} 
         };
+
+		//is copy hit
+		Action copyAction = new AbstractAction()
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				//select all text in the textarea
+				sqlTextBox.selectAll();
+
+				//Copy all text in the textarea
+				sqlTextBox.copy();
+
+				//Update console so you know something happened
+				consoleWin.append("Copied text.");
+			}
+		};
         
         sqlTextBox.addKeyListener(new KeyListener() {            
         	@Override
@@ -91,10 +116,10 @@ public class S_Main {
         		if(index == history.size()) {
         			index--;
         		}
-                System.out.println("test");
-                switch( e.getKeyCode()) { 
+
+                switch( e.getKeyCode()) {
                 case KeyEvent.VK_UP:
-                	System.out.println(index);
+                	/*System.out.println(index);
                 	if(index> -1) {
 	                    sqlTextBox.setText(history.get(index));
 	                    index--;
@@ -106,7 +131,7 @@ public class S_Main {
 	                    sqlTextBox.setText(history.get(index));
 	                    index++;
 	                    
-                	}
+                	}*/
                     break;
              }
 
@@ -126,10 +151,11 @@ public class S_Main {
 			}
         });
         
-        //jframe stuff
-        button.addActionListener( action );
-		//frame.getContentPane().add(sqlTextBox);
-        frame.getContentPane().add(button);
+        //Place objects on the panel
+        enterButton.addActionListener( enterAction );
+        frame.getContentPane().add(enterButton);
+		copyButton.addActionListener( copyAction );
+		frame.getContentPane().add(copyButton);
 		frame.getContentPane().add(panel);
 		frame.setVisible(true);
 		
