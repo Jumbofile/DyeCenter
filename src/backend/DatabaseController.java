@@ -338,7 +338,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 	public void loadInitialData() { ///taken from lab06
 		System.out.println("Loading initial data...");
 		try {
-			registerAccount("milk", "test", "test@test.test", "zach") ;
+			registerAccount("milk", "$2a$10$TXGWMBkf9vSGHzMenI44m.S4a9kcupH8RY64v7QEyHAWxk6u.9uq.", "test@test.test", "zach") ;
 		}
 		catch (Exception sqle) {
 			System.out.println(sqle);
