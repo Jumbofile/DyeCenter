@@ -19,19 +19,24 @@ public class DashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        //username = (String) req.getSession().getAttribute("username"); //session stuff
-        username = "foobar";
+        username = (String) req.getSession().getAttribute("username"); //session stuff
+        //username = "foobar";
         if (username == null) {
             req.getRequestDispatcher("/login").forward(req, resp);
         } else {
 
 
 
-			//req.setAttribute("username", usernameCap);
-            //req.setAttribute("idea", response);
+            //String gamesPlayed = db.getGamesPlayed();
+            //req.setAttribute();
+
             req.getRequestDispatcher("/_view/dashboard.jsp").forward(req, resp);
         }
     }
+
+    // select  UID, (wins+loss) as Games from userstats where uid = 1
+    // select points from userstats where UID = 1
+    // select TID from dyetable where uid = 1
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)

@@ -121,7 +121,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
         });
 	}
 
-	public int getAccountID(String username) throws SQLException{
+	public int getAccountID(String email) throws SQLException{
         return executeTransaction(new Transaction<Integer>() {
             @Override
             public Integer execute(Connection conn) throws SQLException {
@@ -131,8 +131,8 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
                 ResultSet resultSet = null;
 
                 // retreive username attribute from login
-                stmt = conn.prepareStatement("SELECT UID from account where username = ?" );// user attribute
-				stmt.setString( 1, username);
+                stmt = conn.prepareStatement("SELECT UID from account where email = ?" );// user attribute
+				stmt.setString( 1, email);
                 resultSet = stmt.executeQuery();
 
                 if (!resultSet.next()) {
@@ -174,6 +174,37 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 			}
 		});
 	}
+
+	public String getGamesPlayed(int UID) throws SQLException{
+		return executeTransaction(new Transaction<String>() {
+			@Override
+			public String execute(Connection conn) throws SQLException {
+				String username = null;
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement(
+						"select (wins+loss) as games from userstats where UID = ?"
+				);
+
+				stmt.setInt(1, UID);
+				resultSet = stmt.executeQuery();
+
+				if (!resultSet.next()) {
+					username = resultSet.getString(1);
+				}
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				return username;
+			}
+		});
+	}
+
+
 	public boolean accountExist(String email, String password){ ///checks if account exists
 		//Checks if the user exist and if the password matches
         return executeTransaction(new Transaction<Boolean>() {

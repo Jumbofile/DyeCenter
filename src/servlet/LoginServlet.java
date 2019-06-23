@@ -41,6 +41,7 @@ public class LoginServlet extends HttpServlet {
 		// gets username and password
 		String email = (req.getParameter("e")).toLowerCase();
 		String password = req.getParameter("p");
+		int uid = -1;
 		
 		//checks if the account is valid
 		boolean validAccount = db.accountExist(email, password);
@@ -48,16 +49,15 @@ public class LoginServlet extends HttpServlet {
 		//If account is valid, continue, if it isnt, spit out error
 		if(validAccount == true){
 			// Forward to view to render the result HTML document
-			resp.sendRedirect(req.getContextPath() + "/index");
+			resp.sendRedirect(req.getContextPath() + "/dashboard");
 			System.out.println("Login Servlet: Login Successful");
-			String username = null;
 			try{
-				username = db.getAccountName(email);
+				uid = db.getAccountID(email);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
 
-			req.getSession().setAttribute("username", username); // adds username to session
+			req.getSession().setAttribute("uid", uid); // adds username to session
 		}else{
 			req.setAttribute("response", "<div id='error'>Email or password is incorrect!</div>");
 			System.out.println("Login Servlet: Login Failed");
