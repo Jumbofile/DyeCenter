@@ -11,7 +11,8 @@ import java.util.ArrayList;
 
 public class DashboardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private String username = null;
+    private String sessionuid;
+    private int userID = -1;
     private DatabaseController db = new DatabaseController();
     ArrayList<String> accountInfo = new ArrayList<>();
 
@@ -19,10 +20,15 @@ public class DashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        username = (String) req.getSession().getAttribute("username"); //session stuff
+        //sets the session id
+        sessionuid = (String) req.getSession().getAttribute("uid"); //session stuff
+
+        //gets the int version of the UID
+        userID = Integer.parseInt(sessionuid);
+
         //username = "foobar";
-        if (username == null) {
-            req.getRequestDispatcher("/login").forward(req, resp);
+        if (sessionuid == null) {
+            req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
         } else {
 
 
@@ -42,9 +48,13 @@ public class DashboardServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        username = (String) req.getSession().getAttribute("username"); //session stuff
+        System.out.println(sessionuid);
+        sessionuid = (String) req.getSession().getAttribute("uid"); //session stuff
 
-        if (username == null) {
+
+
+        //username = "foobar";
+        if (sessionuid == null) {
             req.getRequestDispatcher("/login").forward(req, resp);
         } else {
 

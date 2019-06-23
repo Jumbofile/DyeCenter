@@ -57,7 +57,7 @@ public class LoginServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 
-			req.getSession().setAttribute("uid", uid); // adds username to session
+			req.getSession().setAttribute("uid", Integer.toString(uid)); // adds username to session
 		}else{
 			req.setAttribute("response", "<div id='error'>Email or password is incorrect!</div>");
 			System.out.println("Login Servlet: Login Failed");

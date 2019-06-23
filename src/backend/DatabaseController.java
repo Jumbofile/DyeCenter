@@ -127,6 +127,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
             public Integer execute(Connection conn) throws SQLException {
                 int id = -1;
                 //Connection conn = null;
+				System.out.println(email);
                 PreparedStatement stmt = null;
                 ResultSet resultSet = null;
 
@@ -135,9 +136,11 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 				stmt.setString( 1, email);
                 resultSet = stmt.executeQuery();
 
-                if (!resultSet.next()) {
-                    id = resultSet.getInt(1);
-                }
+                if (resultSet.next()) {
+                    id = resultSet.getRow();
+                }else{
+                	System.out.println("Its empty cheif");
+				}
 
                 DBUtil.closeQuietly(resultSet);
                 DBUtil.closeQuietly(stmt);

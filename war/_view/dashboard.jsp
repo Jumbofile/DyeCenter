@@ -36,7 +36,7 @@
 </head>
 
 <body id="page-top">
-
+<form action="${pageContext.servletContext.contextPath}/dashboard" method="post">
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
 	<div class="container">
