@@ -30,7 +30,7 @@ public class IndexServlet extends HttpServlet {
 
 			//req.setAttribute("username", usernameCap);
             //req.setAttribute("idea", response);
-            req.getRequestDispatcher("/_view/dashboard.jsp").forward(req, resp);
+            req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
         }
     }
 

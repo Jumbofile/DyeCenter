@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 		//If account is valid, continue, if it isnt, spit out error
 		if(validAccount == true){
 			// Forward to view to render the result HTML document
-			resp.sendRedirect(req.getContextPath() + "/index");
+			resp.sendRedirect(req.getContextPath() + "/dashboard");
 			System.out.println("Login Servlet: Login Successful");
 			String username = null;
 			try{
