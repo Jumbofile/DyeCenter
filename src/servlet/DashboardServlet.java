@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class DashboardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private String sessionuid;
-    private int userID = -1;
+    //private int userID = -1;
     private DatabaseController db = new DatabaseController();
     ArrayList<String> accountInfo = new ArrayList<>();
 
@@ -24,7 +24,7 @@ public class DashboardServlet extends HttpServlet {
         sessionuid = (String) req.getSession().getAttribute("uid"); //session stuff
 
         //gets the int version of the UID
-        userID = Integer.parseInt(sessionuid);
+        //userID = Integer.parseInt(sessionuid);
 
         //username = "foobar";
         if (sessionuid == null) {
@@ -33,8 +33,18 @@ public class DashboardServlet extends HttpServlet {
 
 
 
-            //String gamesPlayed = db.getGamesPlayed();
-            //req.setAttribute();
+            try{
+                Integer[] stats = db.getUserStats(Integer.parseInt(sessionuid));
+                req.setAttribute("points",stats[1]);
+                req.setAttribute("plunks",stats[2]);
+                req.setAttribute("wins",stats[3]);
+                req.setAttribute("loss",stats[4]);
+
+                System.out.println(req.getAttribute("points")) ;
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
 
             req.getRequestDispatcher("/_view/dashboard.jsp").forward(req, resp);
         }

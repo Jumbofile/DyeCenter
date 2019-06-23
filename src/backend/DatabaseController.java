@@ -149,6 +149,40 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
             }
         });
 	}
+
+	public Integer[] getUserStats(int uid) throws SQLException{
+		return executeTransaction(new Transaction<Integer[]>() {
+			@Override
+			public Integer[] execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				Integer[] rtnStats = new Integer[5];
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("SELECT * from userstats where uid = ?" );// user attribute
+				stmt.setInt( 1, uid);
+				resultSet = stmt.executeQuery();
+
+				int iterator = 0 ;
+
+				if (resultSet.next()) {
+					rtnStats[iterator] = resultSet.getRow();
+					iterator++;
+				}else{
+					System.out.println("Its empty cheif");
+				}
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				System.out.println(rtnStats.toString());
+				return rtnStats;
+			}
+		});
+	}
+
 	public String getAccountName(String email) throws SQLException{
 		return executeTransaction(new Transaction<String>() {
 			@Override
@@ -166,7 +200,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 				stmt.setString(1, email);
 				resultSet = stmt.executeQuery();
 
-				if (!resultSet.next()) {
+				if (resultSet.next()) {
 					username = resultSet.getString(1);
 				}
 
