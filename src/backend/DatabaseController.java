@@ -121,6 +121,47 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
         });
 	}
 
+	/***
+	 *
+	 * @param statName
+	 * @param value
+	 * @return True or false
+	 * @throws SQLException
+	 * @summary Allows you to update the user stats table based on the value and stat name in the DB
+	 */
+	public boolean modifyStats(String statName, int value) throws SQLException {
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					// retreive username attribute from login
+					stmt = conn.prepareStatement("select username " // user attribute
+							+ "  from account " // from account table
+							+ "  where username = ?"
+
+					);
+
+					// substitute the title entered by the user for the placeholder in
+					// the query
+					stmt.setString(1, username);
+
+					// execute the query
+					resultSet = stmt.executeQuery();
+
+
+
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+
 	public int getAccountID(String email) throws SQLException{
         return executeTransaction(new Transaction<Integer>() {
             @Override

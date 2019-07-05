@@ -19,8 +19,7 @@ public class TablesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        //username = (String) req.getSession().getAttribute("username"); //session stuff
-        username = "foobar";
+        username = (String) req.getSession().getAttribute("username"); //session stuff
         if (username == null) {
             req.getRequestDispatcher("/login").forward(req, resp);
         } else {
