@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class DashboardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private String sessionuid;
-    //private int userID = -1;
     private DatabaseController db = new DatabaseController();
     ArrayList<String> accountInfo = new ArrayList<>();
 
@@ -23,28 +22,25 @@ public class DashboardServlet extends HttpServlet {
         //sets the session id
         sessionuid = (String) req.getSession().getAttribute("uid"); //session stuff
 
-        //gets the int version of the UID
-        //userID = Integer.parseInt(sessionuid);
-
-        //username = "foobar";
         if (sessionuid == null) {
             req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
         } else {
 
+            setAttr(req, resp);
 
 
-            try{
-                Integer[] stats = db.getUserStats(Integer.parseInt(sessionuid));
-                req.setAttribute("points",stats[1]);
-                req.setAttribute("plunks",stats[2]);
-                req.setAttribute("wins",stats[3]);
-                req.setAttribute("loss",stats[4]);
-
-                System.out.println(req.getAttribute("points")) ;
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
+//            try{
+//                System.out.println("SUID: " + sessionuid);
+//                ArrayList<Integer> stats = db.getUserStats(Integer.parseInt(sessionuid));
+//
+//                req.setAttribute("points",stats.get(0));
+//                req.setAttribute("plunks",stats.get(1));
+//                req.setAttribute("wins",stats.get(2));
+//                req.setAttribute("loss",stats.get(3));
+//            }
+//            catch (Exception e) {
+//                e.printStackTrace();
+//            }
 
             req.getRequestDispatcher("/_view/dashboard.jsp").forward(req, resp);
         }
@@ -68,11 +64,30 @@ public class DashboardServlet extends HttpServlet {
             req.getRequestDispatcher("/login").forward(req, resp);
         } else {
 
-
+            setAttr(req, resp);
            // req.setAttribute("username", usernameCap);
             //req.setAttribute("idea", response);
             req.getRequestDispatcher("/_view/dashboard.jsp").forward(req, resp);
         }
 
+    }
+
+    private void setAttr(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException  {
+
+        if(this.sessionuid != null) {
+            try{
+                ArrayList<Integer> stats = db.getUserStats(Integer.parseInt(sessionuid));
+
+                req.setAttribute("played", stats.get(2) + stats.get(3));
+                req.setAttribute("points",stats.get(0));
+                req.setAttribute("plunks",stats.get(1));
+                req.setAttribute("wins",stats.get(2));
+                req.setAttribute("loss",stats.get(3));
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
