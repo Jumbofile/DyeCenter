@@ -490,7 +490,10 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 		
 		return conn;
 	}
-	
+
+	/***
+	 * Loads init data for testing only
+	 */
 	public void loadInitialData() { ///taken from lab06
 		System.out.println("Loading initial data...");
 		try {
