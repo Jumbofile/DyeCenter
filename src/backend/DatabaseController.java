@@ -185,6 +185,12 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 		});
 	}
 
+	/***
+	 * Gets account id based on email
+	 * @param email
+	 * @return
+	 * @throws SQLException
+	 */
 	public int getAccountID(String email) throws SQLException{
         return executeTransaction(new Transaction<Integer>() {
             @Override
@@ -214,6 +220,12 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
         });
 	}
 
+	/***
+	 * Gets a userstat list absed on uid
+	 * @param uid
+	 * @return
+	 * @throws SQLException
+	 */
 	public ArrayList<Integer> getUserStats(int uid) throws SQLException{
 		return executeTransaction(new Transaction<ArrayList<Integer> >() {
 			@Override
@@ -245,6 +257,12 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 		});
 	}
 
+	/***
+	 * gets account name based on email
+	 * @param email
+	 * @return
+	 * @throws SQLException
+	 */
 	public String getAccountName(String email) throws SQLException{
 		return executeTransaction(new Transaction<String>() {
 			@Override
@@ -274,6 +292,9 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 		});
 	}
 
+	/*
+	TODO
+	 */
 	public String getGamesPlayed(int UID) throws SQLException{
 		return executeTransaction(new Transaction<String>() {
 			@Override
@@ -303,7 +324,12 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 		});
 	}
 
-
+	/***
+	 * Checks if the account exists based on email
+	 * @param email
+	 * @param password
+	 * @return
+	 */
 	public boolean accountExist(String email, String password){ ///checks if account exists
 		//Checks if the user exist and if the password matches
         return executeTransaction(new Transaction<Boolean>() {
