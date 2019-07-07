@@ -71,7 +71,7 @@ public class RegisterServlet extends HttpServlet {
 			/*
 			 * make this automatically login for you
 			 */
-			backend.Email.email();
+			//backend.Email.email();
 			req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
 			System.out.println("Register Servlet: Register Successful");
 		}else{
