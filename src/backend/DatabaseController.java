@@ -122,14 +122,14 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 	}
 
 	/***
-	 *
+	 * Updates the statName by value
 	 * @param statName
 	 * @param value
 	 * @return True or false
 	 * @throws SQLException
 	 * @summary Allows you to update the user stats table based on the value and stat name in the DB
 	 */
-	public boolean modifyStats(String statName, int value) throws SQLException {
+	public boolean modifyStats(String statName, int value, int uid) throws SQLException {
 		return executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
@@ -138,26 +138,25 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 				ResultSet resultSet = null;
 
 				try {
-					// retreive username attribute from login
-					stmt = conn.prepareStatement("select username " // user attribute
-							+ "  from account " // from account table
-							+ "  where username = ?"
-
-					);
+					stmt = conn.prepareStatement("update userstats set ? = ? + ? where UID = ?");
 
 					// substitute the title entered by the user for the placeholder in
 					// the query
-					stmt.setString(1, username);
+					stmt.setString(1, statName);
+					stmt.setString(2, statName);
+					stmt.setInt(3, value);
+					stmt.setInt(4, uid);
+
 
 					// execute the query
 					resultSet = stmt.executeQuery();
-
 
 
 				} finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
 				}
+				return true;
 			}
 		});
 	}
