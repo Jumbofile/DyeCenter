@@ -46,9 +46,15 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 
 	private static final int MAX_ATTEMPTS = 10;
 
-/////////////////////////////////////////////////////////////////////////
-///////////////////// REGISTER ACCOUNT///////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
+	/***
+	 * Registers an account when the username and email are unqiue
+	 * @param username
+	 * @param pass
+	 * @param email
+	 * @param name
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean registerAccount(String username, String pass, String email, String name) throws SQLException {
         return executeTransaction(new Transaction<Boolean>() {
             @Override
@@ -57,6 +63,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
                 PreparedStatement stmt = null;
                 PreparedStatement stmt2 = null;
                 ResultSet resultSet = null;
+                ResultSet resultSet2 = null;
 
                 try {
                     // retreive username attribute from login
@@ -75,44 +82,61 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 
                     if (!resultSet.next()) { /// if username doesnt exist
 
-						Date myDate = new Date();
-						String date = sdf.format(myDate);
-						System.out.println(date);
+						// retreive username attribute from login
+						stmt2 = conn.prepareStatement("select email " // user attribute
+								+ "  from account " // from account table
+								+ "  where email = ?"
 
-						String sql = "insert into account(username, password, email, name, timestamp)" + " values(?, ?, ?, ?, ?)" ;
-
-                        stmt2 = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-                        stmt2.setString(1, username);
-                        stmt2.setString(2, pass);
-                        stmt2.setString(3, email);
-                        stmt2.setString(4, name);
-                        stmt2.setString(5, date);
-                        stmt2.executeUpdate();
-
-                        ResultSet rs = stmt2.getGeneratedKeys();
-                        rs.next();
-                        int uid = rs.getInt(1) ;
-
-						stmt2 = conn.prepareStatement(
-								"insert into userstats(UID, points, plunks, wins, loss) values (?,?,?,?,?)"
 						);
 
-						stmt2.setInt(1, uid);
-						stmt2.setInt(2, 0);
-						stmt2.setInt(3, 0);
-						stmt2.setInt(4, 0);
-						stmt2.setInt(5, 0);
-						stmt2.executeUpdate() ;
-						
-                        return true;
+						stmt2.setString(1, email);
 
-                    } else {
-                        return false; // username already exists
-                    }
+						// execute the query
+						resultSet2 = stmt2.executeQuery();
+
+						if (!resultSet2.next()) { /// if email doesnt exist
+							Date myDate = new Date();
+							String date = sdf.format(myDate);
+							System.out.println(date);
+
+							String sql = "insert into account(username, password, email, name, timestamp)" + " values(?, ?, ?, ?, ?)";
+
+							stmt2 = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+							stmt2.setString(1, username);
+							stmt2.setString(2, pass);
+							stmt2.setString(3, email);
+							stmt2.setString(4, name);
+							stmt2.setString(5, date);
+							stmt2.executeUpdate();
+
+							ResultSet rs = stmt2.getGeneratedKeys();
+							rs.next();
+							int uid = rs.getInt(1);
+
+							stmt2 = conn.prepareStatement(
+									"insert into userstats(UID, points, plunks, wins, loss) values (?,?,?,?,?)"
+							);
+
+							stmt2.setInt(1, uid);
+							stmt2.setInt(2, 0);
+							stmt2.setInt(3, 0);
+							stmt2.setInt(4, 0);
+							stmt2.setInt(5, 0);
+							stmt2.executeUpdate();
+
+							return true;
+
+						} else {
+							return false; // email already exists
+						}
+					}else{
+                    	return false;
+					}
 
                 } finally {
                     DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(resultSet2);
                     DBUtil.closeQuietly(stmt);
                     DBUtil.closeQuietly(stmt2);
                    // DBUtil.closeQuietly(conn);
