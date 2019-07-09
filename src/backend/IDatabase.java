@@ -13,6 +13,7 @@ public interface IDatabase {
 	public int getAccountID(String email) throws SQLException;
 	public ArrayList<Integer> getUserStats(int uid) throws SQLException;
 	public boolean modifyStats(String statName, int value, int UID) throws SQLException;
+	public boolean createTable(String tableName, int plunk, int uid) throws SQLException;
 
 
 }

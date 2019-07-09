@@ -32,6 +32,11 @@
         <servlet-class>servlet.TablesServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>CreateTablesServlet</servlet-name>
+        <servlet-class>servlet.CreateTablesServlet</servlet-class>
+    </servlet>
+
 
     <!-- Servlet mappings -->
 
@@ -62,7 +67,12 @@
 
     <servlet-mapping>
         <servlet-name>TablesServlet</servlet-name>
-        <url-pattern>/tables</url-pattern>
+        <url-pattern>/table</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>CreateTablesServlet</servlet-name>
+        <url-pattern>/create</url-pattern>
     </servlet-mapping>
 
 

@@ -186,6 +186,86 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 	}
 
 	/***
+	 * Creates a table
+	 * @param tableName
+	 * @param plunk
+	 * @param uid
+	 * @return
+	 * @throws SQLException
+	 */
+	public boolean createTable(String tableName, int uid, int plunk) throws SQLException {
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					stmt = conn.prepareStatement("insert into dyetable(name, UID, plunk) values(?, ?, ?)");
+
+					// substitute the title entered by the user for the placeholder in
+					// the query
+					stmt.setString(1, tableName);
+					stmt.setInt(2, uid);
+					stmt.setInt(3, plunk);
+
+
+					// execute the query
+					stmt.execute();
+
+					return true;
+				} catch (Exception e){
+					e.printStackTrace();
+					return false;
+				}finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+
+			}
+		});
+	}
+
+	public boolean createGame(ArrayList<String> teamOne, ArrayList<String> teamTwo) throws SQLException {
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					//TODO
+					//Create a table with the teams listed, there will need to be a method made that allows the players to be changed
+					//This needs to allow users to choose teams on the servlet/jsp side
+
+					//TODO
+					//THERE NEEDS TO BE A QUERY THAT WILL RETRIEVE THE PLAYERS UIDs!!!
+					stmt = conn.prepareStatement(
+							"insert into game(team_1, team_2, score_1, score_2, status, timestamp)" +
+								"values(?, ?, 0, 0, 0, ?)");
+
+					// substitute the title entered by the user for the placeholder in
+					// the query
+
+
+					// execute the query
+					stmt.execute();
+
+					return true;
+				} catch (Exception e){
+					e.printStackTrace();
+					return false;
+				}finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+
+			}
+		});
+	}
+	/***
 	 * Gets account id based on email
 	 * @param email
 	 * @return
@@ -520,7 +600,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 						"	username varchar(40),"  +
 						"	password varchar(100)," +
 						"   email varchar(40),"     +
-						"   name varchar(40),"      +
+						"   name varchar(200),"      +
 						"	timestamp varchar(100) "+
 						")"
 					);
@@ -545,6 +625,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 						"	TID bigint auto_increment," +
 						"	name varchar(50)," +
 						"	UID INT,"+
+						"	plunk INT,"+
 						")"
 					);
 					stmt.executeUpdate();
@@ -553,9 +634,11 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 					stmt = conn.prepareStatement( //creates game table
 						"create table game ("  +
 						"	GID bigint auto_increment," +
-						"	players varchar(255)," +
+						"	team_1 varchar(20)," +
+						"	team_2 varchar(20)," +
 						"	score_1 INT," +
 						"	score_2 INT," +
+						"	status INT," +
 						"	timestamp varchar(100) "	+
 						")"
 					);
