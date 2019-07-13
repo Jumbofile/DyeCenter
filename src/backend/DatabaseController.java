@@ -237,7 +237,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 		});
 	}
 
-	public boolean createGame(ArrayList<String> teamOne, ArrayList<String> teamTwo) throws SQLException {
+	public boolean createGame(int TID, ArrayList<String> teamOne, ArrayList<String> teamTwo) throws SQLException {
 		return executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
@@ -249,15 +249,20 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 					//TODO
 					//Create a table with the teams listed, there will need to be a method made that allows the players to be changed
 					//This needs to allow users to choose teams on the servlet/jsp side
-
+					Date myDate = new Date();
+					String date = sdf.format(myDate);
 					//TODO
 					//THERE NEEDS TO BE A QUERY THAT WILL RETRIEVE THE PLAYERS UIDs!!!
 					stmt = conn.prepareStatement(
-							"insert into game(team_1, team_2, score_1, score_2, status, timestamp)" +
-								"values(?, ?, 0, 0, 0, ?)");
+							"insert into game(TID, team_1, team_2, score_1, score_2, status, timestamp)" +
+								"values(?, ?, ?, 0, 0, 0, ?)");
 
 					// substitute the title entered by the user for the placeholder in
 					// the query
+					stmt.setInt(1, TID);
+					stmt.setString(2, teamOne.get(0) +"," + teamOne.get(1));
+					stmt.setString(3, teamTwo.get(0) +"," + teamTwo.get(1));
+					stmt.setString(4, date);
 
 
 					// execute the query

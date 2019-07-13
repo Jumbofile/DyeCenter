@@ -18,14 +18,16 @@ public class TablesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-
+        System.out.println("Table DoGet");
         uid = (String) req.getSession().getAttribute("uid"); //session stuff
         if (uid == null) {
             req.getRequestDispatcher("/login").forward(req, resp);
         } else {
-
+            String tableID = (String)req.getSession().getAttribute("tableID");
+            System.out.println("get: " + tableID);
 			//req.setAttribute("username", usernameCap);
             //req.setAttribute("idea", response);
+            req.setAttribute("tableID", tableID);
             req.getRequestDispatcher("/_view/tables.jsp").forward(req, resp);
         }
     }
@@ -40,16 +42,36 @@ public class TablesServlet extends HttpServlet {
             req.getRequestDispatcher("/login").forward(req, resp);
         }else {
             //int tableID = (int)req.getAttribute("tableId");
-            String tableID = (String)req.getAttribute("tableID");
+            String tableID = (String)req.getSession().getAttribute("tableID");
+            System.out.println(tableID);
             try{
                 db.getGames(Integer.parseInt(tableID));
             }catch(Exception e){
 
             }
+            String[] t1 = req.getParameter("t1").split(",");
+            String[] t2 = req.getParameter("t2").split(",");
+
+            //add players to game
+            ArrayList<String> team1 = new ArrayList<String>();
+            team1.add(t1[0]);
+            team1.add(t1[1]);
+            ArrayList<String> team2 = new ArrayList<String>();
+            team2.add(t2[0]);
+            team2.add(t2[1]);
+
+            //create game
+            try {
+                db.createGame(Integer.parseInt(tableID), team1, team2);
+            }catch (Exception e){
+                e.printStackTrace();
+                System.out.println("Game create fail.");
+            }
 
            // req.setAttribute("username", usernameCap);
             //req.setAttribute("idea", response);
-            req.getRequestDispatcher("/_view/tables.jsp").forward(req, resp);
+            req.setAttribute("tableID", tableID);
+            req.getRequestDispatcher("/_view/table.jsp").forward(req, resp);
         }
 
     }
