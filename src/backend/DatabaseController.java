@@ -535,8 +535,8 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 	 * @param password
 	 * @return
 	 */
-	public boolean accountExist(String email, String password){ ///checks if account exists
-		//Checks if the user exist and if the password matches
+	public boolean accountExist(String email, String password){ // checks if account exists
+		// Checks if the user exist and if the password matches
         return executeTransaction(new Transaction<Boolean>() {
             @Override
             public Boolean execute(Connection conn) throws SQLException {

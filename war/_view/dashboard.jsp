@@ -84,40 +84,36 @@
 			Addons
 		</div>
 
-		<!-- Nav Item - Pages Collapse Menu -->
-		<li class="nav-item">
-			<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-				<i class="fas fa-fw fa-folder"></i>
-				<span>Pages</span>
-			</a>
-			<div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-				<div class="bg-white py-2 collapse-inner rounded">
-					<h6 class="collapse-header">Login Screens:</h6>
-					<a class="collapse-item" href="login.html">Login</a>
-					<a class="collapse-item" href="register.html">Register</a>
-					<a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-					<div class="collapse-divider"></div>
-					<h6 class="collapse-header">Other Pages:</h6>
-					<a class="collapse-item" href="404.html">404 Page</a>
-					<a class="collapse-item" href="blank.html">Blank Page</a>
-				</div>
-			</div>
-		</li>
 
 		<!-- Nav Item - Charts -->
 		<li class="nav-item">
 			<a class="nav-link" href="charts.html">
 				<i class="fas fa-fw fa-chart-area"></i>
-				<span>Charts</span></a>
+				<span>Charts</span>
+            </a>
 		</li>
 
 		<!-- Nav Item - Tables -->
-		<li class="nav-item">
-			<a class="nav-link" href="/tables">
-				<i class="fas fa-fw fa-table"></i>
-				<span>Tables</span></a>
-		</li>
+		<li onclick="" class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTables" aria-expanded="true" aria-controls="collapseTables">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Tables</span>
+            </a>
+            <div id="collapseTables" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+				<div id="tableDropdown" class="bg-white py-2 collapse-inner rounded">
+						<div class="text-center">
+							<a role="button" class="btn btn-success" href="/create">
+								<i style="margin-right: 8px;" class="fas fa-plus text-white"></i>
+								<span>Create Table</span>
+							</a>
+							<%--<a class="collapse-item" href="/create"><i style="margin-right: 10px;" class="fas fa-plus text-gray-500"></i>Create Table</a>--%>
+						</div>
+						<h6 class="collapse-header">My Tables</h6>
+					<div class="collapse-divider"></div>
+				</div>
 
+            </div>
+		</li>
 		<!-- Divider -->
 		<hr class="sidebar-divider d-none d-md-block">
 
@@ -134,9 +130,9 @@
 			<nav class="navbar navbar-expand navbar-light bg-white topbar mb-12 static-top shadow">
 
 				<!-- Sidebar Toggle (Topbar) -->
-				<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-					<i class="fa fa-bars"></i>
-				</button>
+				<%--<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">--%>
+					<%--<i class="fa fa-bars"></i>--%>
+				<%--</button>--%>
 					<!-- Nav Item - User Information -->
 					<li class="nav-item dropdown no-arrow">
 						<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -252,10 +248,10 @@
 							<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 								<h6 class="m-0 font-weight-bold text-primary">Timeline</h6>
 								<div class="dropdown no-arrow">
-									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuArea" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
 									</a>
-									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuArea">
 										<div class="dropdown-header">Dropdown Header:</div>
 										<a class="dropdown-item" href="#">Action</a>
 										<a class="dropdown-item" href="#">Another action</a>
@@ -298,15 +294,15 @@
 									<canvas id="myPieChart"></canvas>
 								</div>
 								<div class="mt-4 text-center small">
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-primary"></i> Direct
-                    </span>
-									<span class="mr-2">
-                      <i class="fas fa-circle text-success"></i> Social
-                    </span>
-									<span class="mr-2">
-                      <i class="fas fa-circle text-info"></i> Referral
-                    </span>
+                                    <span class="mr-2">
+                                      <i class="fas fa-circle text-primary"></i> Direct
+                                    </span>
+                                                    <span class="mr-2">
+                                      <i class="fas fa-circle text-success"></i> Social
+                                    </span>
+                                                    <span class="mr-2">
+                                      <i class="fas fa-circle text-info"></i> Referral
+                                    </span>
 								</div>
 							</div>
 						</div>
@@ -357,23 +353,30 @@
 	</div>
 </div>
 
+
 <!-- Bootstrap core JavaScript-->
-<script src="js/vendor/jquery/jquery.min.js"></script>
-<script src="js/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/widget_js/vendor/jquery/jquery.min.js"></script>
+<script src="js/widget_js/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="js/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="js/widget_js/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="js/app-dashboard.js"></script>
+<script src="js/widget_js/app-dashboard.js"></script>
 
 <!-- Page level plugins -->
-<script src="js/vendor/chart.js/Chart.min.js"></script>
+<script src="js/widget_js/vendor/chart.js/Chart.min.js"></script>
 
 <!-- Page level custom scripts -->
-<script src="js/demo/chart-area-demo.js"></script>
-<script src="js/demo/chart-pie-demo.js"></script>
+<script src="js/widget_js/demo/chart-area-demo.js"></script>
+<script src="js/widget_js/demo/chart-pie-demo.js"></script>
 
+<script src="js/dashboard-utilities.js"></script>
+	<script type="text/javascript">
+		var value = "${tableNames}";
+		loadTableDropdown(value) ;
+	</script>
+</form>
 </body>
 
 </html>

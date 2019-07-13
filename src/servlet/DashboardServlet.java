@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DashboardServlet extends HttpServlet {
@@ -28,20 +29,6 @@ public class DashboardServlet extends HttpServlet {
 
             setAttr(req, resp);
 
-
-//            try{
-//                System.out.println("SUID: " + sessionuid);
-//                ArrayList<Integer> stats = db.getUserStats(Integer.parseInt(sessionuid));
-//
-//                req.setAttribute("points",stats.get(0));
-//                req.setAttribute("plunks",stats.get(1));
-//                req.setAttribute("wins",stats.get(2));
-//                req.setAttribute("loss",stats.get(3));
-//            }
-//            catch (Exception e) {
-//                e.printStackTrace();
-//            }
-
             req.getRequestDispatcher("/_view/dashboard.jsp").forward(req, resp);
         }
     }
@@ -54,36 +41,64 @@ public class DashboardServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        System.out.println(sessionuid);
+        //System.out.println(sessionuid);
         sessionuid = (String) req.getSession().getAttribute("uid"); //session stuff
 
 
+        System.out.println("Tableid: " + req.getParameter("tid"));
+        String tableID = req.getParameter("tid");
+        if(tableID != null){
+            resp.sendRedirect(req.getContextPath() + "/table");
+            req.getSession().setAttribute("tableID", tableID);
+        }else{
+            //username = "foobar";
+            if (sessionuid == null) {
+                req.getRequestDispatcher("/login").forward(req, resp);
+            } else {
 
-        //username = "foobar";
-        if (sessionuid == null) {
-            req.getRequestDispatcher("/login").forward(req, resp);
-        } else {
-
-            setAttr(req, resp);
-           // req.setAttribute("username", usernameCap);
-            //req.setAttribute("idea", response);
-            req.getRequestDispatcher("/_view/dashboard.jsp").forward(req, resp);
+                setAttr(req, resp);
+                // req.setAttribute("username", usernameCap);
+                //req.setAttribute("idea", response);
+                req.getRequestDispatcher("/_view/dashboard.jsp").forward(req, resp);
+            }
         }
-
     }
 
     private void setAttr(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException  {
 
         if(this.sessionuid != null) {
-            try{
-                ArrayList<Integer> stats = db.getUserStats(Integer.parseInt(sessionuid));
+            Integer UID = Integer.parseInt(sessionuid) ;
 
-                req.setAttribute("played", stats.get(2) + stats.get(3));
-                req.setAttribute("points",stats.get(0));
-                req.setAttribute("plunks",stats.get(1));
-                req.setAttribute("wins",stats.get(2));
-                req.setAttribute("loss",stats.get(3));
+            try{
+                // Stat Attributes
+                ArrayList<Integer> userStats = db.getUserStats(UID);
+                    req.setAttribute("played", userStats.get(2) + userStats.get(3));
+                    req.setAttribute("points",userStats.get(0));
+                    req.setAttribute("plunks",userStats.get(1));
+                    req.setAttribute("wins",userStats.get(2));
+                    req.setAttribute("loss",userStats.get(3));
+
+                // Table Attributes
+                ArrayList<Integer> tables = db.getTables(UID) ;
+                ArrayList<String> tblNames = new ArrayList<>() ;
+                for(Integer TID : tables) {
+                    tblNames.add( db.getTableNameBasedOnID(TID) + "^" + TID ) ;
+                }
+                String tblcsv = String.join(",", tblNames);
+
+
+                //Set Attributes
+
+                    //UserStat
+                    req.setAttribute("played", userStats.get(2) + userStats.get(3));
+                    req.setAttribute("points",userStats.get(0));
+                    req.setAttribute("plunks",userStats.get(1));
+                    req.setAttribute("wins",userStats.get(2));
+                    req.setAttribute("loss",userStats.get(3));
+
+                    //Table
+                    req.setAttribute("tableNames", tblcsv);
             }
             catch (Exception e) {
                 e.printStackTrace();
