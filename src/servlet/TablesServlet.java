@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class TablesServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private String username = null;
+    private String uid = null;
     private DatabaseController db = new DatabaseController();
     ArrayList<String> accountInfo = new ArrayList<>();
 
@@ -19,12 +19,10 @@ public class TablesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        username = (String) req.getSession().getAttribute("username"); //session stuff
-        if (username == null) {
+        uid = (String) req.getSession().getAttribute("uid"); //session stuff
+        if (uid == null) {
             req.getRequestDispatcher("/login").forward(req, resp);
         } else {
-
-
 
 			//req.setAttribute("username", usernameCap);
             //req.setAttribute("idea", response);
@@ -36,12 +34,14 @@ public class TablesServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        username = (String) req.getSession().getAttribute("username"); //session stuff
+        uid = (String) req.getSession().getAttribute("uid"); //session stuff
 
-        if (username == null) {
+        if (uid == null) {
             req.getRequestDispatcher("/login").forward(req, resp);
-        } else {
-
+        }else {
+            //int tableID = (int)req.getAttribute("tableId");
+            String tableID = (String)req.getAttribute("tableID");
+            System.out.println(tableID);
 
            // req.setAttribute("username", usernameCap);
             //req.setAttribute("idea", response);

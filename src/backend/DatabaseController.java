@@ -194,16 +194,19 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 	 * @return
 	 * @throws SQLException
 	 */
-	public boolean createTable(String tableName, int uid, int plunk) throws SQLException {
-		return executeTransaction(new Transaction<Boolean>() {
+	public Object[] createTable(String tableName, int uid, int plunk) throws SQLException {
+		return executeTransaction(new Transaction<Object[]>() {
 			@Override
-			public Boolean execute(Connection conn) throws SQLException {
+			public Object[] execute(Connection conn) throws SQLException {
 				//Connection conn = null;
+				/**
+				 * Object array has a bool in index 0 and int in index 1
+				 */
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
-
+				Object[] resultArray = new Object[]{false, 1};
 				try {
-					stmt = conn.prepareStatement("insert into dyetable(name, UID, plunk) values(?, ?, ?)");
+					stmt = conn.prepareStatement("insert into dyetable(name, UID, plunk) values(?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
 					// substitute the title entered by the user for the placeholder in
 					// the query
@@ -211,19 +214,25 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 					stmt.setInt(2, uid);
 					stmt.setInt(3, plunk);
 
-
 					// execute the query
 					stmt.execute();
 
-					return true;
+					//get table key
+					ResultSet rs = stmt.getGeneratedKeys();
+					rs.next();
+
+					//add stuff to array
+					resultArray[0] = true;
+					resultArray[1] = rs.getInt(1);
+
 				} catch (Exception e){
 					e.printStackTrace();
-					return false;
+					resultArray[0] = false;
 				}finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
 				}
-
+				return  resultArray;
 			}
 		});
 	}
@@ -310,7 +319,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 	public ArrayList<Integer> getUserStats(int uid) throws SQLException{
 		return executeTransaction(new Transaction<ArrayList<Integer> >() {
 			@Override
-			public ArrayList<Integer>  execute(Connection conn) throws SQLException {
+			public ArrayList<Integer> execute(Connection conn) throws SQLException {
 				//Connection conn = null;
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
