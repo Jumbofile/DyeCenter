@@ -361,6 +361,46 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 	}
 
 	/***
+	 * Gets a userstat list absed on uid
+	 * @param gid
+	 * @return
+	 * @throws SQLException
+	 */
+	public ArrayList<String> getGameStats(int gid) throws SQLException{
+		return executeTransaction(new Transaction<ArrayList<String> >() {
+			@Override
+			public ArrayList<String> execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				ArrayList<String> rtnStats = new ArrayList<String>();
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("SELECT * from game where gid = ?" );// user attribute
+				stmt.setInt( 1, gid);
+				resultSet = stmt.executeQuery();
+
+				while(resultSet.next()) {
+					rtnStats.add(resultSet.getString("team_1"));
+					rtnStats.add(resultSet.getString("team_2"));
+					rtnStats.add(resultSet.getString("score_1"));
+					rtnStats.add(resultSet.getString("score_2"));
+					rtnStats.add(resultSet.getString("status"));
+					rtnStats.add(resultSet.getString("timestamp"));
+
+				}
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return rtnStats;
+			}
+		});
+	}
+
+	/***
 	 * Returns an array of game ids based on table id
 	 * @param TID
 	 * @return
@@ -382,7 +422,8 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 				resultSet = stmt.executeQuery();
 
 				while(resultSet.next()) {
-					rtnStats.add(resultSet.getRow());
+					System.out.println("DB :" + resultSet.getInt(1));
+					rtnStats.add(resultSet.getInt(1));
 				}
 
 				DBUtil.closeQuietly(resultSet);
