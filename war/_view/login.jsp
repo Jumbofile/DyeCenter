@@ -83,11 +83,6 @@
 									<label for="inputPassword">Password</label>
 								</div>
 
-								<div class="custom-control custom-checkbox mb-3">
-									<input type="checkbox"  class="custom-control-input" id="customCheck1">
-									<label class="custom-control-label" for="customCheck1">Remember Me</label>
-								</div>
-
 								<div id="errorDiv" class="text-center">
 									<c:out value="${response}" escapeXml="false"/>
 								</div>
