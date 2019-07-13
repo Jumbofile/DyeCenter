@@ -38,7 +38,8 @@
 </head>
 
 <body>
-
+<form action="${pageContext.servletContext.contextPath}/table" method="post">
+</form>
 </body>
 
 

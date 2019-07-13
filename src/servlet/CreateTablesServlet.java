@@ -55,21 +55,26 @@ public class CreateTablesServlet extends HttpServlet {
             int plunkLimit = Integer.parseInt(req.getParameter("plunk"));
             System.out.println(plunkLimit);
 
-            boolean success = false;
+            Object[] resultArray = new Object[]{false, -1};
             try{
-                success = db.createTable(tableName, Integer.parseInt(uid), plunkLimit);
+                resultArray = db.createTable(tableName, Integer.parseInt(uid), plunkLimit);
             }catch(Exception e){
                 System.out.println("FAILED TABLE CREATE.");
             }
 
-            if(success == false){
+            //set the table id from the array
+            int tableID = (int)resultArray[1];
+
+            if((boolean)resultArray[0] == false){
                 System.out.println("FAILED TABLE CREATE.");
+            }else{
+                System.out.println("yeet");
+                req.setAttribute("tableID", Integer.toString(tableID));
+                req.getRequestDispatcher("/table").forward(req, resp);
             }
-
-
            // req.setAttribute("username", usernameCap);
             //req.setAttribute("idea", response);
-            req.getRequestDispatcher("/_view/table.jsp").forward(req, resp);
+
         }
 
     }
