@@ -13,7 +13,7 @@ function loadTableDropdown(names){
      names.forEach(function(item, index){
           console.log(item, index) ;
           item = item.split('^') ;
-          $('#tableDropdown').append("<button name='tid' type='submit' value=" + item[1] + "  class='collapse-item'>" + item[0]+ "</button>") ;
+          $('#tableDropdown').append("<button onclick='goToTable(this)' name='tid' type='submit' value=" + item[1] + "  class='collapse-item'>" + item[0]+ "</button>") ;
      }) ;
 
      // for(var i = 0; i < names.length) {

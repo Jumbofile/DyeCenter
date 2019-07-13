@@ -41,22 +41,27 @@ public class DashboardServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        System.out.println(sessionuid);
+        //System.out.println(sessionuid);
         sessionuid = (String) req.getSession().getAttribute("uid"); //session stuff
 
 
+        System.out.println("Tableid: " + req.getParameter("tid"));
+        String tableID = req.getParameter("tid");
+        if(tableID != null){
+            resp.sendRedirect(req.getContextPath() + "/table");
+            req.getSession().setAttribute("tableID", tableID);
+        }else{
+            //username = "foobar";
+            if (sessionuid == null) {
+                req.getRequestDispatcher("/login").forward(req, resp);
+            } else {
 
-        //username = "foobar";
-        if (sessionuid == null) {
-            req.getRequestDispatcher("/login").forward(req, resp);
-        } else {
-
-            setAttr(req, resp);
-           // req.setAttribute("username", usernameCap);
-            //req.setAttribute("idea", response);
-            req.getRequestDispatcher("/_view/dashboard.jsp").forward(req, resp);
+                setAttr(req, resp);
+                // req.setAttribute("username", usernameCap);
+                //req.setAttribute("idea", response);
+                req.getRequestDispatcher("/_view/dashboard.jsp").forward(req, resp);
+            }
         }
-
     }
 
     private void setAttr(HttpServletRequest req, HttpServletResponse resp)
@@ -78,7 +83,7 @@ public class DashboardServlet extends HttpServlet {
                 ArrayList<Integer> tables = db.getTables(UID) ;
                 ArrayList<String> tblNames = new ArrayList<>() ;
                 for(Integer TID : tables) {
-                    tblNames.add( db.getTableNameBasedOnID(TID) ) ;
+                    tblNames.add( db.getTableNameBasedOnID(TID) + "^" + TID ) ;
                 }
                 String tblcsv = String.join(",", tblNames);
 

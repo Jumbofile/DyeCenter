@@ -88,6 +88,7 @@
 								</div>
 
 								<button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" name="submit">Sign in</button>
+
 								<div class="text-center">
 									<a class="small" href="#">Forgot password?</a>
 								</div>

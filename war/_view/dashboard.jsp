@@ -100,21 +100,20 @@
                 <span>Tables</span>
             </a>
             <div id="collapseTables" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div id="tableDropdown" class="bg-white py-2 collapse-inner rounded">
-                        <div class="text-center">
-                            <a role="button" class="btn btn-success" href="/create">
-                                <i style="margin-right: 8px;" class="fas fa-plus text-white"></i>
-                                <span>Create Table</span>
-                            </a>
-                            <%--<a class="collapse-item" href="/create"><i style="margin-right: 10px;" class="fas fa-plus text-gray-500"></i>Create Table</a>--%>
-                        </div>
+				<div id="tableDropdown" class="bg-white py-2 collapse-inner rounded">
+						<div class="text-center">
+							<a role="button" class="btn btn-success" href="/create">
+								<i style="margin-right: 8px;" class="fas fa-plus text-white"></i>
+								<span>Create Table</span>
+							</a>
+							<%--<a class="collapse-item" href="/create"><i style="margin-right: 10px;" class="fas fa-plus text-gray-500"></i>Create Table</a>--%>
+						</div>
 						<h6 class="collapse-header">My Tables</h6>
+					<div class="collapse-divider"></div>
+				</div>
 
-                    <div class="collapse-divider"></div>
-                </div>
             </div>
 		</li>
-
 		<!-- Divider -->
 		<hr class="sidebar-divider d-none d-md-block">
 
@@ -354,6 +353,7 @@
 	</div>
 </div>
 
+
 <!-- Bootstrap core JavaScript-->
 <script src="js/widget_js/vendor/jquery/jquery.min.js"></script>
 <script src="js/widget_js/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -376,7 +376,6 @@
 		var value = "${tableNames}";
 		loadTableDropdown(value) ;
 	</script>
-
 </form>
 </body>
 
