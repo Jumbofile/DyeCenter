@@ -41,7 +41,11 @@ public class TablesServlet extends HttpServlet {
         }else {
             //int tableID = (int)req.getAttribute("tableId");
             String tableID = (String)req.getAttribute("tableID");
-            System.out.println(tableID);
+            try{
+                db.getGames(Integer.parseInt(tableID));
+            }catch(Exception e){
+
+            }
 
            // req.setAttribute("username", usernameCap);
             //req.setAttribute("idea", response);

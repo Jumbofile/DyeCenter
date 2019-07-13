@@ -348,6 +348,108 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 	}
 
 	/***
+	 * Returns an array of game ids based on table id
+	 * @param TID
+	 * @return
+	 * @throws SQLException
+	 */
+	public ArrayList<Integer> getGames(int TID) throws SQLException{
+		return executeTransaction(new Transaction<ArrayList<Integer> >() {
+			@Override
+			public ArrayList<Integer> execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				ArrayList<Integer> rtnStats = new ArrayList<Integer>();
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("SELECT TID from game where TID = ?" );
+				stmt.setInt( 1, TID);
+				resultSet = stmt.executeQuery();
+
+				while(resultSet.next()) {
+					rtnStats.add(resultSet.getRow());
+				}
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return rtnStats;
+			}
+		});
+	}
+
+	/***
+	 * Returns table name based on id
+	 * @param TID
+	 * @return
+	 * @throws SQLException
+	 */
+	public String getTableNameBasedOnID(int TID) throws SQLException{
+		return executeTransaction(new Transaction<String>() {
+			@Override
+			public String execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				String rtnString = null;
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("SELECT name from dyetable where TID = ?" );
+				stmt.setInt( 1, TID);
+				resultSet = stmt.executeQuery();
+
+				resultSet.next();
+
+				rtnString = resultSet.getString("name");
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return rtnString;
+			}
+		});
+	}
+
+	/***
+	 * Returns an array of table id by uid
+	 * @param UID
+	 * @return
+	 * @throws SQLException
+	 */
+	public ArrayList<Integer> getTables(int UID) throws SQLException{
+		return executeTransaction(new Transaction<ArrayList<Integer> >() {
+			@Override
+			public ArrayList<Integer> execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				ArrayList<Integer> rtnStats = new ArrayList<Integer>();
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("SELECT TID from dyetable where UID = ?" );
+				stmt.setInt( 1, UID);
+				resultSet = stmt.executeQuery();
+
+				while(resultSet.next()) {
+					rtnStats.add(resultSet.getRow());
+				}
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return rtnStats;
+			}
+		});
+	}
+
+	/***
 	 * gets account name based on email
 	 * @param email
 	 * @return
@@ -645,6 +747,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 					stmt = conn.prepareStatement( //creates game table
 						"create table game ("  +
 						"	GID bigint auto_increment," +
+						"   TID INT, " +
 						"	team_1 varchar(20)," +
 						"	team_2 varchar(20)," +
 						"	score_1 INT," +

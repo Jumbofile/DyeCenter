@@ -14,6 +14,8 @@ public interface IDatabase {
 	public ArrayList<Integer> getUserStats(int uid) throws SQLException;
 	public boolean modifyStats(String statName, int value, int UID) throws SQLException;
 	public Object[] createTable(String tableName, int plunk, int uid) throws SQLException;
+	public ArrayList<Integer> getGames(int TID) throws SQLException;
+	public ArrayList<Integer> getTables(int UID) throws SQLException;
 
 
 }
