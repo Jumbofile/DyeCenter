@@ -47,10 +47,10 @@ public class CreateTablesServlet extends HttpServlet {
             System.out.println(tableName);
 
             //Takes string and splits into players
-            ArrayList<String> playerNames = new ArrayList<String>(Arrays.asList(req.getParameter("players").split(",")));
+            /*ArrayList<String> playerNames = new ArrayList<String>(Arrays.asList(req.getParameter("players").split(",")));
             for (String test:playerNames) {
                 System.out.println(test);
-            }
+            }*/
 
             int plunkLimit = Integer.parseInt(req.getParameter("plunk"));
             System.out.println(plunkLimit);

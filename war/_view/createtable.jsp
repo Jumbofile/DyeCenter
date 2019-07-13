@@ -10,7 +10,7 @@
 
 	<title>Dye Center</title>
 
-	<!-- Bootstrap core CSS
+	<!-- Bootstrap core CSS -->
 	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 	<meta charset="utf-8">
@@ -29,10 +29,10 @@
 	<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
-	<!-- Custom styles for this template
+	Custom styles for this template
 	<link href="css/agency.css" rel="stylesheet">
 
-	<!-- Custom styles for this template
+	Custom styles for this template
 	<link href="css/dashboard.css" rel="stylesheet">
 	-->
 
@@ -40,23 +40,34 @@
 
 <body>
 <form action="${pageContext.servletContext.contextPath}/create" method="post">
-	<H1>Create a table</H1>
-	Name
-	<br>
-	<input type="text" name="tableName" class="form-control">
-	<br>
-	Initial Players(comma deliminated, only up to 4 pls)
-	<br>
-	<input type="text" name="players" class="form-control">
-	<br>
-	Plunk amount
-	<br>
-	<input type="number" name="plunk" min="0" max="9">
-	<br>
-	<input type="submit">
+	<div class="container col-md-6">
+		<div style="margin-top: 15vh;">
+			<h2 style="margin-bottom: 30px;">Create Table</h2>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="basic-addon1">Table Name</span>
+				</div>
+				<input type="text" name="tableName" class="form-control" placeholder="ex: Sink City" aria-describedby="basic-addon1" required autofocus>
+			</div>
+
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="basic-addon3">Plunk</span>
+				</div>
+				<input type="number" name="plunk" class="form-control" placeholder="ex: 3 Points Per Plunk" aria-describedby="basic-addon3" min="0" max="9" required>
+			</div>
+
+			<div style="text-align: center;">
+				<button style="width:100%;" name="submit" type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</div>
+	</div>
 
 </form>
 </body>
 
+<!-- Bootstrap core JavaScript-->
+<script src="js/widget_js/vendor/jquery/jquery.min.js"></script>
+<script src="js/widget_js/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </html>

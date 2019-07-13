@@ -101,7 +101,7 @@
             </a>
             <div id="collapseTables" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 				<div id="tableDropdown" class="bg-white py-2 collapse-inner rounded">
-						<div class="text-center">
+						<div style="margin-top:10px; margin-bottom: 12px;" class="text-center">
 							<a role="button" class="btn btn-success" href="/create">
 								<i style="margin-right: 8px;" class="fas fa-plus text-white"></i>
 								<span>Create Table</span>
