@@ -99,7 +99,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 							String date = sdf.format(myDate);
 							System.out.println(date);
 
-							String sql = "insert into account(username, password, email, name, timestamp)" + " values(?, ?, ?, ?, ?)";
+							String sql = "insert into account(username, password, email, name, timestamp, account_type)" + " values(?, ?, ?, ?, ?, ?)";
 
 							stmt2 = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -108,6 +108,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 							stmt2.setString(3, email);
 							stmt2.setString(4, name);
 							stmt2.setString(5, date);
+							stmt2.setInt(6, 0);
 							stmt2.executeUpdate();
 
 							ResultSet rs = stmt2.getGeneratedKeys();
@@ -601,7 +602,8 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 						"	password varchar(100)," +
 						"   email varchar(40),"     +
 						"   name varchar(200),"      +
-						"	timestamp varchar(100) "+
+						"	timestamp varchar(100), " +
+						"   account_type INT" +
 						")"
 					);
 					stmt.executeUpdate();
