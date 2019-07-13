@@ -68,9 +68,10 @@ public class CreateTablesServlet extends HttpServlet {
             if((boolean)resultArray[0] == false){
                 System.out.println("FAILED TABLE CREATE.");
             }else{
-                System.out.println("yeet");
-                req.setAttribute("tableID", Integer.toString(tableID));
-                req.getRequestDispatcher("/table").forward(req, resp);
+                System.out.println(tableID);
+
+                resp.sendRedirect(req.getContextPath() + "/table");
+                req.getSession().setAttribute("tableID", Integer.toString(tableID));
             }
            // req.setAttribute("username", usernameCap);
             //req.setAttribute("idea", response);
