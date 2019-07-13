@@ -47,7 +47,7 @@
                 You must be 21 years or older to enter this site.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Yes, I'm ready to toss</button>
+                <button type="button" onclick="validAge()" class="btn btn-primary" data-dismiss="modal">Yes, I'm ready to toss</button>
                 <button onclick="window.location.href = 'https://www.google.com';" type="button" class="btn btn-secondary">No, I need an adult</button>
             </div>
         </div>
@@ -145,9 +145,15 @@
 
 <script type="text/javascript">
     $(window).on('load',function(){
-        $('#ageModal').modal({backdrop: 'static', keyboard: false})
-        $('#ageModal').modal('show');
+    	if(localStorage.getItem('ageModal') == null) {
+			$('#ageModal').modal({backdrop: 'static', keyboard: false})
+			$('#ageModal').modal('show');
+		}
     });
+
+    function validAge(){
+    	localStorage.setItem('ageModal','1') ;
+	}
 </script>
 
 </body>
