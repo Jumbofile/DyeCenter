@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DashboardServlet extends HttpServlet {
@@ -27,20 +28,6 @@ public class DashboardServlet extends HttpServlet {
         } else {
 
             setAttr(req, resp);
-
-
-//            try{
-//                System.out.println("SUID: " + sessionuid);
-//                ArrayList<Integer> stats = db.getUserStats(Integer.parseInt(sessionuid));
-//
-//                req.setAttribute("points",stats.get(0));
-//                req.setAttribute("plunks",stats.get(1));
-//                req.setAttribute("wins",stats.get(2));
-//                req.setAttribute("loss",stats.get(3));
-//            }
-//            catch (Exception e) {
-//                e.printStackTrace();
-//            }
 
             req.getRequestDispatcher("/_view/dashboard.jsp").forward(req, resp);
         }
@@ -76,14 +63,37 @@ public class DashboardServlet extends HttpServlet {
             throws ServletException, IOException  {
 
         if(this.sessionuid != null) {
-            try{
-                ArrayList<Integer> stats = db.getUserStats(Integer.parseInt(sessionuid));
+            Integer UID = Integer.parseInt(sessionuid) ;
 
-                req.setAttribute("played", stats.get(2) + stats.get(3));
-                req.setAttribute("points",stats.get(0));
-                req.setAttribute("plunks",stats.get(1));
-                req.setAttribute("wins",stats.get(2));
-                req.setAttribute("loss",stats.get(3));
+            try{
+                // Stat Attributes
+                ArrayList<Integer> userStats = db.getUserStats(UID);
+                    req.setAttribute("played", userStats.get(2) + userStats.get(3));
+                    req.setAttribute("points",userStats.get(0));
+                    req.setAttribute("plunks",userStats.get(1));
+                    req.setAttribute("wins",userStats.get(2));
+                    req.setAttribute("loss",userStats.get(3));
+
+                // Table Attributes
+                ArrayList<Integer> tables = db.getTables(UID) ;
+                ArrayList<String> tblNames = new ArrayList<>() ;
+                for(Integer TID : tables) {
+                    tblNames.add( db.getTableNameBasedOnID(TID) ) ;
+                }
+                String tblcsv = String.join(",", tblNames);
+
+
+                //Set Attributes
+
+                    //UserStat
+                    req.setAttribute("played", userStats.get(2) + userStats.get(3));
+                    req.setAttribute("points",userStats.get(0));
+                    req.setAttribute("plunks",userStats.get(1));
+                    req.setAttribute("wins",userStats.get(2));
+                    req.setAttribute("loss",userStats.get(3));
+
+                    //Table
+                    req.setAttribute("tableNames", tblcsv);
             }
             catch (Exception e) {
                 e.printStackTrace();
