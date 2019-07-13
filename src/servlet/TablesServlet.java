@@ -45,7 +45,12 @@ public class TablesServlet extends HttpServlet {
             String tableID = (String)req.getSession().getAttribute("tableID");
             System.out.println(tableID);
             try{
-                db.getGames(Integer.parseInt(tableID));
+                //get the tables from your username and display them if the exist
+                //pass in GId based on TID
+                ArrayList<Integer> gamesOnTable = db.getGames(Integer.parseInt(tableID));
+                for(Integer id : gamesOnTable){
+                    System.out.println(id);
+                }
             }catch(Exception e){
 
             }

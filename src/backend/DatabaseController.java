@@ -237,6 +237,14 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 		});
 	}
 
+	/***
+	 * Creates a game based on 2 teams and a TID
+	 * @param TID
+	 * @param teamOne
+	 * @param teamTwo
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean createGame(int TID, ArrayList<String> teamOne, ArrayList<String> teamTwo) throws SQLException {
 		return executeTransaction(new Transaction<Boolean>() {
 			@Override
@@ -369,7 +377,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 				ArrayList<Integer> rtnStats = new ArrayList<Integer>();
 
 				// retreive username attribute from login
-				stmt = conn.prepareStatement("SELECT TID from game where TID = ?" );
+				stmt = conn.prepareStatement("SELECT GID from game where TID = ?" );
 				stmt.setInt( 1, TID);
 				resultSet = stmt.executeQuery();
 
