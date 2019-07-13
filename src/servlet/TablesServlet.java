@@ -27,6 +27,24 @@ public class TablesServlet extends HttpServlet {
             System.out.println("get: " + tableID);
 			//req.setAttribute("username", usernameCap);
             //req.setAttribute("idea", response);
+            try{
+                //get the tables from your username and display them if the exist
+                //pass in GId based on TID
+                String htmlForPage = "";
+                ArrayList<Integer> gamesOnTable = db.getGames(Integer.parseInt(tableID));
+                for(int i = 0; i < gamesOnTable.size(); i++){
+                    //System.out.println("Game :" + i);
+                    int forPrinting = i+1;
+                    htmlForPage = htmlForPage +
+                    "<br>"+
+                    "<button type=\"submit\" name = \"gamePressed\" value = \"" + gamesOnTable.get(i) + "\">Game " + forPrinting + "</button>";
+
+                }
+                //System.out.println(htmlForPage);
+                req.setAttribute("gameButtons", htmlForPage);
+            }catch(Exception e){
+
+            }
             req.setAttribute("tableID", tableID);
             req.getRequestDispatcher("/_view/tables.jsp").forward(req, resp);
         }
@@ -45,33 +63,61 @@ public class TablesServlet extends HttpServlet {
             String tableID = (String)req.getSession().getAttribute("tableID");
             System.out.println(tableID);
             try{
-                db.getGames(Integer.parseInt(tableID));
-            }catch(Exception e){
+                    //get the tables from your username and display them if the exist
+                    //pass in GId based on TID
+                String htmlForPage = "";
+                    ArrayList<Integer> gamesOnTable = db.getGames(Integer.parseInt(tableID));
+                    for(int i = 0; i < gamesOnTable.size(); i++){
+                        //System.out.println("Game :" + i);
+                        int forPrinting = i+1;
+                        htmlForPage = htmlForPage +
+                                "<br>"+
+                                "<button type=\"submit\" name = \"gamePressed\" value = \"" + gamesOnTable.get(i) + "\">Game " + forPrinting + "</button>";
+
+                    }
+                req.setAttribute("gameButtons", htmlForPage);
+                }catch(Exception e){
 
             }
-            String[] t1 = req.getParameter("t1").split(",");
-            String[] t2 = req.getParameter("t2").split(",");
+            //System.out.println("YEET" + req.getParameter("t1"));
+            if(req.getParameter("t1").equals("")){
+                //Game pressed below
+                String loadGame = req.getParameter("gamePressed");
+                System.out.println(loadGame);
+                try {
+                    ArrayList<String> gameInfo = db.getGameStats(Integer.parseInt(loadGame));
+                    for (String st: gameInfo
+                         ) {
+                        System.out.println(st);
+                    }
+                }
+                catch(Exception e){
 
-            //add players to game
-            ArrayList<String> team1 = new ArrayList<String>();
-            team1.add(t1[0]);
-            team1.add(t1[1]);
-            ArrayList<String> team2 = new ArrayList<String>();
-            team2.add(t2[0]);
-            team2.add(t2[1]);
+                }
+            }else {
+                //Create game funtions below
+                String[] t1 = req.getParameter("t1").split(",");
+                String[] t2 = req.getParameter("t2").split(",");
 
-            //create game
-            try {
-                db.createGame(Integer.parseInt(tableID), team1, team2);
-            }catch (Exception e){
-                e.printStackTrace();
-                System.out.println("Game create fail.");
+                //add players to game
+                ArrayList<String> team1 = new ArrayList<String>();
+                team1.add(t1[0]);
+                team1.add(t1[1]);
+                ArrayList<String> team2 = new ArrayList<String>();
+                team2.add(t2[0]);
+                team2.add(t2[1]);
+                //create game
+                try {
+                    db.createGame(Integer.parseInt(tableID), team1, team2);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("Game create fail.");
+                }
             }
-
            // req.setAttribute("username", usernameCap);
             //req.setAttribute("idea", response);
             req.setAttribute("tableID", tableID);
-            req.getRequestDispatcher("/_view/table.jsp").forward(req, resp);
+            req.getRequestDispatcher("/_view/tables.jsp").forward(req, resp);
         }
 
     }

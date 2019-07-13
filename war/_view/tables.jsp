@@ -42,10 +42,13 @@
 <form action="${pageContext.servletContext.contextPath}/table" method="post">
 
 
-<input type="text" name="t1" class="form-control" placeholder="Team one" required autofocus>
-<input type="text" name="t2" class="form-control" placeholder="Team two" required autofocus>
+	<input type="text" name="t1" class="form-control" placeholder="Team one" autofocus>
+	<input type="text" name="t2" class="form-control" placeholder="Team two" autofocus>
 
-<button type="submit" name="submit">Make Game</button>
+	<button type="submit" name="submit">Make Game</button>
+	<br>
+	Games
+	${gameButtons}
 
 </form>
 </body>
