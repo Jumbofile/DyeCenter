@@ -79,6 +79,10 @@ public class DashboardServlet extends HttpServlet {
                     req.setAttribute("wins",userStats.get(2));
                     req.setAttribute("loss",userStats.get(3));
 
+                // Display Name
+                String displayName = db.getAccountName(UID) ;
+                    req.setAttribute("name",displayName);
+
                 // Table Attributes
                 ArrayList<Integer> tables = db.getTables(UID) ;
                 ArrayList<String> tblNames = new ArrayList<>() ;

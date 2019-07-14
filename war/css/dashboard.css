@@ -12062,3 +12062,15 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
     width: 100%;
 }
+
+#userIcon {
+    position: relative;
+    margin: auto;
+    top: -62%;
+}
+
+@media screen and (max-width: 800px) {
+    #userDropdown {
+        left: 22vw;
+    }
+}

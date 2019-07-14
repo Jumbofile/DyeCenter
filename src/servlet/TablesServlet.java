@@ -79,10 +79,11 @@ public class TablesServlet extends HttpServlet {
                 }catch(Exception e){
 
             }
+            String loadGame = req.getParameter("gamePressed");
             //System.out.println("YEET" + req.getParameter("t1"));
-            if(req.getParameter("t1").equals("")){
+            if(req.getParameter("t1").equals("") || req.getParameter("t2").equals("") && !(loadGame.equals(""))){
                 //Game pressed below
-                String loadGame = req.getParameter("gamePressed");
+
                 System.out.println(loadGame);
                 try {
                     ArrayList<String> gameInfo = db.getGameStats(Integer.parseInt(loadGame));

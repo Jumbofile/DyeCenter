@@ -509,31 +509,31 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 	 * @return
 	 * @throws SQLException
 	 */
-	public String getAccountName(String email) throws SQLException{
+	public String getAccountName(int UID) throws SQLException{
 		return executeTransaction(new Transaction<String>() {
 			@Override
 			public String execute(Connection conn) throws SQLException {
-				String username = null;
+				String name = null;
 				//Connection conn = null;
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 
 				// retreive username attribute from login
 				stmt = conn.prepareStatement(
-						"select username from account where email = ?"
+						"select name from account where UID = ?"
 				);
 
-				stmt.setString(1, email);
+				stmt.setInt(1, UID);
 				resultSet = stmt.executeQuery();
 
 				if (resultSet.next()) {
-					username = resultSet.getString(1);
+					name = resultSet.getString(1);
 				}
 
 				DBUtil.closeQuietly(resultSet);
 				DBUtil.closeQuietly(stmt);
 				//DBUtil.closeQuietly(conn);
-				return username;
+				return name;
 			}
 		});
 	}
