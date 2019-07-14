@@ -69,10 +69,11 @@
 
 		<!-- Sidebar - Brand -->
 		<a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
-			<div class="sidebar-brand-icon rotate-n-15">
-				<i class="fas fa-dice"></i>
+			<div class="sidebar-brand-icon ">
+				<img src="webresources/dyecenter-icon-white.png" alt="DyeCenter" height="35">
 			</div>
-			<div class="sidebar-brand-text mx-3">Dye Center</div>
+			<div style="margin-left:3px" class="sidebar-brand-text"><img src="webresources/dyecenter-text-white.png" alt="DyeCenter" height="35"></div>
+
 		</a>
 
 
