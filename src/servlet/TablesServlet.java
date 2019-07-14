@@ -26,24 +26,8 @@ public class TablesServlet extends HttpServlet {
             String tableID = (String)req.getSession().getAttribute("tableID");
             System.out.println("get: " + tableID);
 
-            try{
-                //get the tables from your username and display them if the exist
-                //pass in GId based on TID
-                String htmlForPage = "";
-                ArrayList<Integer> gamesOnTable = db.getGames(Integer.parseInt(tableID));
-                for(int i = 0; i < gamesOnTable.size(); i++){
-                    //System.out.println("Game :" + i);
-                    int forPrinting = i+1;
-                    htmlForPage = htmlForPage +
-                    "<br>"+
-                    "<button class=\"btn btn-primary\" type=\"submit\" name = \"gamePressed\" value = \"" + gamesOnTable.get(i) + "\">Game " + forPrinting + "</button>";
+            getGameButton(req);
 
-                }
-                //System.out.println(htmlForPage);
-                req.setAttribute("gameButtons", htmlForPage);
-            }catch(Exception e){
-
-            }
             req.setAttribute("tableID", tableID);
             req.getRequestDispatcher("/_view/tables.jsp").forward(req, resp);
         }
@@ -61,39 +45,18 @@ public class TablesServlet extends HttpServlet {
             //int tableID = (int)req.getAttribute("tableId");
             String tableID = (String)req.getSession().getAttribute("tableID");
             System.out.println(tableID);
-            try{
-                    //get the tables from your username and display them if the exist
-                    //pass in GId based on TID
-                String htmlForPage = "";
-                    ArrayList<Integer> gamesOnTable = db.getGames(Integer.parseInt(tableID));
-                    for(int i = 0; i < gamesOnTable.size(); i++){
-                        //System.out.println("Game :" + i);
-                        int forPrinting = i+1;
-                        htmlForPage = htmlForPage +
-                                "<br>"+
-                                "<button type=\"submit\" name = \"gamePressed\" value = \"" + gamesOnTable.get(i) + "\">Game " + forPrinting + "</button>";
 
-                    }
-                req.setAttribute("gameButtons", htmlForPage);
-                }catch(Exception e){
+            //get game buttons
+            getGameButton(req);
 
-            }
             String loadGame = req.getParameter("gamePressed");
             //System.out.println("YEET" + req.getParameter("t1"));
-            if(req.getParameter("t1").equals("") || req.getParameter("t2").equals("") && !(loadGame.equals(""))){
+            if(req.getParameter("t1").equals("") || req.getParameter("t2").equals("")){
                 //Game pressed below
+                resp.sendRedirect(req.getContextPath() + "/game");
+                req.getSession().setAttribute("gid", loadGame);
 
-                System.out.println(loadGame);
-                try {
-                    ArrayList<String> gameInfo = db.getGameStats(Integer.parseInt(loadGame));
-                    for (String st: gameInfo
-                         ) {
-                        System.out.println(st);
-                    }
-                }
-                catch(Exception e){
 
-                }
             }else {
                 //Create game funtions below
                 String[] t1 = req.getParameter("t1").split(",");
@@ -101,14 +64,23 @@ public class TablesServlet extends HttpServlet {
 
                 //add players to game
                 ArrayList<String> team1 = new ArrayList<String>();
-                team1.add(t1[0]);
-                team1.add(t1[1]);
+                team1.add(t1[0]+"~0");
+                team1.add(t1[1]+"~0");
                 ArrayList<String> team2 = new ArrayList<String>();
-                team2.add(t2[0]);
-                team2.add(t2[1]);
+                team2.add(t2[0]+"~0");
+                team2.add(t2[1]+"~0");
                 //create game
                 try {
-                    db.createGame(Integer.parseInt(tableID), team1, team2);
+                    String gid = db.createGame(Integer.parseInt(tableID), team1, team2);
+                    if(gid != "-1") {
+                        resp.sendRedirect(req.getContextPath() + "/game");
+                        req.getSession().setAttribute("gid", gid);
+                    }
+                    else {
+                        //Failed to create the game, keeps user on the table view
+                        resp.sendRedirect(req.getContextPath() + "/table");
+                        req.getSession().setAttribute("tableID", tableID);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println("Game create fail.");
@@ -116,9 +88,33 @@ public class TablesServlet extends HttpServlet {
             }
            // req.setAttribute("username", usernameCap);
             //req.setAttribute("idea", response);
-            req.setAttribute("tableID", tableID);
-            req.getRequestDispatcher("/_view/tables.jsp").forward(req, resp);
+//            resp.sendRedirect(req.getContextPath() + "/table");
+//            req.getSession().setAttribute("tableID", tableID);
         }
 
+    }
+
+    private void getGameButton(HttpServletRequest req){
+        //int tableID = (int)req.getAttribute("tableId");
+        String tableID = (String)req.getSession().getAttribute("tableID");
+        System.out.println(tableID);
+        try{
+            //get the tables from your username and display them if the exist
+            //pass in GId based on TID
+            String htmlForPage = "";
+            ArrayList<Integer> gamesOnTable = db.getGameIDs(Integer.parseInt(tableID));
+            for(int i = 0; i < gamesOnTable.size(); i++){
+                //System.out.println("Game :" + i);
+                ArrayList<String> gameStats = db.getGameStats(gamesOnTable.get(i)) ;
+                htmlForPage = htmlForPage +
+                        "<button style=\"margin-top:15px;\" class=\"btn btn-primary\" type=\"submit\" name = \"gamePressed\" data-status=\""+ gameStats.get(4) +"\" value = \"" + gamesOnTable.get(i) + "\">Game " + gameStats.get(5) + "</button>"
+                        + "<br/>" ;
+
+            }
+            //System.out.println(htmlForPage);
+            req.setAttribute("gameButtons", htmlForPage);
+        }catch(Exception e){
+
+        }
     }
 }

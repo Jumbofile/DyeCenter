@@ -41,6 +41,10 @@
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
+.gameSelect {
+    margin-top: 15px ;
+}
+
 *,
 *::before,
 *::after {
@@ -12069,8 +12073,9 @@ body.sidebar-toggled footer.sticky-footer {
     top: -62%;
 }
 
-@media screen and (max-width: 800px) {
+
+@media screen and (max-width: 1200px) {
     #userDropdown {
-        left: 22vw;
+        left: 20vw;
     }
 }

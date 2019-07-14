@@ -62,7 +62,10 @@
 				<button style="width:100%;" name="submit" type="submit" class="btn btn-primary">Submit</button>
 			</div>
 		</div>
-		Games
+		<br/>
+		<hr>
+		<br/>
+		<h2>Games</h2>
 		${gameButtons}
 	</div>
 

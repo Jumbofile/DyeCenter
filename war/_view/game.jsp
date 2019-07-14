@@ -41,30 +41,7 @@
 <body>
 <form action="${pageContext.servletContext.contextPath}/game" method="post">
 
-	<div class="container col-md-6">
-		<div style="margin-top: 15vh;">
-			<h2 style="margin-bottom: 30px;">Create Game</h2>
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon1">Team 1</span>
-				</div>
-				<input type="text" name="t1" class="form-control" placeholder="UID_1, UID_2" aria-describedby="basic-addon1" autofocus>
-			</div>
-
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon2">Team 2</span>
-				</div>
-				<input type="text" name="t2" class="form-control" placeholder="UID_3, UID_4" aria-describedby="basic-addon2" >
-			</div>
-
-			<div style="text-align: center;">
-				<button style="width:100%;" name="submit" type="submit" class="btn btn-primary">Submit</button>
-			</div>
-		</div>
-		Games
-		${gameButtons}
-	</div>
+	${gameStats}
 
 </form>
 </body>
