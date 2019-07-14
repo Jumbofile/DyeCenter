@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TablesServlet extends HttpServlet {
+public class GameServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private String uid = null;
     private DatabaseController db = new DatabaseController();
@@ -18,14 +18,15 @@ public class TablesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        System.out.println("Table DoGet");
+        System.out.println("Game DoGet");
         uid = (String) req.getSession().getAttribute("uid"); //session stuff
         if (uid == null) {
             req.getRequestDispatcher("/login").forward(req, resp);
         } else {
             String tableID = (String)req.getSession().getAttribute("tableID");
             System.out.println("get: " + tableID);
-
+			//req.setAttribute("username", usernameCap);
+            //req.setAttribute("idea", response);
             try{
                 //get the tables from your username and display them if the exist
                 //pass in GId based on TID
@@ -36,7 +37,7 @@ public class TablesServlet extends HttpServlet {
                     int forPrinting = i+1;
                     htmlForPage = htmlForPage +
                     "<br>"+
-                    "<button class=\"btn btn-primary\" type=\"submit\" name = \"gamePressed\" value = \"" + gamesOnTable.get(i) + "\">Game " + forPrinting + "</button>";
+                    "<button type=\"submit\" name = \"gamePressed\" value = \"" + gamesOnTable.get(i) + "\">Game " + forPrinting + "</button>";
 
                 }
                 //System.out.println(htmlForPage);
@@ -45,7 +46,7 @@ public class TablesServlet extends HttpServlet {
 
             }
             req.setAttribute("tableID", tableID);
-            req.getRequestDispatcher("/_view/tables.jsp").forward(req, resp);
+            req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
         }
     }
 
@@ -59,22 +60,10 @@ public class TablesServlet extends HttpServlet {
             req.getRequestDispatcher("/login").forward(req, resp);
         }else {
             //int tableID = (int)req.getAttribute("tableId");
-            String tableID = (String)req.getSession().getAttribute("tableID");
-            System.out.println(tableID);
+            String gameID = (String)req.getSession().getAttribute("GID");
+            System.out.println(gameID);
             try{
-                    //get the tables from your username and display them if the exist
-                    //pass in GId based on TID
-                String htmlForPage = "";
-                    ArrayList<Integer> gamesOnTable = db.getGames(Integer.parseInt(tableID));
-                    for(int i = 0; i < gamesOnTable.size(); i++){
-                        //System.out.println("Game :" + i);
-                        int forPrinting = i+1;
-                        htmlForPage = htmlForPage +
-                                "<br>"+
-                                "<button type=\"submit\" name = \"gamePressed\" value = \"" + gamesOnTable.get(i) + "\">Game " + forPrinting + "</button>";
 
-                    }
-                req.setAttribute("gameButtons", htmlForPage);
                 }catch(Exception e){
 
             }
@@ -108,7 +97,7 @@ public class TablesServlet extends HttpServlet {
                 team2.add(t2[1]);
                 //create game
                 try {
-                    db.createGame(Integer.parseInt(tableID), team1, team2);
+                    db.createGame(Integer.parseInt(gameID), team1, team2);
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println("Game create fail.");
@@ -116,8 +105,8 @@ public class TablesServlet extends HttpServlet {
             }
            // req.setAttribute("username", usernameCap);
             //req.setAttribute("idea", response);
-            req.setAttribute("tableID", tableID);
-            req.getRequestDispatcher("/_view/tables.jsp").forward(req, resp);
+            req.setAttribute("GID", gameID);
+            req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
         }
 
     }
