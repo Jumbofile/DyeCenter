@@ -22,7 +22,7 @@ public class DashboardServlet extends HttpServlet {
 
         //sets the session id
         sessionuid = (String) req.getSession().getAttribute("uid"); //session stuff
-
+        System.out.println(sessionuid);
         if (sessionuid == null) {
             req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
         } else {

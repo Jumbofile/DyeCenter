@@ -113,39 +113,74 @@ public class GameServlet extends HttpServlet {
         }else{
             String points = (String)req.getParameter("point");
             int player = Integer.parseInt(req.getParameter("player"));
-            if(player != -1) {
-                System.out.println("poin: " + points);
-                System.out.println("player: " + player);
-                System.out.println("Len: " + points.length());
-
+            if(points.equals("finish")){
+                //finish the game
                 try {
+                    ArrayList<String> gameStats = db.getGameStats(Integer.parseInt(gid));
+                    int t1Score = Integer.parseInt(gameStats.get(2)) ;
+                    int t2Score = Integer.parseInt(gameStats.get(3)) ;
 
+                    System.out.println(t1Score + " " + t2Score);
+                    //get players
+                    String[] t1Players = gameStats.get(0).split(",") ;
+                    String[] t2Players = gameStats.get(1).split(",") ;
 
-                    if (player <= 1) {
-                        if(points.charAt(points.length() - 1) == '~'){
-                            int onlyPoint = Integer.parseInt(points.substring(0, points.length() - 1));
-                            System.out.println("poin: " + onlyPoint);
-                            db.updateUserPoints(onlyPoint, players[player]);
-                            db.updateGameScore(onlyPoint, 1, Integer.parseInt(gid), players[player]);
-                            db.updateUserPlunks(players[player], 0);
-                        }else {
-                            db.updateGameScore(Integer.parseInt(points), 1, Integer.parseInt(gid), players[player]);
-                            db.updateUserPoints(Integer.parseInt(points), players[player]);
-                        }
-                    } else {
-                        if(points.charAt(points.length() - 1) == '~'){
-                            int onlyPoint = Integer.parseInt(points.substring(0, points.length() - 1));
-                            db.updateUserPoints(onlyPoint, players[player]);
-                            db.updateGameScore(onlyPoint, 1, Integer.parseInt(gid), players[player]);
-                            db.updateUserPlunks(players[player], 1);
-                        }else {
-                            db.updateGameScore(Integer.parseInt(points), 2, Integer.parseInt(gid), players[player]);
-                            db.updateUserPoints(Integer.parseInt(points), players[player]);
-                        }
+                    // UID values for team 1
+                    String t1p1UID = t1Players[0].split("~")[0];
+                    String t1p2UID = t1Players[1].split("~")[0];
+
+                    // UID values for team 2
+                    String t2p1UID = t2Players[0].split("~")[0];
+                    String t2p2UID = t2Players[1].split("~")[0];
+
+                    int[] team1 = new int[]{Integer.parseInt(t1p1UID), Integer.parseInt(t1p2UID)};
+                    int[] team2 = new int[]{Integer.parseInt(t2p1UID), Integer.parseInt(t2p2UID)};
+                    if(t1Score > t2Score) {
+                        System.out.println("YEET");
+                        db.finishGame(team1, team2, 1, Integer.parseInt(gid));
+                    }else{
+                        System.out.println("Yoot");
+                        db.finishGame(team2, team1, 2, Integer.parseInt(gid));
                     }
+                }catch(Exception e){
 
-                } catch (Exception e) {
-                    e.printStackTrace();
+                }
+
+            }else {
+                if (player != -1) {
+                    System.out.println("poin: " + points);
+                    System.out.println("player: " + player);
+                    System.out.println("Len: " + points.length());
+
+                    try {
+
+
+                        if (player <= 1) {
+                            if (points.charAt(points.length() - 1) == '~') {
+                                int onlyPoint = Integer.parseInt(points.substring(0, points.length() - 1));
+                                System.out.println("poin: " + onlyPoint);
+                                db.updateUserPoints(onlyPoint, players[player]);
+                                db.updateGameScore(onlyPoint, 1, Integer.parseInt(gid), players[player]);
+                                db.updateUserPlunks(players[player], 0);
+                            } else {
+                                db.updateGameScore(Integer.parseInt(points), 1, Integer.parseInt(gid), players[player]);
+                                db.updateUserPoints(Integer.parseInt(points), players[player]);
+                            }
+                        } else {
+                            if (points.charAt(points.length() - 1) == '~') {
+                                int onlyPoint = Integer.parseInt(points.substring(0, points.length() - 1));
+                                db.updateUserPoints(onlyPoint, players[player]);
+                                db.updateGameScore(onlyPoint, 1, Integer.parseInt(gid), players[player]);
+                                db.updateUserPlunks(players[player], 1);
+                            } else {
+                                db.updateGameScore(Integer.parseInt(points), 2, Integer.parseInt(gid), players[player]);
+                                db.updateUserPoints(Integer.parseInt(points), players[player]);
+                            }
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             try {
@@ -154,6 +189,7 @@ public class GameServlet extends HttpServlet {
             } catch (Exception e) {
 
             }
+
         }
 
     }

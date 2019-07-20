@@ -83,6 +83,7 @@
 			<span>  Points  </span>
 			<button type="submit" name="point" class="btn btn-primary" value="1">+1</button>
 		</div>
+		<button type="submit" name="point" class="btn btn-primary" value="finish">Finish Game</button>
 	</form>
 </div>
 

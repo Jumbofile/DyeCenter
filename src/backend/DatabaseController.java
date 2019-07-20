@@ -289,7 +289,64 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 			}
 		});
 	}
+	public boolean finishGame(int[]winTeam, int[]lossTeam, int status, int gid) throws SQLException {
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet = null;
+				//System.out.println("DB val: " + value);
+				//System.out.println("DB uid: " + uid);
+				for(int i =0; i < 2; i++){
+					System.out.println("1 :" + winTeam[i]);
+					System.out.println("2 :" + lossTeam[i]);
+				}
+				try {
+					stmt = conn.prepareStatement("update userstats set wins = wins + 1 where UID = ? or ?");
 
+					// substitute the title entered by the user for the placeholder in
+					// the query
+					stmt.setInt(1, winTeam[0]);
+					stmt.setInt(2, winTeam[1]);
+
+
+					// execute the query
+					stmt.executeUpdate();
+
+
+
+					stmt = conn.prepareStatement("update game set status = ? where GID = ?");
+
+					// substitute the title entered by the user for the placeholder in
+					// the query
+					stmt.setInt(1, status);
+					stmt.setInt(2, gid);
+
+
+					// execute the query
+					stmt.executeUpdate();
+
+					stmt2 = conn.prepareStatement("update userstats set loss = loss + 1 where UID = ? or ?");
+
+					// substitute the title entered by the user for the placeholder in
+					// the query
+					stmt2.setInt(1, lossTeam[0]);
+					stmt2.setInt(2, lossTeam[1]);
+
+
+					// execute the query
+					stmt2.executeUpdate();
+
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return true;
+			}
+		});
+	}
 	public boolean updateUserPlunks(int uid, int status) throws SQLException {
 		return executeTransaction(new Transaction<Boolean>() {
 			@Override
@@ -479,7 +536,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
                 resultSet = stmt.executeQuery();
 
                 if (resultSet.next()) {
-                    id = resultSet.getRow();
+                    id = resultSet.getInt(1);
                 }else{
                 	System.out.println("Its empty cheif");
 				}
