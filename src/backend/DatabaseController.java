@@ -290,6 +290,38 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 		});
 	}
 
+	public boolean updateUserPlunks(int uid, int status) throws SQLException {
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				//System.out.println("DB val: " + value);
+				//System.out.println("DB uid: " + uid);
+				try {
+					if(status == 0) {
+						stmt = conn.prepareStatement("update userstats set plunks = plunks + 1 where UID = ?");
+					}else{
+						stmt = conn.prepareStatement("update userstats set plunks = plunks - 1 where UID = ?");
+					}
+					// substitute the title entered by the user for the placeholder in
+					// the query
+					stmt.setInt(1, uid);
+
+
+					// execute the query
+					stmt.executeUpdate();
+
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return true;
+			}
+		});
+	}
+
 	/***
 	 *
 	 * @param value

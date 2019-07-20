@@ -106,9 +106,9 @@
 		<div id="updateBtns" >
 			<input type="number" name="player" style="display: none" id="playerValue" value="-1">
 
-			<button type="submit" name="point" class="btn btn-primary" value="-${plunkValue}">-${plunkValue}</button>
+			<button type="submit" name="point" class="btn btn-primary" value="-${plunkValue}~">-${plunkValue}</button>
 			<span>  Plunk  </span>
-			<button type="submit" name="point" class="btn btn-primary" value="${plunkValue}">+${plunkValue}</button>
+			<button type="submit" name="point" class="btn btn-primary" value="${plunkValue}~">+${plunkValue}</button>
 			<br>
 			<br>
 			<button type="submit" name="point" class="btn btn-primary"  value="-1">-1</button>

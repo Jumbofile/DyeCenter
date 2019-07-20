@@ -21,6 +21,7 @@ public interface IDatabase {
 	public Integer getPlunk(int TID) throws SQLException;
 	public boolean updateUserPoints(int value, int uid) throws SQLException;
 	public boolean updateGameScore(int value, int teamID, int GID, int uid) throws SQLException;
+	public boolean updateUserPlunks(int uid, int status) throws SQLException;
 
 
 }

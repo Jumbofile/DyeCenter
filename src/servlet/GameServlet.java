@@ -112,29 +112,47 @@ public class GameServlet extends HttpServlet {
         }else{
             String points = (String)req.getParameter("point");
             int player = Integer.parseInt(req.getParameter("player"));
+            if(player != -1) {
+                System.out.println("poin: " + points);
+                System.out.println("player: " + player);
+                System.out.println("Len: " + points.length());
 
-            //System.out.println("poin: " + points);
-            System.out.println("player: " + player) ;
+                try {
 
-            try{
-            db.updateUserPoints(Integer.parseInt(points), players[player]);
 
-            if(player <= 1) {
-                db.updateGameScore(Integer.parseInt(points),1, Integer.parseInt(gid), players[player]);
-            }
-            else {
-                db.updateGameScore(Integer.parseInt(points),2, Integer.parseInt(gid), players[player]);
-            }
+                    if (player <= 1) {
+                        if(points.charAt(points.length() - 1) == '~'){
+                            int onlyPoint = Integer.parseInt(points.substring(0, points.length() - 1));
+                            System.out.println("poin: " + onlyPoint);
+                            db.updateUserPoints(onlyPoint, players[player]);
+                            db.updateGameScore(onlyPoint, 1, Integer.parseInt(gid), players[player]);
+                            db.updateUserPlunks(players[player], 0);
+                        }else {
+                            db.updateGameScore(Integer.parseInt(points), 1, Integer.parseInt(gid), players[player]);
+                            db.updateUserPoints(Integer.parseInt(points), players[player]);
+                        }
+                    } else {
+                        if(points.charAt(points.length() - 1) == '~'){
+                            int onlyPoint = Integer.parseInt(points.substring(0, points.length() - 1));
+                            db.updateUserPoints(onlyPoint, players[player]);
+                            db.updateGameScore(onlyPoint, 1, Integer.parseInt(gid), players[player]);
+                            db.updateUserPlunks(players[player], 1);
+                        }else {
+                            db.updateGameScore(Integer.parseInt(points), 2, Integer.parseInt(gid), players[player]);
+                            db.updateUserPoints(Integer.parseInt(points), players[player]);
+                        }
+                    }
 
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-            try {
-                resp.sendRedirect(req.getContextPath() + "/game");
-                req.getSession().setAttribute("gid", gid);
-            }catch (Exception e){
+                try {
+                    resp.sendRedirect(req.getContextPath() + "/game");
+                    req.getSession().setAttribute("gid", gid);
+                } catch (Exception e) {
 
+                }
             }
         }
 
