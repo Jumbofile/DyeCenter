@@ -24,7 +24,7 @@ public class TablesServlet extends HttpServlet {
             req.getRequestDispatcher("/login").forward(req, resp);
         } else {
             String tableID = (String)req.getSession().getAttribute("tableID");
-            System.out.println("get: " + tableID);
+            //System.out.println("get: " + tableID);
 
             getGameButton(req);
 
@@ -44,52 +44,79 @@ public class TablesServlet extends HttpServlet {
         }else {
             //int tableID = (int)req.getAttribute("tableId");
             String tableID = (String)req.getSession().getAttribute("tableID");
-            System.out.println(tableID);
+            //System.out.println(tableID);
 
             //get game buttons
             getGameButton(req);
 
-            String loadGame = req.getParameter("gamePressed");
-            //System.out.println("YEET" + req.getParameter("t1"));
+            String loadGame = null;
+
+            //Check if the input boxes are empty
             if(req.getParameter("t1").equals("") || req.getParameter("t2").equals("")){
+                try {
+                    loadGame = req.getParameter("gamePressed");
+                }catch (Exception e){
+                    loadGame = null;
+                }
+            }
+
+            //the input boxes are empty, the user must of clicked a game button
+            if(loadGame != null){
+
                 //Game pressed below
                 resp.sendRedirect(req.getContextPath() + "/game");
                 req.getSession().setAttribute("gid", loadGame);
 
 
-            }else {
-                //Create game funtions below
-                String[] t1 = req.getParameter("t1").split(",");
-                String[] t2 = req.getParameter("t2").split(",");
+            }else{
+                //The value boxes are empty, users possibly clicked the submit button
+                //We dont know if the submit was pressed so we will check if they hit a game button
+                //- The game button will be pressed if the "Gamepressed" para isnt null!
+                if(req.getParameter("gamePressed") == null) {
+                    if(req.getParameter("t1").equals("") || req.getParameter("t2").equals("")){
+                        //DO NOTHING!!!
+                    }else {
+                        //The user pressed the submit button so we can make a game
+                        String[] t1 = req.getParameter("t1").split(",");
+                        String[] t2 = req.getParameter("t2").split(",");
 
-                //add players to game
-                ArrayList<String> team1 = new ArrayList<String>();
-                team1.add(t1[0]+"~0");
-                team1.add(t1[1]+"~0");
-                ArrayList<String> team2 = new ArrayList<String>();
-                team2.add(t2[0]+"~0");
-                team2.add(t2[1]+"~0");
-                //create game
-                try {
-                    String gid = db.createGame(Integer.parseInt(tableID), team1, team2);
-                    if(gid != "-1") {
-                        resp.sendRedirect(req.getContextPath() + "/game");
-                        req.getSession().setAttribute("gid", gid);
+                        //add players to game
+                        ArrayList<String> team1 = new ArrayList<String>();
+                        team1.add(t1[0] + "~0");
+                        team1.add(t1[1] + "~0");
+                        ArrayList<String> team2 = new ArrayList<String>();
+                        team2.add(t2[0] + "~0");
+                        team2.add(t2[1] + "~0");
+                        //create game
+                        try {
+                            //Try to hit the database
+                            String gid = db.createGame(Integer.parseInt(tableID), team1, team2);
+                            if (gid != "-1") {
+                                resp.sendRedirect(req.getContextPath() + "/game");
+                                req.getSession().setAttribute("gid", gid);
+                            } else {
+                                //Failed to create the game, keeps user on the table view
+                                resp.sendRedirect(req.getContextPath() + "/table");
+                                req.getSession().setAttribute("tableID", tableID);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            System.out.println("Game create fail.");
+                        }
                     }
-                    else {
-                        //Failed to create the game, keeps user on the table view
-                        resp.sendRedirect(req.getContextPath() + "/table");
-                        req.getSession().setAttribute("tableID", tableID);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.out.println("Game create fail.");
+                }else{
+                    //They actually hit a game button so just go to that game
+                    resp.sendRedirect(req.getContextPath() + "/game");
+                    req.getSession().setAttribute("gid", req.getParameter("gamePressed"));
                 }
             }
-           // req.setAttribute("username", usernameCap);
-            //req.setAttribute("idea", response);
-//            resp.sendRedirect(req.getContextPath() + "/table");
-//            req.getSession().setAttribute("tableID", tableID);
+
+            //if all else fails, get /table
+            try {
+                resp.sendRedirect(req.getContextPath() + "/table");
+            }catch (Exception e){
+
+            }
         }
 
     }
@@ -107,7 +134,7 @@ public class TablesServlet extends HttpServlet {
                 //System.out.println("Game :" + i);
                 ArrayList<String> gameStats = db.getGameStats(gamesOnTable.get(i)) ;
                 htmlForPage = htmlForPage +
-                        "<button style=\"margin-top:15px;\" class=\"gameBtn btn btn-primary\" type=\"submit\" name = \"gamePressed\" data-status=\""+ gameStats.get(4) +"\" value = \"" + gamesOnTable.get(i) + "\">Game " + gameStats.get(5) + "</button>"
+                        "<button  onclick ='clearVals' style=\"margin-top:15px;\" class=\"btn btn-primary\" type=\"submit\" name = \"gamePressed\" data-status=\""+ gameStats.get(4) +"\" value = \"" + gamesOnTable.get(i) + "\">Game " + gameStats.get(5) + "</button>"
                         + "<br/>" ;
 
             }

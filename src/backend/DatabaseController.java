@@ -467,7 +467,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 				resultSet = stmt.executeQuery();
 
 				while(resultSet.next()) {
-					System.out.println("DB :" + resultSet.getInt(1));
+					//System.out.println("DB :" + resultSet.getInt(1));
 					rtnStats.add(resultSet.getInt(1));
 				}
 
