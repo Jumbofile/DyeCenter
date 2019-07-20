@@ -146,13 +146,12 @@ public class GameServlet extends HttpServlet {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+            try {
+                resp.sendRedirect(req.getContextPath() + "/game");
+                req.getSession().setAttribute("gid", gid);
+            } catch (Exception e) {
 
-                try {
-                    resp.sendRedirect(req.getContextPath() + "/game");
-                    req.getSession().setAttribute("gid", gid);
-                } catch (Exception e) {
-
-                }
             }
         }
 
