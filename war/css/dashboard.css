@@ -12067,15 +12067,15 @@ body.sidebar-toggled footer.sticky-footer {
     width: 100%;
 }
 
-#userIcon {
-    position: relative;
-    margin: auto;
-    top: -62%;
-}
+/*#userIcon {*/
+    /*position: relative;*/
+    /*margin: auto;*/
+    /*top: -62%;*/
+/*}*/
 
 
-@media screen and (max-width: 1200px) {
-    #userDropdown {
-        left: 20vw;
-    }
-}
+/*@media screen and (max-width: 1200px) {*/
+    /*#userDropdown {*/
+        /*left: 20vw;*/
+    /*}*/
+/*}*/

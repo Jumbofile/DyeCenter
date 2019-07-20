@@ -88,9 +88,9 @@
 
 		<!-- Nav Item - Charts -->
 		<li class="nav-item">
-			<a class="nav-link" href="charts.html">
-				<i class="fas fa-fw fa-chart-area"></i>
-				<span>Charts</span>
+			<a onclick="logout()" class="nav-link" href="index">
+				<i class="fas fa-sign-out-alt"></i>
+				<span>Logout</span>
             </a>
 		</li>
 
@@ -135,8 +135,9 @@
 					<%--<i class="fa fa-bars"></i>--%>
 				<%--</button>--%>
 					<!-- Nav Item - User Information -->
+				<%--style="display: block; top:5px; left: 37vw;"--%>
 					<li id="userIcon" class="nav-item dropdown no-arrow">
-						<a style="display: block; top:5px; left: 37vw;" class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<a  class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<span style="direction: rtl" class="mr-2 d-lg-inline text-gray-600 small">${name}</span>
 							<img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
 						</a>
@@ -186,7 +187,13 @@
 									<div class="col mr-2">
 										<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Games Played</div>
 										<div class="h5 mb-0 font-weight-bold text-gray-800">
-											${played}<span class="text-gray-500" style="padding-left:1em; font-size: 12px">W: ${wins} / L: ${loss}</span>
+											${played}
+											<span class="text-gray-500" style="padding-left:1em; font-size: 12px">
+												W:
+												<span id="wins">${wins}</span>
+												/ L:
+												<span id="losses">${loss}</span>
+											</span>
 										</div>
 									</div>
 									<div class="col-auto">
@@ -205,7 +212,7 @@
 									<div class="col mr-2">
 										<div class="text-xs font-weight-bold text-success text-uppercase mb-1">Plunks</div>
 										<div class="h5 mb-0 font-weight-bold text-gray-800">
-											${plunks}
+											<span id="plunks">${plunks}</span>
 										</div>
 									</div>
 									<div class="col-auto">
@@ -224,7 +231,7 @@
 									<div class="col mr-2">
 										<div class="text-xs font-weight-bold text-success text-uppercase mb-1">Points</div>
 										<div class="h5 mb-0 font-weight-bold text-gray-800">
-											${points}
+											<span id="points">${points}</span>
 										</div>
 									</div>
 									<div class="col-auto">
@@ -296,13 +303,10 @@
 								</div>
 								<div class="mt-4 text-center small">
                                     <span class="mr-2">
-                                      <i class="fas fa-circle text-primary"></i> Direct
+								  		<i class="fas fa-circle text-primary"></i> Wins
                                     </span>
-                                                    <span class="mr-2">
-                                      <i class="fas fa-circle text-success"></i> Social
-                                    </span>
-                                                    <span class="mr-2">
-                                      <i class="fas fa-circle text-info"></i> Referral
+									<span class="mr-2">
+										<i class="fas fa-circle text-danger"></i> Losses
                                     </span>
 								</div>
 							</div>
