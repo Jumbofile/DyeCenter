@@ -107,6 +107,7 @@ public class GameServlet extends HttpServlet {
         uid = (String) req.getSession().getAttribute("uid"); //session stuff
         gid = (String) req.getSession().getAttribute("gid");
 
+
         if (uid == null) {
             req.getRequestDispatcher("/login").forward(req, resp);
         }else{

@@ -28,81 +28,46 @@
 </head>
 
 <body>
-<form action="${pageContext.servletContext.contextPath}/game" method="post">
-	<%--<div class="container-fluid">--%>
-		<%--<div class="row">--%>
-			<%--<div onclick="selectPlayer(this)" class="col-sm playerSel">--%>
-				<%--<h2 class="float-right">${t1p1Name}</h2>--%>
-			<%--</div>--%>
-			<%--<div class="col-sm">--%>
-
-			<%--</div>--%>
-			<%--<div onclick="selectPlayer(this)" class="col-sm playerSel">--%>
-				<%--<h2 class="float-left">${t2p1Name}</h2>--%>
-			<%--</div>--%>
-		<%--</div>--%>
-
-		<%--<div class="row">--%>
-			<%--<div class="col-sm">--%>
-				<%--<h1 class="float-left">Team 1:  ${t1Score}</h1>--%>
-			<%--</div>--%>
-			<%--<div class="col-sm">--%>
-				<%--<img style="width:100%" class="img-responsive" src="/webresources/dye-table.jpg" alt="Dye Table">--%>
-			<%--</div>--%>
-			<%--<div class="col-sm">--%>
-				<%--<h1 class="float-right">Team 2:  ${t2Score}</h1>--%>
-			<%--</div>--%>
-		<%--</div>--%>
-
-		<%--<div class="row">--%>
-			<%--<div onclick="selectPlayer(this)" class="col-sm playerSel">--%>
-				<%--<h2 class="float-right">${t1p2Name}</h2>--%>
-			<%--</div>--%>
-			<%--<div class="col-sm">--%>
-
-			<%--</div>--%>
-			<%--<div onclick="selectPlayer(this)" class="col-sm playerSel">--%>
-				<%--<h2 class="float-left">${t2p2Name}</h2>--%>
-			<%--</div>--%>
-		<%--</div>--%>
-
-		<div class="container-fluid">
-			<div class="row">
-				<a value="back" class="btn btn-primary">Back</a>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<div onclick="selectPlayer(this, 0)" class="row playerSel">
-						<h2 class="float-left">${t1p1Name}   ${t1p1Score}</h2>
-					</div>
-
-					<div class="row">
-						<h2 class="float-right">Team 1:  ${t1Score}</h2>
-					</div>
-
-					<div onclick="selectPlayer(this, 1)" class="row playerSel">
-						<h2 class="float-left">${t1p2Name}   ${t1p2Score}</h2>
-					</div>
+<div class="container-fluid">
+	<div class="row">
+		<form action="${pageContext.servletContext.contextPath}/dashboard" method="post">
+			<button type="submit" name="back" value="back" class="btn btn-primary">Back</button>
+		</form>
+	</div>
+	<form action="${pageContext.servletContext.contextPath}/game" method="post">
+		<div class="row">
+			<div class="col-md-4">
+				<div onclick="selectPlayer(this, 0)" class="row playerSel">
+					<h2 class="float-left">${t1p1Name}   ${t1p1Score}</h2>
 				</div>
 
-				<div class="col-md">
-					<img id="gamePic" style="width:100%" class="img-responsive" src="/webresources/dye-table.jpg" alt="Dye Table">
+				<div class="row">
+					<h2 class="float-right">Team 1:  ${t1Score}</h2>
 				</div>
 
-				<div class="col-md-4">
-					<div onclick="selectPlayer(this, 2)" class="row playerSel">
-						<h2 class="float-left">${t2p1Name}   ${t2p1Score}</h2>
-					</div>
-
-					<div class="row">
-						<h2 class="float-right">Team 2:  ${t2Score}</h2>
-					</div>
-
-					<div onclick="selectPlayer(this, 3)" class="row playerSel">
-						<h2 class="float-left">${t2p2Name}   ${t2p2Score}</h2>
-					</div>
+				<div onclick="selectPlayer(this, 1)" class="row playerSel">
+					<h2 class="float-left">${t1p2Name}   ${t1p2Score}</h2>
 				</div>
 			</div>
+
+			<div class="col-md">
+				<img id="gamePic" style="width:100%" class="img-responsive" src="/webresources/dye-table.jpg" alt="Dye Table">
+			</div>
+
+			<div class="col-md-4">
+				<div onclick="selectPlayer(this, 2)" class="row playerSel">
+					<h2 class="float-left">${t2p1Name}   ${t2p1Score}</h2>
+				</div>
+
+				<div class="row">
+					<h2 class="float-right">Team 2:  ${t2Score}</h2>
+				</div>
+
+				<div onclick="selectPlayer(this, 3)" class="row playerSel">
+					<h2 class="float-left">${t2p2Name}   ${t2p2Score}</h2>
+				</div>
+			</div>
+		</div>
 
 
 
@@ -118,8 +83,9 @@
 			<span>  Points  </span>
 			<button type="submit" name="point" class="btn btn-primary" value="1">+1</button>
 		</div>
-	</div>
-</form>
+	</form>
+</div>
+
 </body>
 
 <!-- Bootstrap core JavaScript-->

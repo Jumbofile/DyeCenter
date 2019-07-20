@@ -39,9 +39,15 @@
 </head>
 
 <body>
-<form action="${pageContext.servletContext.contextPath}/table" method="post">
+<div class="container col-md-6">
+	<div class="row">
+		<form action="${pageContext.servletContext.contextPath}/dashboard" method="post">
+			<button type="submit" name="back" value="back" class="btn btn-primary">Back</button>
+		</form>
+	</div>
+	<form action="${pageContext.servletContext.contextPath}/table" method="post">
 
-	<div class="container col-md-6">
+
 		<div style="margin-top: 15vh;">
 			<h2 style="margin-bottom: 30px;">Create Game</h2>
 			<div class="input-group mb-3">
@@ -67,9 +73,8 @@
 		<br/>
 		<h2>Games</h2>
 		${gameButtons}
-	</div>
-
-</form>
+	</form>
+</div>
 </body>
 
 <!-- Bootstrap core JavaScript-->
