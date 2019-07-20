@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-
+	<meta http-equiv="refresh" content="10" />
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
@@ -69,21 +69,17 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-4">
-					<div onclick="selectPlayer(this)" class="row playerSel">
-						<h2 class="float-left">${t1p1Name}</h2>
+					<div onclick="selectPlayer(this, 0)" class="row playerSel">
+						<h2 class="float-left">${t1p1Name}   ${t1p1Score}</h2>
 					</div>
 
 					<div class="row">
 						<h2 class="float-right">Team 1:  ${t1Score}</h2>
 					</div>
 
-					<div onclick="selectPlayer(this)" class="row playerSel">
-						<h2 class="float-left">${t1p2Name}</h2>
+					<div onclick="selectPlayer(this, 1)" class="row playerSel">
+						<h2 class="float-left">${t1p2Name}   ${t1p2Score}</h2>
 					</div>
-				</div>
-
-				<div onclick="selectPlayer(this)" class="col-md-4 order-7 order-md-3playerSel">
-					<h2 class="float-left">${t2p1Name}</h2>
 				</div>
 
 				<div class="col-md">
@@ -91,28 +87,33 @@
 				</div>
 
 				<div class="col-md-4">
-					<div onclick="selectPlayer(this)" class="row playerSel">
-						<h2 class="float-left">${t2p1Name}</h2>
+					<div onclick="selectPlayer(this, 2)" class="row playerSel">
+						<h2 class="float-left">${t2p1Name}   ${t2p1Score}</h2>
 					</div>
 
 					<div class="row">
 						<h2 class="float-right">Team 2:  ${t2Score}</h2>
 					</div>
 
-					<div onclick="selectPlayer(this)" class="row playerSel">
-						<h2 class="float-left">${t2p2Name}</h2>
+					<div onclick="selectPlayer(this, 3)" class="row playerSel">
+						<h2 class="float-left">${t2p2Name}   ${t2p2Score}</h2>
 					</div>
 				</div>
 			</div>
 
 
 
-		<div id="updatebtns" >
-			<button type="submit" name="point" class="btn btn-primary" value="${plunkValue}">Plunk</button>
+		<div id="updateBtns" >
+			<input type="number" name="player" style="display: none" id="playerValue" value="-1">
+
+			<button type="submit" name="point" class="btn btn-primary" value="-${plunkValue}">-${plunkValue}</button>
+			<span>  Plunk  </span>
+			<button type="submit" name="point" class="btn btn-primary" value="${plunkValue}">+${plunkValue}</button>
 			<br>
-			<button type="submit" name="point" class="btn btn-primary"  value="1">+1</button>
 			<br>
-			<button type="submit" name="point" class="btn btn-primary" value="-1">-1</button>
+			<button type="submit" name="point" class="btn btn-primary"  value="-1">-1</button>
+			<span>  Points  </span>
+			<button type="submit" name="point" class="btn btn-primary" value="1">+1</button>
 		</div>
 	</div>
 </form>

@@ -16,6 +16,7 @@ public class GameServlet extends HttpServlet {
     private String uid = null;
     private String gid = null ;
     private String tid = null ;
+    private int players[] = new int[4] ;
     private DatabaseController db = new DatabaseController();
     ArrayList<String> accountInfo = new ArrayList<>();
 
@@ -67,6 +68,11 @@ public class GameServlet extends HttpServlet {
                 String t2p1UID = t2Players[0].split("~")[0];
                 String t2p2UID = t2Players[1].split("~")[0];
 
+                players[0] = Integer.parseInt(t1p1UID);
+                players[1] = Integer.parseInt(t1p2UID);
+                players[2] = Integer.parseInt(t2p1UID);
+                players[3] = Integer.parseInt(t2p2UID);
+
                 req.setAttribute("t1p1Name", db.getAccountName(Integer.parseInt(t1p1UID)));
                 req.setAttribute("t1p2Name", db.getAccountName(Integer.parseInt(t1p2UID)));
                 req.setAttribute("t2p1Name", db.getAccountName(Integer.parseInt(t2p1UID)));
@@ -84,9 +90,13 @@ public class GameServlet extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            req.getSession().setAttribute("gid", gid);
-            req.getSession().setAttribute("uid", uid);
-            req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
+            try {
+                req.getSession().setAttribute("gid", gid);
+                req.getSession().setAttribute("uid", uid);
+                req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
+            }catch (Exception e){
+
+            }
         }
     }
 
@@ -101,17 +111,31 @@ public class GameServlet extends HttpServlet {
             req.getRequestDispatcher("/login").forward(req, resp);
         }else{
             String points = (String)req.getParameter("point");
-            //System.out.println(pointValue);
+            int player = Integer.parseInt(req.getParameter("player"));
+
+            //System.out.println("poin: " + points);
+            System.out.println("player: " + player) ;
+
             try{
-            db.updateUserPoints(Integer.parseInt(points), /*TODO*/ 1);
-            db.updateGameScore(Integer.parseInt(points), /*TODO*/1, Integer.parseInt(gid));
+            db.updateUserPoints(Integer.parseInt(points), players[player]);
+
+            if(player <= 1) {
+                db.updateGameScore(Integer.parseInt(points),1, Integer.parseInt(gid), players[player]);
+            }
+            else {
+                db.updateGameScore(Integer.parseInt(points),2, Integer.parseInt(gid), players[player]);
+            }
+
             }catch (Exception e){
                 e.printStackTrace();
             }
 
+            try {
+                resp.sendRedirect(req.getContextPath() + "/game");
+                req.getSession().setAttribute("gid", gid);
+            }catch (Exception e){
 
-            resp.sendRedirect(req.getContextPath() + "/game");
-            req.getSession().setAttribute("gid", gid);
+            }
         }
 
     }

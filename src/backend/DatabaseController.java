@@ -195,7 +195,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 	 * @return
 	 * @throws SQLException
 	 */
-	public boolean updateGameScore(int value, int teamID, int GID) throws SQLException {
+	public boolean updateGameScore(int value, int teamID, int GID, int uid) throws SQLException {
 		return executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
@@ -214,10 +214,71 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 					stmt.setInt(1, value);
 					stmt.setInt(2, GID);
 
-
-
 					// execute the query
-					resultSet = stmt.executeQuery();
+					stmt.executeUpdate();
+
+					ArrayList<String> gameStats = getGameStats(GID);
+
+					//Check which team the player is on
+					if(teamID == 1){
+						//Player is on team one, find out which player on team one scored
+						String[] t1Players = gameStats.get(0).split(",") ;
+						if(uid == Integer.parseInt(t1Players[0].split("~")[0])){
+							//Parse!
+							//gets the selected player
+							String playerInQuestion = t1Players[0];
+
+							//only get the points associated from the player
+							String[] playersPoints = t1Players[0].split("~");
+
+							//add the value to the player
+							int playerScore = Integer.parseInt(playersPoints[1]);
+							playerScore += value;
+
+							//update the new string for the database
+							String updatedPlayer = uid + "~" + playerScore;
+
+							//sql statement to update
+							stmt = conn.prepareStatement("update game set team_1 = ? where GID = ?");
+							stmt.setString(1, updatedPlayer + "," + t1Players[1]);
+
+						}else{
+							//Parse! see above
+							String playerInQuestion = t1Players[1];
+							String[] playersPoints = t1Players[1].split("~");
+							int playerScore = Integer.parseInt(playersPoints[1]);
+							playerScore += value;
+							String updatedPlayer = uid + "~" + playerScore;
+							stmt = conn.prepareStatement("update game set team_1 = ? where GID = ?");
+							stmt.setString(1, t1Players[0] + "," + updatedPlayer);
+						}
+					}else{
+						if(teamID == 2){
+							//gets players on team 2
+							String[] t2Players = gameStats.get(1).split(",") ;
+							if(uid == Integer.parseInt(t2Players[0].split("~")[0])){
+								String playerInQuestion = t2Players[0];
+								String[] playersPoints = t2Players[0].split("~");
+								int playerScore = Integer.parseInt(playersPoints[1]);
+								playerScore += value;
+								String updatedPlayer = uid + "~" + playerScore;
+								stmt = conn.prepareStatement("update game set team_2 = ? where GID = ?");
+								stmt.setString(1, updatedPlayer + "," + t2Players[1]);
+							}else{
+								String playerInQuestion = t2Players[1];
+								String[] playersPoints = t2Players[1].split("~");
+								int playerScore = Integer.parseInt(playersPoints[1]);
+								playerScore += value;
+								String updatedPlayer = uid + "~" + playerScore;
+								stmt = conn.prepareStatement("update game set team_2 = ? where GID = ?");
+								stmt.setString(1, t2Players[0] + "," + updatedPlayer);
+							}
+						}
+					}
+					stmt.setInt(2, GID);
+					// execute the query
+					stmt.executeUpdate();
+
 
 
 				} finally {
@@ -243,7 +304,8 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 				//Connection conn = null;
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
-
+				//System.out.println("DB val: " + value);
+				//System.out.println("DB uid: " + uid);
 				try {
 					stmt = conn.prepareStatement("update userstats set points = points + ? where UID = ?");
 
@@ -254,8 +316,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 
 
 					// execute the query
-					resultSet = stmt.executeQuery();
-
+					stmt.executeUpdate();
 
 				} finally {
 					DBUtil.closeQuietly(resultSet);

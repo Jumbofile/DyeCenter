@@ -20,7 +20,7 @@ public interface IDatabase {
 	public String createGame (int TID, ArrayList<String> teamOne, ArrayList<String> teamTwo) throws SQLException;
 	public Integer getPlunk(int TID) throws SQLException;
 	public boolean updateUserPoints(int value, int uid) throws SQLException;
-	public boolean updateGameScore(int value, int teamID, int GID) throws SQLException;
+	public boolean updateGameScore(int value, int teamID, int GID, int uid) throws SQLException;
 
 
 }
