@@ -5,6 +5,7 @@ import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -423,22 +424,47 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 				//Connection conn = null;
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
-				String[] commaPlayers = players.split(",");
+
+				String[] newPlayers = players.split(",");
+				ArrayList<String> newPlayerList = new ArrayList<String>(Arrays.asList(newPlayers)) ;
+
+				String tablePlayers;
+
+				try{
+					stmt = conn.prepareStatement("SELECT players from dyetable where tid = ?") ;
+					stmt.setInt(1, tid);
+
+					resultSet = stmt.executeQuery();
+
+					resultSet.next();
+
+					tablePlayers = resultSet.getString(1);
+					ArrayList<String> tablePlayerList =  new ArrayList<String>(Arrays.asList(tablePlayers.split("\\s*,\\s*")));
+
+					for(int i = 0; i < tablePlayerList.size(); i++){
+						newPlayerList.remove(tablePlayerList.get(i)) ;
+					}
+
+
+					if(newPlayerList.isEmpty()){
+						//fuck you
+					}else{
+						tablePlayerList.addAll(newPlayerList);
+						String newPlayerString = String.join(",",tablePlayerList) ;
+
+						stmt = conn.prepareStatement("update dyetable set players = ? where tid = ?") ;
+						stmt.setString(1,newPlayerString);
+						stmt.setInt(2, tid);
+
+						stmt.executeUpdate();
+					}
+
+				} catch (Exception e){
+					e.printStackTrace();
+				}
 				//System.out.println("DB val: " + value);
 				//System.out.println("DB uid: " + uid);
-				try {
-					stmt = conn.prepareStatement("update dyetable set players =  where UID = ?");
-
-					// substitute the title entered by the user for the placeholder in
-					// the query
-					stmt.setInt(1, value);
-					stmt.setInt(2, uid);
-
-
-					// execute the query
-					stmt.executeUpdate();
-
-				} finally {
+				 finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);
 				}
@@ -466,13 +492,14 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 				ResultSet resultSet = null;
 				Object[] resultArray = new Object[]{false, 1};
 				try {
-					stmt = conn.prepareStatement("insert into dyetable(name, UID, plunk) values(?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+					stmt = conn.prepareStatement("insert into dyetable(name, UID, plunk, players) values(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
 					// substitute the title entered by the user for the placeholder in
 					// the query
 					stmt.setString(1, tableName);
 					stmt.setInt(2, uid);
 					stmt.setInt(3, plunk);
+					stmt.setString(4, Integer.toString(uid));
 
 					// execute the query
 					stmt.execute();
@@ -533,6 +560,20 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 					ResultSet rs = stmt.getGeneratedKeys();
 					rs.next();
 					int gid = rs.getInt(1);
+
+
+					System.out.println("Team 1: "+ teamOne.get(0));
+					System.out.println("Team 2: "+ teamTwo.get(0));
+
+					String playerUIDs = teamOne.get(0).split("~")[0] + "," ;
+					       playerUIDs += teamOne.get(1).split("~")[0] + "," ;
+					       playerUIDs += teamTwo.get(0).split("~")[0] + "," ;
+					       playerUIDs += teamTwo.get(1).split("~")[0] + "," ;
+
+//					players += String.join(",",teamOne) + "," ;
+//					players += String.join(",",teamTwo) ;
+
+					addPlayersToTable(TID,playerUIDs) ;
 
 					return Integer.toString(gid);
 				} catch (Exception e){
@@ -707,13 +748,17 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 				ResultSet resultSet = null;
 
 				String rtnString = null;
+				try {
+					// retreive username attribute from login
+					stmt = conn.prepareStatement("SELECT name from dyetable where TID = ?");
+					stmt.setInt(1, TID);
+					resultSet = stmt.executeQuery();
 
-				// retreive username attribute from login
-				stmt = conn.prepareStatement("SELECT name from dyetable where TID = ?" );
-				stmt.setInt( 1, TID);
-				resultSet = stmt.executeQuery();
+					resultSet.next();
+				}catch (Exception e){
 
-				resultSet.next();
+				}
+
 
 				rtnString = resultSet.getString("name");
 
@@ -782,6 +827,22 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 					rtnStats.add(resultSet.getRow());
 				}
 
+				stmt = conn.prepareStatement("select TID, players from dyetable");
+
+				resultSet = stmt.executeQuery();
+				while(resultSet.next()){
+					int inter = resultSet.getRow();
+					String getIds = resultSet.getString("players");
+					String[] playerList = getIds.split(",");
+					for(int i = 0; i < playerList.length; i++){
+						System.out.println(playerList[i]);
+						if(Integer.parseInt(playerList[i]) == UID){
+
+							rtnStats.add(resultSet.getInt(1));
+						}
+					}
+
+				}
 				DBUtil.closeQuietly(resultSet);
 				DBUtil.closeQuietly(stmt);
 				//DBUtil.closeQuietly(conn);

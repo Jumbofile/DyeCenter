@@ -87,6 +87,7 @@ public class DashboardServlet extends HttpServlet {
                 ArrayList<Integer> tables = db.getTables(UID) ;
                 ArrayList<String> tblNames = new ArrayList<>() ;
                 for(Integer TID : tables) {
+                    System.out.println("TID: " + TID);
                     tblNames.add( db.getTableNameBasedOnID(TID) + "^" + TID ) ;
                 }
                 String tblcsv = String.join(",", tblNames);
