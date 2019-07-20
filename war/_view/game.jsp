@@ -68,6 +68,9 @@
 
 		<div class="container-fluid">
 			<div class="row">
+				<a value="back" class="btn btn-primary">Back</a>
+			</div>
+			<div class="row">
 				<div class="col-md-4">
 					<div onclick="selectPlayer(this, 0)" class="row playerSel">
 						<h2 class="float-left">${t1p1Name}   ${t1p1Score}</h2>
@@ -106,9 +109,9 @@
 		<div id="updateBtns" >
 			<input type="number" name="player" style="display: none" id="playerValue" value="-1">
 
-			<button type="submit" name="point" class="btn btn-primary" value="-${plunkValue}">-${plunkValue}</button>
+			<button type="submit" name="point" class="btn btn-primary" value="-${plunkValue}~">-${plunkValue}</button>
 			<span>  Plunk  </span>
-			<button type="submit" name="point" class="btn btn-primary" value="${plunkValue}">+${plunkValue}</button>
+			<button type="submit" name="point" class="btn btn-primary" value="${plunkValue}~">+${plunkValue}</button>
 			<br>
 			<br>
 			<button type="submit" name="point" class="btn btn-primary"  value="-1">-1</button>
