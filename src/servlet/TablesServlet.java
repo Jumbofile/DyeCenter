@@ -112,7 +112,11 @@ public class TablesServlet extends HttpServlet {
             }
 
             //if all else fails, get /table
-            resp.sendRedirect(req.getContextPath() + "/table");
+            try {
+                resp.sendRedirect(req.getContextPath() + "/table");
+            }catch (Exception e){
+
+            }
         }
 
     }
