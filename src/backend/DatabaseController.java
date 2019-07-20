@@ -643,6 +643,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 			}
 		});
 	}
+
 	public Integer getPlunk(int TID) throws SQLException{
 		return executeTransaction(new Transaction<Integer>() {
 			@Override

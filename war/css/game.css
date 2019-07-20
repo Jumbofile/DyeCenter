@@ -5,3 +5,9 @@
 .selected {
     background-color: rgba(83, 144, 223, 0.64);
 }
+
+@media only screen and (max-width: 768px) {
+    #gamePic {
+        transform: rotate(90deg);
+    }
+}

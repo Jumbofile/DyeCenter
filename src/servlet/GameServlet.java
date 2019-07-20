@@ -77,6 +77,9 @@ public class GameServlet extends HttpServlet {
                 req.setAttribute("t2p1Score", t2p1Score);
                 req.setAttribute("t2p2Score", t2p2Score);
 
+                req.setAttribute("t1Score", t1Score);
+                req.setAttribute("t2Score", t2Score);
+
 
             } catch (SQLException e) {
                 e.printStackTrace();
