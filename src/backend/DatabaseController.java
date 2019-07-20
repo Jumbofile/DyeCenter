@@ -415,6 +415,37 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 			}
 		});
 	}
+
+	public boolean addPlayersToTable(int tid, String players) throws SQLException {
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				String[] commaPlayers = players.split(",");
+				//System.out.println("DB val: " + value);
+				//System.out.println("DB uid: " + uid);
+				try {
+					stmt = conn.prepareStatement("update dyetable set players =  where UID = ?");
+
+					// substitute the title entered by the user for the placeholder in
+					// the query
+					stmt.setInt(1, value);
+					stmt.setInt(2, uid);
+
+
+					// execute the query
+					stmt.executeUpdate();
+
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return true;
+			}
+		});
+	}
 	/***
 	 * Creates a table
 	 * @param tableName
@@ -742,6 +773,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 				ArrayList<Integer> rtnStats = new ArrayList<Integer>();
 
 				// retreive username attribute from login
+
 				stmt = conn.prepareStatement("SELECT TID from dyetable where UID = ?" );
 				stmt.setInt( 1, UID);
 				resultSet = stmt.executeQuery();
@@ -758,6 +790,8 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 			}
 		});
 	}
+
+
 
 	/***
 	 * gets account name based on email
@@ -1077,6 +1111,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 						"	name varchar(50)," +
 						"	UID INT,"+
 						"	plunk INT,"+
+						"   players varchar(255), " +
 						")"
 					);
 					stmt.executeUpdate();
