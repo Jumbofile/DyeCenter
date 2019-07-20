@@ -25,6 +25,7 @@ public class GameServlet extends HttpServlet {
         System.out.println("Game DoGet");
         uid = (String) req.getSession().getAttribute("uid"); //session stuff
         gid = (String) req.getSession().getAttribute("gid") ;
+        System.out.println("GID: " + gid);
         if(gid == null || gid == "-1") {
             req.getRequestDispatcher("/dashboard").forward(req, resp);
         }
@@ -36,7 +37,12 @@ public class GameServlet extends HttpServlet {
 
                 String htmlForPage = "";
                 ArrayList<String> gameStats = db.getGameStats(Integer.parseInt(gid));
-                tid = gameStats.get(5) ;
+                tid = gameStats.get(6) ;
+
+                //get plunk value
+                int plunkValue = db.getPlunk(Integer.parseInt(tid));
+                req.setAttribute("plunkValue", plunkValue);
+
                 String[] t1Players = gameStats.get(0).split(",") ;
                 String[] t2Players = gameStats.get(1).split(",") ;
 
@@ -71,30 +77,12 @@ public class GameServlet extends HttpServlet {
                 req.setAttribute("t2p1Score", t2p1Score);
                 req.setAttribute("t2p2Score", t2p2Score);
 
-                //System.out.println("Game :" + i);
-//                htmlForPage =  "<div class='container'>";
-//                htmlForPage += "    <div class=row>" ;
-//                htmlForPage += "        <div class='col-md'>";
-//                htmlForPage += "            <button id='t1p1' class='player btn btn-primary'>Player "+ t1p1UID +" has "+ t1p1Score +" Points</button>";
-//                htmlForPage += "        </div>" ;
-//                htmlForPage += "     </div>" ;
-//                htmlForPage += "        "
-//                htmlForPage += "        <div class='col-md'>";
-//                htmlForPage += "    <span id=team1tag class='teamTag'>Team 1</span>" ;
-//                htmlForPage += "    <span id='t1p2' class='player btn btn-primary'>Player "+ t1p2UID +" has "+ t1p2Score +" Points</span>";
-//                htmlForPage += "    <span id='t2p1' class='player btn btn-primary'>Player "+ t2p1UID +" has "+ t2p1Score +" Points</span>";
-//                htmlForPage += "    <span id=team2tag class='teamTag'>Team 2</span>" ;
-//                htmlForPage += "    <span id='t2p2' class='player btn btn-primary'>Player "+ t2p2UID +" has "+ t2p2Score +" Points</span>";
-//                htmlForPage =  "</div >";
-//
-////                            "<br>";
-////                           "<button type=\"submit\" name = \"gamePressed\" value = \"" + gamesOnTable.get(i) + "\">Game " + forPrinting + "</button>";
-//
-//                req.setAttribute("gameStats", htmlForPage);
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            req.setAttribute("gid", gid);
+            req.getSession().setAttribute("gid", gid);
+            req.getSession().setAttribute("uid", uid);
             req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
         }
     }
@@ -104,9 +92,18 @@ public class GameServlet extends HttpServlet {
             throws ServletException, IOException {
 
         uid = (String) req.getSession().getAttribute("uid"); //session stuff
+        gid = (String) req.getSession().getAttribute("gid");
 
         if (uid == null) {
             req.getRequestDispatcher("/login").forward(req, resp);
+        }else{
+            String points = (String)req.getParameter("point");
+            //System.out.println(pointValue);
+
+
+
+            resp.sendRedirect(req.getContextPath() + "/game");
+            req.getSession().setAttribute("gid", gid);
         }
 
     }

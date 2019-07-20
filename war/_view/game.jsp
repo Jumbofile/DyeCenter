@@ -47,7 +47,7 @@
 				<h1 class="float-left">Team 1</h1>
 			</div>
 			<div class="col-sm">
-				<h2 style="text-align: center">*Table Graphic*</h2>
+				<h2 style="text-align: center"><img src="/webresources/dye-table.jpg" alt="Dye Table"></h2>
 			</div>
 			<div class="col-sm">
 				<h1 class="float-right">Team 2</h1>
@@ -65,6 +65,11 @@
 				<h2 class="float-left">${t2p2Name}</h2>
 			</div>
 		</div>
+		<button type="submit" name="point" class="btn" value="${plunkValue}">Plunk</button>
+		<br>
+		<button type="submit" name="point" class="btn"  value="1">+1</button>
+		<br>
+		<button type="sumit" name="point" class="btn" value="-1">-1</button>
 	</div>
 </form>
 </body>

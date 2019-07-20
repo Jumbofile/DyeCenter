@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.sun.xml.internal.bind.v2.TODO;
 import org.mindrot.jbcrypt.BCrypt;
 
 //import gameSqldemo.SQLDemo.RowList;
@@ -187,6 +188,84 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 	}
 
 	/***
+	 *
+	 * @param value
+	 * @param teamID
+	 * @param GID
+	 * @return
+	 * @throws SQLException
+	 */
+	public boolean updateGameScore(int value, int teamID, int GID) throws SQLException {
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					if(teamID == 1) {
+						stmt = conn.prepareStatement("update game set score_1 = score_1 + ? where GID = ?");
+					}else{
+						stmt = conn.prepareStatement("update game set score_2 = score_2 + ? where GID = ?");
+					}
+					// substitute the title entered by the user for the placeholder in
+					// the query
+					stmt.setInt(1, value);
+					stmt.setInt(2, GID);
+
+
+
+					// execute the query
+					resultSet = stmt.executeQuery();
+
+
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return true;
+			}
+		});
+	}
+
+	/***
+	 *
+	 * @param value
+	 * @param uid
+	 * @return
+	 * @throws SQLException
+	 */
+	public boolean updateUserPoints(int value, int uid) throws SQLException {
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					stmt = conn.prepareStatement("update userstats set points = points + ? where UID = ?");
+
+					// substitute the title entered by the user for the placeholder in
+					// the query
+					stmt.setInt(1, value);
+					stmt.setInt(2, uid);
+
+
+					// execute the query
+					resultSet = stmt.executeQuery();
+
+
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return true;
+			}
+		});
+	}
+	/***
 	 * Creates a table
 	 * @param tableName
 	 * @param plunk
@@ -245,54 +324,6 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 	 * @return
 	 * @throws SQLException
 	 */
-	/*public boolean createGame(int TID, ArrayList<String> teamOne, ArrayList<String> teamTwo) throws SQLException {
-		return executeTransaction(new Transaction<Boolean>() {
-			@Override
-			public Boolean execute(Connection conn) throws SQLException {
-				//Connection conn = null;
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
-
-				try {
-					//TODO
-					//Create a table with the teams listed, there will need to be a method made that allows the players to be changed
-					//This needs to allow users to choose teams on the servlet/jsp side
-					Date myDate = new Date();
-					String date = sdf.format(myDate);
-					//TODO
-					//THERE NEEDS TO BE A QUERY THAT WILL RETRIEVE THE PLAYERS UIDs!!!
-					stmt = conn.prepareStatement(
-							"insert into game(TID, team_1, team_2, score_1, score_2, status, timestamp)" +
-								"values(?, ?, ?, 0, 0, 0, ?)");
-
-					// substitute the title entered by the user for the placeholder in
-					// the query
-					stmt.setInt(1, TID);
-					stmt.setString(2, teamOne.get(0) +"," + teamOne.get(1));
-					stmt.setString(3, teamTwo.get(0) +"," + teamTwo.get(1));
-					stmt.setString(4, date);
-
-
-					// execute the query
-					stmt.execute();
-
-
-					return true;
-				} catch (Exception e){
-					e.printStackTrace();
-					return false;
-				}finally {
-					DBUtil.closeQuietly(resultSet);
-					DBUtil.closeQuietly(stmt);
-				}
-
-			}
-		});
-	}
-	*/
-
-
-
 	public String createGame(int TID, ArrayList<String> teamOne, ArrayList<String> teamTwo) throws SQLException {
 		return executeTransaction(new Transaction<String>() {
 			@Override
@@ -580,7 +611,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 
 	/***
 	 * gets account name based on email
-	 * @param email
+	 * @param UID
 	 * @return
 	 * @throws SQLException
 	 */
@@ -612,7 +643,34 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 			}
 		});
 	}
+	public Integer getPlunk(int TID) throws SQLException{
+		return executeTransaction(new Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+				int plunk = 0;
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
 
+				// retreive username attribute from login
+				stmt = conn.prepareStatement(
+						"select plunk from dyetable where TID = ?"
+				);
+
+				stmt.setInt(1, TID);
+				resultSet = stmt.executeQuery();
+
+				if (resultSet.next()) {
+					plunk = resultSet.getInt(1);
+				}
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				return plunk;
+			}
+		});
+	}
 	/*
 	TODO
 	 */
