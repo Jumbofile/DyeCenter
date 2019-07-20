@@ -99,7 +99,12 @@ public class GameServlet extends HttpServlet {
         }else{
             String points = (String)req.getParameter("point");
             //System.out.println(pointValue);
-
+            try{
+            db.updateUserPoints(Integer.parseInt(points), /*TODO*/ 1);
+            db.updateGameScore(Integer.parseInt(points), /*TODO*/1, Integer.parseInt(gid));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
 
 
             resp.sendRedirect(req.getContextPath() + "/game");
