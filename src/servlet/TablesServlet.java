@@ -107,7 +107,7 @@ public class TablesServlet extends HttpServlet {
                 //System.out.println("Game :" + i);
                 ArrayList<String> gameStats = db.getGameStats(gamesOnTable.get(i)) ;
                 htmlForPage = htmlForPage +
-                        "<button style=\"margin-top:15px;\" class=\"btn btn-primary\" type=\"submit\" name = \"gamePressed\" data-status=\""+ gameStats.get(4) +"\" value = \"" + gamesOnTable.get(i) + "\">Game " + gameStats.get(5) + "</button>"
+                        "<button style=\"margin-top:15px;\" class=\"gameBtn btn btn-primary\" type=\"submit\" name = \"gamePressed\" data-status=\""+ gameStats.get(4) +"\" value = \"" + gamesOnTable.get(i) + "\">Game " + gameStats.get(5) + "</button>"
                         + "<br/>" ;
 
             }
