@@ -86,7 +86,15 @@ public class DashboardServlet extends HttpServlet {
                 // Table Attributes
                 ArrayList<Integer> tables = db.getTables(UID) ;
                 ArrayList<String> tblNames = new ArrayList<>() ;
-                for(Integer TID : tables) {
+                ArrayList<Integer> uniqueEntries = new ArrayList<Integer>();
+                for(Integer IDs : tables){
+                    if(uniqueEntries.contains(IDs)){
+                        //do nothing
+                    }else{
+                        uniqueEntries.add(IDs);
+                    }
+                }
+                for(Integer TID : uniqueEntries) {
                     System.out.println("TID: " + TID);
                     tblNames.add( db.getTableNameBasedOnID(TID) + "^" + TID ) ;
                 }
