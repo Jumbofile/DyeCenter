@@ -1,8 +1,10 @@
 package main;
 
 import java.io.File;
+import java.net.InetSocketAddress;
 
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
@@ -12,7 +14,8 @@ public class Main {
 		Launcher launcher = new Launcher();
 		// get a server for port 8081
 		System.out.println("CREATING: web server on port 8081");
-		Server server = launcher.launch(true, 8081, warFile.getAbsolutePath(), "");
+		Server server = launcher.launch(true, new InetSocketAddress("192.168.1.43", 8081), warFile.getAbsolutePath(), "");
+		//Server server1 = launcher.launch()
 
         // Start things up!
 		System.out.println("STARTING: web server on port 8081");
