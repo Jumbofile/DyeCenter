@@ -301,8 +301,8 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 				//System.out.println("DB val: " + value);
 				//System.out.println("DB uid: " + uid);
 				for(int i =0; i < 2; i++){
-					System.out.println("1 :" + winTeam[i]);
-					System.out.println("2 :" + lossTeam[i]);
+					System.out.println("Team win :" + winTeam[i]);
+					System.out.println("Team loss:" + lossTeam[i]);
 				}
 				try {
 					stmt = conn.prepareStatement("update userstats set wins = wins + 1 where UID = ? or ?");
@@ -331,14 +331,16 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 
 					stmt2 = conn.prepareStatement("update userstats set loss = loss + 1 where UID = ? or ?");
 
+					//todo: split method into a make winner and make looser method
+
 					// substitute the title entered by the user for the placeholder in
 					// the query
-					stmt2.setInt(1, lossTeam[0]);
-					stmt2.setInt(2, lossTeam[1]);
+					//stmt2.setInt(1, lossTeam[0]);
+					//stmt2.setInt(2, lossTeam[1]);
 
 
 					// execute the query
-					stmt2.executeUpdate();
+					//stmt2.executeUpdate();
 
 				} finally {
 					DBUtil.closeQuietly(resultSet);
@@ -562,8 +564,8 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 					int gid = rs.getInt(1);
 
 
-					System.out.println("Team 1: "+ teamOne.get(0));
-					System.out.println("Team 2: "+ teamTwo.get(0));
+					//System.out.println("Team 1: "+ teamOne.get(0));
+					//System.out.println("Team 2: "+ teamTwo.get(0));
 
 					String playerUIDs = teamOne.get(0).split("~")[0] + "," ;
 					       playerUIDs += teamOne.get(1).split("~")[0] + "," ;
@@ -598,7 +600,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
             public Integer execute(Connection conn) throws SQLException {
                 int id = -1;
                 //Connection conn = null;
-				System.out.println(email);
+				//System.out.println(email);
                 PreparedStatement stmt = null;
                 ResultSet resultSet = null;
 
@@ -835,7 +837,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 					String getIds = resultSet.getString("players");
 					String[] playerList = getIds.split(",");
 					for(int i = 0; i < playerList.length; i++){
-						System.out.println(playerList[i]);
+						//System.out.println(playerList[i]);
 						if(Integer.parseInt(playerList[i]) == UID){
 
 							rtnStats.add(resultSet.getInt(1));
