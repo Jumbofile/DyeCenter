@@ -137,10 +137,12 @@ public class GameServlet extends HttpServlet {
                     int[] team2 = new int[]{Integer.parseInt(t2p1UID), Integer.parseInt(t2p2UID)};
                     if(t1Score > t2Score) {
                         System.out.println("team1 won");
-                        db.finishGame(team1, team2, 1, Integer.parseInt(gid));
+                        db.setWinners(team1, 1, Integer.parseInt(gid));
+                        db.setLosers(team2, 1, Integer.parseInt(gid));
                     }else{
                         System.out.println("team2 won");
-                        db.finishGame(team2, team1, 2, Integer.parseInt(gid));
+                        db.setWinners(team2, 2, Integer.parseInt(gid));
+                        db.setLosers(team1, 2, Integer.parseInt(gid));
                     }
                 }catch(Exception e){
 
