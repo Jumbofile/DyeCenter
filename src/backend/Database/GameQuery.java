@@ -13,7 +13,34 @@ public class GameQuery extends DatabaseFactory {
 	public GameQuery(){
 
 	}
+	public String getTableFromGameID(int GID) throws SQLException {
+		return executeTransaction(new DatabaseFactory.Transaction<String>() {
+			@Override
+			public String execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
 
+				String rtnString = null;
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("SELECT TID from games where GID = ?" );
+				stmt.setInt( 1, GID);
+				resultSet = stmt.executeQuery();
+
+				resultSet.next();
+
+				rtnString = resultSet.getString("name");
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return rtnString;
+			}
+		});
+
+	}
 	/***
 	 *
 	 * @param value
@@ -165,8 +192,8 @@ public class GameQuery extends DatabaseFactory {
 
 //					players += String.join(",",teamOne) + "," ;
 //					players += String.join(",",teamTwo) ;
-
-					addPlayersToTable(TID,playerUIDs) ;
+					TableQuery tb = new TableQuery();
+					tb.addPlayersToTable(TID,playerUIDs) ;
 
 					return Integer.toString(gid);
 				} catch (Exception e){
@@ -220,39 +247,6 @@ public class GameQuery extends DatabaseFactory {
 		});
 	}
 
-	/***
-	 * Returns an array of game ids based on table id
-	 * @param TID
-	 * @return
-	 * @throws SQLException
-	 */
-	public ArrayList<Integer> getGameIDs(int TID) throws SQLException{
-		return executeTransaction(new Transaction<ArrayList<Integer> >() {
-			@Override
-			public ArrayList<Integer> execute(Connection conn) throws SQLException {
-				//Connection conn = null;
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
 
-				ArrayList<Integer> rtnStats = new ArrayList<Integer>();
-
-				// retreive username attribute from login
-				stmt = conn.prepareStatement("SELECT GID from game where TID = ?" );
-				stmt.setInt( 1, TID);
-				resultSet = stmt.executeQuery();
-
-				while(resultSet.next()) {
-					//System.out.println("DB :" + resultSet.getInt(1));
-					rtnStats.add(resultSet.getInt(1));
-				}
-
-				DBUtil.closeQuietly(resultSet);
-				DBUtil.closeQuietly(stmt);
-				//DBUtil.closeQuietly(conn);
-				//System.out.println(rtnStats.toString());
-				return rtnStats;
-			}
-		});
-	}
 
 }

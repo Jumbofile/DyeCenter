@@ -13,10 +13,11 @@ public class Player {
 	private int plunks;
 	private int wins;
 	private int loss;
+	private PlayerQuery db;
 
 	public Player(String username){
 		//database controller instance
-		PlayerQuery db = new PlayerQuery();
+		db = new PlayerQuery();
 		this.username = username;
 
 		//database actions

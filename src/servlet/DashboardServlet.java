@@ -1,6 +1,8 @@
 package servlet;
 
 import backend.Database.DatabaseFactory;
+import backend.Entities.Account;
+import backend.Entities.Table;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -68,10 +70,12 @@ public class DashboardServlet extends HttpServlet {
 
         if(this.sessionuid != null) {
             Integer UID = Integer.parseInt(sessionuid) ;
+            Account account = new Account();
+            account.populateAccountData(UID);
 
             try{
                 // Stat Attributes
-                
+
                 ArrayList<Integer> userStats = db.getUserStats(UID);
                     req.setAttribute("played", userStats.get(2) + userStats.get(3));
                     req.setAttribute("points",userStats.get(0));
@@ -84,20 +88,14 @@ public class DashboardServlet extends HttpServlet {
                     req.setAttribute("name",displayName);
 
                 // Table Attributes
-                ArrayList<Integer> tables = db.getTables(UID) ;
                 ArrayList<String> tblNames = new ArrayList<>() ;
-                ArrayList<Integer> uniqueEntries = new ArrayList<Integer>();
-                for(Integer IDs : tables){
-                    if(uniqueEntries.contains(IDs)){
-                        //do nothing
-                    }else{
-                        uniqueEntries.add(IDs);
-                    }
-                }
-                for(Integer TID : uniqueEntries) {
+
+                for(Integer TID : account.getTableIds()) {
                     //System.out.println("TID: " + TID);
-                    tblNames.add( db.getTableNameBasedOnID(TID) + "^" + TID ) ;
+                    tblNames.add(new Table().getTable(TID).getName()) ;
                 }
+
+
                 String tblcsv = String.join(",", tblNames);
 
 

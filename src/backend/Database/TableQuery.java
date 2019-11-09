@@ -1,39 +1,16 @@
 package backend.Database;
 
+import backend.Entities.Account;
+import backend.Entities.Player;
+import backend.Entities.Table;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TableQuery extends DatabaseFactory{
 
-	public String getTableFromGameID(int GID) throws SQLException {
-		return executeTransaction(new DatabaseFactory.Transaction<String>() {
-			@Override
-			public String execute(Connection conn) throws SQLException {
-				//Connection conn = null;
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
 
-				String rtnString = null;
-
-				// retreive username attribute from login
-				stmt = conn.prepareStatement("SELECT TID from games where GID = ?" );
-				stmt.setInt( 1, GID);
-				resultSet = stmt.executeQuery();
-
-				resultSet.next();
-
-				rtnString = resultSet.getString("name");
-
-				DBUtil.closeQuietly(resultSet);
-				DBUtil.closeQuietly(stmt);
-				//DBUtil.closeQuietly(conn);
-				//System.out.println(rtnStats.toString());
-				return rtnString;
-			}
-		});
-
-	}
 
 	/***
 	 * Returns table name based on id
@@ -69,6 +46,50 @@ public class TableQuery extends DatabaseFactory{
 				//DBUtil.closeQuietly(conn);
 				//System.out.println(rtnStats.toString());
 				return rtnString;
+			}
+		});
+	}
+
+	public Table getTableBasedOnID(int TID) throws SQLException{
+		return executeTransaction(new Transaction<Table>() {
+			@Override
+			public Table execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				Table rtnTable = null;
+				try {
+					// retreive username attribute from login
+					stmt = conn.prepareStatement("SELECT name, UID, plunk, players from dyetable where TID = ?");
+					stmt.setInt(1, TID);
+					resultSet = stmt.executeQuery();
+
+					resultSet.next();
+				}catch (Exception e){
+
+				}
+
+				rtnTable.setTID(TID);
+				rtnTable.setName(resultSet.getString("name"));
+				rtnTable.setOwnerUID(resultSet.getInt("UID"));
+				rtnTable.setPlunkAmount(resultSet.getInt("plunk"));
+
+				String[] playerID = resultSet.getString("players").split(",");
+
+				ArrayList<Player> playersOnTable = new ArrayList<Player>();
+				for(String id : playerID){
+					Account account = new Account();
+					account.populateAccountData(Integer.parseInt(id));
+					playersOnTable.add(account.getPlayerFromAccount());
+				}
+				rtnTable.setPlayersOnTable(playersOnTable);
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return rtnTable;
 			}
 		});
 	}
@@ -121,6 +142,41 @@ public class TableQuery extends DatabaseFactory{
 					DBUtil.closeQuietly(stmt);
 				}
 				return  resultArray;
+			}
+		});
+	}
+
+	/***
+	 * Returns an array of game ids based on table id
+	 * @param TID
+	 * @return
+	 * @throws SQLException
+	 */
+	public ArrayList<Integer> getGameIDs(int TID) throws SQLException{
+		return executeTransaction(new Transaction<ArrayList<Integer> >() {
+			@Override
+			public ArrayList<Integer> execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				ArrayList<Integer> rtnStats = new ArrayList<Integer>();
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("SELECT GID from game where TID = ?" );
+				stmt.setInt( 1, TID);
+				resultSet = stmt.executeQuery();
+
+				while(resultSet.next()) {
+					//System.out.println("DB :" + resultSet.getInt(1));
+					rtnStats.add(resultSet.getInt(1));
+				}
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return rtnStats;
 			}
 		});
 	}

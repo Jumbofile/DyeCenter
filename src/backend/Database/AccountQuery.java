@@ -211,6 +211,41 @@ public class AccountQuery extends DatabaseFactory {
 	}
 
 	/***
+	 * gets account name based on email
+	 * @param UID
+	 * @return
+	 * @throws SQLException
+	 */
+	public String getAccountTimestamp(int UID) throws SQLException{
+		return executeTransaction(new Transaction<String>() {
+			@Override
+			public String execute(Connection conn) throws SQLException {
+				String name = null;
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement(
+						"select timestamp from account where UID = ?"
+				);
+
+				stmt.setInt(1, UID);
+				resultSet = stmt.executeQuery();
+
+				if (resultSet.next()) {
+					name = resultSet.getString(1);
+				}
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				return name;
+			}
+		});
+	}
+
+	/***
 	 * Returns an array of table id by uid
 	 * @param UID
 	 * @return
