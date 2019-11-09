@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import backend.Entities.Account;
 import org.mindrot.jbcrypt.BCrypt;
 
 import backend.Database.DatabaseProvider;
@@ -51,13 +52,9 @@ public class RegisterServlet extends HttpServlet {
 	
 		//Checks if 2 passes are the same
 		if(password.equals(password2)){
-			try {
-				password = BCrypt.hashpw(password, BCrypt.gensalt());
-				validAccount = db.registerAccount(user, password, email, name);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			password = BCrypt.hashpw(password, BCrypt.gensalt());
+			Account account = new Account();
+			validAccount = account.registerAccount(user, password, email, name);
 		}else{
 			validAccount = false;
 		}

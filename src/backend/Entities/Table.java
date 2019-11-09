@@ -18,6 +18,21 @@ public class Table {
 		db = new TableQuery();
 	}
 
+	public Table(int TID){
+		Table tableToReturn = null;
+		try {
+			tableToReturn = db.getTableBasedOnID(TID);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		TID = tableToReturn.TID;
+		name = tableToReturn.name;
+		ownerUID = tableToReturn.ownerUID;
+		plunkAmount = tableToReturn.plunkAmount;
+		playersOnTable = tableToReturn.playersOnTable;
+		gamesOnTable = tableToReturn.gamesOnTable;
+	}
+
 	public Table createTable(String name, int UID, int plunkValue){
 		Table table = null;
 		try {

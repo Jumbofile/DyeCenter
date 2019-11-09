@@ -19,6 +19,30 @@ public class Account {
 		db = new AccountQuery();
 	}
 
+	public boolean registerAccount(String username, String pass, String email, String name){
+		boolean success = false;
+		try {
+			success = db.registerAccount(username, pass, email, name);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return success;
+	}
+
+	public boolean accountExists(String email, String password){
+		return db.accountExist(email, password);
+	}
+
+	public int getAccountID(String email){
+		int accountID = -1;
+		try {
+			accountID = db.getAccountIDFromEmail(email);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return accountID;
+	}
+
 	public void populateAccountData(int UID){
 		try{
 			name = db.getAccountName(UID);

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Player {
 	public int UID;
 	private String username;
+	private String name;
 	private int type;
 	private int points;
 	private int plunks;
@@ -19,7 +20,6 @@ public class Player {
 		//database controller instance
 		db = new PlayerQuery();
 		this.username = username;
-
 		//database actions
 		try {
 			//get account tied to username
@@ -27,7 +27,7 @@ public class Player {
 			UID = account.getUID(username);
 			account.populateAccountData(UID);
 			type = account.getType();
-
+			name = account.getName();
 			//update stats
 			ArrayList<Integer> stats = db.getUserStats(UID);
 			points = stats.get(0);
@@ -70,5 +70,9 @@ public class Player {
 
 	public float getWinLossRatio(){
 		return (float)wins /(float)loss;
+	}
+
+	public String getName() {
+		return name;
 	}
 }

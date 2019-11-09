@@ -62,6 +62,14 @@ public class DatabaseBuilder extends DatabaseFactory {
 									"	team_2 varchar(20)," +
 									"	score_1 INT," +
 									"	score_2 INT," +
+									"	player_1_points INT," +
+									"	player_2_points INT," +
+									"	player_3_points INT," +
+									"	player_4_points INT," +
+									"	player_1_plunks INT," +
+									"	player_2_plunks INT," +
+									"	player_3_plunks INT," +
+									"	player_4_plunks INT," +
 									"	status INT," +
 									"	timestamp varchar(100) "	+
 									")"
