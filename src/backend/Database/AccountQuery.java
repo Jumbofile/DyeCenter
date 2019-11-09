@@ -281,8 +281,11 @@ public class AccountQuery extends DatabaseFactory {
 					for(int i = 0; i < playerList.length; i++){
 						//System.out.println(playerList[i]);
 						if(Integer.parseInt(playerList[i]) == UID){
+							if(rtnStats.contains(resultSet.getInt(1))){
 
-							rtnStats.add(resultSet.getInt(1));
+							}else {
+								rtnStats.add(resultSet.getInt(1));
+							}
 						}
 					}
 

@@ -16,21 +16,26 @@ public class Table {
 
 	public Table(){
 		db = new TableQuery();
+		gamesOnTable = new ArrayList<Game>();
 	}
 
 	public Table(int TID){
-		Table tableToReturn = null;
+		db = new TableQuery();
 		try {
-			tableToReturn = db.getTableBasedOnID(TID);
+			System.out.println(TID);
+			//Table tableToReturn = new Table();
+			Table tableToReturn = db.getTableBasedOnID(TID);
+			this.TID = tableToReturn.TID;
+			name = tableToReturn.name;
+			ownerUID = tableToReturn.ownerUID;
+			plunkAmount = tableToReturn.plunkAmount;
+			playersOnTable = tableToReturn.playersOnTable;
+			gamesOnTable = tableToReturn.gamesOnTable;
 		} catch (SQLException e) {
+			System.out.println("IT FAILED HERE");
 			e.printStackTrace();
 		}
-		TID = tableToReturn.TID;
-		name = tableToReturn.name;
-		ownerUID = tableToReturn.ownerUID;
-		plunkAmount = tableToReturn.plunkAmount;
-		playersOnTable = tableToReturn.playersOnTable;
-		gamesOnTable = tableToReturn.gamesOnTable;
+		gamesOnTable = new ArrayList<Game>();
 	}
 
 	public Table createTable(String name, int UID, int plunkValue){
@@ -81,26 +86,29 @@ public class Table {
 		this.plunkAmount = plunkAmount;
 	}
 
+	//todo fix this, what happens if there is only one player on the table
+	//this should be somewhere else
 	public void setPlayersOnTable(ArrayList<Player> playersOnTable) {
 		ArrayList<Player> playersOnTheTable = null;
 		ArrayList<Player> uniqueEntries = new ArrayList<Player>();
-
-		for(Game games: gamesOnTable){
-			playersOnTable.add(games.getPlayer1());
-			playersOnTable.add(games.getPlayer2());
-			playersOnTable.add(games.getPlayer3());
-			playersOnTable.add(games.getPlayer4());
-		}
-
-		for(Player players : playersOnTable){
-			if(uniqueEntries.contains(players)){
-				//do nothing
-			}else{
-				uniqueEntries.add(players);
+		if(gamesOnTable.size() > 0) {
+			for (Game games : gamesOnTable) {
+				playersOnTable.add(games.getPlayer1());
+				playersOnTable.add(games.getPlayer2());
+				playersOnTable.add(games.getPlayer3());
+				playersOnTable.add(games.getPlayer4());
 			}
-		}
 
-		this.playersOnTable = uniqueEntries;
+			for (Player players : playersOnTable) {
+				if (uniqueEntries.contains(players)) {
+					//do nothing
+				} else {
+					uniqueEntries.add(players);
+				}
+			}
+
+			this.playersOnTable = uniqueEntries;
+		}
 	}
 
 	public ArrayList<Player> getPlayersOnTable() {

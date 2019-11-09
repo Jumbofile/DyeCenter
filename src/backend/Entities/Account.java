@@ -57,9 +57,7 @@ public class Account {
 		}
 	}
 
-	public Player getPlayerFromAccount(){
-		return new Player(username);
-	}
+
 	public int getUID(String username){
 		int uid = -1;
 		try {
@@ -69,7 +67,9 @@ public class Account {
 		}
 		return uid;
 	}
-
+	public Player getPlayerFromAccount(){
+		return new Player(username);
+	}
 	public int getType() {
 		return type;
 	}

@@ -126,24 +126,27 @@ public class TableQuery extends DatabaseFactory{
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 
-				Table rtnTable = null;
-				try {
-					// retreive username attribute from login
-					stmt = conn.prepareStatement("SELECT name, UID, plunk, players from dyetable where TID = ?");
-					stmt.setInt(1, TID);
-					resultSet = stmt.executeQuery();
+				System.out.println("HELLO");
 
-					resultSet.next();
-				}catch (Exception e){
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("SELECT name, UID, plunk, players from dyetable where TID = ?");
+				stmt.setInt(1, TID);
+				resultSet = stmt.executeQuery();
 
-				}
+				resultSet.next();
+
+				String name = resultSet.getString("name");
+				int UID = resultSet.getInt("UID");
+				int plunk = resultSet.getInt("plunk");
+				Table rtnTable = new Table();
 
 				rtnTable.setTID(TID);
-				rtnTable.setName(resultSet.getString("name"));
-				rtnTable.setOwnerUID(resultSet.getInt("UID"));
-				rtnTable.setPlunkAmount(resultSet.getInt("plunk"));
-
-				String[] playerID = resultSet.getString("players").split(",");
+				rtnTable.setName(name);
+				rtnTable.setOwnerUID(UID);
+				rtnTable.setPlunkAmount(plunk);
+				String playerCSV = resultSet.getString("players");
+				System.out.println(playerCSV);
+				String[] playerID = playerCSV.split(",");
 
 				ArrayList<Player> playersOnTable = new ArrayList<Player>();
 				for(String id : playerID){
@@ -153,6 +156,8 @@ public class TableQuery extends DatabaseFactory{
 				}
 				rtnTable.setPlayersOnTable(playersOnTable);
 
+				//print stuff
+				System.out.println(rtnTable.getTID());
 				DBUtil.closeQuietly(resultSet);
 				DBUtil.closeQuietly(stmt);
 				//DBUtil.closeQuietly(conn);
@@ -164,7 +169,7 @@ public class TableQuery extends DatabaseFactory{
 
 	/***
 	 * Creates a table
-	 * @param tableName
+	 * @param 	tableName
 	 * @param plunk
 	 * @param uid
 	 * @return
