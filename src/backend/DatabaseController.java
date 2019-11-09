@@ -329,12 +329,7 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 					// execute the query
 					stmt.executeUpdate();
 
-					stmt2 = conn.prepareStatement("update userstats set loss = loss + 1 where UID = ? or ?");
-
-					// substitute the title entered by the user for the placeholder in
-					// the query
-					stmt2.setInt(1, lossTeam[0]);
-					stmt2.setInt(2, lossTeam[1]);
+					addLosers(lossTeam);
 
 
 					// execute the query
@@ -348,6 +343,37 @@ public class DatabaseController implements IDatabase { /// most of the gamePersi
 			}
 		});
 	}
+
+	public boolean addLosers(int[] loss) throws SQLException {
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				//System.out.println("DB val: " + value);
+				//System.out.println("DB uid: " + uid);
+				try {
+					stmt = conn.prepareStatement("update userstats set loss = loss + 1 where UID = ? or ?");
+
+					// substitute the title entered by the user for the placeholder in
+					// the query
+					stmt.setInt(1, loss[0]);
+					stmt.setInt(2, loss[1]);
+
+
+					// execute the query
+					stmt.executeUpdate();
+
+				} finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return true;
+			}
+		});
+	}
+
 	public boolean updateUserPlunks(int uid, int status) throws SQLException {
 		return executeTransaction(new Transaction<Boolean>() {
 			@Override

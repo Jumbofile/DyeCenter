@@ -68,6 +68,34 @@ public class GameServlet extends HttpServlet {
                 String t2p1UID = t2Players[0].split("~")[0];
                 String t2p2UID = t2Players[1].split("~")[0];
 
+                ArrayList<Integer> t1p1Stats = db.getUserStats(Integer.parseInt(t1p1UID)) ;
+                ArrayList<Integer> t1p2Stats = db.getUserStats(Integer.parseInt(t1p2UID)) ;
+                ArrayList<Integer> t2p1Stats = db.getUserStats(Integer.parseInt(t2p1UID)) ;
+                ArrayList<Integer> t2p2Stats = db.getUserStats(Integer.parseInt(t2p2UID)) ;
+
+                double t1p1WLR = 0.0 ;
+                double t1p2WLR = 0.0 ;
+                double t2p1WLR = 0.0 ;
+                double t2p2WLR = 0.0 ;
+
+                float percentage_temp ;
+
+//                for (int x = 1; x < 2; x++) {
+//                    for(int y = 1; y < 2; y++) {
+//                        percentage_temp = t1p1Stats.get(2) / (t1p1Stats.get(3) + t1p1Stats.get(2)) ;
+//                        req.setAttribute("t1p1WLR", t1p1WLR);
+//                    }
+//                }
+
+                //t1p1WLR = t1p1Stats.get(2) / (t1p1Stats.get(3) + t1p1Stats.get(2)) ;
+//                t1p1WLR = t1p1Stats.get(2) / (t1p1Stats.get(2) + t1p1Stats.get(3));
+                System.out.println(t1p1WLR);
+                System.out.println(t1p1Stats.get(2));
+                System.out.println(t1p1Stats.get(3));
+//                    t1p2WLR = Math.round(t1p2Stats.get(3) / (t1p2Stats.get(3) + t1p2Stats.get(4))) / 10.0;
+//                    t2p1WLR = Math.round(t2p1Stats.get(3) / (t2p1Stats.get(3) + t2p1Stats.get(4))) / 10.0;
+//                    t2p2WLR = Math.round(t2p2Stats.get(3) / (t2p2Stats.get(3) + t2p2Stats.get(4))) / 10.0;
+
                 players[0] = Integer.parseInt(t1p1UID);
                 players[1] = Integer.parseInt(t1p2UID);
                 players[2] = Integer.parseInt(t2p1UID);
@@ -85,6 +113,11 @@ public class GameServlet extends HttpServlet {
 
                 req.setAttribute("t1Score", t1Score);
                 req.setAttribute("t2Score", t2Score);
+
+//                req.setAttribute("t1p1WLR", t1p1WLR);
+//                req.setAttribute("t1p2WLR", t1p2WLR);
+//                req.setAttribute("t1p2WLR", t1p2WLR);
+//                req.setAttribute("t2p2WLR", t2p2WLR);
 
 
             } catch (SQLException e) {
@@ -148,7 +181,7 @@ public class GameServlet extends HttpServlet {
 
             }else {
                 if (player != -1) {
-                    System.out.println("poin: " + points);
+                    System.out.println("point: " + points);
                     System.out.println("player: " + player);
                     System.out.println("Len: " + points.length());
 
@@ -158,7 +191,7 @@ public class GameServlet extends HttpServlet {
                         if (player <= 1) {
                             if (points.charAt(points.length() - 1) == '~') {
                                 int onlyPoint = Integer.parseInt(points.substring(0, points.length() - 1));
-                                System.out.println("poin: " + onlyPoint);
+                                System.out.println("point: " + onlyPoint);
                                 db.updateUserPoints(onlyPoint, players[player]);
                                 db.updateGameScore(onlyPoint, 1, Integer.parseInt(gid), players[player]);
                                 db.updateUserPlunks(players[player], 0);

@@ -1,0 +1,26 @@
+DyeCenter todo:
+
+- Game View
+	- Adding scores to players in a game
+	- Adding plunks to players in a game
+	- Display player winrate
+	- Display player APG (Average Points per Game)
+
+- Table View
+	- Displays recent on on-going games
+	- Add users to a table via a "user tag"
+	- Create games via a dropdown menu
+
+- Dashboard View
+	- Display player APG
+	- Display special stats on dashboard
+		- Player's recent games
+		- Player win/lose in pie chart
+		- Player recent game graph
+			- graph points scored in recent games
+			- Wins are blue dots, losses are red dots
+
+- Other
+	- MMR system ???
+	- Get dyecenter hosted publically from this machine (maybe)
+		- Uncle might be able to help with this (prob not tnight)

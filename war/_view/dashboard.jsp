@@ -136,7 +136,7 @@
 				<%--</button>--%>
 					<!-- Nav Item - User Information -->
 				<%--style="display: block; top:5px; left: 37vw;"--%>
-					<li id="userIcon" class="nav-item dropdown no-arrow">
+					<li style="" id="userIcon" class="nav-item dropdown no-arrow">
 						<a  class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<span style="direction: rtl" class="mr-2 d-lg-inline text-gray-600 small">${name}</span>
 							<img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
