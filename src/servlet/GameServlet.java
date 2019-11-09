@@ -99,6 +99,8 @@ public class GameServlet extends HttpServlet {
                 req.setAttribute("t1Score", t1Score);
                 req.setAttribute("t2Score", t2Score);
 
+                req.setAttribute("t1p1UID", t1p1UID);
+
                 req.setAttribute("t1p1WLR", t1p1WLR);
 //                req.setAttribute("t1p2WLR", t1p2WLR);
 //                req.setAttribute("t1p2WLR", t1p2WLR);

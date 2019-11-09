@@ -87,6 +87,43 @@
 	<%--</form>--%>
 <%--</div>--%>
 <div class="container py-5">
+
+	<!-- Modal -->
+	<div class="modal fade" id="statModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
+		<span class="close">x</span>
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<%-- title filled via .selected class in JS--%>
+					<h5 class="modal-title" id="ModalLongTitle"></h5>
+				</div>
+				<div class="modal-body">
+					Update Player Stats
+				</div>
+				<div class="modal-footer">
+					<h2>Points</h2>
+					<button type="button" onclick="addPoint()" class="btn btn-primary" >+1</button>
+
+					<%-- player score filled via .selected class in JS --%>
+					<span id="modalScore"></span>
+
+					<button type="button" onclick="delPoint()" class="btn btn-primary" >-1</button>
+				</div>
+				<div class="modal-footer">
+					<h2>Plunks</h2>
+					<button type="button" onclick="addPlunk()" class="btn btn-primary" >+1</button>
+
+					<%-- player score filled via .selected class in JS --%>
+					<span id="modalPlunk"></span>
+
+					<button type="button" onclick="delPlunk()" class="btn btn-primary" >-1</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
 	<div class="row">
 		<form action="${pageContext.servletContext.contextPath}/dashboard" method="post">
 			<button type="submit" name="back" value="back" class="btn btn-primary">Back</button>
@@ -99,18 +136,17 @@
 			<div class="col-lg-12 mx-auto mb-5 text-white text-center">
 				<h1 class="display-4">In-Game</h1>
 				<p class="lead mb-0">Tap or click a player card to edit their game stats</p>
-				<%--<p class="lead">Snippet by <a href="https://bootstrapious.com/snippets" class="text-white">--%>
-					<%--<u>Bootstrapious</u></a>--%>
-				<%--</p>--%>
 			</div>
 			<!-- END -->
 
-			<div class="col-xl-3 col-lg-6 mb-4">
+
+			<div id="t1p1Card" value="${t1p1Name},${t1p1Username},${t1p1Score},${t1p1Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
 				<div class="bg-white rounded-lg p-5 shadow">
-					<h2 class="h6 font-weight-bold text-center mb-4">${t1p1Name}</h2>
+					<h2 class="h2 font-weight-bold text-center mb-4">${t1p1Name}</h2>
+					<h2 class="h6 font-weight-bold text-center mb-4">${t1p1Username}</h2>
 
 					<!-- Progress bar 1 -->
-					<div class="progress mx-auto" data-value='80'>
+					<div class="progress mx-auto" data-value=${t1p1WLR}>
 						<span class="progress-left">
 							<span class="progress-bar border-primary"></span>
 					  	</span>
@@ -128,61 +164,33 @@
 					<!-- Demo info -->
 					<div class="row text-center mt-4">
 						<div class="col-6 border-right">
-							<div class="h4 font-weight-bold mb-0">${t1p1Score}</div><span class="small text-gray">Points</span>
+							<div class="points h4 font-weight-bold mb-0">${t1p1Score}</div><span class="small text-gray">Points</span>
 						</div>
 						<div class="col-6">
-							<div class="h4 font-weight-bold mb-0">0</div><span class="small text-gray">Plunks</span>
+							<div class="plunks h4 font-weight-bold mb-0">${t1p1Plunks}</div><span class="small text-gray">Plunks</span>
 						</div>
 					</div>
 					<!-- END -->
 				</div>
 			</div>
 
-			<div class="col-xl-3 col-lg-6 mb-4">
+			<div id="t1p2Card" value="${t1p2Name},${t1p2Username},${t1p2Score},${t1p2Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
 				<div class="bg-white rounded-lg p-5 shadow">
-					<h2 class="h6 font-weight-bold text-center mb-4">${t1p2Name}</h2>
+					<h2 class="h2 font-weight-bold text-center mb-4">${t1p2Name}</h2>
+					<h2 class="h6 font-weight-bold text-center mb-4">${t1p2Username}</h2>
 
-					<!-- Progress bar 2 -->
-					<div class="progress mx-auto" data-value='25'>
-			  <span class="progress-left">
-							<span class="progress-bar border-danger"></span>
-			  </span>
+					<!-- Progress bar 1 -->
+					<div class="progress mx-auto" data-value=${t1p2WLR}>
+						<span class="progress-left">
+							<span class="progress-bar border-primary"></span>
+					  	</span>
 						<span class="progress-right">
-							<span class="progress-bar border-danger"></span>
-			  </span>
+							<span class="progress-bar border-primary"></span>
+			  			</span>
+
 						<div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-							<div class="h2 font-weight-bold">25<sup class="small">%</sup></div>
-						</div>
-					</div>
-					<!-- END -->
-
-					<!-- Demo info-->
-					<div class="row text-center mt-4">
-						<div class="col-6 border-right">
-							<div class="h4 font-weight-bold mb-0">28%</div><span class="small text-gray">Last week</span>
-						</div>
-						<div class="col-6">
-							<div class="h4 font-weight-bold mb-0">60%</div><span class="small text-gray">Last month</span>
-						</div>
-					</div>
-					<!-- END -->
-				</div>
-			</div>
-
-			<div class="col-xl-3 col-lg-6 mb-4">
-				<div class="bg-white rounded-lg p-5 shadow">
-					<h2 class="h6 font-weight-bold text-center mb-4">${t2p1Name}</h2>
-
-					<!-- Progress bar 3 -->
-					<div class="progress mx-auto" data-value='76'>
-			  <span class="progress-left">
-							<span class="progress-bar border-success"></span>
-			  </span>
-						<span class="progress-right">
-							<span class="progress-bar border-success"></span>
-			  </span>
-						<div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-							<div class="h2 font-weight-bold">76<sup class="small">%</sup></div>
+							<div class="small">W/L &nbsp;&nbsp;</div>
+							<div class="h2 font-weight-bold">${t1p2WLR}<sup class="small">%</sup></div>
 						</div>
 					</div>
 					<!-- END -->
@@ -190,30 +198,33 @@
 					<!-- Demo info -->
 					<div class="row text-center mt-4">
 						<div class="col-6 border-right">
-							<div class="h4 font-weight-bold mb-0">28%</div><span class="small text-gray">Last week</span>
+							<div class="points h4 font-weight-bold mb-0">${t1p2Score}</div><span class="small text-gray">Points</span>
 						</div>
 						<div class="col-6">
-							<div class="h4 font-weight-bold mb-0">60%</div><span class="small text-gray">Last month</span>
+							<div class="plunks h4 font-weight-bold mb-0">${t1p2Plunks}</div><span class="small text-gray">Plunks</span>
 						</div>
 					</div>
 					<!-- END -->
 				</div>
 			</div>
 
-			<div class="col-xl-3 col-lg-6 mb-4">
+			<div id="t2p1Card" value="${t2p1Name},${t2p1Username},${t2p1Score},${t2p1Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
 				<div class="bg-white rounded-lg p-5 shadow">
-					<h2 class="h6 font-weight-bold text-center mb-4">${t2p2Name}</h2>
+					<h2 class="h2 font-weight-bold text-center mb-4">${t2p1Name}</h2>
+					<h2 class="h6 font-weight-bold text-center mb-4">${t2p1Username}</h2>
 
-					<!-- Progress bar 4 -->
-					<div class="progress mx-auto" data-value='12'>
-			  <span class="progress-left">
-							<span class="progress-bar border-warning"></span>
-			  </span>
+					<!-- Progress bar 1 -->
+					<div class="progress mx-auto" data-value=${t2p1WLR}>
+						<span class="progress-left">
+							<span class="progress-bar border-primary"></span>
+					  	</span>
 						<span class="progress-right">
-							<span class="progress-bar border-warning"></span>
-			  </span>
+							<span class="progress-bar border-primary"></span>
+			  			</span>
+
 						<div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-							<div class="h2 font-weight-bold">12<sup class="small">%</sup></div>
+							<div class="small">W/L &nbsp;&nbsp;</div>
+							<div class="h2 font-weight-bold">${t2p1WLR}<sup class="small">%</sup></div>
 						</div>
 					</div>
 					<!-- END -->
@@ -221,10 +232,44 @@
 					<!-- Demo info -->
 					<div class="row text-center mt-4">
 						<div class="col-6 border-right">
-							<div class="h4 font-weight-bold mb-0">28%</div><span class="small text-gray">Last week</span>
+							<div class="points h4 font-weight-bold mb-0">${t2p1Score}</div><span class="small text-gray">Points</span>
 						</div>
 						<div class="col-6">
-							<div class="h4 font-weight-bold mb-0">60%</div><span class="small text-gray">Last month</span>
+							<div class="plunks h4 font-weight-bold mb-0">${t2p1Plunks}</div><span class="small text-gray">Plunks</span>
+						</div>
+					</div>
+					<!-- END -->
+				</div>
+			</div>
+
+			<div id="t2p2Card" value="${t2p2Name},${t2p2Username},${t2p2Score},${t2p2Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
+				<div class="bg-white rounded-lg p-5 shadow">
+					<h2 class="h2 font-weight-bold text-center mb-4">${t2p2Name}</h2>
+					<h2 class="h6 font-weight-bold text-center mb-4">${t2p2Username}</h2>
+
+					<!-- Progress bar 1 -->
+					<div class="progress mx-auto" data-value=${t2p2WLR}>
+						<span class="progress-left">
+							<span class="progress-bar border-primary"></span>
+					  	</span>
+						<span class="progress-right">
+							<span class="progress-bar border-primary"></span>
+			  			</span>
+
+						<div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+							<div class="small">W/L &nbsp;&nbsp;</div>
+							<div class="h2 font-weight-bold">${t2p2WLR}<sup class="small">%</sup></div>
+						</div>
+					</div>
+					<!-- END -->
+
+					<!-- Demo info -->
+					<div class="row text-center mt-4">
+						<div class="col-6 border-right">
+							<div class="points h4 font-weight-bold mb-0">${t2p2Score}</div><span class="small text-gray">Points</span>
+						</div>
+						<div class="col-6">
+							<div class="plunks h4 font-weight-bold mb-0">${t2p2Plunks}</div><span class="small text-gray">Plunks</span>
 						</div>
 					</div>
 					<!-- END -->
@@ -239,7 +284,6 @@
 <!-- Bootstrap core JavaScript-->
 <script src="js/widget_js/vendor/jquery/jquery.min.js"></script>
 <script src="js/widget_js/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
 <script src="js/game-utilities.js"></script>
 
 </html>
