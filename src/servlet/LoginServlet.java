@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 //import fakeDB.FakeUserDB;
-import backend.DatabaseProvider;
-import backend.DatabaseController;
-import backend.IDatabase;
+import backend.Database.DatabaseProvider;
+import backend.Database.DatabaseFactory;
+import backend.Database.IDatabase;
 
 
 public class LoginServlet extends HttpServlet {
@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 		
 		//checks if account it a real account
 		//FakeUserDB db = new FakeUserDB(); fake database
-		DatabaseProvider.setInstance(new DatabaseController()); // some of this code taken from lab 06 and library example-- CITING
+		DatabaseProvider.setInstance(new DatabaseFactory()); // some of this code taken from lab 06 and library example-- CITING
 		IDatabase db = DatabaseProvider.getInstance();
 
 		

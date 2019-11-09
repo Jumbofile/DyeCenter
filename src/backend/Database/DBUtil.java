@@ -1,4 +1,4 @@
-package backend;
+package backend.Database;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

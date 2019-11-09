@@ -1,19 +1,18 @@
 package servlet;
 
-import backend.DatabaseController;
+import backend.Database.DatabaseFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DashboardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private String sessionuid;
-    private DatabaseController db = new DatabaseController();
+    private DatabaseFactory db = new DatabaseFactory();
     ArrayList<String> accountInfo = new ArrayList<>();
 
     @Override
@@ -72,6 +71,7 @@ public class DashboardServlet extends HttpServlet {
 
             try{
                 // Stat Attributes
+                
                 ArrayList<Integer> userStats = db.getUserStats(UID);
                     req.setAttribute("played", userStats.get(2) + userStats.get(3));
                     req.setAttribute("points",userStats.get(0));

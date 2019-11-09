@@ -1,10 +1,7 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.Date;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,11 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-import backend.DatabaseProvider;
-import backend.IDatabase;
+import backend.Database.DatabaseProvider;
+import backend.Database.IDatabase;
 //import backend.hashSHA256;
 //import fakeDB.FakeUserDB;
-import backend.DatabaseController;
+import backend.Database.DatabaseFactory;
 
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -39,7 +36,7 @@ public class RegisterServlet extends HttpServlet {
 		
 		//checks if account it a real account
 		//fake db stuff//FakeUserDB db = new FakeUserDB();
-		DatabaseProvider.setInstance(new DatabaseController()); // some of this code taken from lab 06 and library example ---- CITING
+		DatabaseProvider.setInstance(new DatabaseFactory()); // some of this code taken from lab 06 and library example ---- CITING
 		IDatabase db = DatabaseProvider.getInstance();
 
 		// gets username and password

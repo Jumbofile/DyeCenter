@@ -1,6 +1,6 @@
 package servlet;
 
-import backend.DatabaseController;
+import backend.Database.DatabaseFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class GameServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -17,7 +16,7 @@ public class GameServlet extends HttpServlet {
     private String gid = null ;
     private String tid = null ;
     private int players[] = new int[4] ;
-    private DatabaseController db = new DatabaseController();
+    private DatabaseFactory db = new DatabaseFactory();
     ArrayList<String> accountInfo = new ArrayList<>();
 
     @Override

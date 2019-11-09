@@ -1,6 +1,6 @@
 package servlet;
 
-import backend.DatabaseController;
+import backend.Database.DatabaseFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class TablesServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private String uid = null;
-    private DatabaseController db = new DatabaseController();
+    private DatabaseFactory db = new DatabaseFactory();
     ArrayList<String> accountInfo = new ArrayList<>();
 
     @Override
