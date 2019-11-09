@@ -22,7 +22,7 @@ public class DashboardServlet extends HttpServlet {
 
         //sets the session id
         sessionuid = (String) req.getSession().getAttribute("uid"); //session stuff
-        System.out.println(sessionuid);
+        //System.out.println(sessionuid);
         if (sessionuid == null) {
             req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
         } else {
@@ -45,7 +45,7 @@ public class DashboardServlet extends HttpServlet {
         sessionuid = (String) req.getSession().getAttribute("uid"); //session stuff
 
 
-        System.out.println("Tableid: " + req.getParameter("tid"));
+        //System.out.println("Tableid: " + req.getParameter("tid"));
         String tableID = req.getParameter("tid");
         if(tableID != null){
             resp.sendRedirect(req.getContextPath() + "/table");
@@ -95,7 +95,7 @@ public class DashboardServlet extends HttpServlet {
                     }
                 }
                 for(Integer TID : uniqueEntries) {
-                    System.out.println("TID: " + TID);
+                    //System.out.println("TID: " + TID);
                     tblNames.add( db.getTableNameBasedOnID(TID) + "^" + TID ) ;
                 }
                 String tblcsv = String.join(",", tblNames);

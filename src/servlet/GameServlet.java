@@ -153,7 +153,7 @@ public class GameServlet extends HttpServlet {
                     int t1Score = Integer.parseInt(gameStats.get(2)) ;
                     int t2Score = Integer.parseInt(gameStats.get(3)) ;
 
-                    System.out.println(t1Score + " " + t2Score);
+                    System.out.println("t1: " + t1Score + " t2:" + t2Score);
                     //get players
                     String[] t1Players = gameStats.get(0).split(",") ;
                     String[] t2Players = gameStats.get(1).split(",") ;
@@ -169,11 +169,13 @@ public class GameServlet extends HttpServlet {
                     int[] team1 = new int[]{Integer.parseInt(t1p1UID), Integer.parseInt(t1p2UID)};
                     int[] team2 = new int[]{Integer.parseInt(t2p1UID), Integer.parseInt(t2p2UID)};
                     if(t1Score > t2Score) {
-                        System.out.println("YEET");
-                        db.finishGame(team1, team2, 1, Integer.parseInt(gid));
+                        System.out.println("team1 won");
+                        db.setWinners(team1, 1, Integer.parseInt(gid));
+                        db.setLosers(team2, 1, Integer.parseInt(gid));
                     }else{
-                        System.out.println("Yoot");
-                        db.finishGame(team2, team1, 2, Integer.parseInt(gid));
+                        System.out.println("team2 won");
+                        db.setWinners(team2, 2, Integer.parseInt(gid));
+                        db.setLosers(team1, 2, Integer.parseInt(gid));
                     }
                 }catch(Exception e){
 
