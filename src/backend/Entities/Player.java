@@ -40,6 +40,9 @@ public class Player {
 		}
 
 	}
+	public int getTotalGames(){
+		return wins + loss;
+	}
 
 	public String getUsername() {
 		return username;

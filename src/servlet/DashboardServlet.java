@@ -2,6 +2,7 @@ package servlet;
 
 import backend.Database.DatabaseFactory;
 import backend.Entities.Account;
+import backend.Entities.Player;
 import backend.Entities.Table;
 
 import javax.servlet.ServletException;
@@ -72,19 +73,18 @@ public class DashboardServlet extends HttpServlet {
             Integer UID = Integer.parseInt(sessionuid) ;
             Account account = new Account();
             account.populateAccountData(UID);
+            Player player = account.getPlayerFromAccount();
 
             try{
-                // Stat Attributes
 
-                ArrayList<Integer> userStats = db.getUserStats(UID);
-                    req.setAttribute("played", userStats.get(2) + userStats.get(3));
-                    req.setAttribute("points",userStats.get(0));
-                    req.setAttribute("plunks",userStats.get(1));
-                    req.setAttribute("wins",userStats.get(2));
-                    req.setAttribute("loss",userStats.get(3));
+                    req.setAttribute("played", player.getTotalGames());
+                    req.setAttribute("points",player.getPoints());
+                    req.setAttribute("plunks",player.getPlunks());
+                    req.setAttribute("wins",player.getWins());
+                    req.setAttribute("loss",player.getLoss());
 
                 // Display Name
-                String displayName = db.getAccountName(UID) ;
+                String displayName = account.getName();
                     req.setAttribute("name",displayName);
 
                 // Table Attributes
@@ -97,19 +97,8 @@ public class DashboardServlet extends HttpServlet {
 
 
                 String tblcsv = String.join(",", tblNames);
-
-
-                //Set Attributes
-
-                    //UserStat
-                    req.setAttribute("played", userStats.get(2) + userStats.get(3));
-                    req.setAttribute("points",userStats.get(0));
-                    req.setAttribute("plunks",userStats.get(1));
-                    req.setAttribute("wins",userStats.get(2));
-                    req.setAttribute("loss",userStats.get(3));
-
-                    //Table
-                    req.setAttribute("tableNames", tblcsv);
+                //Table
+                req.setAttribute("tableNames", tblcsv);
             }
             catch (Exception e) {
                 e.printStackTrace();
