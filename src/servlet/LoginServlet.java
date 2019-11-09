@@ -8,9 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 //import fakeDB.FakeUserDB;
-import backend.DatabaseProvider;
-import backend.DatabaseController;
-import backend.IDatabase;
+import backend.Database.DatabaseProvider;
+import backend.Database.DatabaseFactory;
+import backend.Database.IDatabase;
+import backend.Entities.Account;
 
 
 public class LoginServlet extends HttpServlet {
@@ -31,10 +32,10 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		System.out.println("Login Servlet: doPost");
-		
-		//checks if account it a real account
-		//FakeUserDB db = new FakeUserDB(); fake database
-		DatabaseProvider.setInstance(new DatabaseController()); // some of this code taken from lab 06 and library example-- CITING
+
+		Account account = new Account();
+
+		DatabaseProvider.setInstance(new DatabaseFactory()); // some of this code taken from lab 06 and library example-- CITING
 		IDatabase db = DatabaseProvider.getInstance();
 
 		
@@ -44,7 +45,7 @@ public class LoginServlet extends HttpServlet {
 		int uid = -1;
 		
 		//checks if the account is valid
-		boolean validAccount = db.accountExist(email, password);
+		boolean validAccount = account.accountExists(email, password);
 
 		//If account is valid, continue, if it isnt, spit out error
 		if(validAccount == true){
@@ -52,12 +53,17 @@ public class LoginServlet extends HttpServlet {
 			resp.sendRedirect(req.getContextPath() + "/dashboard");
 			System.out.println("Login Servlet: Login Successful");
 			try{
-				uid = db.getAccountID(email);
+				uid = account.getAccountID(email);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-
-			req.getSession().setAttribute("uid", Integer.toString(uid)); // adds username to session
+			if(uid != -1) {
+				req.getSession().setAttribute("uid", Integer.toString(uid)); // adds username to session
+			}else{
+				req.setAttribute("response", "<div id='error'>Server Error</div>");
+				System.out.println("Login Servlet: Login Failed");
+				req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
+			}
 		}else{
 			req.setAttribute("response", "<div id='error'>Email or password is incorrect!</div>");
 			System.out.println("Login Servlet: Login Failed");

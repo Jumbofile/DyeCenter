@@ -1,19 +1,21 @@
 package servlet;
 
-import backend.DatabaseController;
+import backend.Database.DatabaseFactory;
+import backend.Entities.Account;
+import backend.Entities.Player;
+import backend.Entities.Table;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DashboardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private String sessionuid;
-    private DatabaseController db = new DatabaseController();
+    private DatabaseFactory db = new DatabaseFactory();
     ArrayList<String> accountInfo = new ArrayList<>();
 
     @Override
@@ -69,49 +71,35 @@ public class DashboardServlet extends HttpServlet {
 
         if(this.sessionuid != null) {
             Integer UID = Integer.parseInt(sessionuid) ;
+            Account account = new Account();
+            account.populateAccountData(UID);
+            Player player = account.getPlayerFromAccount();
 
             try{
-                // Stat Attributes
-                ArrayList<Integer> userStats = db.getUserStats(UID);
-                    req.setAttribute("played", userStats.get(2) + userStats.get(3));
-                    req.setAttribute("points",userStats.get(0));
-                    req.setAttribute("plunks",userStats.get(1));
-                    req.setAttribute("wins",userStats.get(2));
-                    req.setAttribute("loss",userStats.get(3));
+
+                    req.setAttribute("played", player.getTotalGames());
+                    req.setAttribute("points",player.getPoints());
+                    req.setAttribute("plunks",player.getPlunks());
+                    req.setAttribute("wins",player.getWins());
+                    req.setAttribute("loss",player.getLoss());
 
                 // Display Name
-                String displayName = db.getAccountName(UID) ;
+                String displayName = account.getName();
                     req.setAttribute("name",displayName);
 
                 // Table Attributes
-                ArrayList<Integer> tables = db.getTables(UID) ;
                 ArrayList<String> tblNames = new ArrayList<>() ;
-                ArrayList<Integer> uniqueEntries = new ArrayList<Integer>();
-                for(Integer IDs : tables){
-                    if(uniqueEntries.contains(IDs)){
-                        //do nothing
-                    }else{
-                        uniqueEntries.add(IDs);
-                    }
-                }
-                for(Integer TID : uniqueEntries) {
+                System.out.println(account.getTableIds());
+                for(Integer TID : account.getTableIds()) {
                     //System.out.println("TID: " + TID);
-                    tblNames.add( db.getTableNameBasedOnID(TID) + "^" + TID ) ;
+                    Table table = new Table(TID);
+                    tblNames.add(table.getName()) ;
                 }
+
+
                 String tblcsv = String.join(",", tblNames);
-
-
-                //Set Attributes
-
-                    //UserStat
-                    req.setAttribute("played", userStats.get(2) + userStats.get(3));
-                    req.setAttribute("points",userStats.get(0));
-                    req.setAttribute("plunks",userStats.get(1));
-                    req.setAttribute("wins",userStats.get(2));
-                    req.setAttribute("loss",userStats.get(3));
-
-                    //Table
-                    req.setAttribute("tableNames", tblcsv);
+                //Table
+                req.setAttribute("tableNames", tblcsv);
             }
             catch (Exception e) {
                 e.printStackTrace();

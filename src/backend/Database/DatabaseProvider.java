@@ -1,4 +1,4 @@
-package backend;
+package backend.Database;
 
 public class DatabaseProvider {
 	private static IDatabase theInstance;

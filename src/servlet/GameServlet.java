@@ -1,6 +1,10 @@
 package servlet;
 
-import backend.DatabaseController;
+import backend.Database.DatabaseFactory;
+import backend.Entities.Account;
+import backend.Entities.Game;
+import backend.Entities.Player;
+import backend.Entities.Table;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,16 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class GameServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private String uid = null;
     private String gid = null ;
     private String tid = null ;
-    private int players[] = new int[4] ;
-    private DatabaseController db = new DatabaseController();
-    ArrayList<String> accountInfo = new ArrayList<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -34,91 +34,51 @@ public class GameServlet extends HttpServlet {
         if (uid == null) {
             req.getRequestDispatcher("/login").forward(req, resp);
         } else {
-            try {
+            Account account = new Account();
+            account.populateAccountData(Integer.parseInt(uid));
+            Player player = new Player(account.getUsername());
 
-                String htmlForPage = "";
-                ArrayList<String> gameStats = db.getGameStats(Integer.parseInt(gid));
-                tid = gameStats.get(6) ;
+            Table table = new Table(Integer.parseInt(tid));
 
-                //get plunk value
-                int plunkValue = db.getPlunk(Integer.parseInt(tid));
-                req.setAttribute("plunkValue", plunkValue);
+            Game game = new Game(Integer.parseInt(gid), table.getTID());
 
-                String[] t1Players = gameStats.get(0).split(",") ;
-                String[] t2Players = gameStats.get(1).split(",") ;
-
-                String t1Score = gameStats.get(2) ;
-                String t2Score = gameStats.get(3) ;
-
-                String status = gameStats.get(4) ;
-
-                // Score values for team 1 players
-                String t1p1Score = t1Players[0].split("~")[1];
-                String t1p2Score = t1Players[1].split("~")[1];
-
-                // UID values for team 1
-                String t1p1UID = t1Players[0].split("~")[0];
-                String t1p2UID = t1Players[1].split("~")[0];
-
-                // Score values for team 2 player
-                String t2p1Score = t2Players[0].split("~")[1];
-                String t2p2Score = t2Players[1].split("~")[1];
-
-                // UID values for team 2
-                String t2p1UID = t2Players[0].split("~")[0];
-                String t2p2UID = t2Players[1].split("~")[0];
-
-                ArrayList<Integer> t1p1Stats = db.getUserStats(Integer.parseInt(t1p1UID)) ;
-                ArrayList<Integer> t1p2Stats = db.getUserStats(Integer.parseInt(t1p2UID)) ;
-                ArrayList<Integer> t2p1Stats = db.getUserStats(Integer.parseInt(t2p1UID)) ;
-                ArrayList<Integer> t2p2Stats = db.getUserStats(Integer.parseInt(t2p2UID)) ;
-
-                float t1p1WLR = 0 ;
-                float t1p2WLR = 0 ;
-                float t2p1WLR = 0 ;
-                float t2p2WLR = 0 ;
-
-                t1p1WLR = (float)t1p1Stats.get(2) / (float)(t1p1Stats.get(3) + t1p1Stats.get(2)) ;
-                t1p1WLR = Math.round(t1p1WLR * 100.0);
-
-                players[0] = Integer.parseInt(t1p1UID);
-                players[1] = Integer.parseInt(t1p2UID);
-                players[2] = Integer.parseInt(t2p1UID);
-                players[3] = Integer.parseInt(t2p2UID);
-
-                req.setAttribute("t1p1Name", db.getAccountName(Integer.parseInt(t1p1UID)));
-                req.setAttribute("t1p2Name", db.getAccountName(Integer.parseInt(t1p2UID)));
-                req.setAttribute("t2p1Name", db.getAccountName(Integer.parseInt(t2p1UID)));
-                req.setAttribute("t2p2Name", db.getAccountName(Integer.parseInt(t2p2UID)));
-
-                req.setAttribute("t1p1Score", t1p1Score);
-                req.setAttribute("t1p2Score", t1p2Score);
-                req.setAttribute("t2p1Score", t2p1Score);
-                req.setAttribute("t2p2Score", t2p2Score);
-
-                req.setAttribute("t1Score", t1Score);
-                req.setAttribute("t2Score", t2Score);
-
-                req.setAttribute("t1p1UID", t1p1UID);
-
-                req.setAttribute("t1p1WLR", t1p1WLR);
-//                req.setAttribute("t1p2WLR", t1p2WLR);
-//                req.setAttribute("t1p2WLR", t1p2WLR);
-//                req.setAttribute("t2p2WLR", t2p2WLR);
+            String htmlForPage = "";
+            tid = String.valueOf(table.getTID());
 
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            try {
-                req.getSession().setAttribute("gid", gid);
-                req.getSession().setAttribute("uid", uid);
-                req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
-            }catch (Exception e){
+            req.setAttribute("t1p1Name", game.getPlayer1().getName());
+            req.setAttribute("t1p2Name", game.getPlayer2().getName());
+            req.setAttribute("t2p1Name", game.getPlayer3().getName());
+            req.setAttribute("t2p2Name", game.getPlayer4().getName());
+
+            req.setAttribute("t1p1Score", game.getPlayer1Score());
+            req.setAttribute("t1p2Score", game.getPlayer2Score());
+            req.setAttribute("t2p1Score", game.getPlayer3Score());
+            req.setAttribute("t2p2Score", game.getPlayer4Score());
+
+            req.setAttribute("t1Score", game.getTeam1Score());
+            req.setAttribute("t2Score", game.getTeam2Score());
+
+            req.setAttribute("t1p1WLR", game.getPlayer1().getWinLossRatio());
+            req.setAttribute("t1p2WLR", game.getPlayer2().getWinLossRatio());
+            req.setAttribute("t1p2WLR", game.getPlayer3().getWinLossRatio());
+            req.setAttribute("t2p2WLR", game.getPlayer4().getWinLossRatio());
+
+
+            //req.setAttribute("t1p1UID", t1p1UID);
+
+
 
             }
+        try {
+            req.getSession().setAttribute("gid", gid);
+            req.getSession().setAttribute("uid", uid);
+            req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
+        }catch (Exception e){
+
         }
     }
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -131,8 +91,16 @@ public class GameServlet extends HttpServlet {
         if (uid == null) {
             req.getRequestDispatcher("/login").forward(req, resp);
         }else{
+           /* Account account = new Account();
+            account.populateAccountData(Integer.parseInt(uid));
+            Player player = new Player(account.getUsername());
+
+            Table table = new Table(Integer.parseInt(tid));
+
+            Game game = new Game(Integer.parseInt(gid), table.getTID());
+
             String points = (String)req.getParameter("point");
-            int player = Integer.parseInt(req.getParameter("player"));
+            int playerBeingModified = Integer.parseInt(req.getParameter("player"));
             if(points.equals("finish")){
                 //finish the game
                 try {
@@ -169,7 +137,7 @@ public class GameServlet extends HttpServlet {
                 }
 
             }else {
-                if (player != -1) {
+                if (playerBeingModified  != -1) {
                     System.out.println("point: " + points);
                     System.out.println("player: " + player);
                     System.out.println("Len: " + points.length());
@@ -177,7 +145,7 @@ public class GameServlet extends HttpServlet {
                     try {
 
 
-                        if (player <= 1) {
+                        if (playerBeingModified  <= 1) {
                             if (points.charAt(points.length() - 1) == '~') {
                                 int onlyPoint = Integer.parseInt(points.substring(0, points.length() - 1));
                                 System.out.println("point: " + onlyPoint);
@@ -210,7 +178,7 @@ public class GameServlet extends HttpServlet {
                 req.getSession().setAttribute("gid", gid);
             } catch (Exception e) {
 
-            }
+            }*/
 
         }
 

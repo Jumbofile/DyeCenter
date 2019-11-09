@@ -1,6 +1,9 @@
 package servlet;
 
-import backend.DatabaseController;
+import backend.Database.DatabaseFactory;
+import backend.Entities.Game;
+import backend.Entities.Player;
+import backend.Entities.Table;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +15,7 @@ import java.util.ArrayList;
 public class TablesServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private String uid = null;
-    private DatabaseController db = new DatabaseController();
+    private DatabaseFactory db = new DatabaseFactory();
     ArrayList<String> accountInfo = new ArrayList<>();
 
     @Override
@@ -72,6 +75,7 @@ public class TablesServlet extends HttpServlet {
                 //The value boxes are empty, users possibly clicked the submit button
                 //We dont know if the submit was pressed so we will check if they hit a game button
                 //- The game button will be pressed if the "Gamepressed" para isnt null!
+                Table table = new Table(Integer.parseInt(tableID));
                 if(req.getParameter("gamePressed") == null) {
                     if(req.getParameter("t1").equals("") || req.getParameter("t2").equals("")){
                         //DO NOTHING!!!
@@ -88,8 +92,9 @@ public class TablesServlet extends HttpServlet {
                         team2.add(t2[0] + "~0");
                         team2.add(t2[1] + "~0");
                         //create game
-                        try {
+                        /*try {
                             //Try to hit the database
+
                             String gid = db.createGame(Integer.parseInt(tableID), team1, team2);
                             if (gid != "-1") {
                                 resp.sendRedirect(req.getContextPath() + "/game");
@@ -102,7 +107,7 @@ public class TablesServlet extends HttpServlet {
                         } catch (Exception e) {
                             e.printStackTrace();
                             System.out.println("Game create fail.");
-                        }
+                        }*/
                     }
                 }else{
                     //They actually hit a game button so just go to that game
@@ -125,16 +130,18 @@ public class TablesServlet extends HttpServlet {
         //int tableID = (int)req.getAttribute("tableId");
         String tableID = (String)req.getSession().getAttribute("tableID");
         System.out.println(tableID);
+        int tid = Integer.parseInt(tableID);
         try{
+            Table table = new Table(tid);
             //get the tables from your username and display them if the exist
             //pass in GId based on TID
             String htmlForPage = "";
-            ArrayList<Integer> gamesOnTable = db.getGameIDs(Integer.parseInt(tableID));
+            ArrayList<Game> gamesOnTable = table.getGamesOnTable();
             for(int i = 0; i < gamesOnTable.size(); i++){
                 //System.out.println("Game :" + i);
-                ArrayList<String> gameStats = db.getGameStats(gamesOnTable.get(i)) ;
+                //ArrayList<String> gameStats = db.getGameStats(gamesOnTable.get(i).) ;
                 htmlForPage = htmlForPage +
-                        "<button  onclick ='clearVals' style=\"margin-top:15px;\" class=\"btn btn-primary\" type=\"submit\" name = \"gamePressed\" data-status=\""+ gameStats.get(4) +"\" value = \"" + gamesOnTable.get(i) + "\">Game " + gameStats.get(5) + "</button>"
+                        "<button  onclick ='clearVals' style=\"margin-top:15px;\" class=\"btn btn-primary\" type=\"submit\" name = \"gamePressed\" data-status=\""+ gamesOnTable.get(i).getStatus() +"\" value = \"" + gamesOnTable.get(i).getGID() + "\">Game " + "FIX TIMESTAMP" + "</button>"
                         + "<br/>" ;
 
             }

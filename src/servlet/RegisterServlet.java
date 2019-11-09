@@ -1,23 +1,21 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.Date;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import backend.Entities.Account;
 import org.mindrot.jbcrypt.BCrypt;
 
-import backend.DatabaseProvider;
-import backend.IDatabase;
+import backend.Database.DatabaseProvider;
+import backend.Database.IDatabase;
 //import backend.hashSHA256;
 //import fakeDB.FakeUserDB;
-import backend.DatabaseController;
+import backend.Database.DatabaseFactory;
 
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -39,7 +37,7 @@ public class RegisterServlet extends HttpServlet {
 		
 		//checks if account it a real account
 		//fake db stuff//FakeUserDB db = new FakeUserDB();
-		DatabaseProvider.setInstance(new DatabaseController()); // some of this code taken from lab 06 and library example ---- CITING
+		DatabaseProvider.setInstance(new DatabaseFactory()); // some of this code taken from lab 06 and library example ---- CITING
 		IDatabase db = DatabaseProvider.getInstance();
 
 		// gets username and password
@@ -54,13 +52,9 @@ public class RegisterServlet extends HttpServlet {
 	
 		//Checks if 2 passes are the same
 		if(password.equals(password2)){
-			try {
-				password = BCrypt.hashpw(password, BCrypt.gensalt());
-				validAccount = db.registerAccount(user, password, email, name);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			password = BCrypt.hashpw(password, BCrypt.gensalt());
+			Account account = new Account();
+			validAccount = account.registerAccount(user, password, email, name);
 		}else{
 			validAccount = false;
 		}
