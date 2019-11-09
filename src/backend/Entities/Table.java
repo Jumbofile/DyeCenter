@@ -123,6 +123,9 @@ public class Table {
 		return TID;
 	}
 
+	public ArrayList<Game> getGamesOnTable(){
+		return gamesOnTable;
+	}
 
 	public void setGamesOnTable(ArrayList<Game> gamesOnTable) {
 		this.gamesOnTable = gamesOnTable;

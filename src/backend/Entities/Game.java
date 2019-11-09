@@ -80,6 +80,11 @@ public class Game {
 
 	}
 
+	public Game createGame(){
+
+		//todo
+		return null;
+	}
 	public Player getPlayer1() {
 		return player1;
 	}
@@ -138,5 +143,9 @@ public class Game {
 
 	public int getTeam1Score() {
 		return team1Score;
+	}
+
+	public int getGID() {
+		return GID;
 	}
 }

@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class GameQuery extends DatabaseFactory {
-	//date
-	private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 
 	public GameQuery(){
 
@@ -184,68 +182,6 @@ public class GameQuery extends DatabaseFactory {
 //		});
 //	}
 
-	/***
-	 * Creates a game based on 2 teams and a TID
-	 * @param TID
-	 * @param teamOne
-	 * @param teamTwo
-	 * @return
-	 * @throws SQLException
-	 */
-	public String createGame(int TID, ArrayList<String> teamOne, ArrayList<String> teamTwo) throws SQLException {
-		return executeTransaction(new Transaction<String>() {
-			@Override
-			public String execute(Connection conn) throws SQLException {
-				//Connection conn = null;
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
-
-				try {
-					//TODO
-					//Create a table with the teams listed, there will need to be a method made that allows the players to be changed
-					//This needs to allow users to choose teams on the servlet/jsp side
-					Date myDate = new Date();
-					String date = sdf.format(myDate);
-					//TODO
-					String sql = "insert into game(TID, team_1, team_2, score_1, score_2, status, timestamp)values(?, ?, ?, 0, 0, 0, ?)";
-
-					stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-					stmt.setInt(1, TID);
-					stmt.setString(2, teamOne.get(0) +"," + teamOne.get(1));
-					stmt.setString(3, teamTwo.get(0) +"," + teamTwo.get(1));
-					stmt.setString(4, date);
-					stmt.executeUpdate();
-
-					ResultSet rs = stmt.getGeneratedKeys();
-					rs.next();
-					int gid = rs.getInt(1);
-
-
-					//System.out.println("Team 1: "+ teamOne.get(0));
-					//System.out.println("Team 2: "+ teamTwo.get(0));
-
-					String playerUIDs = teamOne.get(0).split("~")[0] + "," ;
-					playerUIDs += teamOne.get(1).split("~")[0] + "," ;
-					playerUIDs += teamTwo.get(0).split("~")[0] + "," ;
-					playerUIDs += teamTwo.get(1).split("~")[0] + "," ;
-
-//					players += String.join(",",teamOne) + "," ;
-//					players += String.join(",",teamTwo) ;
-					TableQuery tb = new TableQuery();
-					tb.addPlayersToTable(TID,playerUIDs) ;
-
-					return Integer.toString(gid);
-				} catch (Exception e){
-					e.printStackTrace();
-					return "-1";
-				}finally {
-					DBUtil.closeQuietly(resultSet);
-					DBUtil.closeQuietly(stmt);
-				}
-			}
-		});
-	}
 
 	/***
 	 * Gets a userstat list absed on uid
