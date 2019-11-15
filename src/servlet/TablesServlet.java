@@ -55,7 +55,7 @@ public class TablesServlet extends HttpServlet {
             String loadGame = null;
 
             //Check if the input boxes are empty
-            if(req.getParameter("t1").equals("") || req.getParameter("t2").equals("")){
+            if(req.getParameter("t1p1").equals("") || req.getParameter("t2p1").equals("")){
                 try {
                     loadGame = req.getParameter("gamePressed");
                 }catch (Exception e){
@@ -80,35 +80,32 @@ public class TablesServlet extends HttpServlet {
                     if(req.getParameter("t1").equals("") || req.getParameter("t2").equals("")){
                         //DO NOTHING!!!
                     }else {
-                    	//todo - add a box for all 4 players, get their
                         //The user pressed the submit button so we can make a game
-                        String[] t1 = req.getParameter("t1").split(",");
-                        String[] t2 = req.getParameter("t2").split(",");
 
-                        //add players to game
-                        ArrayList<String> team1 = new ArrayList<String>();
-                        team1.add(t1[0] + "~0");
-                        team1.add(t1[1] + "~0");
-                        ArrayList<String> team2 = new ArrayList<String>();
-                        team2.add(t2[0] + "~0");
-                        team2.add(t2[1] + "~0");
+						//get usernames and assign them to a team
+						Player[] t1 = new Player[2];
+						Player[] t2 = new Player[2];
+
+						//populate team 1
+						t1[0] = new Player(req.getParameter("t1p1"));
+						t1[1] = new Player(req.getParameter("t1p2"));
+
+						//populate team 2
+						t2[0] = new Player(req.getParameter("t2p1"));
+						t2[1] = new Player(req.getParameter("t2p2"));
+
                         //create game
-                        /*try {
-                            //Try to hit the database
+						Game game = table.createGame(t1, t2);
 
-                            String gid = db.createGame(Integer.parseInt(tableID), team1, team2);
-                            if (gid != "-1") {
-                                resp.sendRedirect(req.getContextPath() + "/game");
-                                req.getSession().setAttribute("gid", gid);
-                            } else {
-                                //Failed to create the game, keeps user on the table view
-                                resp.sendRedirect(req.getContextPath() + "/table");
-                                req.getSession().setAttribute("tableID", tableID);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            System.out.println("Game create fail.");
-                        }*/
+						if (game != null) {
+							resp.sendRedirect(req.getContextPath() + "/game");
+							req.getSession().setAttribute("gid", game.getGID());
+						} else {
+							//Failed to create the game, keeps user on the table view
+							resp.sendRedirect(req.getContextPath() + "/table");
+							req.getSession().setAttribute("tableID", tableID);
+						}
+
                     }
                 }else{
                     //They actually hit a game button so just go to that game
