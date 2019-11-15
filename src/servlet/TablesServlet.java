@@ -100,10 +100,11 @@ public class TablesServlet extends HttpServlet {
 						if (game != null) {
 							resp.sendRedirect(req.getContextPath() + "/game");
 							req.getSession().setAttribute("gid", game.getGID());
+							req.getSession().setAttribute("tid", tableID);
 						} else {
 							//Failed to create the game, keeps user on the table view
 							resp.sendRedirect(req.getContextPath() + "/table");
-							req.getSession().setAttribute("tableID", tableID);
+							req.getSession().setAttribute("tid", tableID);
 						}
 
                     }

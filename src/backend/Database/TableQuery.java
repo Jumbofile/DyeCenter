@@ -119,8 +119,6 @@ public class TableQuery extends DatabaseFactory{
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 
-				System.out.println("HELLO");
-
 				// retreive username attribute from login
 				stmt = conn.prepareStatement("SELECT name, UID, plunk, players from dyetable where TID = ?");
 				stmt.setInt(1, TID);

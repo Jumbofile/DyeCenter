@@ -26,6 +26,7 @@ public class GameServlet extends HttpServlet {
         System.out.println("Game DoGet");
         uid = (String) req.getSession().getAttribute("uid"); //session stuff
         gid = req.getSession().getAttribute("gid").toString() ;
+        tid = req.getSession().getAttribute("tid").toString();
         System.out.println("GID: " + gid);
         if(gid == null || gid == "-1") {
             req.getRequestDispatcher("/dashboard").forward(req, resp);
@@ -38,6 +39,7 @@ public class GameServlet extends HttpServlet {
             account.populateAccountData(Integer.parseInt(uid));
             Player player = new Player(account.getUsername());
 
+            //todo this is null
             Table table = new Table(Integer.parseInt(tid));
 
             Game game = new Game(Integer.parseInt(gid), table.getTID());
