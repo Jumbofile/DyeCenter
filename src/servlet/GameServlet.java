@@ -25,7 +25,7 @@ public class GameServlet extends HttpServlet {
             throws ServletException, IOException {
         System.out.println("Game DoGet");
         uid = (String) req.getSession().getAttribute("uid"); //session stuff
-        gid = (String) req.getSession().getAttribute("gid") ;
+        gid = req.getSession().getAttribute("gid").toString() ;
         System.out.println("GID: " + gid);
         if(gid == null || gid == "-1") {
             req.getRequestDispatcher("/dashboard").forward(req, resp);

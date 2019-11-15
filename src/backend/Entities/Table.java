@@ -78,11 +78,17 @@ public class Table {
 		Game newGame = new Game();
 		//todo
 		try {
-			newGame = db.createGame(TID, team1, team2);
+			int gid = db.createGame(TID, team1, team2);
+			newGame = new Game(TID, gid);
+
+			//populate table
+			Table table = new Table(TID);
+
+			table.setPlayersOnTable(newGame.getListOfPlayers());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		;
+
 		gamesOnTable.add(newGame);
 		return newGame;
 	}

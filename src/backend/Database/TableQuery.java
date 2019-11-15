@@ -64,11 +64,10 @@ public class TableQuery extends DatabaseFactory{
 	 * @return
 	 * @throws SQLException
 	 */
-	//TODO fix this to return a game object, the tid is there, change parameters to hold player[]
-	public Game createGame(int TID, Player[] teamOne, Player[] teamTwo) throws SQLException {
-		return executeTransaction(new Transaction<Game>() {
+	public int createGame(int TID, Player[] teamOne, Player[] teamTwo) throws SQLException {
+		return executeTransaction(new Transaction<Integer>() {
 			@Override
-			public Game execute(Connection conn) throws SQLException {
+			public Integer execute(Connection conn) throws SQLException {
 				//Connection conn = null;
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
@@ -79,8 +78,10 @@ public class TableQuery extends DatabaseFactory{
 					//This needs to allow users to choose teams on the servlet/jsp side
 					java.util.Date myDate = new Date();
 					String date = sdf.format(myDate);
-					//TODO
-					String sql = "insert into game(TID, team_1, team_2, score_1, score_2, status, timestamp)values(?, ?, ?, 0, 0, 0, ?)";
+					String sql = "insert into game(TID, team_1, team_2, score_1, score_2," +
+							"player_1_points, player_2_points, player_3_points, player_4_points," +
+							"player_1_plunks, player_2_plunks, player_3_plunks, player_4_plunks," +
+							" status, timestamp)values(?, ?, ?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ?)";
 
 					stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -97,20 +98,12 @@ public class TableQuery extends DatabaseFactory{
 
 					//System.out.println("Team 1: "+ teamOne.get(0));
 					//System.out.println("Team 2: "+ teamTwo.get(0));
-					Game game = new Game(TID, gid);
 
-					//populate table
-					TableQuery tb = new TableQuery();
-					String playerUIDs = game.getPlayer1().UID + "," +
-							game.getPlayer2().UID + "," +
-							game.getPlayer3().UID + "," +
-							game.getPlayer4().UID;
-					tb.addPlayersToTable(TID,playerUIDs) ;
-
-					return game;
+					System.out.println("Game made.");
+					return gid;
 				} catch (Exception e){
 					e.printStackTrace();
-					return null;
+					return -1;
 				}finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);

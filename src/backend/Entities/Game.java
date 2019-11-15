@@ -40,6 +40,8 @@ public class Game {
 	}
 	public Game(int GID, int TID){
 		db = new GameQuery();
+		team1 = new Player[2];
+		team2 = new Player[2];
 		this.GID = GID;
 		this.TID = TID;
 		try {
@@ -83,7 +85,15 @@ public class Game {
 
 	}
 
+	public ArrayList<Player> getListOfPlayers(){
+		ArrayList<Player> playerList = new ArrayList<Player>();
+		playerList.add(player1);
+		playerList.add(player2);
+		playerList.add(player3);
+		playerList.add(player4);
 
+		return playerList;
+	}
 
 	public boolean updateGameScore(Game game){
 		boolean success = false;

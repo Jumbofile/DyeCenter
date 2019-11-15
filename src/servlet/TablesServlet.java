@@ -77,7 +77,7 @@ public class TablesServlet extends HttpServlet {
                 //- The game button will be pressed if the "Gamepressed" para isnt null!
                 Table table = new Table(Integer.parseInt(tableID));
                 if(req.getParameter("gamePressed") == null) {
-                    if(req.getParameter("t1").equals("") || req.getParameter("t2").equals("")){
+                    if(req.getParameter("t1p1").equals("") || req.getParameter("t2p1").equals("")){
                         //DO NOTHING!!!
                     }else {
                         //The user pressed the submit button so we can make a game
