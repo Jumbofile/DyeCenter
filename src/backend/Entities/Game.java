@@ -85,6 +85,7 @@ public class Game {
 		//todo
 		return null;
 	}
+	//getters
 	public Player getPlayer1() {
 		return player1;
 	}
@@ -147,5 +148,67 @@ public class Game {
 
 	public int getGID() {
 		return GID;
+	}
+
+	//setters
+	public void setPlayer1(Player player) {
+		this.player1 = player;
+	}
+
+	public void setPlayer2(Player player) {
+		this.player2 = player;
+	}
+
+	public void setPlayer3(Player player) {
+		this.player3 = player;
+	}
+
+	public void setPlayer4(Player player) {
+		this.player4 = player;
+	}
+
+
+	public void setPlayer1Score(int score){
+		player1Score = score;
+	}
+
+	public void setPlayer2Score(int score){
+		player2Score = score;
+	}
+
+	public void setPlayer3Score(int score){
+		player3Score = score;
+	}
+
+	public void setPlayer4Score(int score){
+		player4Score = score;
+	}
+
+	public void setPlayer1Plunks(int plunks){
+		player1Plunks = plunks;
+	}
+
+	public void setPlayer2Plunks(int plunks){
+		player2Plunks = plunks;
+	}
+
+	public void setPlayer3Plunks(int plunks){
+		player3Plunks = plunks;
+	}
+
+	public void setPlayer4Plunks(int plunks){
+		player4Plunks = plunks;
+	}
+
+	public void setStatus(int status){
+		this.status = status;
+	}
+
+	public void setTeam1Score(int team1Score) {
+		this.team1Score = team1Score;
+	}
+
+	public void setTeam2Score(int team2Score) {
+		this.team2Score = team2Score;
 	}
 }
