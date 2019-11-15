@@ -1,6 +1,7 @@
 package backend.Database;
 
 import backend.Entities.Account;
+import backend.Entities.Game;
 import backend.Entities.Player;
 import backend.Entities.Table;
 
@@ -64,10 +65,10 @@ public class TableQuery extends DatabaseFactory{
 	 * @throws SQLException
 	 */
 	//TODO fix this to return a game object, the tid is there, change parameters to hold player[]
-	public String createGame(int TID, ArrayList<String> teamOne, ArrayList<String> teamTwo) throws SQLException {
-		return executeTransaction(new Transaction<String>() {
+	public Game createGame(int TID, Player[] teamOne, Player[] teamTwo) throws SQLException {
+		return executeTransaction(new Transaction<Game>() {
 			@Override
-			public String execute(Connection conn) throws SQLException {
+			public Game execute(Connection conn) throws SQLException {
 				//Connection conn = null;
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
@@ -84,8 +85,8 @@ public class TableQuery extends DatabaseFactory{
 					stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 					stmt.setInt(1, TID);
-					stmt.setString(2, teamOne.get(0) +"," + teamOne.get(1));
-					stmt.setString(3, teamTwo.get(0) +"," + teamTwo.get(1));
+					stmt.setString(2, teamOne[0].UID +"," + teamOne[1].UID);
+					stmt.setString(3, teamTwo[0].UID +"," + teamTwo[1].UID);
 					stmt.setString(4, date);
 					stmt.executeUpdate();
 
@@ -96,21 +97,20 @@ public class TableQuery extends DatabaseFactory{
 
 					//System.out.println("Team 1: "+ teamOne.get(0));
 					//System.out.println("Team 2: "+ teamTwo.get(0));
+					Game game = new Game(TID, gid);
 
-					String playerUIDs = teamOne.get(0).split("~")[0] + "," ;
-					playerUIDs += teamOne.get(1).split("~")[0] + "," ;
-					playerUIDs += teamTwo.get(0).split("~")[0] + "," ;
-					playerUIDs += teamTwo.get(1).split("~")[0] + "," ;
-
-//					players += String.join(",",teamOne) + "," ;
-//					players += String.join(",",teamTwo) ;
+					//populate table
 					TableQuery tb = new TableQuery();
+					String playerUIDs = game.getPlayer1().UID + "," +
+							game.getPlayer2().UID + "," +
+							game.getPlayer3().UID + "," +
+							game.getPlayer4().UID;
 					tb.addPlayersToTable(TID,playerUIDs) ;
 
-					return Integer.toString(gid);
+					return game;
 				} catch (Exception e){
 					e.printStackTrace();
-					return "-1";
+					return null;
 				}finally {
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt);

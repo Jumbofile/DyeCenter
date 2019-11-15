@@ -93,7 +93,7 @@ public class DashboardServlet extends HttpServlet {
                 for(Integer TID : account.getTableIds()) {
                     //System.out.println("TID: " + TID);
                     Table table = new Table(TID);
-                    tblNames.add(table.getName()) ;
+                    tblNames.add(table.getName() + "^" + table.getTID()) ;
                 }
 
 

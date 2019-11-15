@@ -80,6 +80,7 @@ public class TablesServlet extends HttpServlet {
                     if(req.getParameter("t1").equals("") || req.getParameter("t2").equals("")){
                         //DO NOTHING!!!
                     }else {
+                    	//todo - add a box for all 4 players, get their
                         //The user pressed the submit button so we can make a game
                         String[] t1 = req.getParameter("t1").split(",");
                         String[] t2 = req.getParameter("t2").split(",");

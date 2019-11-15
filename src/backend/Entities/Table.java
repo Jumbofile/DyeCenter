@@ -75,9 +75,16 @@ public class Table {
 	}
 
 	public Game createGame(Player[] team1, Player[] team2){
-
+		Game newGame = new Game();
 		//todo
-		return null;
+		try {
+			newGame = db.createGame(TID, team1, team2);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		;
+		gamesOnTable.add(newGame);
+		return newGame;
 	}
 
 	public void setName(String name) {

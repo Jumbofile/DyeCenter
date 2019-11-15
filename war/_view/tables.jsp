@@ -54,14 +54,16 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="basic-addon1">Team 1</span>
 				</div>
-				<input type="text" name="t1" class="form-control" placeholder="UID_1, UID_2" aria-describedby="basic-addon1" autofocus>
+				<input type="text" name="t1p1" class="form-control" placeholder="Player Username" aria-describedby="basic-addon1" autofocus>
+				<input type="text" name="t1p2" class="form-control" placeholder="Player Username" aria-describedby="basic-addon1" autofocus>
 			</div>
 
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="basic-addon2">Team 2</span>
 				</div>
-				<input type="text" name="t2" class="form-control" placeholder="UID_3, UID_4" aria-describedby="basic-addon2" >
+				<input type="text" name="t2p1" class="form-control" placeholder="Player Username" aria-describedby="basic-addon2" >
+				<input type="text" name="t2p2" class="form-control" placeholder="Player Username" aria-describedby="basic-addon2" >
 			</div>
 
 			<div style="text-align: center;">
