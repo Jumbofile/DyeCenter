@@ -1,6 +1,7 @@
 package backend.Database;
 
 import backend.Entities.Account;
+import backend.Entities.Game;
 import backend.Entities.Player;
 
 import java.sql.*;
@@ -38,6 +39,57 @@ public class GameQuery extends DatabaseFactory {
 				//DBUtil.closeQuietly(conn);
 				//System.out.println(rtnStats.toString());
 				return rtnString;
+			}
+		});
+
+	}
+
+	public Game updateGame(int GID, Game game) throws SQLException {
+		return executeTransaction(new DatabaseFactory.Transaction<Game>() {
+			@Override
+			public Game execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				Game rtnGame = null;
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("UPDATE game SET score_1 = ?, score_2 = ?, player_1_points = ?," +
+						"player_2_points = ?, player_3_points = ?, player_4_points = ?, player_1_plunks = ?," +
+						"player_2_plunks = ?, player_3_plunks = ?, player_4_plunks = ?, status = ?" +
+						"WHERE GID = ?" );
+				//team scores
+				stmt.setInt( 1, game.getTeam1Score());
+				stmt.setInt( 2, game.getTeam2Score());
+
+				//player scores
+				stmt.setInt( 3, game.getPlayer1Score());
+				stmt.setInt( 4, game.getPlayer2Score());
+				stmt.setInt( 5, game.getPlayer3Score());
+				stmt.setInt( 6, game.getPlayer4Score());
+
+				//player plunks
+				stmt.setInt( 7, game.getPlayer1Plunks());
+				stmt.setInt( 8, game.getPlayer2Plunks());
+				stmt.setInt( 9, game.getPlayer3Plunks());
+				stmt.setInt( 10, game.getPlayer4Plunks());
+
+				//status
+				stmt.setInt( 11, game.getStatus());
+
+				//gid
+				stmt.setInt( 12, GID);
+				stmt.executeUpdate();
+
+
+				//rtnString = resultSet.getString("name");
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return game;
 			}
 		});
 

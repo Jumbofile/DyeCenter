@@ -35,6 +35,9 @@ public class Game {
 	private String timeOfCreation;
 	private GameQuery db;
 
+	public Game(){
+		db = new GameQuery();
+	}
 	public Game(int GID, int TID){
 		db = new GameQuery();
 		this.GID = GID;
@@ -80,10 +83,20 @@ public class Game {
 
 	}
 
-	public Game createGame(){
 
-		//todo
-		return null;
+
+	public boolean updateGameScore(Game game){
+		boolean success = false;
+		 Game updatedGame;
+		//database call to update the game
+		try {
+			updatedGame = db.updateGame(GID, game);
+			success = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return success;
 	}
 	//getters
 	public Player getPlayer1() {

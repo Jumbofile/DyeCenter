@@ -74,6 +74,12 @@ public class Table {
 		this.TID = TID;
 	}
 
+	public Game createGame(Player[] team1, Player[] team2){
+
+		//todo
+		return null;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
