@@ -94,7 +94,7 @@ public class GameServlet extends HttpServlet {
             req.getRequestDispatcher("/login").forward(req, resp);
         }else{
 
-           /* Account account = new Account();
+            Account account = new Account();
             account.populateAccountData(Integer.parseInt(uid));
             Player player = new Player(account.getUsername());
 
@@ -181,7 +181,7 @@ public class GameServlet extends HttpServlet {
                 req.getSession().setAttribute("gid", gid);
             } catch (Exception e) {
 
-            }*/
+            }
 
         }
 
