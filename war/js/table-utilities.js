@@ -1,11 +1,6 @@
 
 var gameArr = $('#gameList').children("button");
 
-console.log(gameArr[0]) ;
-
-console.log(gameArr[0].children);
-
-console.log(gameArr.length) ;
 
 for(var i = 0; i < gameArr.length; i++) {
     var status = gameArr[i].getAttribute("data-status") ;
@@ -15,10 +10,19 @@ for(var i = 0; i < gameArr.length; i++) {
     var scores = gameArr[i].getAttribute("data-scores") ;
     var plunks = gameArr[i].getAttribute("data-plunks") ;
 
-    var date = new Date(time + "UTC");
-    console.log(date.toString());
-
+    console.log(status);
     console.log(time);
-    console.log(gameArr[i].querySelector('.game-card-header'));
+    console.log(usernames.split(','));
+    console.log(names);
+    console.log(scores);
+    console.log(plunks);
+
+    var date = new Date(time + "UTC");
+
     gameArr[i].querySelector('.game-card-header').innerHTML = date.toLocaleString();
+    for(var x = 0; x < names.length; x++) {
+        // gameArr[i].querySelector('.p'+ x).innerHTML = names.split(',')[x];
+        // gameArr[i].querySelector('.p'+ x).innerHTML += scores.split(',')[x];
+        // gameArr[i].querySelector('.p'+ x).innerHTML += plunks.split(',')[x];
+    }
 }
