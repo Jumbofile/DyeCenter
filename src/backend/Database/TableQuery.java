@@ -89,7 +89,7 @@ public class TableQuery extends DatabaseFactory{
 							" status)values(?, ?, ?, ?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)";
 
 					stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-					stmt.setString(1, hash);
+					stmt.setString(1, hash.toLowerCase());
 					stmt.setInt(2, TID);
 					stmt.setString(3, teamOne[0].UID +"," + teamOne[1].UID);
 					stmt.setString(4, teamTwo[0].UID +"," + teamTwo[1].UID);
