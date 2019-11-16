@@ -20,9 +20,11 @@ for(var i = 0; i < gameArr.length; i++) {
     var date = new Date(time + "UTC");
 
     gameArr[i].querySelector('.game-card-header').innerHTML = date.toLocaleString();
+    gameArr[i].querySelector('.team1').innerHTML = "Team 1 - " + (scores[0] + scores[1]);
+    gameArr[i].querySelector('.team2').innerHTML = "Team 2 - " + (scores[2] + scores[3]);
     for(var x = 0; x < names.length; x++) {
-        gameArr[i].querySelector('.p'+ (x+1)).innerHTML = names[x].trim();
-        gameArr[i].querySelector('.p'+ (x+1)).innerHTML += scores[x].trim();
-        gameArr[i].querySelector('.p'+ (x+1)).innerHTML += plunks[x].trim();
+        gameArr[i].querySelector('.p'+ (x+1)).innerHTML = "Name: "+ names[x].trim();
+        gameArr[i].querySelector('.p'+ (x+1)).innerHTML += " Score: "+scores[x].trim();
+        gameArr[i].querySelector('.p'+ (x+1)).innerHTML += " Plunks: " + plunks[x].trim();
     }
 }
