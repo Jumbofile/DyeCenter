@@ -10,6 +10,11 @@ for(var i = 0; i < gameArr.length; i++) {
     var scores = gameArr[i].getAttribute("data-scores").split(",") ;
     var plunks = gameArr[i].getAttribute("data-plunks").split(",") ;
 
+    var t1score = eval(scores[0].trim() + scores[1].trim());
+    var t2score = eval(scores[2].trim() + scores[3].trim());
+
+    var statusString = "In-Progress...";
+
     console.log(status);
     console.log(time);
     console.log(usernames);
@@ -18,11 +23,15 @@ for(var i = 0; i < gameArr.length; i++) {
     console.log(plunks);
 
     var date = new Date(time + "UTC");
-    console.log("Team 1 - " + eval(scores[0] + scores[1]))
+    console.log(scores[0]);
 
-    gameArr[i].querySelector('.game-card-header').innerHTML = date.toLocaleString();
-    gameArr[i].querySelector('.team1').innerHTML = "Team 1 - " + eval(scores[0] + scores[1]);
-    gameArr[i].querySelector('.team2').innerHTML = "Team 2 - " + eval(scores[2] + scores[3]);
+    if(status != 0) {
+        statusString = ""
+    }
+
+    gameArr[i].querySelector('.game-card-header').innerHTML = date.toLocaleString() + " - " + statusString;
+    gameArr[i].querySelector('.team1').innerHTML = "Team 1 - " + t1score ;
+    gameArr[i].querySelector('.team2').innerHTML = "Team 2 - " + t2score ;
     for(var x = 0; x < names.length; x++) {
         gameArr[i].querySelector('.p'+ (x+1)).innerHTML = names[x].trim();
         gameArr[i].querySelector('.p'+ (x+1)).innerHTML += " Score: "+scores[x].trim();
