@@ -252,4 +252,8 @@ public class Game {
 	public String getTimeOfCreation() {
 		return timeOfCreation;
 	}
+
+	public String getHash() {
+		return hash;
+	}
 }
