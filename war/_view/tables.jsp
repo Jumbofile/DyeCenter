@@ -73,7 +73,7 @@
 		</div>
 		<br/>
 		<hr>
-		<div class="gameList">
+		<div id="gameList">
 			<br/>
 			<h2>Games</h2>
 			${gameButtons}
@@ -85,5 +85,6 @@
 <!-- Bootstrap core JavaScript-->
 <script src="js/widget_js/vendor/jquery/jquery.min.js"></script>
 <script src="js/widget_js/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/table-utilities.js"></script>
 
 </html>
