@@ -99,6 +99,12 @@ public class TableQuery extends DatabaseFactory{
 					rs.next();
 					int gid = rs.getInt(1);
 
+					ArrayList<Player> players = new ArrayList<Player>();
+					players.addAll(Arrays.asList(teamOne));
+					players.addAll(Arrays.asList(teamTwo));
+					addPlayersToTable(TID, teamOne[0].UID+","+teamOne[1].UID+","+
+							teamTwo[0].UID+","+teamTwo[1].UID);
+
 
 					//System.out.println("Team 1: "+ teamOne.get(0));
 					//System.out.println("Team 2: "+ teamTwo.get(0));
