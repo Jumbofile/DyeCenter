@@ -2,6 +2,7 @@ package backend.Entities;
 
 import backend.Database.GameQuery;
 
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 

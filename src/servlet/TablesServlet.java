@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class TablesServlet extends HttpServlet {
@@ -143,10 +144,46 @@ public class TablesServlet extends HttpServlet {
             for(int i = 0; i < gamesOnTable.size(); i++){
                 //System.out.println("Game :" + i);
                 //ArrayList<String> gameStats = db.getGameStats(gamesOnTable.get(i).) ;
-                htmlForPage = htmlForPage +
-                        "<button  onclick ='clearVals' style=\"margin-top:15px;\" class=\"btn btn-primary\" type=\"submit\" name = \"gamePressed\" data-status=\""+ gamesOnTable.get(i).getStatus() +"\" value = \"" + gamesOnTable.get(i).getGID() + "\">Game " + gamesOnTable.get(i).getTimeOfCreation() + "</button>"
-                        + "<br/>" ;
 
+                ArrayList<Integer> scores = new ArrayList<>();
+                scores.add(gamesOnTable.get(i).getPlayer1Score());
+                scores.add(gamesOnTable.get(i).getPlayer2Score());
+                scores.add(gamesOnTable.get(i).getPlayer3Score());
+                scores.add(gamesOnTable.get(i).getPlayer4Score());
+
+                ArrayList<Integer> plunks = new ArrayList<>();
+                plunks.add(gamesOnTable.get(i).getPlayer1Plunks()) ;
+                plunks.add(gamesOnTable.get(i).getPlayer2Plunks()) ;
+                plunks.add(gamesOnTable.get(i).getPlayer3Plunks()) ;
+                plunks.add(gamesOnTable.get(i).getPlayer4Plunks()) ;
+
+                ArrayList<String> usernames = new ArrayList<>();
+                usernames.add(gamesOnTable.get(i).getPlayer1().getUsername());
+                usernames.add(gamesOnTable.get(i).getPlayer2().getUsername());
+                usernames.add(gamesOnTable.get(i).getPlayer3().getUsername());
+                usernames.add(gamesOnTable.get(i).getPlayer4().getUsername());
+
+                ArrayList<String> names = new ArrayList<>();
+                names.add(gamesOnTable.get(i).getPlayer1().getName());
+                names.add(gamesOnTable.get(i).getPlayer2().getName());
+                names.add(gamesOnTable.get(i).getPlayer3().getName());
+                names.add(gamesOnTable.get(i).getPlayer4().getName());
+
+                htmlForPage = htmlForPage +
+                        "<button  onclick ='clearVals' class=\"game-card btn btn-primary\" type=\"submit\" name = \"gamePressed\" data-status=\""+ gamesOnTable.get(i).getStatus() + "\" "+
+                        "data-time=\""+ gamesOnTable.get(i).getTimeOfCreation() + "\" data-score = \""+ scores.toString() +"\" data-plunks=\""+ plunks.toString() + "\" "+
+                        "data-usernames=\""+ usernames.toString() +"\" data-names=\""+ names.toString() +"\" value = \""+ gamesOnTable.get(i).getGID() +"\">" +
+                            "<div class='game-card-cont'>" +
+                                "<div class='gamePrev-item game-card-header'>header</div>"+
+                                "<div class='gamePrev-item team1'>team1</div>"+
+                                "<div class='gamePrev-item player p1'>2</div>"+
+                                "<div class='gamePrev-item player p2'>3</div>"+
+                                "<div class='gamePrev-item team2'>team2</div>"+
+                                "<div class='gamePrev-item player p3'>5</div>"+
+                                "<div class='gamePrev-item player p4'>6</div>"+
+                            "</div>"+
+                        "</button>"
+                        + "<br/>" ;
             }
             //System.out.println(htmlForPage);
             req.setAttribute("gameButtons", htmlForPage);

@@ -168,7 +168,7 @@ public class TableQuery extends DatabaseFactory{
 				ResultSet resultSet = null;
 
 				// retreive username attribute from login
-				stmt = conn.prepareStatement("SELECT GID from game where TID = ?" );
+				stmt = conn.prepareStatement("SELECT GID from game where TID = ? ORDER BY status ASC" );
 				stmt.setInt( 1, TID);
 				resultSet = stmt.executeQuery();
 
