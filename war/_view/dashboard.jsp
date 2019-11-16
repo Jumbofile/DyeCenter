@@ -108,7 +108,7 @@
 
 		<!-- Nav Item - Charts -->
 		<li class="nav-item">
-			<a onclick="logout()" class="nav-link" href="index">
+			<a onclick="" class="nav-link" href="logout">
 				<i class="fas fa-sign-out-alt"></i>
 				<span>Logout</span>
             </a>
