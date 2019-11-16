@@ -76,7 +76,7 @@ public class TableQuery extends DatabaseFactory{
 					//TODO
 					StandardHash hashCreate = new StandardHash();
 					String hash = hashCreate.getAlphaNumericString();
-					while(isHashUnique(hash) == false){
+					while(isHashUnique(hash.toLowerCase()) == false){
 						hash = hashCreate.getAlphaNumericString();
 					}
 					//Create a table with the teams listed, there will need to be a method made that allows the players to be changed
