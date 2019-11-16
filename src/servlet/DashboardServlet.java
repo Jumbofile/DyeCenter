@@ -57,7 +57,6 @@ public class DashboardServlet extends HttpServlet {
             if (sessionuid == null) {
                 req.getRequestDispatcher("/login").forward(req, resp);
             } else {
-
                 setAttr(req, resp);
                 // req.setAttribute("username", usernameCap);
                 //req.setAttribute("idea", response);
@@ -76,12 +75,13 @@ public class DashboardServlet extends HttpServlet {
             Player player = account.getPlayerFromAccount();
 
             try{
-
-                    req.setAttribute("played", player.getTotalGames());
-                    req.setAttribute("points",player.getPoints());
-                    req.setAttribute("plunks",player.getPlunks());
-                    req.setAttribute("wins",player.getWins());
-                    req.setAttribute("loss",player.getLoss());
+                req.setAttribute("name", player.getName());
+                req.setAttribute("username", player.getUsername());
+                req.setAttribute("played", player.getTotalGames());
+                req.setAttribute("points",player.getPoints());
+                req.setAttribute("plunks",player.getPlunks());
+                req.setAttribute("wins",player.getWins());
+                req.setAttribute("loss",player.getLoss());
 
                 // Display Name
                 String displayName = account.getName();

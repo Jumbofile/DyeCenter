@@ -53,29 +53,6 @@
 
 <body id="page-top">
 <form action="${pageContext.servletContext.contextPath}/dashboard" method="post">
-<!-- Navigation -->
-<%--<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">--%>
-	<%--<div class="container">--%>
-		<%--<a class="navbar-brand js-scroll-trigger" href="#page-top"></a>--%>
-		<%--<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">--%>
-			<%--Menu--%>
-			<%--<i class="fas fa-bars"></i>--%>
-		<%--</button>--%>
-		<%--<div class="collapse navbar-collapse" id="navbarResponsive">--%>
-			<%--<ul class="navbar-nav text-uppercase ml-auto">--%>
-				<%--<li class="nav-item">--%>
-					<%--<a class="nav-link js-scroll-trigger" href="#about">Profile</a>--%>
-				<%--</li>--%>
-				<%--<li class="nav-item">--%>
-					<%--<a class="nav-link js-scroll-trigger" href="#team">Team</a>--%>
-				<%--</li>--%>
-				<%--<li class="nav-item">--%>
-					<%--<a class="nav-link js-scroll-trigger" href="#contact">Contact</a>--%>
-				<%--</li>--%>
-			<%--</ul>--%>
-		<%--</div>--%>
-	<%--</div>--%>
-<%--</nav>--%>
 
 <!-- Page Wrapper -->
 <div id="wrapper">
@@ -147,54 +124,17 @@
 		<!-- Main Content -->
 		<div id="content">
 
-			<!-- Topbar -->
-			<nav class="navbar navbar-expand navbar-light bg-white topbar mb-12 static-top shadow">
+			<!-- Page Heading -->
+			<nav class="navbar-expand navbar-light bg-white topbar mb-12 static-top shadow">
+				<div style="margin-left: 26px; padding-top: 6px">
+					<h1 class="h3 mb-0 text-gray-800">${name}'s Dashboard</h1>
 
-				<!-- Sidebar Toggle (Topbar) -->
-				<%--<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">--%>
-					<%--<i class="fa fa-bars"></i>--%>
-				<%--</button>--%>
-					<!-- Nav Item - User Information -->
-				<%--style="display: block; top:5px; left: 37vw;"--%>
-					<li style="" id="userIcon" class="nav-item dropdown no-arrow">
-						<a  class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<span style="direction: rtl" class="mr-2 d-lg-inline text-gray-600 small">${name}</span>
-							<img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-						</a>
-						<!-- Dropdown - User Information -->
-						<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-							<a class="dropdown-item" href="#">
-								<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-								Profile
-							</a>
-							<a class="dropdown-item" href="#">
-								<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-								Settings
-							</a>
-							<a class="dropdown-item" href="#">
-								<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-								Activity Log
-							</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-								<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-								Logout
-							</a>
-						</div>
-					</li>
-
-				</ul>
-
+					<h6> @${username} </h6>
+				</div>
 			</nav>
-			<!-- End of Topbar -->
-
+			<br>
 			<!-- Begin Page Content -->
 			<div class="container-fluid">
-
-				<!-- Page Heading -->
-				<div class="d-sm-flex align-items-center justify-content-between mb-4">
-					<h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-				</div>
 
 				<!-- Content Row -->
 				<div class="row">

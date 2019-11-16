@@ -99,6 +99,12 @@ public class TableQuery extends DatabaseFactory{
 					rs.next();
 					int gid = rs.getInt(1);
 
+					ArrayList<Player> players = new ArrayList<Player>();
+					players.addAll(Arrays.asList(teamOne));
+					players.addAll(Arrays.asList(teamTwo));
+					addPlayersToTable(TID, teamOne[0].UID+","+teamOne[1].UID+","+
+							teamTwo[0].UID+","+teamTwo[1].UID);
+
 
 					//System.out.println("Team 1: "+ teamOne.get(0));
 					//System.out.println("Team 2: "+ teamTwo.get(0));
@@ -221,61 +227,7 @@ public class TableQuery extends DatabaseFactory{
 
 	}
 
-	public String getHash(int gid) throws SQLException {
-		return executeTransaction(new DatabaseFactory.Transaction<String>() {
-			@Override
-			public String execute(Connection conn) throws SQLException {
-				//Connection conn = null;
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
 
-				// retreive username attribute from login
-				stmt = conn.prepareStatement("SELECT hash from game where GID = ?" );
-				stmt.setInt( 1, gid);
-				resultSet = stmt.executeQuery();
-				String result = new String();
-
-				resultSet.next();
-				result = resultSet.getString(1);
-
-
-				DBUtil.closeQuietly(resultSet);
-				DBUtil.closeQuietly(stmt);
-				//DBUtil.closeQuietly(conn);
-				//System.out.println(rtnStats.toString());
-				return result;
-			}
-		});
-
-	}
-
-	public int getHash(String hash) throws SQLException {
-		return executeTransaction(new DatabaseFactory.Transaction<Integer>() {
-			@Override
-			public Integer execute(Connection conn) throws SQLException {
-				//Connection conn = null;
-				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
-
-				// retreive username attribute from login
-				stmt = conn.prepareStatement("SELECT GID from game where hash = ?" );
-				stmt.setString( 1, hash);
-				resultSet = stmt.executeQuery();
-				int result = -1;
-
-				resultSet.next();
-				result = resultSet.getInt(1);
-
-
-				DBUtil.closeQuietly(resultSet);
-				DBUtil.closeQuietly(stmt);
-				//DBUtil.closeQuietly(conn);
-				//System.out.println(rtnStats.toString());
-				return result;
-			}
-		});
-
-	}
 
 	/***
 	 * Creates a table
