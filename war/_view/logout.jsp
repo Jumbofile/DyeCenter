@@ -14,8 +14,7 @@
 
 
 <body>
-<form action="${pageContext.servletContext.contextPath}/logout" method="post">
-</form>
+LOGOUT!
 </body>
 
 </html>
