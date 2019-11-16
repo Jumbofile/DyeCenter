@@ -109,11 +109,30 @@ public class GameServlet extends HttpServlet {
             String[] data3 = req.getAttribute("card-data-3").toString().split(",");
             String[] data4 = req.getAttribute("card-data-4").toString().split(",");
 
-            //Game updatedGame = new Game()
+
             //update player 1
-            Player player1 = new Player(data1[1]);
+            game.setPlayer1Score(Integer.parseInt(data1[2]));
+            game.setPlayer1Plunks(Integer.parseInt(data1[3]));
 
+            //update player 2
+            game.setPlayer2Score(Integer.parseInt(data2[2]));
+            game.setPlayer2Plunks(Integer.parseInt(data2[3]));
 
+            //update player 3
+            game.setPlayer3Score(Integer.parseInt(data3[2]));
+            game.setPlayer3Plunks(Integer.parseInt(data3[3]));
+
+            //update player 4
+            game.setPlayer4Score(Integer.parseInt(data4[2]));
+            game.setPlayer4Plunks(Integer.parseInt(data4[3]));
+
+            //team 1 score
+            game.setTeam1Score(Integer.parseInt(data1[2]) + Integer.parseInt(data2[2]));
+
+            //team 2 score
+            game.setTeam2Score(Integer.parseInt(data3[2]) + Integer.parseInt(data4[2]));
+
+            game.updateGameScore(game);
             }
             try {
                 resp.sendRedirect(req.getContextPath() + "/game");
