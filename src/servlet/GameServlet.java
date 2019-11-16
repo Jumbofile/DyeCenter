@@ -93,6 +93,7 @@ public class GameServlet extends HttpServlet {
         if (uid == null) {
             req.getRequestDispatcher("/login").forward(req, resp);
         }else{
+
            /* Account account = new Account();
             account.populateAccountData(Integer.parseInt(uid));
             Player player = new Player(account.getUsername());

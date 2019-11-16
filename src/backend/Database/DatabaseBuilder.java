@@ -6,8 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DatabaseBuilder extends DatabaseFactory {
+
 	public void createTables() {
 		executeTransaction(new DatabaseFactory.Transaction<Boolean>() {
+
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;

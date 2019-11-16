@@ -2,13 +2,14 @@ package main;
 
 import java.io.File;
 import java.net.InetSocketAddress;
+import java.util.TimeZone;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
-
+		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 		String webappCodeBase = "war";
 		int port = 8080 ;
 		File warFile = new File(webappCodeBase);
