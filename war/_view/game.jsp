@@ -86,6 +86,7 @@
 		<%--<button type="submit" name="point" class="btn btn-primary" value="finish">Finish Game</button>--%>
 	<%--</form>--%>
 <%--</div>--%>
+<form action="${pageContext.servletContext.contextPath}/game" method="post">
 <div class="container py-5">
 
 	<!-- Modal -->
@@ -100,7 +101,7 @@
 				<div class="modal-body">
 					Update Player Stats
 				</div>
-				<form action="${pageContext.servletContext.contextPath}/game" method="post">
+
 					<div class="modal-footer">
 						<h2>Points</h2>
 						<button type="submit" onclick="addPoint()" class="btn btn-primary" >+1</button>
@@ -119,19 +120,14 @@
 
 						<button type="submit" onclick="delPlunk()" class="btn btn-primary" >-1</button>
 					</div>
-				</form>
+
 			</div>
 		</div>
 	</div>
 
 
 
-	<div class="row">
-		<form action="${pageContext.servletContext.contextPath}/table" method="get">
-			<button type="submit" name="back" value="back" class="btn btn-primary">Back</button>
-		</form>
-	</div>
-	<form action="${pageContext.servletContext.contextPath}/game" method="post">
+
 		<div class="row">
 
 			<!-- For demo purpose -->
@@ -143,6 +139,8 @@
 
 
 			<div id="t1p1Card" name="card-data-1" value="${t1p1Name},${t1p1Username},${t1p1Score},${t1p1Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
+				<input style="display:none;"  type="input" name="card-data-1" value="${t1p1Name},${t1p1Username},${t1p1Score},${t1p1Plunks}">
+
 				<div class="bg-white rounded-lg p-5 shadow">
 					<h2 class="h2 font-weight-bold text-center mb-4">${t1p1Name}</h2>
 					<h2 class="h6 font-weight-bold text-center mb-4">${t1p1Username}</h2>
@@ -278,8 +276,8 @@
 				</div>
 			</div>
 		</div>
-	</form>
 </div>
+</form>
 
 </body>
 

@@ -102,12 +102,13 @@ public class GameServlet extends HttpServlet {
 
             Game game = new Game(Integer.parseInt(gid), table.getTID());
 
-            String points = (String)req.getParameter("point");
-            int playerBeingModified = Integer.parseInt(req.getParameter("player"));
-            String[] data1 = req.getAttribute("card-data-1").toString().split(",");
-            String[] data2 = req.getAttribute("card-data-2").toString().split(",");
-            String[] data3 = req.getAttribute("card-data-3").toString().split(",");
-            String[] data4 = req.getAttribute("card-data-4").toString().split(",");
+            String points = (String)req.getParameter("card-data-1");
+            System.out.println(points);
+            //int playerBeingModified = Integer.parseInt(req.getParameter("player"));
+            String[] data1 = req.getParameter("card-data-1").toString().split(",");
+            String[] data2 = req.getParameter("card-data-2").toString().split(",");
+            String[] data3 = req.getParameter("card-data-3").toString().split(",");
+            String[] data4 = req.getParameter("card-data-4").toString().split(",");
 
 
             //update player 1
@@ -144,4 +145,3 @@ public class GameServlet extends HttpServlet {
         }
 
     }
-}
