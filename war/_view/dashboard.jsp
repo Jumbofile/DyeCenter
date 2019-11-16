@@ -40,7 +40,7 @@
 		}
 		/* when screen is less than 600px wide
            show mobile version and hide desktop */
-		@media (max-width: 600px) {
+		@media (max-width: 768px) {
 			.logo .mobile {
 				display: block;
 			}
@@ -90,7 +90,6 @@
 					<img class="mobile" src="webresources/whiteDye.svg" alt="DyeCenter" height="85">
 				</div>
 				<div style="margin-left:3px" class="sidebar-brand-text">
-
 					<img class="desktop" src="webresources/dyecenter-white.svg" alt="DyeCenter" height="85">
 				</div>
 			</div>
