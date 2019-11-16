@@ -1,0 +1,14 @@
+.game-card {
+    position: relative;
+    width: 100%;
+    text-align: left;
+}
+
+.game-card-cont {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.game-card-cont .game-card-header {
+    grid-column-start: span 3;
+}
