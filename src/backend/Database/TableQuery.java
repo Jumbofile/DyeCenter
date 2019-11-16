@@ -74,20 +74,25 @@ public class TableQuery extends DatabaseFactory{
 
 				try {
 					//TODO
+					StandardHash hashCreate = new StandardHash();
+					String hash = hashCreate.getAlphaNumericString();
+					while(isHashUnique(hash) == false){
+						hash = hashCreate.getAlphaNumericString();
+					}
 					//Create a table with the teams listed, there will need to be a method made that allows the players to be changed
 					//This needs to allow users to choose teams on the servlet/jsp side
 					java.util.Date myDate = new Date();
 					String date = sdf.format(myDate);
-					String sql = "insert into game(TID, team_1, team_2, score_1, score_2," +
+					String sql = "insert into game(hash, TID, team_1, team_2, score_1, score_2," +
 							"player_1_points, player_2_points, player_3_points, player_4_points," +
 							"player_1_plunks, player_2_plunks, player_3_plunks, player_4_plunks," +
-							" status)values(?, ?, ?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)";
+							" status)values(?, ?, ?, ?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)";
 
 					stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-					stmt.setInt(1, TID);
-					stmt.setString(2, teamOne[0].UID +"," + teamOne[1].UID);
-					stmt.setString(3, teamTwo[0].UID +"," + teamTwo[1].UID);
+					stmt.setString(1, hash);
+					stmt.setInt(2, TID);
+					stmt.setString(3, teamOne[0].UID +"," + teamOne[1].UID);
+					stmt.setString(4, teamTwo[0].UID +"," + teamTwo[1].UID);
 					stmt.executeUpdate();
 
 					ResultSet rs = stmt.getGeneratedKeys();
@@ -168,7 +173,7 @@ public class TableQuery extends DatabaseFactory{
 				ResultSet resultSet = null;
 
 				// retreive username attribute from login
-				stmt = conn.prepareStatement("SELECT GID from game where TID = ?" );
+				stmt = conn.prepareStatement("SELECT GID from game where TID = ? ORDER BY status ASC" );
 				stmt.setInt( 1, TID);
 				resultSet = stmt.executeQuery();
 
@@ -183,6 +188,90 @@ public class TableQuery extends DatabaseFactory{
 				//DBUtil.closeQuietly(conn);
 				//System.out.println(rtnStats.toString());
 				return gamesOnTable;
+			}
+		});
+
+	}
+	public boolean isHashUnique(String hash) throws SQLException {
+		return executeTransaction(new DatabaseFactory.Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("SELECT hash from game where hash = ?" );
+				stmt.setString( 1, hash);
+				resultSet = stmt.executeQuery();
+				boolean result = true;
+				ArrayList<Game> gamesOnTable = new ArrayList<Game>();
+
+				while (resultSet.next()){
+					result = false;
+				}
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return result;
+			}
+		});
+
+	}
+
+	public String getHash(int gid) throws SQLException {
+		return executeTransaction(new DatabaseFactory.Transaction<String>() {
+			@Override
+			public String execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("SELECT hash from game where GID = ?" );
+				stmt.setInt( 1, gid);
+				resultSet = stmt.executeQuery();
+				String result = new String();
+
+				resultSet.next();
+				result = resultSet.getString(1);
+
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return result;
+			}
+		});
+
+	}
+
+	public int getHash(String hash) throws SQLException {
+		return executeTransaction(new DatabaseFactory.Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("SELECT GID from game where hash = ?" );
+				stmt.setString( 1, hash);
+				resultSet = stmt.executeQuery();
+				int result = -1;
+
+				resultSet.next();
+				result = resultSet.getInt(1);
+
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return result;
 			}
 		});
 

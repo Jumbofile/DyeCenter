@@ -57,6 +57,7 @@ public class DatabaseBuilder extends DatabaseFactory {
 					stmt = conn.prepareStatement( //creates game table
 							"create table game ("  +
 									"	GID bigint auto_increment," +
+									"	hash varchar(255)," +
 									"   TID INT, " +
 									"	team_1 varchar(20)," +
 									"	team_2 varchar(20)," +
