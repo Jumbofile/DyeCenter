@@ -169,10 +169,15 @@ public class TablesServlet extends HttpServlet {
                 names.add(gamesOnTable.get(i).getPlayer3().getName());
                 names.add(gamesOnTable.get(i).getPlayer4().getName());
 
+                String scoreString = scores.toString().substring(1, scores.toString().length()-1) ;
+                String plunkString = plunks.toString().substring(1, plunks.toString().length()-1);
+                String usernameString = usernames.toString().substring(1, usernames.toString().length()-1) ;
+                String nameString = names.toString().substring(1, names.toString().length()-1) ;
+
                 htmlForPage = htmlForPage +
                         "<button  onclick ='clearVals' class=\"game-card btn btn-primary\" type=\"submit\" name = \"gamePressed\" data-status=\""+ gamesOnTable.get(i).getStatus() + "\" "+
-                        "data-time=\""+ gamesOnTable.get(i).getTimeOfCreation() + "\" data-score = \""+ scores.toString() +"\" data-plunks=\""+ plunks.toString() + "\" "+
-                        "data-usernames=\""+ usernames.toString() +"\" data-names=\""+ names.toString() +"\" value = \""+ gamesOnTable.get(i).getGID() +"\">" +
+                        "data-time=\""+ gamesOnTable.get(i).getTimeOfCreation() + "\" data-score = \""+ scoreString +"\" data-plunks=\""+ plunkString + "\" "+
+                        "data-usernames=\""+ usernameString +"\" data-names=\""+ nameString +"\" value = \""+ gamesOnTable.get(i).getGID() +"\">" +
                             "<div class='game-card-cont'>" +
                                 "<div class='gamePrev-item game-card-header'>header</div>"+
                                 "<div class='gamePrev-item team1'>team1</div>"+
