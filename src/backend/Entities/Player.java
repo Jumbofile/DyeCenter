@@ -67,6 +67,9 @@ public class Player {
 	public int getLoss() {
 		return loss;
 	}
+	public void updatePoints(int points){
+		//todo add at the end of the game
+	}
 
 	public float getWinLossRatio(){
 		float ratio = -1;
