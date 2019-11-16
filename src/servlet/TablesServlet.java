@@ -32,6 +32,7 @@ public class TablesServlet extends HttpServlet {
             getGameButton(req);
 
             req.setAttribute("tableID", tableID);
+            req.getSession().setAttribute("tid", tableID);
             req.getRequestDispatcher("/_view/tables.jsp").forward(req, resp);
         }
     }
@@ -111,7 +112,9 @@ public class TablesServlet extends HttpServlet {
                 }else{
                     //They actually hit a game button so just go to that game
                     resp.sendRedirect(req.getContextPath() + "/game");
+                    req.getSession().setAttribute("tid", tableID);
                     req.getSession().setAttribute("gid", req.getParameter("gamePressed"));
+
                 }
             }
 
@@ -128,7 +131,7 @@ public class TablesServlet extends HttpServlet {
     private void getGameButton(HttpServletRequest req){
         //int tableID = (int)req.getAttribute("tableId");
         String tableID = (String)req.getSession().getAttribute("tableID");
-        System.out.println(tableID);
+        System.out.println("TABLE ID: " + tableID);
         int tid = Integer.parseInt(tableID);
         try{
             Table table = new Table(tid);
@@ -136,6 +139,7 @@ public class TablesServlet extends HttpServlet {
             //pass in GId based on TID
             String htmlForPage = "";
             ArrayList<Game> gamesOnTable = table.getGamesOnTable();
+            System.out.println("SIZE: " + gamesOnTable.size());
             for(int i = 0; i < gamesOnTable.size(); i++){
                 //System.out.println("Game :" + i);
                 //ArrayList<String> gameStats = db.getGameStats(gamesOnTable.get(i).) ;

@@ -69,7 +69,17 @@ public class Player {
 	}
 
 	public float getWinLossRatio(){
-		return (float)wins /(float)loss;
+		float ratio = -1;
+		if(loss ==0){
+			if(wins == 0){
+				ratio = 0;
+			}else{
+				ratio = (float)wins / 1.0f;
+			}
+		}else{
+			ratio = (float)wins /(float)loss;
+		}
+		return ratio;
 	}
 
 	public String getName() {

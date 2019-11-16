@@ -263,7 +263,7 @@ public class AccountQuery extends DatabaseFactory {
 
 				// retreive username attribute from login
 
-				stmt = conn.prepareStatement("SELECT TID from dyetable where UID = ?" );
+				stmt = conn.prepareStatement("SELECT TID from dyetable where UID = ? ORDER BY TID DESC" );
 				stmt.setInt( 1, UID);
 				resultSet = stmt.executeQuery();
 

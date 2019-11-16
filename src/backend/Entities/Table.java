@@ -35,7 +35,6 @@ public class Table {
 			System.out.println("IT FAILED HERE");
 			e.printStackTrace();
 		}
-		gamesOnTable = new ArrayList<Game>();
 	}
 
 	public Table createTable(String name, int UID, int plunkValue){

@@ -33,6 +33,22 @@
 	<link href="css/agency.css" rel="stylesheet">
 	<link href="css/dashboard.css" rel="stylesheet">
 
+	<style>
+		/* hide mobile version by default */
+		.logo .mobile {
+			display: none;
+		}
+		/* when screen is less than 600px wide
+           show mobile version and hide desktop */
+		@media (max-width: 600px) {
+			.logo .mobile {
+				display: block;
+			}
+			.logo .desktop {
+				display: none;
+			}
+		}
+	</style>
 </head>
 
 <body id="page-top">
@@ -69,10 +85,16 @@
 
 		<!-- Sidebar - Brand -->
 		<a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
-			<div class="sidebar-brand-icon ">
-				<img src="webresources/dyecenter-icon-white.png" alt="DyeCenter" height="35">
+			<div class="logo">
+				<div class="sidebar-brand-icon ">
+					<img class="mobile" src="webresources/whiteDye.svg" alt="DyeCenter" height="85">
+
+				</div>
+				<div style="margin-left:3px" class="sidebar-brand-text">
+
+					<img class="desktop" src="webresources/dyecenter-white.svg" alt="DyeCenter" height="85">
+				</div>
 			</div>
-			<div style="margin-left:3px" class="sidebar-brand-text"><img src="webresources/dyecenter-text-white.png" alt="DyeCenter" height="35"></div>
 
 		</a>
 

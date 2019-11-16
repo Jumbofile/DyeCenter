@@ -146,7 +146,9 @@ public class TableQuery extends DatabaseFactory{
 					playersOnTable.add(account.getPlayerFromAccount());
 				}
 				rtnTable.setPlayersOnTable(playersOnTable);
-
+				rtnTable.setGamesOnTable(getGamesOnTable(TID));
+				System.out.println("DB SIZE: " + rtnTable.getGamesOnTable().size());
+				//todo return the games on the table by looking up the games based on tid
 				//print stuff
 				System.out.println(rtnTable.getTID());
 				DBUtil.closeQuietly(resultSet);
@@ -156,6 +158,35 @@ public class TableQuery extends DatabaseFactory{
 				return rtnTable;
 			}
 		});
+	}
+
+	public ArrayList<Game> getGamesOnTable(int TID) throws SQLException {
+		return executeTransaction(new DatabaseFactory.Transaction<ArrayList<Game>>() {
+			@Override
+			public ArrayList<Game> execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("SELECT GID from game where TID = ?" );
+				stmt.setInt( 1, TID);
+				resultSet = stmt.executeQuery();
+
+				ArrayList<Game> gamesOnTable = new ArrayList<Game>();
+
+				while (resultSet.next()){
+					gamesOnTable.add(new Game(TID, resultSet.getInt(1)));
+				}
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return gamesOnTable;
+			}
+		});
+
 	}
 
 	/***
