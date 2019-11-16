@@ -162,7 +162,61 @@ public class GameQuery extends DatabaseFactory {
 		});
 
 	}
+	public String getHash(int gid) throws SQLException {
+		return executeTransaction(new DatabaseFactory.Transaction<String>() {
+			@Override
+			public String execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
 
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("SELECT hash from game where GID = ?" );
+				stmt.setInt( 1, gid);
+				resultSet = stmt.executeQuery();
+				String result = new String();
+
+				resultSet.next();
+				result = resultSet.getString(1);
+
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return result;
+			}
+		});
+
+	}
+
+	public int getGIDFromHash (String hash) throws SQLException {
+		return executeTransaction(new DatabaseFactory.Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("SELECT GID from game where hash = ?" );
+				stmt.setString( 1, hash);
+				resultSet = stmt.executeQuery();
+				int result = -1;
+
+				resultSet.next();
+				result = resultSet.getInt(1);
+
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return result;
+			}
+		});
+
+	}
 	/***
 	 * Gets a userstat list absed on uid
 	 * @param gid

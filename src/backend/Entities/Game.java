@@ -34,6 +34,7 @@ public class Game {
 	private int status;
 	//timestamp
 	private String timeOfCreation;
+	private String hash;
 	private GameQuery db;
 
 	public Game(){
@@ -73,7 +74,7 @@ public class Game {
 
 			//status
 			status = stats.get(10);
-
+			hash = db.getHash(GID);
 			//timestamp
 			timeOfCreation = db.getTimestamp(GID);
 
@@ -111,6 +112,15 @@ public class Game {
 		}
 
 		return success;
+	}
+	public int getGIDFromHash(String hash){
+		int gid = -1;
+		try {
+			gid = db.getGIDFromHash(hash);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return gid;
 	}
 	//getters
 	public Player getPlayer1() {
