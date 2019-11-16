@@ -88,7 +88,6 @@
 			<div class="logo">
 				<div class="sidebar-brand-icon ">
 					<img class="mobile" src="webresources/whiteDye.svg" alt="DyeCenter" height="85">
-
 				</div>
 				<div style="margin-left:3px" class="sidebar-brand-text">
 
