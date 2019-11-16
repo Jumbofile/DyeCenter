@@ -144,7 +144,7 @@ public class TablesServlet extends HttpServlet {
                 //System.out.println("Game :" + i);
                 //ArrayList<String> gameStats = db.getGameStats(gamesOnTable.get(i).) ;
                 htmlForPage = htmlForPage +
-                        "<button  onclick ='clearVals' style=\"margin-top:15px;\" class=\"btn btn-primary\" type=\"submit\" name = \"gamePressed\" data-status=\""+ gamesOnTable.get(i).getStatus() +"\" value = \"" + gamesOnTable.get(i).getGID() + "\">Game " + "FIX TIMESTAMP" + "</button>"
+                        "<button  onclick ='clearVals' style=\"margin-top:15px;\" class=\"btn btn-primary\" type=\"submit\" name = \"gamePressed\" data-status=\""+ gamesOnTable.get(i).getStatus() +"\" value = \"" + gamesOnTable.get(i).getGID() + "\">Game " + gamesOnTable.get(i).getTimeOfCreation() + "</button>"
                         + "<br/>" ;
 
             }

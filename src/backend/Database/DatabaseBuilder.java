@@ -22,7 +22,7 @@ public class DatabaseBuilder extends DatabaseFactory {
 									"	password varchar(100)," +
 									"   email varchar(40),"     +
 									"   name varchar(200),"      +
-									"	timestamp varchar(100), " +
+									"	timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
 									"   account_type INT" +
 									")"
 					);
@@ -71,7 +71,7 @@ public class DatabaseBuilder extends DatabaseFactory {
 									"	player_3_plunks INT," +
 									"	player_4_plunks INT," +
 									"	status INT," +
-									"	timestamp varchar(100) "	+
+									"	timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP "	+
 									")"
 					);
 					stmt.executeUpdate();

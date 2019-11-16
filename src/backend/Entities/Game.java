@@ -73,6 +73,9 @@ public class Game {
 			//status
 			status = stats.get(10);
 
+			//timestamp
+			timeOfCreation = db.getTimestamp(GID);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -233,5 +236,9 @@ public class Game {
 
 	public void setTeam2Score(int team2Score) {
 		this.team2Score = team2Score;
+	}
+
+	public String getTimeOfCreation() {
+		return timeOfCreation;
 	}
 }

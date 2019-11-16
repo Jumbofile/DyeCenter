@@ -128,7 +128,7 @@ public class AccountQuery extends DatabaseFactory {
 							String date = sdf.format(myDate);
 							System.out.println(date);
 
-							String sql = "insert into account(username, password, email, name, timestamp, account_type)" + " values(?, ?, ?, ?, ?, ?)";
+							String sql = "insert into account(username, password, email, name, account_type)" + " values(?, ?, ?, ?, ?)";
 
 							stmt2 = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -136,8 +136,7 @@ public class AccountQuery extends DatabaseFactory {
 							stmt2.setString(2, pass);
 							stmt2.setString(3, email);
 							stmt2.setString(4, name);
-							stmt2.setString(5, date);
-							stmt2.setInt(6, 0);
+							stmt2.setInt(5, 0);
 							stmt2.executeUpdate();
 
 							ResultSet rs = stmt2.getGeneratedKeys();

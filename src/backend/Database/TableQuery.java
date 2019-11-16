@@ -81,14 +81,13 @@ public class TableQuery extends DatabaseFactory{
 					String sql = "insert into game(TID, team_1, team_2, score_1, score_2," +
 							"player_1_points, player_2_points, player_3_points, player_4_points," +
 							"player_1_plunks, player_2_plunks, player_3_plunks, player_4_plunks," +
-							" status, timestamp)values(?, ?, ?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ?)";
+							" status)values(?, ?, ?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)";
 
 					stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 					stmt.setInt(1, TID);
 					stmt.setString(2, teamOne[0].UID +"," + teamOne[1].UID);
 					stmt.setString(3, teamTwo[0].UID +"," + teamTwo[1].UID);
-					stmt.setString(4, date);
 					stmt.executeUpdate();
 
 					ResultSet rs = stmt.getGeneratedKeys();
@@ -176,7 +175,7 @@ public class TableQuery extends DatabaseFactory{
 				ArrayList<Game> gamesOnTable = new ArrayList<Game>();
 
 				while (resultSet.next()){
-					gamesOnTable.add(new Game(TID, resultSet.getInt(1)));
+					gamesOnTable.add(new Game( resultSet.getInt(1), TID));
 				}
 
 				DBUtil.closeQuietly(resultSet);

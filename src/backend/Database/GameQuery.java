@@ -132,6 +132,37 @@ public class GameQuery extends DatabaseFactory {
 
 	}
 
+	public String getTimestamp(int GID) throws SQLException {
+		return executeTransaction(new DatabaseFactory.Transaction<String>() {
+			@Override
+			public String execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("SELECT timestamp from game where GID = ?" );
+				stmt.setInt( 1, GID);
+				resultSet = stmt.executeQuery();
+
+				resultSet.next();
+
+				String team_1 = resultSet.getString("timestamp");
+
+
+				String time = resultSet.getString("timestamp");
+
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return time;
+			}
+		});
+
+	}
+
 	/***
 	 * Gets a userstat list absed on uid
 	 * @param gid
