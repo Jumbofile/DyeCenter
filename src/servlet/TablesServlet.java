@@ -176,7 +176,7 @@ public class TablesServlet extends HttpServlet {
 
                 htmlForPage = htmlForPage +
                         "<button  onclick ='clearVals' class=\"game-card btn btn-primary\" type=\"submit\" name = \"gamePressed\" data-status=\""+ gamesOnTable.get(i).getStatus() + "\" "+
-                        "data-time=\""+ gamesOnTable.get(i).getTimeOfCreation() + "\" data-score = \""+ scoreString +"\" data-plunks=\""+ plunkString + "\" "+
+                        "data-time=\""+ gamesOnTable.get(i).getTimeOfCreation() + "\" data-scores = \""+ scoreString +"\" data-plunks=\""+ plunkString + "\" "+
                         "data-usernames=\""+ usernameString +"\" data-names=\""+ nameString +"\" value = \""+ gamesOnTable.get(i).getGID() +"\">" +
                             "<div class='game-card-cont'>" +
                                 "<div class='gamePrev-item game-card-header'>header</div>"+

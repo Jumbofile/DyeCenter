@@ -100,24 +100,26 @@
 				<div class="modal-body">
 					Update Player Stats
 				</div>
-				<div class="modal-footer">
-					<h2>Points</h2>
-					<button type="button" onclick="addPoint()" class="btn btn-primary" >+1</button>
+				<form action="${pageContext.servletContext.contextPath}/game" method="post">
+					<div class="modal-footer">
+						<h2>Points</h2>
+						<button type="submit" onclick="addPoint()" class="btn btn-primary" >+1</button>
 
-					<%-- player score filled via .selected class in JS --%>
-					<span id="modalScore"></span>
+						<%-- player score filled via .selected class in JS --%>
+						<span id="modalScore"></span>
 
-					<button type="button" onclick="delPoint()" class="btn btn-primary" >-1</button>
-				</div>
-				<div class="modal-footer">
-					<h2>Plunks</h2>
-					<button type="button" onclick="addPlunk()" class="btn btn-primary" >+1</button>
+						<button type="submit" onclick="delPoint()" class="btn btn-primary" >-1</button>
+					</div>
+					<div class="modal-footer">
+						<h2>Plunks</h2>
+						<button type="submit" onclick="addPlunk()" class="btn btn-primary" >+1</button>
 
-					<%-- player score filled via .selected class in JS --%>
-					<span id="modalPlunk"></span>
+						<%-- player score filled via .selected class in JS --%>
+						<span id="modalPlunk"></span>
 
-					<button type="button" onclick="delPlunk()" class="btn btn-primary" >-1</button>
-				</div>
+						<button type="submit" onclick="delPlunk()" class="btn btn-primary" >-1</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -140,7 +142,7 @@
 			<!-- END -->
 
 
-			<div id="t1p1Card" value="${t1p1Name},${t1p1Username},${t1p1Score},${t1p1Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
+			<div id="t1p1Card" name="card-data-1" value="${t1p1Name},${t1p1Username},${t1p1Score},${t1p1Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
 				<div class="bg-white rounded-lg p-5 shadow">
 					<h2 class="h2 font-weight-bold text-center mb-4">${t1p1Name}</h2>
 					<h2 class="h6 font-weight-bold text-center mb-4">${t1p1Username}</h2>
@@ -174,7 +176,7 @@
 				</div>
 			</div>
 
-			<div id="t1p2Card" value="${t1p2Name},${t1p2Username},${t1p2Score},${t1p2Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
+			<div id="t1p2Card" name="card-data-2" value="${t1p2Name},${t1p2Username},${t1p2Score},${t1p2Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
 				<div class="bg-white rounded-lg p-5 shadow">
 					<h2 class="h2 font-weight-bold text-center mb-4">${t1p2Name}</h2>
 					<h2 class="h6 font-weight-bold text-center mb-4">${t1p2Username}</h2>
@@ -208,7 +210,7 @@
 				</div>
 			</div>
 
-			<div id="t2p1Card" value="${t2p1Name},${t2p1Username},${t2p1Score},${t2p1Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
+			<div id="t2p1Card" name="card-data-3" value="${t2p1Name},${t2p1Username},${t2p1Score},${t2p1Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
 				<div class="bg-white rounded-lg p-5 shadow">
 					<h2 class="h2 font-weight-bold text-center mb-4">${t2p1Name}</h2>
 					<h2 class="h6 font-weight-bold text-center mb-4">${t2p1Username}</h2>
@@ -242,7 +244,7 @@
 				</div>
 			</div>
 
-			<div id="t2p2Card" value="${t2p2Name},${t2p2Username},${t2p2Score},${t2p2Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
+			<div id="t2p2Card" name="card-data-4" value="${t2p2Name},${t2p2Username},${t2p2Score},${t2p2Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
 				<div class="bg-white rounded-lg p-5 shadow">
 					<h2 class="h2 font-weight-bold text-center mb-4">${t2p2Name}</h2>
 					<h2 class="h6 font-weight-bold text-center mb-4">${t2p2Username}</h2>
