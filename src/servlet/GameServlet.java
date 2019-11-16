@@ -134,14 +134,14 @@ public class GameServlet extends HttpServlet {
             game.setTeam2Score(Integer.parseInt(data3[2]) + Integer.parseInt(data4[2]));
 
             game.updateGameScore(game);
-            }
-            try {
-                resp.sendRedirect(req.getContextPath() + "/game");
-                req.getSession().setAttribute("gid", gid);
-            } catch (Exception e) {
-
-            }
+        }
+        try {
+            resp.sendRedirect(req.getContextPath() + "/game");
+            req.getSession().setAttribute("gid", gid);
+        } catch (Exception e) {
 
         }
 
     }
+
+}
