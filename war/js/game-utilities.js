@@ -29,6 +29,7 @@ $(document).ready(
     function() {
         setInterval(function () {
             if(doRefresh == true) {
+                //refreshPage();
                 location.reload();
                 console.log("reset")
             }
@@ -153,3 +154,18 @@ form.submit(function () {
     return false; // not refreshing page
 
 });
+
+function refreshPage(){
+    $.ajax({
+        type: 'GET',  //post method
+        url: form.attr('action'), //ajaxformexample url
+        data: form.serialize(), // serialize input data values
+        success: function (data) {
+            var result=data;
+            $('#content').html(result); //showing result
+
+        }
+    });
+
+    return false; // not refreshing page
+}
