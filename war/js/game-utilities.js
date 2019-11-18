@@ -28,7 +28,7 @@ $(document).ready(
                 location.reload();
                 console.log("reset")
             }
-        }, 5000);  //Delay here = 5 seconds
+        }, 3000);  //Delay here = 5 seconds
     });
 
 $(function() {
