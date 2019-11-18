@@ -88,7 +88,7 @@
 <%--</div>--%>
 
 <div class="container py-5">
-	<form action="${pageContext.servletContext.contextPath}/game" method="post">
+	<form id="ajaxform" action="${pageContext.servletContext.contextPath}/game" method="post">
 	<!-- Modal -->
 	<div class="modal fade" id="statModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
 		<span class="close">x</span>
@@ -113,7 +113,7 @@
 					</div>
 					<div class="modal-footer">
 						<h2>Plunks</h2>
-						<button type="submit" name="points" onclick="addPlunk()" class="btn btn-primary" value="${plunkValue}">+1</button>
+						<button id="plunkAmount" type="submit" name="points" onclick="addPlunk()" class="btn btn-primary" value="${plunkValue}">+1</button>
 
 						<%-- player score filled via .selected class in JS --%>
 						<span id="modalPlunk"></span>
@@ -124,6 +124,7 @@
 			</div>
 		</div>
 		<input id="playerInput" style="display: none"  type="input" name="playerFocus" value="">
+		<input id="points" style=""  type="input" name="points" value="">
 	</div>
 	</form>
 

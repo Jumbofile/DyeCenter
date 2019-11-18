@@ -11,6 +11,9 @@ var playerUsername = "" ;
 var playerScore = 0;
 var playerPlunk = 0;
 var doRefresh = true;
+var form = $('#ajaxform'); // id of form tag
+var points = document.getElementById("points");
+var plunkAmount= document.getElementById("plunkAmount").value;
 
 $('.modal').click(function (event)
 {
@@ -21,6 +24,7 @@ $('.modal').click(function (event)
     }
 });
 
+//Refresh without reload function
 $(document).ready(
     function() {
         setInterval(function () {
@@ -82,24 +86,30 @@ function openModal(card) {
 
 function addPoint() {
     playerScore += 1;
+    points.value = 1;
 
     updateModal();
 }
 
 function delPoint() {
     playerScore -= 1;
+    points.value = -1;
 
     updateModal();
 }
 
 function addPlunk() {
     playerPlunk += 1;
+    playerScore += plunkAmount;
+    points.value = plunkAmount;
 
     updateModal();
 }
 
 function delPlunk() {
     playerPlunk -= 1;
+    playerScore -= plunkAmount;
+    oints.value = -plunkAmount;
 
     updateModal();
 }
@@ -121,3 +131,21 @@ function rebuildVal() {
 
     $('.selected').attr("value",rebuild);
 }
+
+//AJAX post
+form.submit(function () {
+
+    $.ajax({
+        type: form.attr('method'),  //post method
+        url: form.attr('action'), //ajaxformexample url
+        data: form.serialize(), // serialize input data values
+        success: function (data) {
+            var result=data;
+            $('#content').html(result); //showing result
+
+        }
+    });
+
+    return false; // not refreshing page
+
+});
