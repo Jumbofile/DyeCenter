@@ -145,8 +145,8 @@ public class GameServlet extends HttpServlet {
                 req.getSession().setAttribute("gid", gid);
             } catch (Exception e) {
 
-            }
-
         }
 
     }
+
+}
