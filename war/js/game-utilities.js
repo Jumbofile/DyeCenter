@@ -109,7 +109,7 @@ function addPlunk() {
 function delPlunk() {
     playerPlunk -= 1;
     playerScore -= plunkAmount;
-    oints.value = -plunkAmount;
+    points.value = -plunkAmount;
 
     updateModal();
 }

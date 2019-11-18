@@ -27,10 +27,11 @@ public class GameServlet extends HttpServlet {
         uid = (String) req.getSession().getAttribute("uid"); //session stuff
         try {
             gid = req.getSession().getAttribute("gid").toString();
+            tid = req.getSession().getAttribute("tid").toString();
         }catch(Exception e){
             req.getRequestDispatcher("/dashboard").forward(req, resp);
         }
-        tid = req.getSession().getAttribute("tid").toString();
+
         //System.out.println("GID: " + gid);
 
         if (uid == null) {
