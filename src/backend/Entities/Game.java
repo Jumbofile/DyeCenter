@@ -89,6 +89,19 @@ public class Game {
 
 
 	}
+	public void endGame(){
+		//todo we need to choose a winner and end the game
+		Player[] winners = new Player[2];
+		Player[] losers = new Player[2];
+
+		if(team1Score > team2Score){
+			winners = team1;
+			losers= team2;
+		}else{
+			winners = team2;
+			losers = team1;
+		}
+	}
 	public void updatePlayerScore(String player, int value){
 		if(player.equals("t1p1Card")){
 			player1Score = player1Score + value;
