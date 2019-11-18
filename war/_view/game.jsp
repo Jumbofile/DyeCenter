@@ -124,7 +124,7 @@
 			</div>
 		</div>
 		<input id="playerInput" style="display: none"  type="input" name="playerFocus" value="">
-		<input id="points" style=""  type="input" name="points" value="">
+		<input id="points" style="display: none"  type="input" name="points" value="">
 	</div>
 	</form>
 
