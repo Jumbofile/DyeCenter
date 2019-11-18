@@ -10,8 +10,13 @@ for(var i = 0; i < gameArr.length; i++) {
     var scores = gameArr[i].getAttribute("data-scores").split(",") ;
     var plunks = gameArr[i].getAttribute("data-plunks").split(",") ;
 
-    var t1score = eval(scores[0].trim() + scores[1].trim());
-    var t2score = eval(scores[2].trim() + scores[3].trim());
+    var t1p1score = parseInt(scores[0]);
+    var t1p2score = parseInt(scores[1]);
+    var t2p1score = parseInt(scores[2]);
+    var t2p2score = parseInt(scores[3]);
+
+    var t1score = eval(t1p1score + t1p2score);
+    var t2score = eval(t2p1score + t2p2score);
 
     var statusString = "In-Progress...";
 

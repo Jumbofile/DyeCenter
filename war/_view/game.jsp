@@ -88,6 +88,12 @@
 <%--</div>--%>
 
 <div class="container py-5">
+
+	<div class="row">
+		<form action="${pageContext.servletContext.contextPath}/table" method="get">
+			<button type="submit" name="back" value="back" class="btn btn-primary">Back</button>
+		</form>
+	</div>
 	<form id="ajaxform" action="${pageContext.servletContext.contextPath}/game" method="post">
 	<!-- Modal -->
 	<div class="modal fade" id="statModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
@@ -126,15 +132,7 @@
 		<input id="playerInput" style="display: none"  type="input" name="playerFocus" value="">
 		<input id="points" style="display: none"  type="input" name="points" value="">
 	</div>
-	</form>
 
-	<div class="row">
-		<form action="${pageContext.servletContext.contextPath}/table" method="get">
-			<button type="submit" name="back" value="back" class="btn btn-primary">Back</button>
-		</form>
-	</div>
-
-	<form id="cardRefresh" action="${pageContext.servletContext.contextPath}/game" method="get">
 		<div class="row">
 
 			<!-- For demo purpose -->
@@ -283,6 +281,7 @@
 				</div>
 			</div>
 		</div>
+		<button type="submit" name="finish" onclick="finishGame()" value="finish" class="btn btn-primary">Finish Game</button>
 	</form>
 </div>
 

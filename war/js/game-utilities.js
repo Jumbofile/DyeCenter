@@ -132,6 +132,10 @@ function rebuildVal() {
     $('.selected').attr("value",rebuild);
 }
 
+function finishGame() {
+    points.value = "finish";
+}
+
 //AJAX post
 form.submit(function () {
 
