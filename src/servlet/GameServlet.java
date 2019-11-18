@@ -117,7 +117,7 @@ public class GameServlet extends HttpServlet {
             //a submit to post happened, what happened exactly?
             if(points.equals("finish")) {
                 //finish the game
-            }else if(playerFocus != null){
+            }else if(playerFocus != null && (!playerFocus.equals(""))){
                 int pointAmount = Integer.parseInt(points);
                 System.out.println("Point amount: " + pointAmount);
                 //see if the points are plunks
@@ -130,12 +130,9 @@ public class GameServlet extends HttpServlet {
                         game.updatePlayerScore(playerFocus, table.getPlunkAmount());
                     }
                 }else{
-                    System.out.println("In else");
                     if(pointAmount < 0) {
-                        System.out.println("neg");
                         game.updatePlayerScore(playerFocus, -1);
                     }else{
-                        System.out.println("In else");
                         game.updatePlayerScore(playerFocus, 1);
                     }
                 }

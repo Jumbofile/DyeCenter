@@ -29,9 +29,7 @@ $(document).ready(
     function() {
         setInterval(function () {
             if(doRefresh == true) {
-                //refreshPage();
                 location.reload();
-                console.log("reset")
             }
         }, 3000);  //Delay here = 5 seconds
     });
