@@ -22,7 +22,7 @@ public class Table {
 	public Table(int TID){
 		db = new TableQuery();
 		try {
-			System.out.println(TID);
+			//System.out.println(TID);
 			//Table tableToReturn = new Table();
 			Table tableToReturn = db.getTableBasedOnID(TID);
 			this.TID = tableToReturn.TID;

@@ -10,14 +10,26 @@ var playerName = "";
 var playerUsername = "" ;
 var playerScore = 0;
 var playerPlunk = 0;
+var doRefresh = true;
 
 $('.modal').click(function (event)
 {
     //&& !$(event.target).is('.modal-content')
     if(!$(event.target).closest('.modal-content').length ) {
         $('#statModal').modal('hide');
+        doRefresh = true;
     }
 });
+
+$(document).ready(
+    function() {
+        setInterval(function () {
+            if(doRefresh == true) {
+                location.reload();
+                console.log("reset")
+            }
+        }, 5000);  //Delay here = 5 seconds
+    });
 
 $(function() {
 
@@ -44,6 +56,8 @@ $(function() {
 });
 
 function openModal(card) {
+    doRefresh = false;
+    //console.log(card.id);
     $(".selected").removeClass("selected") ;
     card.classList.add("selected") ;
 
@@ -58,6 +72,10 @@ function openModal(card) {
     playerScore = parseInt(playerInfo[2]);
     playerPlunk = parseInt(playerInfo[3]);
 
+    //sorry zach
+    var playerFocus = document.getElementById("playerInput");
+    playerFocus.value = card.id;
+    console.log(playerFocus.value)
 
     updateModal();
 }

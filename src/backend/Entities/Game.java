@@ -89,7 +89,39 @@ public class Game {
 
 
 	}
+	public void updatePlayerScore(String player, int value){
+		if(player.equals("t1p1Card")){
+			player1Score = player1Score + value;
+			team1Score = team1Score + value;
+		}
+		if(player.equals("t1p2Card")){
+			player2Score = player2Score + value;
+			team1Score = team1Score + value;
+		}
+		if(player.equals("t2p1Card")){
+			player3Score = player3Score + value;
+			team2Score = team2Score + value;
+		}
+		if(player.equals("t2p2Card")){
+			player4Score = player4Score + value;
+			team2Score = team2Score + value;
+		}
+	}
 
+	public void updatePlayerPlunk(String player, int value){
+		if(player.equals("t1p1Card")){
+			player1Plunks = player1Plunks + value;
+		}
+		if(player.equals("t1p2Card")){
+			player2Plunks = player2Plunks + value;
+		}
+		if(player.equals("t2p1Card")){
+			player3Plunks = player3Plunks + value;
+		}
+		if(player.equals("t2p2Card")){
+			player4Plunks = player4Plunks + value;
+		}
+	}
 	public ArrayList<Player> getListOfPlayers(){
 		ArrayList<Player> playerList = new ArrayList<Player>();
 		playerList.add(player1);

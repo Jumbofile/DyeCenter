@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<meta http-equiv="refresh" content="10" />
+
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
@@ -86,9 +86,9 @@
 		<%--<button type="submit" name="point" class="btn btn-primary" value="finish">Finish Game</button>--%>
 	<%--</form>--%>
 <%--</div>--%>
-<form action="${pageContext.servletContext.contextPath}/game" method="post">
-<div class="container py-5">
 
+<div class="container py-5">
+	<form action="${pageContext.servletContext.contextPath}/game" method="post">
 	<!-- Modal -->
 	<div class="modal fade" id="statModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
 		<span class="close">x</span>
@@ -104,30 +104,31 @@
 
 					<div class="modal-footer">
 						<h2>Points</h2>
-						<button type="submit" onclick="addPoint()" class="btn btn-primary" >+1</button>
+						<button type="submit" name="points" onclick="addPoint()" class="btn btn-primary" value="1" >+1</button>
 
 						<%-- player score filled via .selected class in JS --%>
 						<span id="modalScore"></span>
 
-						<button type="submit" onclick="delPoint()" class="btn btn-primary" >-1</button>
+						<button type="submit" name="points" onclick="delPoint()" class="btn btn-primary" value="-1">-1</button>
 					</div>
 					<div class="modal-footer">
 						<h2>Plunks</h2>
-						<button type="submit" onclick="addPlunk()" class="btn btn-primary" >+1</button>
+						<button type="submit" name="points" onclick="addPlunk()" class="btn btn-primary" value="${plunkValue}">+1</button>
 
 						<%-- player score filled via .selected class in JS --%>
 						<span id="modalPlunk"></span>
 
-						<button type="submit" onclick="delPlunk()" class="btn btn-primary" >-1</button>
+						<button type="submit" name="points" onclick="delPlunk()" class="btn btn-primary" value="-${plunkValue}" >-1</button>
 					</div>
 
 			</div>
 		</div>
+		<input id="playerInput" style="display: none"  type="input" name="playerFocus" value="">
 	</div>
+	</form>
 
 
-
-
+	<form id="cardRefresh" action="${pageContext.servletContext.contextPath}/game" method="get">
 		<div class="row">
 
 			<!-- For demo purpose -->
@@ -138,8 +139,8 @@
 			<!-- END -->
 
 
+
 			<div id="t1p1Card" name="card-data-1" value="${t1p1Name},${t1p1Username},${t1p1Score},${t1p1Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
-				<input style="display:none;"  type="input" name="card-data-1" value="${t1p1Name},${t1p1Username},${t1p1Score},${t1p1Plunks}">
 
 				<div class="bg-white rounded-lg p-5 shadow">
 					<h2 class="h2 font-weight-bold text-center mb-4">${t1p1Name}</h2>

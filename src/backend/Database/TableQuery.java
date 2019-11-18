@@ -157,7 +157,7 @@ public class TableQuery extends DatabaseFactory{
 				}
 				rtnTable.setPlayersOnTable(playersOnTable);
 				rtnTable.setGamesOnTable(getGamesOnTable(TID));
-				System.out.println("DB SIZE: " + rtnTable.getGamesOnTable().size());
+				//System.out.println("DB SIZE: " + rtnTable.getGamesOnTable().size());
 				//todo return the games on the table by looking up the games based on tid
 				//print stuff
 				System.out.println(rtnTable.getTID());
