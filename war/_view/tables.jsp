@@ -42,7 +42,7 @@
 <body>
 <div class="container col-md-6">
 	<div class="row">
-		<form action="${pageContext.servletContext.contextPath}/dashboard" method="post">
+		<form action="${pageContext.servletContext.contextPath}/dashboard" method="get">
 			<button type="submit" name="back" value="back" class="btn btn-primary">Back</button>
 		</form>
 	</div>

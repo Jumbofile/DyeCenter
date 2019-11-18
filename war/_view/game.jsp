@@ -128,6 +128,11 @@
 	</div>
 	</form>
 
+	<div class="row">
+		<form action="${pageContext.servletContext.contextPath}/table" method="get">
+			<button type="submit" name="back" value="back" class="btn btn-primary">Back</button>
+		</form>
+	</div>
 
 	<form id="cardRefresh" action="${pageContext.servletContext.contextPath}/game" method="get">
 		<div class="row">
