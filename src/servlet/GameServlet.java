@@ -35,7 +35,7 @@ public class GameServlet extends HttpServlet {
         //System.out.println("GID: " + gid);
 
         if (uid == null) {
-            req.getRequestDispatcher("/login").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/login");
         } else {
             Account account = new Account();
             account.populateAccountData(Integer.parseInt(uid));
@@ -101,7 +101,7 @@ public class GameServlet extends HttpServlet {
         System.out.println("Game DoPost");
 
         if (uid == null) {
-            req.getRequestDispatcher("/login").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/login");
         }else{
             Table table = new Table(Integer.parseInt(tid));
 
@@ -117,6 +117,7 @@ public class GameServlet extends HttpServlet {
             //a submit to post happened, what happened exactly?
             if(points.equals("finish")) {
                 //finish the game
+                System.out.println("YEET");
             }else if(playerFocus != null && (!playerFocus.equals(""))){
                 int pointAmount = Integer.parseInt(points);
                 System.out.println("Point amount: " + pointAmount);

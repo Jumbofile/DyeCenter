@@ -99,7 +99,7 @@ function delPoint() {
 
 function addPlunk() {
     playerPlunk += 1;
-    playerScore += plunkAmount;
+    playerScore = eval(parseInt(playerScore) + parseInt(plunkAmount));
     points.value = plunkAmount;
 
     updateModal();
@@ -107,7 +107,7 @@ function addPlunk() {
 
 function delPlunk() {
     playerPlunk -= 1;
-    playerScore -= plunkAmount;
+    playerScore = eval(parseInt(playerScore) - parseInt(plunkAmount));
     points.value = -plunkAmount;
 
     updateModal();
