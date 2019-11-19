@@ -16,6 +16,7 @@ public class Player {
 	private int loss;
 	private PlayerQuery db;
 
+
 	public Player(String username){
 		//database controller instance
 		db = new PlayerQuery();
@@ -73,16 +74,15 @@ public class Player {
 
 	public float getWinLossRatio(){
 		float ratio = -1;
-		if(loss ==0){
-			if(wins == 0){
-				ratio = 0;
-			}else{
-				ratio = (float)wins / 1.0f;
+		float total = wins + loss;
+		if(wins == 0){
+			if(loss == 0){
+				ratio = 0.0f;
 			}
 		}else{
-			ratio = (float)wins /(float)loss;
+			ratio = wins/total;
 		}
-		return ratio;
+		return Math.round(ratio * 100.0f)*100.0f / 100.0f;
 	}
 
 	public String getName() {

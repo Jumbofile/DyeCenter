@@ -17,6 +17,8 @@ public class Game {
 	//teams
 	private Player[] team1;
 	private Player[] team2;
+	//winningteam
+	private Player[] winningTeam;
 	//scores
 	private int team1Score;
 	private int team2Score;
@@ -95,12 +97,15 @@ public class Game {
 		Player[] losers = new Player[2];
 
 		if(team1Score > team2Score){
+			winningTeam = team1;
 			winners = team1;
 			losers= team2;
 		}else{
+			winningTeam = team2;
 			winners = team2;
 			losers = team1;
 		}
+		//todo if status = 1 and winningteam = null its a draw
 	}
 	public void updatePlayerScore(String player, int value){
 		if(player.equals("t1p1Card")){
