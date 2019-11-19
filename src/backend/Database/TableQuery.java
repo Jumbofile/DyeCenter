@@ -109,7 +109,7 @@ public class TableQuery extends DatabaseFactory{
 					//System.out.println("Team 1: "+ teamOne.get(0));
 					//System.out.println("Team 2: "+ teamTwo.get(0));
 
-					System.out.println("Game made.");
+					System.out.println("Game made. GID = " + gid);
 					return gid;
 				} catch (Exception e){
 					e.printStackTrace();

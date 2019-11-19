@@ -78,7 +78,8 @@ public class Table {
 		//todo
 		try {
 			int gid = db.createGame(TID, team1, team2);
-			newGame = new Game(TID, gid);
+			System.out.println("tables gid: " + gid);
+			newGame = new Game(gid, TID);
 
 			//populate table
 			Table table = new Table(TID);

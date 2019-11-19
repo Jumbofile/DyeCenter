@@ -48,6 +48,7 @@ public class Game {
 		team1 = new Player[2];
 		team2 = new Player[2];
 		this.GID = GID;
+		System.out.println("Games GID: " + this.GID);
 		this.TID = TID;
 		try {
 			ArrayList<Player> players = db.getPlayersFromGame(GID);

@@ -101,7 +101,7 @@ public class TablesServlet extends HttpServlet {
 
 						if (game != null) {
 							resp.sendRedirect(req.getContextPath() + "/game");
-							System.out.println(game.getGID());
+							System.out.println("NEW GID: " + game.getGID());
 							req.getSession().setAttribute("gid", game.getGID());
 							req.getSession().setAttribute("tid", tableID);
 						} else {
