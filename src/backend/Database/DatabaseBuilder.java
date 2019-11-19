@@ -96,7 +96,7 @@ public class DatabaseBuilder extends DatabaseFactory {
 			AccountQuery aq = new AccountQuery();
 			aq.registerAccount("milk", "$2a$10$TXGWMBkf9vSGHzMenI44m.S4a9kcupH8RY64v7QEyHAWxk6u.9uq.", "test@test.test", "Zach") ;
 			aq.registerAccount("greg", "$2a$10$TXGWMBkf9vSGHzMenI44m.S4a9kcupH8RY64v7QEyHAWxk6u.9uq.", "test1@test.test", "Greg") ;
-			aq.registerAccount("zach", "$2a$10$TXGWMBkf9vSGHzMenI44m.S4a9kcupH8RY64v7QEyHAWxk6u.9uq.", "test2@test.test", "Zach") ;
+			aq.registerAccount("zach", "$2a$10$TXGWMBkf9vSGHzMenI44m.S4a9kcupH8RY64v7QEyHAWxk6u.9uq.", "test2@test.test", "Micheal") ;
 			aq.registerAccount("tyler", "$2a$10$TXGWMBkf9vSGHzMenI44m.S4a9kcupH8RY64v7QEyHAWxk6u.9uq.", "test3@test.test", "Tyler") ;
 		}
 		catch (Exception sqle) {
