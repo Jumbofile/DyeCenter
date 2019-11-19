@@ -91,7 +91,6 @@ public class Game {
 		player4 = team2[1];
 	}
 	public void endGame(){
-		//todo we need to choose a winner and end the game
 		if(status == 0) {
 			try {
 				Player[] winners = new Player[2];
@@ -126,7 +125,6 @@ public class Game {
 				e.printStackTrace();
 			}
 		}
-		//todo if status = 1 and winningteam = null its a draw
 	}
 	public void updatePlayerScore(String player, int value){
 		if(player.equals("t1p1Card")){

@@ -440,7 +440,6 @@ public class AccountQuery extends DatabaseFactory {
 
 
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} finally {
 					DBUtil.closeQuietly(resultSet);
