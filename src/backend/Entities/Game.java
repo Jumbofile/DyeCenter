@@ -91,28 +91,39 @@ public class Game {
 	}
 	public void endGame(){
 		//todo we need to choose a winner and end the game
-		Player[] winners = new Player[2];
-		Player[] losers = new Player[2];
-
-		if(team1Score > team2Score){
-			winningTeam = team1;
-			winners = team1;
-			losers= team2;
-		}else{
-			winningTeam = team2;
-			winners = team2;
-			losers = team1;
-		}
-
-		PlayerQuery pq = new PlayerQuery();
-		try {
-			pq.setWinners(winners[0]);
-			pq.setWinners(winners[1]);
-			pq.setLosers(losers[0]);
-			pq.setLosers(losers[1]);
-			db.setGameStatus(GID, 1);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if(status == 0) {
+			try {
+				Player[] winners = new Player[2];
+				Player[] losers = new Player[2];
+				PlayerQuery pq = new PlayerQuery();
+				if (team1Score > team2Score) {
+					winningTeam = team1;
+					winners = team1;
+					losers = team2;
+					pq.setWinners(winners[0]);
+					pq.setWinners(winners[1]);
+					pq.setLosers(losers[0]);
+					pq.setLosers(losers[1]);
+					db.setGameStatus(GID, 1);
+				} else if(team1Score < team2Score) {
+					winningTeam = team2;
+					winners = team2;
+					losers = team1;
+					pq.setWinners(winners[0]);
+					pq.setWinners(winners[1]);
+					pq.setLosers(losers[0]);
+					pq.setLosers(losers[1]);
+					db.setGameStatus(GID, 1);
+				}else{
+					pq.setLosers(player1);
+					pq.setLosers(player2);
+					pq.setLosers(player3);
+					pq.setLosers(player4);
+					db.setGameStatus(GID, 1);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		//todo if status = 1 and winningteam = null its a draw
 	}
