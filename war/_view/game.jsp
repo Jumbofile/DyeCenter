@@ -28,64 +28,6 @@
 </head>
 
 <body>
-<%--<div class="container-fluid">--%>
-	<%--<div class="row">--%>
-		<%--<form action="${pageContext.servletContext.contextPath}/dashboard" method="post">--%>
-			<%--<button type="submit" name="back" value="back" class="btn btn-primary">Back</button>--%>
-		<%--</form>--%>
-	<%--</div>--%>
-	<%--<form action="${pageContext.servletContext.contextPath}/game" method="post">--%>
-		<%--<div class="row">--%>
-			<%--<div class="col-md-4">--%>
-				<%--<div onclick="selectPlayer(this, 0)" class="row playerSel">--%>
-					<%--<h2 class="float-left">${t1p1Name}   ${t1p1Score}</h2>--%>
-				<%--</div>--%>
-
-				<%--<div class="row">--%>
-					<%--<h2 class="float-right">Team 1:  ${t1Score}</h2>--%>
-				<%--</div>--%>
-
-				<%--<div onclick="selectPlayer(this, 1)" class="row playerSel">--%>
-					<%--<h2 class="float-left">${t1p2Name}   ${t1p2Score}</h2>--%>
-				<%--</div>--%>
-			<%--</div>--%>
-
-			<%--<div class="col-md">--%>
-				<%--<img id="gamePic" style="width:100%" class="img-responsive" src="/webresources/dye-table.jpg" alt="Dye Table">--%>
-			<%--</div>--%>
-
-			<%--<div class="col-md-4">--%>
-				<%--<div onclick="selectPlayer(this, 2)" class="row playerSel">--%>
-					<%--<h2 class="float-left">${t2p1Name}   ${t2p1Score}</h2>--%>
-				<%--</div>--%>
-
-				<%--<div class="row">--%>
-					<%--<h2 class="float-right">Team 2:  ${t2Score}</h2>--%>
-				<%--</div>--%>
-
-				<%--<div onclick="selectPlayer(this, 3)" class="row playerSel">--%>
-					<%--<h2 class="float-left">${t2p2Name}   ${t2p2Score}</h2>--%>
-				<%--</div>--%>
-			<%--</div>--%>
-		<%--</div>--%>
-
-
-
-		<%--<div id="updateBtns" >--%>
-			<%--<input type="number" name="player" style="display: none" id="playerValue" value="-1">--%>
-
-			<%--<button type="submit" name="point" class="btn btn-primary" value="-${plunkValue}~">-${plunkValue}</button>--%>
-			<%--<span>  Plunk  </span>--%>
-			<%--<button type="submit" name="point" class="btn btn-primary" value="${plunkValue}~">+${plunkValue}</button>--%>
-			<%--<br>--%>
-			<%--<br>--%>
-			<%--<button type="submit" name="point" class="btn btn-primary"  value="-1">-1</button>--%>
-			<%--<span>  Points  </span>--%>
-			<%--<button type="submit" name="point" class="btn btn-primary" value="1">+1</button>--%>
-		<%--</div>--%>
-		<%--<button type="submit" name="point" class="btn btn-primary" value="finish">Finish Game</button>--%>
-	<%--</form>--%>
-<%--</div>--%>
 
 <div class="container py-5">
 
