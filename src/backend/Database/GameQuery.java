@@ -44,6 +44,28 @@ public class GameQuery extends DatabaseFactory {
 
 	}
 
+	public boolean setGameStatus(int GID, int status) throws SQLException {
+		return executeTransaction(new DatabaseFactory.Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("UPDATE games set status = ? where GID = ?" );
+				stmt.setInt( 1, status);
+				stmt.setInt( 2, GID);
+				stmt.executeUpdate();
+
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return true;
+			}
+		});
+
+	}
+
 	public Game updateGame(int GID, Game game) throws SQLException {
 		return executeTransaction(new DatabaseFactory.Transaction<Game>() {
 			@Override

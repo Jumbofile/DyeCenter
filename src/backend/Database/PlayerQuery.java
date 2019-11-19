@@ -1,5 +1,7 @@
 package backend.Database;
 
+import backend.Entities.Player;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,7 +49,7 @@ public class PlayerQuery extends DatabaseFactory{
 		});
 	}
 
-	public boolean setWinners(int[]winTeam, int status, int gid) throws SQLException {
+	public boolean setWinners(Player player) throws SQLException {
 		return executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
@@ -55,48 +57,18 @@ public class PlayerQuery extends DatabaseFactory{
 				PreparedStatement stmt = null;
 				PreparedStatement stmt2 = null;
 				ResultSet resultSet = null;
-				//System.out.println("DB val: " + value);
-				//System.out.println("DB uid: " + uid);
-				for(int i =0; i < 2; i++){
-					System.out.println("Team win :" + winTeam[i]);
-				}
+
 				try {
-					stmt = conn.prepareStatement("update userstats set wins = wins + 1 where UID = ? or ?");
+					stmt = conn.prepareStatement("update userstats set wins = wins + 1 where UID = ?");
 
 					// substitute the title entered by the user for the placeholder in
 					// the query
-					stmt.setInt(1, winTeam[0]);
-					stmt.setInt(2, winTeam[1]);
+					stmt.setInt(1, player.UID);
 
 
 					// execute the query
 					stmt.executeUpdate();
 
-
-
-					stmt = conn.prepareStatement("update game set status = ? where GID = ?");
-
-					// substitute the title entered by the user for the placeholder in
-					// the query
-					stmt.setInt(1, status);
-					stmt.setInt(2, gid);
-
-
-					// execute the query
-					stmt.executeUpdate();
-
-					stmt2 = conn.prepareStatement("update userstats set loss = loss + 1 where UID = ? or ?");
-
-					//todo: split method into a make winner and make looser method
-
-					// substitute the title entered by the user for the placeholder in
-					// the query
-					//stmt2.setInt(1, lossTeam[0]);
-					//stmt2.setInt(2, lossTeam[1]);
-
-
-					// execute the query
-					//stmt2.executeUpdate();
 
 				} finally {
 					DBUtil.closeQuietly(resultSet);
@@ -106,7 +78,7 @@ public class PlayerQuery extends DatabaseFactory{
 			}
 		});
 	}
-	public boolean setLosers(int[]lossTeam, int status, int gid) throws SQLException {
+	public boolean setLosers(Player player) throws SQLException {
 		return executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
@@ -116,16 +88,13 @@ public class PlayerQuery extends DatabaseFactory{
 				ResultSet resultSet = null;
 				//System.out.println("DB val: " + value);
 				//System.out.println("DB uid: " + uid);
-				for(int i =0; i < 2; i++){
-					System.out.println("Team loss :" + lossTeam[i]);
-				}
+
 				try {
-					stmt = conn.prepareStatement("update userstats set loss = loss + 1 where UID = ? or ?");
+					stmt = conn.prepareStatement("update userstats set loss = loss + 1 where UID = ?");
 
 					// substitute the title entered by the user for the placeholder in
 					// the query
-					stmt.setInt(1, lossTeam[0]);
-					stmt.setInt(2, lossTeam[1]);
+					stmt.setInt(1, player.UID);
 
 
 					// execute the query

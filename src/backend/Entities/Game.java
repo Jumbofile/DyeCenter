@@ -1,6 +1,7 @@
 package backend.Entities;
 
 import backend.Database.GameQuery;
+import backend.Database.PlayerQuery;
 
 import java.sql.Array;
 import java.sql.SQLException;
@@ -104,6 +105,17 @@ public class Game {
 			winningTeam = team2;
 			winners = team2;
 			losers = team1;
+		}
+
+		PlayerQuery pq = new PlayerQuery();
+		try {
+			pq.setWinners(winners[0]);
+			pq.setWinners(winners[1]);
+			pq.setLosers(losers[0]);
+			pq.setLosers(losers[1]);
+			db.setGameStatus(GID, 1);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		//todo if status = 1 and winningteam = null its a draw
 	}

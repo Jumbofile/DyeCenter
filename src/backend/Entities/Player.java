@@ -79,10 +79,12 @@ public class Player {
 			if(loss == 0){
 				ratio = 0.0f;
 			}
+			ratio = 0.0f;
 		}else{
 			ratio = wins/total;
 		}
-		return Math.round(ratio * 100.0f)*100.0f / 100.0f;
+		ratio = Math.round(ratio * 100.0f)*100.0f / 100.0f;
+		return ratio;
 	}
 
 	public String getName() {

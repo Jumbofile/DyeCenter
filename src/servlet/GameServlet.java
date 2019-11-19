@@ -117,6 +117,7 @@ public class GameServlet extends HttpServlet {
             //a submit to post happened, what happened exactly?
             if(points.equals("finish")) {
                 //finish the game
+                game.endGame();
                 System.out.println("YEET");
             }else if(playerFocus != null && (!playerFocus.equals(""))){
                 int pointAmount = Integer.parseInt(points);
