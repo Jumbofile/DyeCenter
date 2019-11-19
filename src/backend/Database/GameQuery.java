@@ -52,7 +52,7 @@ public class GameQuery extends DatabaseFactory {
 				PreparedStatement stmt = null;
 
 				// retreive username attribute from login
-				stmt = conn.prepareStatement("UPDATE games set status = ? where GID = ?" );
+				stmt = conn.prepareStatement("UPDATE game set status = ? where GID = ?" );
 				stmt.setInt( 1, status);
 				stmt.setInt( 2, GID);
 				stmt.executeUpdate();

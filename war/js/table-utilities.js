@@ -31,7 +31,7 @@ for(var i = 0; i < gameArr.length; i++) {
     console.log(scores[0]);
 
     if(status != 0) {
-        statusString = ""
+        statusString = "Completed"
     }
 
     gameArr[i].querySelector('.game-card-header').innerHTML = date.toLocaleString() + " - " + statusString;

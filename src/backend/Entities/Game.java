@@ -88,9 +88,6 @@ public class Game {
 		player2 = team1[1];
 		player3 = team2[0];
 		player4 = team2[1];
-
-
-
 	}
 	public void endGame(){
 		//todo we need to choose a winner and end the game
