@@ -275,3 +275,7 @@ ul.social-buttons li a {
 ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons li a:hover {
   background-color: #fed136;
 }
+.shadowfilter {
+  filter: drop-shadow(2px 2px 0.9px rgba(0, 0, 0, 0.7));
+}
+
