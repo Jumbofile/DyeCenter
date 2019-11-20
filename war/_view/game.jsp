@@ -230,7 +230,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="basic-addon1">Game-ID</span>
 				</div>
-				<input type="text" style="background-color: white" class="form-control text-center" value="${gameHash}" aria-label="Username" aria-describedby="basic-addon1" readonly>
+				<input type="text" style="background-color: white" class="form-control text-center font-weight-bold" value="${gameHash}" aria-label="Username" aria-describedby="basic-addon1" readonly>
 			</div>
 		</div>
 
