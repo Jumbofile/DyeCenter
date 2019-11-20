@@ -121,6 +121,12 @@ public class Game {
 					pq.setLosers(player4);
 					db.setGameStatus(GID, 1);
 				}
+
+				//update all the players stats
+				player1.updatePoints(player1Score, player1Plunks);
+				player2.updatePoints(player2Score, player2Plunks);
+				player3.updatePoints(player3Score, player3Plunks);
+				player4.updatePoints(player4Score, player4Plunks);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

@@ -68,8 +68,15 @@ public class Player {
 	public int getLoss() {
 		return loss;
 	}
-	public void updatePoints(int points){
+
+	public void updatePoints(int points, int plunks){
 		//todo add at the end of the game
+		try {
+			db.updateUserPoints(points, UID);
+			db.updateUserPlunks(plunks, UID);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public float getWinLossRatio(){

@@ -114,7 +114,7 @@ public class PlayerQuery extends DatabaseFactory{
 		});
 	}
 
-	public boolean updateUserPlunks(int uid, int status) throws SQLException {
+	public boolean updateUserPlunks(int value, int uid) throws SQLException {
 		return executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
@@ -124,14 +124,12 @@ public class PlayerQuery extends DatabaseFactory{
 				//System.out.println("DB val: " + value);
 				//System.out.println("DB uid: " + uid);
 				try {
-					if(status == 0) {
-						stmt = conn.prepareStatement("update userstats set plunks = plunks + 1 where UID = ?");
-					}else{
-						stmt = conn.prepareStatement("update userstats set plunks = plunks - 1 where UID = ?");
-					}
-					// substitute the title entered by the user for the placeholder in
+
+					stmt = conn.prepareStatement("update userstats set plunks = plunks + ? where UID = ?");
+										// substitute the title entered by the user for the placeholder in
 					// the query
-					stmt.setInt(1, uid);
+					stmt.setInt(1, value);
+					stmt.setInt(2, uid);
 
 
 					// execute the query
