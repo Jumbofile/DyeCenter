@@ -6,8 +6,7 @@ public class StandardHash {
 	{
 
 		// chose a Character random from this String
-		String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-				+ "0123456789"
+		String AlphaNumericString = "0123456789"
 				+ "abcdefghijklmnopqrstuvxyz";
 
 		// create StringBuffer size of AlphaNumericString
