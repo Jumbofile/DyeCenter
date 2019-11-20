@@ -2,6 +2,7 @@ package servlet;
 
 import backend.Database.DatabaseFactory;
 import backend.Entities.Account;
+import backend.Entities.Game;
 import backend.Entities.Player;
 import backend.Entities.Table;
 
@@ -57,6 +58,17 @@ public class DashboardServlet extends HttpServlet {
             if (sessionuid == null) {
                 req.getRequestDispatcher("/login").forward(req, resp);
             } else {
+                String hash = new String();
+                hash = req.getParameter("loadGame");
+                if(!(hash.equals("")) && hash == null){
+                    Game game = new Game();
+                    int gid = game.getGIDFromHash(hash);
+                    if(gid != -1){
+                        resp.sendRedirect(req.getContextPath() + "/game");
+                        req.getSession().setAttribute("tid", game.getTIDFromGID(gid));
+                        req.getSession().setAttribute("gid", gid);
+                    }
+                }
                 setAttr(req, resp);
                 // req.setAttribute("username", usernameCap);
                 //req.setAttribute("idea", response);

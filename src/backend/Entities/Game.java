@@ -197,6 +197,18 @@ public class Game {
 		}
 		return gid;
 	}
+
+	public int getTIDFromGID(int gid){
+		int rtn = -1;
+		try {
+			Table table = db.getTableFromGameID(gid);
+			rtn = table.getTID();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return rtn;
+	}
 	//getters
 	public Player getPlayer1() {
 		return player1;

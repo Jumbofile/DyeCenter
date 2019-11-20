@@ -3,6 +3,7 @@ package backend.Database;
 import backend.Entities.Account;
 import backend.Entities.Game;
 import backend.Entities.Player;
+import backend.Entities.Table;
 
 import java.sql.*;
 import java.text.DateFormat;
@@ -15,15 +16,15 @@ public class GameQuery extends DatabaseFactory {
 	public GameQuery(){
 
 	}
-	public String getTableFromGameID(int GID) throws SQLException {
-		return executeTransaction(new DatabaseFactory.Transaction<String>() {
+	public Table getTableFromGameID(int GID) throws SQLException {
+		return executeTransaction(new DatabaseFactory.Transaction<Table>() {
 			@Override
-			public String execute(Connection conn) throws SQLException {
+			public Table execute(Connection conn) throws SQLException {
 				//Connection conn = null;
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
 
-				String rtnString = null;
+				int tid = -1;
 
 				// retreive username attribute from login
 				stmt = conn.prepareStatement("SELECT TID from games where GID = ?" );
@@ -32,13 +33,13 @@ public class GameQuery extends DatabaseFactory {
 
 				resultSet.next();
 
-				rtnString = resultSet.getString("name");
-
+				tid = resultSet.getInt(1);
+				Table table = new Table(tid);
 				DBUtil.closeQuietly(resultSet);
 				DBUtil.closeQuietly(stmt);
 				//DBUtil.closeQuietly(conn);
 				//System.out.println(rtnStats.toString());
-				return rtnString;
+				return table;
 			}
 		});
 

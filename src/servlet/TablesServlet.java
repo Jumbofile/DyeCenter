@@ -88,13 +88,18 @@ public class TablesServlet extends HttpServlet {
 						Player[] t1 = new Player[2];
 						Player[] t2 = new Player[2];
 
-						//populate team 1
-						t1[0] = new Player(req.getParameter("t1p1"));
-						t1[1] = new Player(req.getParameter("t1p2"));
+						try {
+                            //populate team 1
+                            t1[0] = new Player(req.getParameter("t1p1"));
+                            t1[1] = new Player(req.getParameter("t1p2"));
 
-						//populate team 2
-						t2[0] = new Player(req.getParameter("t2p1"));
-						t2[1] = new Player(req.getParameter("t2p2"));
+                            //populate team 2
+                            t2[0] = new Player(req.getParameter("t2p1"));
+                            t2[1] = new Player(req.getParameter("t2p2"));
+                        }catch (Exception e){
+						    //that usersname doesnt exist
+                            resp.sendRedirect(req.getContextPath() + "/table");
+                        }
 
                         //create game
 						Game game = table.createGame(t1, t2);
