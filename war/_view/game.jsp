@@ -85,7 +85,6 @@
 			<!-- END -->
 
 
-
 			<div id="t1p1Card" name="card-data-1" value="${t1p1Name},${t1p1Username},${t1p1Score},${t1p1Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
 
 				<div class="bg-white rounded-lg p-5 shadow">
@@ -121,6 +120,7 @@
 				</div>
 			</div>
 
+
 			<div id="t1p2Card" name="card-data-2" value="${t1p2Name},${t1p2Username},${t1p2Score},${t1p2Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
 				<div class="bg-white rounded-lg p-5 shadow">
 					<h2 class="h2 font-weight-bold text-center mb-4">${t1p2Name}</h2>
@@ -154,6 +154,7 @@
 					<!-- END -->
 				</div>
 			</div>
+
 
 			<div id="t2p1Card" name="card-data-3" value="${t2p1Name},${t2p1Username},${t2p1Score},${t2p1Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
 				<div class="bg-white rounded-lg p-5 shadow">
@@ -224,6 +225,18 @@
 			</div>
 		</div>
 		<button type="submit" name="finish" onclick="finishGame()" value="finish" class="btn btn-primary">Finish Game</button>
+		<div class="row d-flex justify-content-center">
+			<div class="input-group mb-3" style="width:185px;">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="basic-addon1">Game-ID</span>
+				</div>
+				<input type="text" style="background-color: white" class="form-control text-center" value="${gameHash}" aria-label="Username" aria-describedby="basic-addon1" readonly>
+			</div>
+		</div>
+
+
+	${t1Score}
+		${t2Score}
 	</form>
 </div>
 

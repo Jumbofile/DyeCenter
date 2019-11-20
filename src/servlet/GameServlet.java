@@ -35,7 +35,10 @@ public class GameServlet extends HttpServlet {
         //System.out.println("GID: " + gid);
 
         if (uid == null) {
-            resp.sendRedirect(req.getContextPath() + "/login");
+            try {
+                resp.sendRedirect(req.getContextPath() + "/login");
+            }catch( IllegalStateException e){}
+
         } else {
             Account account = new Account();
             account.populateAccountData(Integer.parseInt(uid));
@@ -79,7 +82,8 @@ public class GameServlet extends HttpServlet {
             //plunk value for the table
             req.setAttribute("plunkValue", table.getPlunkAmount());
 
-
+            //set hash value
+            req.setAttribute("gameHash", game.getHash());
 
         }try {
             req.getSession().setAttribute("gid", gid);
