@@ -80,14 +80,16 @@
 			<div class="col-lg-12 mx-auto mb-5 text-white text-center">
 				<h1 class="display-4">In-Game</h1>
 				<p class="lead mb-0">Tap or click a player card to edit their game stats</p>
-
-				<span class="team-text col-lg-6 mx-auto mb-5">${t1Score}</span>
-				<span class="team-text col-lg-6 mx-auto mb-5">-</span>
-				<span class="team-text col-lg-6 mx-auto mb-5">${t2Score}</span>
+				<h1>Score</h1>
+				<div style="margin:auto" class=" bg-white text-dark rounded-lg w-25 shadow">
+					<span class="team-text col-lg-6 mx-auto mb-5 player-team1">${t1Score}</span>
+					<span class="team-text col-lg-6 mx-auto mb-5">-</span>
+					<span class="team-text col-lg-6 mx-auto mb-5 player-team2">${t2Score}</span>
+				</div>
 			</div>
 
 			<div class="team-header col-xl-6 col-lg-6 mb-8" id="team1-header">
-				<span class="team-text" id="team1-text">${t1Score}</span>
+				<!--<span class="team-text" id="team1-text">${t1Score}</span>-->
 				<div class="player-card-container">
 					<div class="col-xl-6 col-lg-12 mb-4" id="t1p1Card" name="card-data-1" value="${t1p1Name},${t1p1Username},${t1p1Score},${t1p1Plunks}" onclick="openModal(this)" >
 						<div class="game-player-card player-team1  bg-white rounded-lg p-5 shadow">
@@ -161,7 +163,7 @@
 
 
 			<div class="team-header col-xl-6 col-lg-6 mb-8" id="team2-header">
-				<span class="team-text" id="team2-text">${t2Score}</span>
+				<!--<span class="team-text" id="team2-text">${t2Score}</span>-->
 				<div class="player-card-container">
 					<div class="col-xl-6 col-lg-12 mb-4" id="t2p1Card" name="card-data-3" value="${t2p1Name},${t2p1Username},${t2p1Score},${t2p1Plunks}" onclick="openModal(this)" >
 						<div class="game-player-card player-team2 bg-white rounded-lg p-5 shadow">
