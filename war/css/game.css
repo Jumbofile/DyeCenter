@@ -103,24 +103,16 @@
 }
 
 .team-text {
-    color: #FFF;
     font-size: 50px;
+    /*writing-mode: tb-rl;*/
 }
 
 #team1-text {
-
+    
 }
 
 #team2-text {
-    position: relative;
-    display: block;
-    width: 94%;
-    background-color: white;
-    margin: auto;
-    text-align: center;
-    margin-bottom: 15px;
-    border-radius: 6px 6px 0 0;
-    border-top: 6px solid #ff4f4f;
+
 }
 
 .text-center {
@@ -135,6 +127,20 @@ body {
 }
 
 .rounded-lg {
-
+    border-radius: 1rem;
 }
-    
+
+.text-gray {
+    color: #aaa;
+}
+
+
+div.h4 {
+    line-height: 1rem;
+}
+
+@media only screen and (max-width: 1200px) {
+    .player-card-container {
+        display: block;
+    }
+}
