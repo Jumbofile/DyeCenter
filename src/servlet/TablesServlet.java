@@ -27,10 +27,17 @@ public class TablesServlet extends HttpServlet {
         if (uid == null) {
             req.getRequestDispatcher("/login").forward(req, resp);
         } else {
-            String tableID = (String)req.getSession().getAttribute("tableID");
+            String tableID = new String();
+            try {
+                tableID = (String) req.getSession().getAttribute("tableID");
+            }catch (NullPointerException e){
+                req.getRequestDispatcher("/_view/dashboard.jsp").forward(req, resp);
+            }
             //System.out.println("get: " + tableID);
 
-            getGameButton(req);
+            getGameButton(req, resp);
+
+
 
             req.setAttribute("tableID", tableID);
             req.getSession().setAttribute("tid", tableID);
@@ -52,7 +59,7 @@ public class TablesServlet extends HttpServlet {
             //System.out.println(tableID);
 
             //get game buttons
-            getGameButton(req);
+            getGameButton(req, resp);
 
             String loadGame = null;
 
@@ -135,11 +142,16 @@ public class TablesServlet extends HttpServlet {
 
     }
 
-    private void getGameButton(HttpServletRequest req){
+    private void getGameButton(HttpServletRequest req, HttpServletResponse resp) throws IOException{
         //int tableID = (int)req.getAttribute("tableId");
         String tableID = (String)req.getSession().getAttribute("tableID");
         System.out.println("TABLE ID: " + tableID);
-        int tid = Integer.parseInt(tableID);
+        int tid = -1;
+        try {
+            tid = Integer.parseInt(tableID);
+        }catch(NumberFormatException e){
+            resp.sendRedirect(req.getContextPath() + "/dashboard");
+        }
         try{
             Table table = new Table(tid);
             //get the tables from your username and display them if the exist
