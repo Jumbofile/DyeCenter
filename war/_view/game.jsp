@@ -163,7 +163,7 @@
 			<div class="team-header col-xl-6 col-lg-6 mb-8" id="team2-header">
 				<span class="team-text" id="team2-text">${t2Score}</span>
 				<div class="player-card-container">
-					<div style="border-color: #FFF" class="col-xl-6 col-lg-12 mb-4" id="t2p1Card" name="card-data-3" value="${t2p1Name},${t2p1Username},${t2p1Score},${t2p1Plunks}" onclick="openModal(this)" >
+					<div class="col-xl-6 col-lg-12 mb-4" id="t2p1Card" name="card-data-3" value="${t2p1Name},${t2p1Username},${t2p1Score},${t2p1Plunks}" onclick="openModal(this)" >
 						<div class="game-player-card player-team2 bg-white rounded-lg p-5 shadow">
 							<h2 class="h2 font-weight-bold text-center mb-4">${t2p1Name}</h2>
 							<h2 class="h6 font-weight-bold text-center mb-4">${t2p1Username}</h2>
@@ -197,7 +197,7 @@
 						</div>
 					</div>
 
-					<div style="border-color: #FFF" class="col-xl-6 col-lg-12 mb-4" id="t2p2Card" name="card-data-2" value="${t2p2Name},${t2p2Username},${t2p2Score},${t2p2Plunks}" onclick="openModal(this)" >
+					<div class="col-xl-6 col-lg-12 mb-4" id="t2p2Card" name="card-data-2" value="${t2p2Name},${t2p2Username},${t2p2Score},${t2p2Plunks}" onclick="openModal(this)" >
 						<div class="game-player-card player-team2 bg-white rounded-lg p-5 shadow">
 							<h2 class="h2 font-weight-bold text-center mb-4">${t2p2Name}</h2>
 							<h2 class="h6 font-weight-bold text-center mb-4">${t2p2Username}</h2>
