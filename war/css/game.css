@@ -112,7 +112,16 @@
 }
 
 #team2-text {
-
+    color:#000;
+    position: relative;
+    display: block;
+    width: 94%;
+    margin: auto;
+    margin-bottom: 20px;
+    background-color: #FFF;
+    text-align: center;
+    border-top: 6px solid #ff4f4f;
+    border-radius: 6px 6px 0 0;
 }
 
 .text-center {
