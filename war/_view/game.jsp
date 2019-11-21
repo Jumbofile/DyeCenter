@@ -77,158 +77,164 @@
 
 		<div class="row">
 
-			<!-- For demo purpose -->
 			<div class="col-lg-12 mx-auto mb-5 text-white text-center">
 				<h1 class="display-4">In-Game</h1>
 				<p class="lead mb-0">Tap or click a player card to edit their game stats</p>
+
+				<span class="team-text col-lg-6 mx-auto mb-5">${t1Score}</span>
+				<span class="team-text col-lg-6 mx-auto mb-5">-</span>
+				<span class="team-text col-lg-6 mx-auto mb-5">${t2Score}</span>
 			</div>
-			<!-- END -->
 
+			<div class="team-header col-xl-6 col-lg-6 mb-8" id="team1-header">
+				<span class="team-text" id="team1-text">${t1Score}</span>
+				<div class="player-card-container">
+					<div class="col-xl-6 col-lg-12 mb-4" id="t1p1Card" name="card-data-1" value="${t1p1Name},${t1p1Username},${t1p1Score},${t1p1Plunks}" onclick="openModal(this)" >
+						<div class="game-player-card player-team1  bg-white rounded-lg p-5 shadow">
+							<h2 class="h2 font-weight-bold text-center mb-4">${t1p1Name}</h2>
+							<h2 class="h6 font-weight-bold text-center mb-4">${t1p1Username}</h2>
 
-			<div id="t1p1Card" name="card-data-1" value="${t1p1Name},${t1p1Username},${t1p1Score},${t1p1Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
-				<!--<div style="background-color: #1cc88a" class="position-absolute w-75 rounded-lg p-1"></div>-->
+							<!-- Progress bar 1 -->
+							<div class="progress mx-auto" data-value=${t1p1WLR}>
+								<span class="progress-left">
+									<span class="progress-bar border-primary"></span>
+								</span>
+								<span class="progress-right">
+									<span class="progress-bar border-primary"></span>
+								</span>
 
-				<div class="bg-white rounded-lg p-5 shadow">
-					<div style="margin:-3em -3em 2.5em -3em; width:auto; background-color: #1cc88a" class="rounded-lg p-1"></div>
-					<h2 class="h2 font-weight-bold text-center mb-4">${t1p1Name}</h2>
-					<h2 class="h6 font-weight-bold text-center mb-4">${t1p1Username}</h2>
+								<div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+									<div class="small">W/L &nbsp;&nbsp;</div>
+									<div class="h2 font-weight-bold">${t1p1WLR}<sup class="small">%</sup></div>
+								</div>
+							</div>
+							<!-- END -->
 
-					<!-- Progress bar 1 -->
-					<div class="progress mx-auto" data-value=${t1p1WLR}>
-						<span class="progress-left">
-							<span class="progress-bar border-primary"></span>
-					  	</span>
-						<span class="progress-right">
-							<span class="progress-bar border-primary"></span>
-			  			</span>
-
-						<div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-							<div class="small">W/L &nbsp;&nbsp;</div>
-							<div class="h2 font-weight-bold">${t1p1WLR}<sup class="small">%</sup></div>
+							<!-- Demo info -->
+							<div class="row text-center mt-4">
+								<div class="col-6 border-right">
+									<div class="points h4 font-weight-bold mb-0">${t1p1Score}</div><span class="small text-gray">Points</span>
+								</div>
+								<div class="col-6">
+									<div class="plunks h4 font-weight-bold mb-0">${t1p1Plunks}</div><span class="small text-gray">Plunks</span>
+								</div>
+							</div>
+							<!-- END -->
 						</div>
 					</div>
-					<!-- END -->
 
-					<!-- Demo info -->
-					<div class="row text-center mt-4">
-						<div class="col-6 border-right">
-							<div class="points h4 font-weight-bold mb-0">${t1p1Score}</div><span class="small text-gray">Points</span>
-						</div>
-						<div class="col-6">
-							<div class="plunks h4 font-weight-bold mb-0">${t1p1Plunks}</div><span class="small text-gray">Plunks</span>
+					<div class="col-xl-6 col-lg-12 mb-4" id="t1p2Card" name="card-data-2" value="${t1p2Name},${t1p2Username},${t1p2Score},${t1p2Plunks}" onclick="openModal(this)" >
+						<div class="game-player-card player-team1 bg-white rounded-lg p-5 shadow">
+							<h2 class="h2 font-weight-bold text-center mb-4">${t1p2Name}</h2>
+							<h2 class="h6 font-weight-bold text-center mb-4">${t1p2Username}</h2>
+
+							<!-- Progress bar 1 -->
+							<div class="progress mx-auto" data-value=${t1p2WLR}>
+								<span class="progress-left">
+									<span class="progress-bar border-primary"></span>
+								</span>
+								<span class="progress-right">
+									<span class="progress-bar border-primary"></span>
+								</span>
+
+								<div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+									<div class="small">W/L &nbsp;&nbsp;</div>
+									<div class="h2 font-weight-bold">${t1p2WLR}<sup class="small">%</sup></div>
+								</div>
+							</div>
+							<!-- END -->
+
+							<!-- Demo info -->
+							<div class="row text-center mt-4">
+								<div class="col-6 border-right">
+									<div class="points h4 font-weight-bold mb-0">${t1p2Score}</div><span class="small text-gray">Points</span>
+								</div>
+								<div class="col-6">
+									<div class="plunks h4 font-weight-bold mb-0">${t1p2Plunks}</div><span class="small text-gray">Plunks</span>
+								</div>
+							</div>
+							<!-- END -->
 						</div>
 					</div>
-					<!-- END -->
 				</div>
 			</div>
 
 
-			<div id="t1p2Card" name="card-data-2" value="${t1p2Name},${t1p2Username},${t1p2Score},${t1p2Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
-				<div class="bg-white rounded-lg p-5 shadow">
-					<div style="margin:-3em -3em 2.5em -3em; width:auto; background-color: #1cc88a" class="rounded-lg p-1"></div>
-					<h2 class="h2 font-weight-bold text-center mb-4">${t1p2Name}</h2>
-					<h2 class="h6 font-weight-bold text-center mb-4">${t1p2Username}</h2>
+			<div class="team-header col-xl-6 col-lg-6 mb-8" id="team2-header">
+				<span class="team-text" id="team2-text">${t2Score}</span>
+				<div class="player-card-container">
+					<div style="border-color: #FFF" class="col-xl-6 col-lg-12 mb-4" id="t2p1Card" name="card-data-3" value="${t2p1Name},${t2p1Username},${t2p1Score},${t2p1Plunks}" onclick="openModal(this)" >
+						<div class="game-player-card player-team2 bg-white rounded-lg p-5 shadow">
+							<h2 class="h2 font-weight-bold text-center mb-4">${t2p1Name}</h2>
+							<h2 class="h6 font-weight-bold text-center mb-4">${t2p1Username}</h2>
 
-					<!-- Progress bar 1 -->
-					<div class="progress mx-auto" data-value=${t1p2WLR}>
-						<span class="progress-left">
-							<span class="progress-bar border-primary"></span>
-					  	</span>
-						<span class="progress-right">
-							<span class="progress-bar border-primary"></span>
-			  			</span>
+							<!-- Progress bar 1 -->
+							<div class="progress mx-auto" data-value=${t2p1WLR}>
+								<span class="progress-left">
+									<span class="progress-bar border-danger"></span>
+								</span>
+								<span class="progress-right">
+									<span class="progress-bar border-danger"></span>
+								</span>
 
-						<div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-							<div class="small">W/L &nbsp;&nbsp;</div>
-							<div class="h2 font-weight-bold">${t1p2WLR}<sup class="small">%</sup></div>
+								<div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+									<div class="small">W/L &nbsp;&nbsp;</div>
+									<div class="h2 font-weight-bold">${t2p1WLR}<sup class="small">%</sup></div>
+								</div>
+							</div>
+							<!-- END -->
+
+							<!-- Demo info -->
+							<div class="row text-center mt-4">
+								<div class="col-6 border-right">
+									<div class="points h4 font-weight-bold mb-0">${t2p1Score}</div><span class="small text-gray">Points</span>
+								</div>
+								<div class="col-6">
+									<div class="plunks h4 font-weight-bold mb-0">${t2p1Plunks}</div><span class="small text-gray">Plunks</span>
+								</div>
+							</div>
+							<!-- END -->
 						</div>
 					</div>
-					<!-- END -->
 
-					<!-- Demo info -->
-					<div class="row text-center mt-4">
-						<div class="col-6 border-right">
-							<div class="points h4 font-weight-bold mb-0">${t1p2Score}</div><span class="small text-gray">Points</span>
-						</div>
-						<div class="col-6">
-							<div class="plunks h4 font-weight-bold mb-0">${t1p2Plunks}</div><span class="small text-gray">Plunks</span>
+					<div style="border-color: #FFF" class="col-xl-6 col-lg-12 mb-4" id="t2p2Card" name="card-data-2" value="${t2p2Name},${t2p2Username},${t2p2Score},${t2p2Plunks}" onclick="openModal(this)" >
+						<div class="game-player-card player-team2 bg-white rounded-lg p-5 shadow">
+							<h2 class="h2 font-weight-bold text-center mb-4">${t2p2Name}</h2>
+							<h2 class="h6 font-weight-bold text-center mb-4">${t2p2Username}</h2>
+
+							<!-- Progress bar 1 -->
+							<div class="progress mx-auto" data-value=${t2p2WLR}>
+								<span class="progress-left">
+									<span class="progress-bar border-danger"></span>
+								</span>
+								<span class="progress-right">
+									<span class="progress-bar border-danger"></span>
+								</span>
+
+								<div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+									<div class="small">W/L &nbsp;&nbsp;</div>
+									<div class="h2 font-weight-bold">${t2p2WLR}<sup class="small">%</sup></div>
+								</div>
+							</div>
+							<!-- END -->
+
+							<!-- Demo info -->
+							<div class="row text-center mt-4">
+								<div class="col-6 border-right">
+									<div class="points h4 font-weight-bold mb-0">${t2p2Score}</div><span class="small text-gray">Points</span>
+								</div>
+								<div class="col-6">
+									<div class="plunks h4 font-weight-bold mb-0">${t2p2Plunks}</div><span class="small text-gray">Plunks</span>
+								</div>
+							</div>
+							<!-- END -->
 						</div>
 					</div>
-					<!-- END -->
 				</div>
 			</div>
 
-
-			<div id="t2p1Card" name="card-data-3" value="${t2p1Name},${t2p1Username},${t2p1Score},${t2p1Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
-				<div class="bg-white rounded-lg p-5 shadow">
-					<div style="margin:-3em -3em 2.5em -3em; width:auto; background-color: #95e5ff" class="rounded-lg p-1"></div>
-					<h2 class="h2 font-weight-bold text-center mb-4">${t2p1Name}</h2>
-					<h2 class="h6 font-weight-bold text-center mb-4">${t2p1Username}</h2>
-
-					<!-- Progress bar 1 -->
-					<div class="progress mx-auto" data-value=${t2p1WLR}>
-						<span class="progress-left">
-							<span class="progress-bar border-primary"></span>
-					  	</span>
-						<span class="progress-right">
-							<span class="progress-bar border-primary"></span>
-			  			</span>
-
-						<div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-							<div class="small">W/L &nbsp;&nbsp;</div>
-							<div class="h2 font-weight-bold">${t2p1WLR}<sup class="small">%</sup></div>
-						</div>
-					</div>
-					<!-- END -->
-
-					<!-- Demo info -->
-					<div class="row text-center mt-4">
-						<div class="col-6 border-right">
-							<div class="points h4 font-weight-bold mb-0">${t2p1Score}</div><span class="small text-gray">Points</span>
-						</div>
-						<div class="col-6">
-							<div class="plunks h4 font-weight-bold mb-0">${t2p1Plunks}</div><span class="small text-gray">Plunks</span>
-						</div>
-					</div>
-					<!-- END -->
-				</div>
-			</div>
-
-			<div id="t2p2Card" name="card-data-4" value="${t2p2Name},${t2p2Username},${t2p2Score},${t2p2Plunks}" onclick="openModal(this)" class="col-xl-3 col-lg-6 mb-4">
-				<div class="bg-white rounded-lg p-5 shadow">
-					<div style="margin:-3em -3em 2.5em -3em; width:auto; background-color: #95e5ff" class="rounded-lg p-1"></div>
-					<h2 class="h2 font-weight-bold text-center mb-4">${t2p2Name}</h2>
-					<h2 class="h6 font-weight-bold text-center mb-4">${t2p2Username}</h2>
-
-					<!-- Progress bar 1 -->
-					<div class="progress mx-auto" data-value=${t2p2WLR}>
-						<span class="progress-left">
-							<span class="progress-bar border-primary"></span>
-					  	</span>
-						<span class="progress-right">
-							<span class="progress-bar border-primary"></span>
-			  			</span>
-
-						<div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-							<div class="small">W/L &nbsp;&nbsp;</div>
-							<div class="h2 font-weight-bold">${t2p2WLR}<sup class="small">%</sup></div>
-						</div>
-					</div>
-					<!-- END -->
-
-					<!-- Demo info -->
-					<div class="row text-center mt-4">
-						<div class="col-6 border-right">
-							<div class="points h4 font-weight-bold mb-0">${t2p2Score}</div><span class="small text-gray">Points</span>
-						</div>
-						<div class="col-6">
-							<div class="plunks h4 font-weight-bold mb-0">${t2p2Plunks}</div><span class="small text-gray">Plunks</span>
-						</div>
-					</div>
-					<!-- END -->
-				</div>
-			</div>
 		</div>
+
 		<button type="submit" name="finish" onclick="finishGame()" value="finish" class="btn btn-primary">Finish Game</button>
 		<div class="row d-flex justify-content-center">
 			<div class="input-group mb-3" style="width:185px;">
@@ -238,10 +244,6 @@
 				<input type="text" style="background-color: white" class="form-control text-center font-weight-bold" value="${gameHash}" aria-label="Username" aria-describedby="basic-addon1" readonly>
 			</div>
 		</div>
-
-
-	${t1Score}
-		${t2Score}
 	</form>
 </div>
 

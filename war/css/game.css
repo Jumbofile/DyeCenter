@@ -89,13 +89,35 @@
     left: 0;
 }
 
-/*
-*
-* ==========================================
-* FOR DEMO PURPOSE
-* ==========================================
-*
-*/
+
+.player-team1 {
+    border-top: 6px solid #007bff;
+}
+
+.player-team2 {
+    border-top: 6px solid #ff4f4f;
+}
+
+.player-card-container {
+    display: flex;
+}
+
+.team-text {
+    font-size: 50px;
+    /*writing-mode: tb-rl;*/
+}
+
+#team1-text {
+    
+}
+
+#team2-text {
+
+}
+
+.text-center {
+    margin-bottom: 2rem;
+}
 
 body {
     background: #ff7e5f;
@@ -112,6 +134,13 @@ body {
     color: #aaa;
 }
 
+
 div.h4 {
     line-height: 1rem;
+}
+
+@media only screen and (max-width: 1200px) {
+    .player-card-container {
+        display: block;
+    }
 }
