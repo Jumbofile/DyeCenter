@@ -78,12 +78,18 @@ public class ViewServlet extends HttpServlet {
             req.setAttribute("plunkValue", table.getPlunkAmount());
 
             //set winner
-            if(game.getTeam1Score() > game.getTeam2Score()){
-                req.setAttribute("teamWon", "Blue team won.");
-            }else if(game.getTeam1Score() < game.getTeam2Score()){
-                req.setAttribute("teamWon", "Red team won.");
+            if(game.getStatus() == 1) {
+                if (game.getTeam1Score() > game.getTeam2Score()) {
+                    req.setAttribute("teamWon", "Blue team won.");
+                } else if (game.getTeam1Score() < game.getTeam2Score()) {
+                    req.setAttribute("teamWon", "Red team won.");
+                } else {
+                    req.setAttribute("teamWon", "Draw.");
+                }
+                req.setAttribute("caption", "This game has ended, stats can not be edited.");
             }else{
-                req.setAttribute("teamWon", "Draw.");
+                req.setAttribute("teamWon", "Game in progress.");
+                req.setAttribute("caption", "This game is in progress, score will update live.");
             }
             //set hash value
             req.setAttribute("gameHash", game.getHash());

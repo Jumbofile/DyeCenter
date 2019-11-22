@@ -10,7 +10,7 @@ var playerName = "";
 var playerUsername = "" ;
 var playerScore = 0;
 var playerPlunk = 0;
-var doRefresh = false;
+var doRefresh = true;
 var form = $('#ajaxform'); // id of form tag
 var points = document.getElementById("points");
 var plunkAmount= document.getElementById("plunkAmount").value;
@@ -23,6 +23,17 @@ $('.modal').click(function (event)
         doRefresh = true;
     }
 });
+
+//Refresh without reload function
+$(document).ready(
+    function() {
+        setInterval(function () {
+            if(doRefresh == true) {
+                location.reload();
+            }
+        }, 3000);  //Delay here = 5 seconds
+    });
+
 
 $(function() {
 

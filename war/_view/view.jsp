@@ -81,7 +81,7 @@
 			</div>
 			<div class="col-lg-12 mx-auto mb-5 text-white text-center">
 				<h1 class="display-4">${teamWon}</h1>
-				<p class="lead mb-0">This game has ended, stats can not be edited.</p>
+				<p class="lead mb-0">${caption}</p>
 
 				<h1>Score</h1>
 				<div id="scoreboard" class="text-dark rounded-lg shadow">
