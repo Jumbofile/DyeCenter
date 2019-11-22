@@ -27,7 +27,7 @@ public class GameQuery extends DatabaseFactory {
 				int tid = -1;
 
 				// retreive username attribute from login
-				stmt = conn.prepareStatement("SELECT TID from games where GID = ?" );
+				stmt = conn.prepareStatement("SELECT TID from game where GID = ?" );
 				stmt.setInt( 1, GID);
 				resultSet = stmt.executeQuery();
 

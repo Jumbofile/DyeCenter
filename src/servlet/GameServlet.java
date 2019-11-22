@@ -32,7 +32,8 @@ public class GameServlet extends HttpServlet {
             req.getRequestDispatcher("/dashboard").forward(req, resp);
         }
 
-        //System.out.println("GID: " + gid);
+        System.out.println("GID: " + gid);
+        System.out.println("TID: " + tid);
 
         if (uid == null) {
             try {
