@@ -20,6 +20,62 @@
 *
 */
 
+#back-btn {
+    z-index: 10;
+    position: absolute;
+    top: -9px;
+    left: -11px;
+    height: 127px;
+    width: 156px;
+    background: none;
+    border: none;
+}
+
+#back-btn-cover {
+    position: absolute;
+    top: -27px;
+    left: -7px;
+    width: 201px;
+    height: 170px;
+    background: rgb(0,0,0);
+    background: linear-gradient(142deg, rgba(0,0,0,0.4458158263305322) 17%, rgba(255,255,255,0) 55%);
+}
+
+#back-btn-arrow {
+    color: #FFF;
+    position: absolute;
+    top: 16px;
+    left: 18px;
+}
+
+#finish-game-btn {
+    z-index: 10;
+    position: absolute;
+    top: -9px;
+    right: -12px;
+    height: 127px;
+    width: 156px;
+    background: none;
+    border: none;
+}
+
+#finish-btn-cover{
+    position: absolute;
+    top: -35px;
+    right: -7px;
+    width: 225px;
+    height: 170px;
+    background: rgb(0,0,0);
+    background: linear-gradient(214deg, rgba(0,0,0,0.4458158263305322) 12%, rgba(255,255,255,0) 56%);
+}
+
+#finish-game-icon {
+    position: absolute;
+    top: 8px;
+    right: 13px;
+    color: #FFF;
+}
+
 #scoreboard {
     margin: auto;
     font-size: 50px;
@@ -37,13 +93,13 @@
 }
 
 #team1-score {
-    border-left: solid #007bff;
+    border-left: solid #007bff 6px;
     border-radius: 5px 0 0 5px;
     margin-right: 1px;
 }
 
 #team2-score {
-    border-right: solid #ff4f4f;
+    border-right: solid #ff4f4f 6px;
     border-radius: 0 5px 5px 0;
     margin-left: 1px;
 }
@@ -166,5 +222,15 @@ div.h4 {
 @media only screen and (max-width: 1200px) {
     .player-card-container {
         display: block;
+    }
+
+    #game-tag {
+        position: absolute;
+        top: 10px;
+        width: 185px;
+    }
+
+    #game-content-container {
+        margin-top: 50px;
     }
 }

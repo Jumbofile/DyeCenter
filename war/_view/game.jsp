@@ -14,9 +14,11 @@
 	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 	<link href="css/game.css" rel="stylesheet">
+	<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<%--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">--%>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link rel="apple-touch-icon" sizes="180x180" href="webresources/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="webresources/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="webresources/favicon-16x16.png">
@@ -33,22 +35,24 @@
 
 	<div class="row">
 		<form action="${pageContext.servletContext.contextPath}/table" method="get">
-			<button type="submit" name="back" value="back" class="btn btn-primary">Back</button>
+			<div id="back-btn-cover"></div>
+			<button id="back-btn" type="submit" name="back" value="back"></button>
+			<i id="back-btn-arrow" class="fas fa-arrow-left fa-w-12 fa-4x"></i>
 		</form>
 	</div>
 	<form id="ajaxform" action="${pageContext.servletContext.contextPath}/game" method="post">
-	<!-- Modal -->
-	<div class="modal fade" id="statModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
-		<span class="close">x</span>
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<%-- title filled via .selected class in JS--%>
-					<h5 class="modal-title" id="ModalLongTitle"></h5>
-				</div>
-				<div class="modal-body">
-					Update Player Stats
-				</div>
+		<!-- Modal -->
+		<div class="modal fade" id="statModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
+			<span class="close">x</span>
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<%-- title filled via .selected class in JS--%>
+						<h5 class="modal-title" id="ModalLongTitle"></h5>
+					</div>
+					<div class="modal-body">
+						Update Player Stats
+					</div>
 
 					<div class="modal-footer">
 						<h2>Points</h2>
@@ -69,13 +73,13 @@
 						<button type="submit" name="points" onclick="delPlunk()" class="btn btn-primary" value="-${plunkValue}" >-1</button>
 					</div>
 
+				</div>
 			</div>
+			<input id="playerInput" style="display: none"  type="input" name="playerFocus" value="">
+			<input id="points" style="display: none"  type="input" name="points" value="">
 		</div>
-		<input id="playerInput" style="display: none"  type="input" name="playerFocus" value="">
-		<input id="points" style="display: none"  type="input" name="points" value="">
-	</div>
 
-		<div class="row">
+		<div id="game-content-container" class="row">
 
 			<div class="col-lg-12 mx-auto mb-5 text-white text-center">
 				<h1 class="display-4">In-Game</h1>
@@ -90,10 +94,6 @@
 						<span class="score-text col-lg-6 mx-auto mb-5">${t2Score}</span>
 					</div>
 				</div>
-
-				<%--<span class="team-text col-lg-6 mx-auto mb-5">${t1Score}</span>--%>
-				<%--<span class="team-text col-lg-6 mx-auto mb-5">-</span>--%>
-				<%--<span class="team-text col-lg-6 mx-auto mb-5">${t2Score}</span>--%>
 			</div>
 
 			<div class="team-header col-xl-6 col-lg-6 mb-8" id="team1-header">
@@ -243,9 +243,12 @@
 
 		</div>
 
-		<button type="submit" name="finish" onclick="finishGame()" value="finish" class="btn btn-primary">Finish Game</button>
+		<button id="finish-game-btn" type="submit" name="finish" onclick="finishGame()" value="finish" class="btn btn-primary"></button>
+		<div id="finish-btn-cover"></div>
+		<i id="finish-game-icon" class="fas fa-flag-checkered fa-w-16 fa-4x"></i>
+
 		<div class="row d-flex justify-content-center">
-			<div class="input-group mb-3" style="width:185px;">
+			<div id="game-tag" class="input-group mb-3" style="width:185px;">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="basic-addon1">Game-ID</span>
 				</div>
