@@ -48,6 +48,7 @@ $(function() {
 
 });
 
+
 function addPoint() {
     playerScore += 1;
     points.value = 1;

@@ -42,7 +42,42 @@
 	</div>
 	<form id="ajaxform" action="${pageContext.servletContext.contextPath}/game" method="post">
 		<div id="game-content-container" class="row">
+			<!-- Modal -->
+			<div class="modal fade" id="statModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
+				<span class="close">x</span>
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<%-- title filled via .selected class in JS--%>
+							<h5 class="modal-title" id="ModalLongTitle"></h5>
+						</div>
+						<div class="modal-body">
+							Update Player Stats
+						</div>
 
+						<div class="modal-footer">
+							<h2>Points</h2>
+							<button type="submit" name="points" onclick="addPoint()" class="btn btn-primary" value="1" >+1</button>
+
+							<span id="modalScore"></span>
+
+							<button type="submit" name="points" onclick="delPoint()" class="btn btn-primary" value="-1">-1</button>
+						</div>
+						<div class="modal-footer">
+							<h2>Plunks</h2>
+							<button id="plunkAmount" type="submit" name="points" onclick="addPlunk()" class="btn btn-primary" value="${plunkValue}">+1</button>
+
+							<%-- player score filled via .selected class in JS --%>
+							<span id="modalPlunk"></span>
+
+							<button type="submit" name="points" onclick="delPlunk()" class="btn btn-primary" value="-${plunkValue}" >-1</button>
+						</div>
+
+					</div>
+				</div>
+				<input id="playerInput" style="display: none"  type="input" name="playerFocus" value="">
+				<input id="points" style="display: none"  type="input" name="points" value="">
+			</div>
 			<div class="col-lg-12 mx-auto mb-5 text-white text-center">
 				<h1 class="display-4">${teamWon}</h1>
 				<p class="lead mb-0">This game has ended, stats can not be edited.</p>
