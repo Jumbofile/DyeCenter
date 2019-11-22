@@ -210,7 +210,7 @@
 								<div class="row no-gutters align-items-center">
 									<div class="col mr-2">
 										<div class="text-xs font-weight-bold text-success text-uppercase mb-1">Load Game</div>
-										<input type="input" class="w-50" name="loadGame" id="loadGame"  placeholder="Game Key">
+										<input type="input" class="form-control-sm w-25" name="loadGame" id="loadGame"  placeholder="Game-ID">
 										<button style="position: absolute; margin-top: -1px; margin-left:2px;" class="btn btn-sm btn-primary  btn-login text-uppercase font-weight-bold" type="submit">Go</button>
 									</div>
 									<div class="col-auto">

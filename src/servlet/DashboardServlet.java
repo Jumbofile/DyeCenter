@@ -1,6 +1,7 @@
 package servlet;
 
 import backend.Database.DatabaseFactory;
+import backend.Database.PersistenceException;
 import backend.Entities.Account;
 import backend.Entities.Game;
 import backend.Entities.Player;
@@ -62,14 +63,18 @@ public class DashboardServlet extends HttpServlet {
                 hash = req.getParameter("loadGame");
                 if(!(hash.equals("")) && hash != null){
                     Game game = new Game();
-                    int gid = game.getGIDFromHash(hash);
-                    int tid = game.getTIDFromGID(gid);
-                    System.out.println("DB GID: " + gid);
-                    System.out.println("DB TID: " + tid);
-                    if(gid != -1){
-                        resp.sendRedirect(req.getContextPath() + "/view");
-                        req.getSession().setAttribute("tid", tid);
-                        req.getSession().setAttribute("gid", gid);
+                    try {
+                        int gid = game.getGIDFromHash(hash);
+                        int tid = game.getTIDFromGID(gid);
+                        System.out.println("DB GID: " + gid);
+                        System.out.println("DB TID: " + tid);
+                        if (gid != -1) {
+                            resp.sendRedirect(req.getContextPath() + "/view");
+                            req.getSession().setAttribute("tid", tid);
+                            req.getSession().setAttribute("gid", gid);
+                        }
+                    }catch (PersistenceException e){
+                        resp.sendRedirect(req.getContextPath() + "/dashboard");
                     }
                 }
                 setAttr(req, resp);
