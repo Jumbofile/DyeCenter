@@ -12067,7 +12067,13 @@ body.sidebar-toggled footer.sticky-footer {
     width: 100%;
 }
 
-
+.loadBox{
+    padding: 2px;
+    border: 1px solid grey;
+    text-align: center;
+    border-radius: 4px;
+    width: 75px;
+}
 /*#userIcon {*/
     /*position: relative;*/
     /*margin: auto;*/
