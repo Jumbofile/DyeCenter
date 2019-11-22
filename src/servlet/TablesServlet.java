@@ -45,6 +45,7 @@ public class TablesServlet extends HttpServlet {
         }
     }
 
+    //todo - when the game is complete bring to game complete view not game view
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -76,7 +77,12 @@ public class TablesServlet extends HttpServlet {
             if(loadGame != null){
 
                 //Game pressed below
-                resp.sendRedirect(req.getContextPath() + "/game");
+                Game game = new Game(Integer.parseInt(loadGame), Integer.parseInt(tableID));
+                if (game.getStatus() == 1) {
+                    resp.sendRedirect(req.getContextPath() + "/view");
+                }else{
+                    resp.sendRedirect(req.getContextPath() + "/game");
+                }
                 req.getSession().setAttribute("gid", loadGame);
 
 
@@ -125,7 +131,13 @@ public class TablesServlet extends HttpServlet {
                     }
                 }else{
                     //They actually hit a game button so just go to that game
-                    resp.sendRedirect(req.getContextPath() + "/game");
+                    Game gameRedirect = new Game(Integer.parseInt(req.getParameter("gamePressed")),Integer.parseInt(tableID));
+                    if(gameRedirect.getStatus() == 1){
+                        resp.sendRedirect(req.getContextPath() + "/view");
+                    }else{
+                        resp.sendRedirect(req.getContextPath() + "/game");
+                    }
+                    //resp.sendRedirect(req.getContextPath() + "/game");
                     req.getSession().setAttribute("tid", tableID);
                     req.getSession().setAttribute("gid", req.getParameter("gamePressed"));
 

@@ -67,7 +67,7 @@ public class DashboardServlet extends HttpServlet {
                     System.out.println("DB GID: " + gid);
                     System.out.println("DB TID: " + tid);
                     if(gid != -1){
-                        resp.sendRedirect(req.getContextPath() + "/game");
+                        resp.sendRedirect(req.getContextPath() + "/view");
                         req.getSession().setAttribute("tid", tid);
                         req.getSession().setAttribute("gid", gid);
                     }

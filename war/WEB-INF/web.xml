@@ -23,6 +23,11 @@
     </servlet>
 
     <servlet>
+        <servlet-name>ViewServlet</servlet-name>
+        <servlet-class>servlet.ViewServlet</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>servlet.LogoutServlet</servlet-class>
     </servlet>
@@ -58,6 +63,11 @@
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
         <url-pattern></url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ViewServlet</servlet-name>
+        <url-pattern>/view</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
