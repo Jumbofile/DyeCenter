@@ -49,10 +49,10 @@ public class GameServlet extends HttpServlet {
             if(game.getStatus() == 1){
                 resp.sendRedirect(req.getContextPath() + "/view");
             }
-            
+
             String htmlForPage = "";
             tid = String.valueOf(table.getTID());
-            //todo - cant put 2 of the same usernames in the same game
+
             //player names
             req.setAttribute("t1p1Name", game.getPlayer1().getName());
             req.setAttribute("t1p2Name", game.getPlayer2().getName());
@@ -124,26 +124,28 @@ public class GameServlet extends HttpServlet {
                 //finish the game
                 game.endGame();
             } else if (playerFocus != null && (!playerFocus.equals(""))) {
-                int pointAmount = Integer.parseInt(points);
-                System.out.println("Point amount: " + pointAmount);
-                //see if the points are plunks
-                if (Math.abs(pointAmount) == table.getPlunkAmount()) {
-                    if (pointAmount < 0) {
-                        game.updatePlayerPlunk(playerFocus, -1);
-                        game.updatePlayerScore(playerFocus, -1 * table.getPlunkAmount());
+                //cannot edit stats if status isnt 0
+                if(game.getStatus() == 0) {
+                    int pointAmount = Integer.parseInt(points);
+                    //see if the points are plunks
+                    if (Math.abs(pointAmount) == table.getPlunkAmount()) {
+                        if (pointAmount < 0) {
+                            game.updatePlayerPlunk(playerFocus, -1);
+                            game.updatePlayerScore(playerFocus, -1 * table.getPlunkAmount());
+                        } else {
+                            game.updatePlayerPlunk(playerFocus, 1);
+                            game.updatePlayerScore(playerFocus, table.getPlunkAmount());
+                        }
                     } else {
-                        game.updatePlayerPlunk(playerFocus, 1);
-                        game.updatePlayerScore(playerFocus, table.getPlunkAmount());
+                        if (pointAmount < 0) {
+                            game.updatePlayerScore(playerFocus, -1);
+                        } else {
+                            game.updatePlayerScore(playerFocus, 1);
+                        }
                     }
-                } else {
-                    if (pointAmount < 0) {
-                        game.updatePlayerScore(playerFocus, -1);
-                    } else {
-                        game.updatePlayerScore(playerFocus, 1);
-                    }
+                    //call the db and update the game score
+                    game.updateGameScore(game);
                 }
-                game.updateGameScore(game);
-
             }
             if(game.getStatus() == 1){
                 resp.sendRedirect(req.getContextPath() + "/view");
