@@ -59,6 +59,7 @@
 							<h2>Points</h2>
 							<button type="submit" name="points" onclick="addPoint()" class="btn btn-primary" value="1" >+1</button>
 
+							<%-- player score filled via .selected class in JS --%>
 							<span id="modalScore"></span>
 
 							<button type="submit" name="points" onclick="delPoint()" class="btn btn-primary" value="-1">-1</button>
