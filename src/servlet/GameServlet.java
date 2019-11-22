@@ -120,7 +120,7 @@ public class GameServlet extends HttpServlet {
                 game.endGame();
 
                 //reload the page
-                req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
+                req.getRequestDispatcher("/_view/view.jsp").forward(req, resp);
                 req.getSession().setAttribute("gid", gid);
                 System.out.println("YEET");
 
