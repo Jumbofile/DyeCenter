@@ -38,8 +38,6 @@ public class TablesServlet extends HttpServlet {
 
             getGameButton(req, resp);
 
-
-
             req.setAttribute("tableID", tableID);
             req.getSession().setAttribute("tid", tableID);
             req.getRequestDispatcher("/_view/tables.jsp").forward(req, resp);
