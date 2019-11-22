@@ -60,12 +60,15 @@ public class DashboardServlet extends HttpServlet {
             } else {
                 String hash = new String();
                 hash = req.getParameter("loadGame");
-                if(!(hash.equals("")) && hash == null){
+                if(!(hash.equals("")) && hash != null){
                     Game game = new Game();
                     int gid = game.getGIDFromHash(hash);
+                    int tid = game.getTIDFromGID(gid);
+                    System.out.println("DB GID: " + gid);
+                    System.out.println("DB TID: " + tid);
                     if(gid != -1){
                         resp.sendRedirect(req.getContextPath() + "/game");
-                        req.getSession().setAttribute("tid", game.getTIDFromGID(gid));
+                        req.getSession().setAttribute("tid", tid);
                         req.getSession().setAttribute("gid", gid);
                     }
                 }
