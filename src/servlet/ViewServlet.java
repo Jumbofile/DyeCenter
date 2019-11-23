@@ -20,7 +20,7 @@ public class ViewServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        System.out.println("Game DoGet");
+        System.out.println("View DoGet");
         uid = (String) req.getSession().getAttribute("uid"); //session stuff
         try {
             gid = req.getSession().getAttribute("gid").toString();
@@ -78,12 +78,18 @@ public class ViewServlet extends HttpServlet {
             req.setAttribute("plunkValue", table.getPlunkAmount());
 
             //set winner
-            if(game.getTeam1Score() > game.getTeam2Score()){
-                req.setAttribute("teamWon", "Blue team won.");
-            }else if(game.getTeam1Score() < game.getTeam2Score()){
-                req.setAttribute("teamWon", "Red team won.");
+            if(game.getStatus() == 1) {
+                if (game.getTeam1Score() > game.getTeam2Score()) {
+                    req.setAttribute("teamWon", "Blue team won.");
+                } else if (game.getTeam1Score() < game.getTeam2Score()) {
+                    req.setAttribute("teamWon", "Red team won.");
+                } else {
+                    req.setAttribute("teamWon", "Draw.");
+                }
+                req.setAttribute("caption", "This game has ended, stats can not be edited.");
             }else{
-                req.setAttribute("teamWon", "Draw.");
+                req.setAttribute("teamWon", "Game in progress.");
+                req.setAttribute("caption", "This game is in progress, score will update live.");
             }
             //set hash value
             req.setAttribute("gameHash", game.getHash());
@@ -105,58 +111,14 @@ public class ViewServlet extends HttpServlet {
 
         uid = (String) req.getSession().getAttribute("uid"); //session stuff
         gid = (String) req.getSession().getAttribute("gid");
-        System.out.println("Game DoPost");
+        System.out.println("View DoPost");
 
         if (uid == null) {
             resp.sendRedirect(req.getContextPath() + "/login");
-        }else{
-            Table table = new Table(Integer.parseInt(tid));
+        }else {
 
-            Game game = new Game(Integer.parseInt(gid), table.getTID());
-
-            String points = (String)req.getParameter("points");
-            System.out.println("Points: " + points);
-            String playerFocus = (String)req.getParameter("playerFocus");
-            System.out.println("Player: " + playerFocus);
-
-            //game finish was requested
-            if(points.equals("finish")) {
-                //finish the game
-                game.endGame();
-
-                //reload the page
-                req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
-                req.getSession().setAttribute("gid", gid);
-                System.out.println("YEET");
-
-            }else if(playerFocus != null && (!playerFocus.equals(""))){
-                int pointAmount = Integer.parseInt(points);
-                System.out.println("Point amount: " + pointAmount);
-                //see if the points are plunks
-                if(Math.abs(pointAmount) == table.getPlunkAmount()){
-                    if(pointAmount < 0) {
-                        game.updatePlayerPlunk(playerFocus, -1 );
-                        game.updatePlayerScore(playerFocus, -1 * table.getPlunkAmount());
-                    }else{
-                        game.updatePlayerPlunk(playerFocus, 1 );
-                        game.updatePlayerScore(playerFocus, table.getPlunkAmount());
-                    }
-                }else{
-                    if(pointAmount < 0) {
-                        game.updatePlayerScore(playerFocus, -1);
-                    }else{
-                        game.updatePlayerScore(playerFocus, 1);
-                    }
-                }
-                game.updateGameScore(game);
-            }
-            }try {
-                resp.sendRedirect(req.getContextPath() + "/game");
-                req.getSession().setAttribute("gid", gid);
-            } catch (Exception e) {
-
+            resp.sendRedirect(req.getContextPath() + "/view");
+            req.getSession().setAttribute("gid", gid);
         }
-
     }
-
 }

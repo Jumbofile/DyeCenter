@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TablesServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -36,8 +37,6 @@ public class TablesServlet extends HttpServlet {
             //System.out.println("get: " + tableID);
 
             getGameButton(req, resp);
-
-
 
             req.setAttribute("tableID", tableID);
             req.getSession().setAttribute("tid", tableID);
@@ -113,10 +112,13 @@ public class TablesServlet extends HttpServlet {
 						    //that usersname doesnt exist
                             resp.sendRedirect(req.getContextPath() + "/table");
                         }
+                        Game game = null;
+                        if(playersUnique(t1, t2)) {
 
-                        //create game
-						Game game = table.createGame(t1, t2);
 
+                            //create game
+                            game = table.createGame(t1, t2);
+                        }
 						if (game != null) {
 							resp.sendRedirect(req.getContextPath() + "/game");
 							System.out.println("NEW GID: " + game.getGID());
@@ -225,5 +227,41 @@ public class TablesServlet extends HttpServlet {
         }catch(Exception e){
 
         }
+    }
+
+    public boolean playersUnique(Player[] t1, Player[] t2){
+        boolean result = true;
+        //we have to make sure all of the usernames are unique
+        //t1p1 and t1p2
+        if(t1[0].getUsername().equals(t1[1].getUsername())){
+            result = false;
+        }
+
+        //t2p1 and t2p2
+        if(t2[0].getUsername().equals(t2[1].getUsername())){
+            result = false;
+        }
+
+        //t1p1 t2p1
+        if(t1[0].getUsername().equals(t2[0].getUsername())){
+            result = false;
+        }
+
+        //t1p1 t2p2
+        if(t1[0].getUsername().equals(t2[1].getUsername())){
+            result = false;
+        }
+
+        //t1p2 t2p1
+        if(t1[1].getUsername().equals(t2[0].getUsername())){
+            result = false;
+        }
+
+        //t1p2 t2p2
+        if(t1[1].getUsername().equals(t2[1].getUsername())){
+            result = false;
+        }
+
+        return result;
     }
 }

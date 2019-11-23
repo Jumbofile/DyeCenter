@@ -46,9 +46,13 @@ public class GameServlet extends HttpServlet {
 
             Game game = new Game(Integer.parseInt(gid), table.getTID());
 
+            if(game.getStatus() == 1){
+                resp.sendRedirect(req.getContextPath() + "/view");
+            }
+
             String htmlForPage = "";
             tid = String.valueOf(table.getTID());
-            //todo - cant put 2 of the same usernames in the same game
+
             //player names
             req.setAttribute("t1p1Name", game.getPlayer1().getName());
             req.setAttribute("t1p2Name", game.getPlayer2().getName());
@@ -83,6 +87,7 @@ public class GameServlet extends HttpServlet {
             //set hash value
             req.setAttribute("gameHash", game.getHash());
 
+
         }try {
             req.getSession().setAttribute("gid", gid);
             req.getSession().setAttribute("uid", uid);
@@ -104,52 +109,50 @@ public class GameServlet extends HttpServlet {
 
         if (uid == null) {
             resp.sendRedirect(req.getContextPath() + "/login");
-        }else{
+        }else {
             Table table = new Table(Integer.parseInt(tid));
 
             Game game = new Game(Integer.parseInt(gid), table.getTID());
 
-            String points = (String)req.getParameter("points");
+            String points = (String) req.getParameter("points");
             System.out.println("Points: " + points);
-            String playerFocus = (String)req.getParameter("playerFocus");
+            String playerFocus = (String) req.getParameter("playerFocus");
             System.out.println("Player: " + playerFocus);
 
             //game finish was requested
-            if(points.equals("finish")) {
+            if (points.equals("finish")) {
                 //finish the game
                 game.endGame();
-
-                //reload the page
-                req.getRequestDispatcher("/_view/view.jsp").forward(req, resp);
-                req.getSession().setAttribute("gid", gid);
-                System.out.println("YEET");
-
-            }else if(playerFocus != null && (!playerFocus.equals(""))){
-                int pointAmount = Integer.parseInt(points);
-                System.out.println("Point amount: " + pointAmount);
-                //see if the points are plunks
-                if(Math.abs(pointAmount) == table.getPlunkAmount()){
-                    if(pointAmount < 0) {
-                        game.updatePlayerPlunk(playerFocus, -1 );
-                        game.updatePlayerScore(playerFocus, -1 * table.getPlunkAmount());
-                    }else{
-                        game.updatePlayerPlunk(playerFocus, 1 );
-                        game.updatePlayerScore(playerFocus, table.getPlunkAmount());
+            } else if (playerFocus != null && (!playerFocus.equals(""))) {
+                //cannot edit stats if status isnt 0
+                if(game.getStatus() == 0) {
+                    int pointAmount = Integer.parseInt(points);
+                    //see if the points are plunks
+                    if (Math.abs(pointAmount) == table.getPlunkAmount()) {
+                        if (pointAmount < 0) {
+                            game.updatePlayerPlunk(playerFocus, -1);
+                            game.updatePlayerScore(playerFocus, -1 * table.getPlunkAmount());
+                        } else {
+                            game.updatePlayerPlunk(playerFocus, 1);
+                            game.updatePlayerScore(playerFocus, table.getPlunkAmount());
+                        }
+                    } else {
+                        if (pointAmount < 0) {
+                            game.updatePlayerScore(playerFocus, -1);
+                        } else {
+                            game.updatePlayerScore(playerFocus, 1);
+                        }
                     }
-                }else{
-                    if(pointAmount < 0) {
-                        game.updatePlayerScore(playerFocus, -1);
-                    }else{
-                        game.updatePlayerScore(playerFocus, 1);
-                    }
+                    //call the db and update the game score
+                    game.updateGameScore(game);
                 }
-                game.updateGameScore(game);
             }
-            }try {
+            if(game.getStatus() == 1){
+                resp.sendRedirect(req.getContextPath() + "/view");
+            }else {
                 resp.sendRedirect(req.getContextPath() + "/game");
-                req.getSession().setAttribute("gid", gid);
-            } catch (Exception e) {
-
+            }
+            req.getSession().setAttribute("gid", gid);
         }
 
     }
