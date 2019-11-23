@@ -73,7 +73,7 @@ $(document).ready(
                             t2p1WL      = dataString[12];
                             t2p2WL      = dataString[13];
                             teamWon     = dataString[14];
-                            captionText = dataString[15];
+                            captionText = dataString[15] + dataString[16];
 
                             updateData();
                         },
