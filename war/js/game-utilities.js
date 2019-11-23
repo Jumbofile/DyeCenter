@@ -10,10 +10,15 @@ var playerName = "";
 var playerUsername = "" ;
 var playerScore = 0;
 var playerPlunk = 0;
+var playerTeam = 1;
+
+var team1score = 0 ;
+var team2score = 0 ;
+
 var doRefresh = true;
 var form = $('#ajaxform'); // id of form tag
 var points = document.getElementById("points");
-var plunkAmount= document.getElementById("plunkAmount").value;
+var plunkAmount = parseInt(document.getElementById("plunkAmount").value);
 
 $('.modal').click(function (event)
 {
@@ -60,7 +65,6 @@ $(function() {
 
 function openModal(card) {
     doRefresh = false;
-    //console.log(card.id);
     $(".selected").removeClass("selected") ;
     card.classList.add("selected") ;
 
@@ -74,25 +78,42 @@ function openModal(card) {
     playerUsername = playerInfo[1] ;
     playerScore = parseInt(playerInfo[2]);
     playerPlunk = parseInt(playerInfo[3]);
+    playerTeam = parseInt(playerInfo[4]);
+
+    team1score = parseInt($("#team1-score").attr("data-score"));
+    team2score = parseInt($("#team2-score").attr("data-score"));
 
     //sorry zach
     var playerFocus = document.getElementById("playerInput");
     playerFocus.value = card.id;
-    console.log(playerFocus.value)
 
     updateModal();
 }
 
 function addPoint() {
-    playerScore += 1;
+    playerScore++;
     points.value = 1;
+
+    if(playerTeam == 1) {
+        team1score++ ;
+    }
+    else {
+        team2score++;
+    }
 
     updateModal();
 }
 
 function delPoint() {
-    playerScore -= 1;
+    playerScore--;
     points.value = -1;
+
+    if(playerTeam == 1) {
+        team1score--;
+    }
+    else {
+        team2score--;
+    }
 
     updateModal();
 }
@@ -102,6 +123,13 @@ function addPlunk() {
     playerScore = eval(parseInt(playerScore) + parseInt(plunkAmount));
     points.value = plunkAmount;
 
+    if(playerTeam == 1) {
+        team1score += plunkAmount ;
+    }
+    else {
+        team2score += plunkAmount;
+    }
+
     updateModal();
 }
 
@@ -110,16 +138,27 @@ function delPlunk() {
     playerScore = eval(parseInt(playerScore) - parseInt(plunkAmount));
     points.value = -plunkAmount;
 
+    if(playerTeam == 1) {
+        team1score -= plunkAmount ;
+    }
+    else {
+        team2score -= plunkAmount ;
+    }
+
     updateModal();
 }
 
 function updateModal() {
     $('#ModalLongTitle').text(playerName);
+    $('#modal-username').text(playerUsername);
     $('#modalScore').text(playerScore);
     $('#modalPlunk').text(playerPlunk);
 
     $( ".selected .points" ).text(playerScore);
     $( ".selected .plunks" ).text(playerPlunk);
+
+    $('#team1-score-text').text(team1score);
+    $('#team2-score-text').text(team2score);
 
     rebuildVal();
 }
@@ -129,6 +168,8 @@ function rebuildVal() {
     playerInfo = rebuild ;
 
     $('.selected').attr("value",rebuild);
+    $('#team1-score').attr("data-score",team1score);
+    $('#team2-score').attr("data-score",team2score);
 }
 
 function finishGame() {
