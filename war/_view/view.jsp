@@ -40,7 +40,7 @@
 			<i id="back-btn-arrow" class="fas fa-arrow-left fa-w-12 fa-4x"></i>
 		</form>
 	</div>
-	<form id="ajaxform" action="${pageContext.servletContext.contextPath}/game" method="post">
+	<form id="ajaxform" action="${pageContext.servletContext.contextPath}/view" method="post">
 		<div id="game-content-container" class="row">
 			<!-- Modal -->
 			<div class="modal fade" id="statModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
@@ -80,8 +80,8 @@
 				<input id="points" style="display: none"  type="input" name="points" value="">
 			</div>
 			<div class="col-lg-12 mx-auto mb-5 text-white text-center">
-				<h1 class="display-4">${teamWon}</h1>
-				<p class="lead mb-0">${caption}</p>
+				<h1 id="teamWon" class="display-4">${teamWon}</h1>
+				<p id="caption" class="lead mb-0">${caption}</p>
 
 				<h1>Score</h1>
 				<div id="scoreboard" class="text-dark rounded-lg shadow">
@@ -112,7 +112,7 @@
 
 								<div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
 									<div class="small">W/L &nbsp;&nbsp;</div>
-									<div class="h2 font-weight-bold">${t1p1WLR}<sup class="small">%</sup></div>
+									<div class="WL h2 font-weight-bold">${t1p1WLR}<sup class="small">%</sup></div>
 								</div>
 							</div>
 							<!-- END -->
@@ -146,7 +146,7 @@
 
 								<div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
 									<div class="small">W/L &nbsp;&nbsp;</div>
-									<div class="h2 font-weight-bold">${t1p2WLR}<sup class="small">%</sup></div>
+									<div class="WL h2 font-weight-bold">${t1p2WLR}<sup class="small">%</sup></div>
 								</div>
 							</div>
 							<!-- END -->
@@ -185,7 +185,7 @@
 
 								<div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
 									<div class="small">W/L &nbsp;&nbsp;</div>
-									<div class="h2 font-weight-bold">${t2p1WLR}<sup class="small">%</sup></div>
+									<div class="WL h2 font-weight-bold">${t2p1WLR}<sup class="small">%</sup></div>
 								</div>
 							</div>
 							<!-- END -->
@@ -219,7 +219,7 @@
 
 								<div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
 									<div class="small">W/L &nbsp;&nbsp;</div>
-									<div class="h2 font-weight-bold">${t2p2WLR}<sup class="small">%</sup></div>
+									<div class="WL h2 font-weight-bold">${t2p2WLR}<sup class="small">%</sup></div>
 								</div>
 							</div>
 							<!-- END -->
