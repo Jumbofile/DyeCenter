@@ -47,12 +47,13 @@
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
+						Update Player Stats
 						<%-- title filled via .selected class in JS--%>
 						<h1 class="modal-title" id="ModalLongTitle"></h1>
-						<h3 class="modal-subtitle" id="modal-username"></h3>
+						<h5 class="modal-subtitle" id="modal-username"></h5>
 					</div>
 					<div class="modal-body">
-						Update Player Stats
+						body
 					</div>
 
 					<div class="modal-footer">
@@ -102,7 +103,7 @@
 					<div class="col-xl-6 col-lg-12 mb-4" id="t1p1Card" name="card-data-1" value="${t1p1Name},${t1p1Username},${t1p1Score},${t1p1Plunks},1" onclick="openModal(this)" >
 						<div class="game-player-card player-team1  bg-white rounded-lg p-5 shadow">
 							<h2 class="h2 font-weight-bold text-center mb-4">${t1p1Name}</h2>
-							<h2 class="h6 font-weight-bold text-center mb-4">${t1p1Username}</h2>
+							<h2 class="card-username h6 font-weight-bold text-center mb-4">@${t1p1Username}</h2>
 
 							<!-- Progress bar 1 -->
 							<div class="progress mx-auto" data-value=${t1p1WLR}>
@@ -136,7 +137,7 @@
 					<div class="col-xl-6 col-lg-12 mb-4" id="t1p2Card" name="card-data-2" value="${t1p2Name},${t1p2Username},${t1p2Score},${t1p2Plunks},1" onclick="openModal(this)" >
 						<div class="game-player-card player-team1 bg-white rounded-lg p-5 shadow">
 							<h2 class="h2 font-weight-bold text-center mb-4">${t1p2Name}</h2>
-							<h2 class="h6 font-weight-bold text-center mb-4">${t1p2Username}</h2>
+							<h2 class="card-username h6 font-weight-bold text-center mb-4">@${t1p2Username}</h2>
 
 							<!-- Progress bar 1 -->
 							<div class="progress mx-auto" data-value=${t1p2WLR}>
@@ -169,13 +170,12 @@
 				</div>
 			</div>
 
-
 			<div class="team-header col-xl-6 col-lg-6 mb-8" id="team2-header">
 				<div class="player-card-container">
 					<div class="col-xl-6 col-lg-12 mb-4" id="t2p1Card" name="card-data-3" value="${t2p1Name},${t2p1Username},${t2p1Score},${t2p1Plunks},2" onclick="openModal(this)" >
 						<div class="game-player-card player-team2 bg-white rounded-lg p-5 shadow">
 							<h2 class="h2 font-weight-bold text-center mb-4">${t2p1Name}</h2>
-							<h2 class="h6 font-weight-bold text-center mb-4">${t2p1Username}</h2>
+							<h2 class="card-username h6 font-weight-bold text-center mb-4">@${t2p1Username}</h2>
 
 							<!-- Progress bar 1 -->
 							<div class="progress mx-auto" data-value=${t2p1WLR}>
@@ -209,7 +209,7 @@
 					<div class="col-xl-6 col-lg-12 mb-4" id="t2p2Card" name="card-data-2" value="${t2p2Name},${t2p2Username},${t2p2Score},${t2p2Plunks},2" onclick="openModal(this)" >
 						<div class="game-player-card player-team2 bg-white rounded-lg p-5 shadow">
 							<h2 class="h2 font-weight-bold text-center mb-4">${t2p2Name}</h2>
-							<h2 class="h6 font-weight-bold text-center mb-4">${t2p2Username}</h2>
+							<h2 class="card-username h6 font-weight-bold text-center mb-4">@${t2p2Username}</h2>
 
 							<!-- Progress bar 1 -->
 							<div class="progress mx-auto" data-value=${t2p2WLR}>

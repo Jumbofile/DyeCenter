@@ -150,7 +150,8 @@ function delPlunk() {
 
 function updateModal() {
     $('#ModalLongTitle').text(playerName);
-    $('#modal-username').text(playerUsername);
+    console.log(playerUsername) ;
+    $('#modal-username').text('@' + playerUsername);
     $('#modalScore').text(playerScore);
     $('#modalPlunk').text(playerPlunk);
 
@@ -164,7 +165,7 @@ function updateModal() {
 }
 
 function rebuildVal() {
-    var rebuild = playerName + "," + playerUsername + "," + playerScore + "," + playerPlunk ;
+    var rebuild = playerName + "," + playerUsername + "," + playerScore + "," + playerPlunk + "," + playerTeam ;
     playerInfo = rebuild ;
 
     $('.selected').attr("value",rebuild);

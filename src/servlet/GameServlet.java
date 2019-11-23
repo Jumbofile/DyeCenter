@@ -59,6 +59,12 @@ public class GameServlet extends HttpServlet {
             req.setAttribute("t2p1Name", game.getPlayer3().getName());
             req.setAttribute("t2p2Name", game.getPlayer4().getName());
 
+            //player usernames
+            req.setAttribute("t1p1Username", game.getPlayer1().getUsername());
+            req.setAttribute("t1p2Username", game.getPlayer2().getUsername());
+            req.setAttribute("t2p1Username", game.getPlayer3().getUsername());
+            req.setAttribute("t2p2Username", game.getPlayer4().getUsername());
+
             //player scores
             req.setAttribute("t1p1Score", game.getPlayer1Score());
             req.setAttribute("t1p2Score", game.getPlayer2Score());
