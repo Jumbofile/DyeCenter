@@ -46,6 +46,9 @@ $(document).ready(
     function() {
         setInterval(function () {
             if(doRefresh == true) {
+                if(points.value == "finish"){
+                    location.reload(true);
+                }
                 points.value = "";
                 $.ajax({
                     type: form.attr('method'),  //post method

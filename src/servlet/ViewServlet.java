@@ -118,7 +118,7 @@ public class ViewServlet extends HttpServlet {
             } else {
                 req.setAttribute("teamWon", "Draw.");
             }
-            req.setAttribute("caption", "This game has ended, stats can not be edited.");
+            req.setAttribute("caption", "This game has ended, scores are final.");
         }else{
             req.setAttribute("teamWon", "Game in progress.");
             req.setAttribute("caption", "This game is in progress, score will update live.");
