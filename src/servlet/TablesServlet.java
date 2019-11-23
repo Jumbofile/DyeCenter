@@ -207,7 +207,7 @@ public class TablesServlet extends HttpServlet {
                 String nameString = names.toString().substring(1, names.toString().length()-1) ;
 
                 htmlForPage = htmlForPage +
-                        "<button  onclick ='clearVals' class=\"game-card btn btn-primary\" type=\"submit\" name = \"gamePressed\" data-status=\""+ gamesOnTable.get(i).getStatus() + "\" "+
+                        "<button  onclick ='clearVals' class=\"game-card\" type=\"submit\" name = \"gamePressed\" data-status=\""+ gamesOnTable.get(i).getStatus() + "\" "+
                         "data-time=\""+ gamesOnTable.get(i).getTimeOfCreation() + "\" data-scores = \""+ scoreString +"\" data-plunks=\""+ plunkString + "\" "+
                         "data-usernames=\""+ usernameString +"\" data-names=\""+ nameString +"\" value = \""+ gamesOnTable.get(i).getGID() +"\">" +
                             "<div class='game-card-cont'>" +
@@ -219,8 +219,8 @@ public class TablesServlet extends HttpServlet {
                                 "<div class='gamePrev-item player p3'>5</div>"+
                                 "<div class='gamePrev-item player p4'>6</div>"+
                             "</div>"+
-                        "</button>"
-                        + "<br/>" ;
+                        "</button>" +
+                        "<br/>" ;
             }
             //System.out.println(htmlForPage);
             req.setAttribute("gameButtons", htmlForPage);

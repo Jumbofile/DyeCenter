@@ -32,7 +32,10 @@ for(var i = 0; i < gameArr.length; i++) {
 
     if(status != 0) {
         statusString = "Completed"
+    } else {
+        $(gameArr[i]).addClass("in-progress");
     }
+
 
     gameArr[i].querySelector('.game-card-header').innerHTML = date.toLocaleString() + " - " + statusString;
     gameArr[i].querySelector('.team1').innerHTML = "Team 1 - " + t1score ;

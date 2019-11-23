@@ -2,6 +2,16 @@
     position: relative;
     width: 100%;
     text-align: left;
+    color: #000;
+    background: #FFF;
+    margin-bottom: 10px;
+    border: solid #9f9fb1 2px;
+    border-radius: 7px;
+
+    padding-top: 0;
+    padding-right: 0;
+    padding-left: 0;
+    padding-bottom: 20px;
 }
 
 .game-card-cont {
@@ -11,4 +21,9 @@
 
 .game-card-cont .game-card-header {
     grid-column-start: span 3;
+    padding-top: 7px;
+}
+
+.in-progress .game-card-cont .game-card-header{
+    background: linear-gradient(4deg, rgba(255,255,255,1) 21%, rgba(159,159,159,1) 100%);
 }
