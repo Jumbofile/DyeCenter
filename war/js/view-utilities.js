@@ -172,6 +172,10 @@ function updateData(){
     $('#teamWon').text(teamWon.toString());
     $('#caption').text(captionText.toString());
 
+    if(teamWon != "Game in progress."){
+        doRefresh = false;
+    }
+
     //team 1 p 1
     $('#t1p1Card').find('.points')[0].innerHTML = t1p1Score.toString();
     $('#t1p1Card').find('.plunks')[0].innerHTML = t1p1Plunk.toString();

@@ -130,6 +130,7 @@ public class GameServlet extends HttpServlet {
                 //finish the game
                 game.endGame();
                 resp.sendRedirect(req.getContextPath() + "/view");
+                req.getSession().setAttribute("gid", gid);
             } else if (playerFocus != null && (!playerFocus.equals(""))) {
                 //cannot edit stats if status isnt 0
                 if(game.getStatus() == 0) {

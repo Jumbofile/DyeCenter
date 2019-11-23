@@ -197,9 +197,9 @@ public class Game {
 		return gid;
 	}
 
-	public int getGameWinner(int gid){
+	public int getGameWinner(){
 		int winner = 0;
-		Game game = new Game(gid, getTIDFromGID(gid));
+		Game game = new Game(GID, TID);
 
 		if (game.getTeam1Score() > game.getTeam2Score()) {
 			winner = 1;
