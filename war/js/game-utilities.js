@@ -20,6 +20,18 @@ var form = $('#ajaxform'); // id of form tag
 var points = document.getElementById("points");
 var plunkAmount = parseInt(document.getElementById("plunkAmount").value);
 
+//game values
+var t1Score;
+var t2Score;
+var t1p1Score;
+var t1p2Score;
+var t2p1Score;
+var t2p2Score;
+var t1p1Plunk;
+var t1p2Plunk;
+var t2p1Plunk;
+var t2p2Plunk;
+
 $('.modal').click(function (event)
 {
     //&& !$(event.target).is('.modal-content')
@@ -34,9 +46,37 @@ $(document).ready(
     function() {
         setInterval(function () {
             if(doRefresh == true) {
-                location.reload();
+                if(points.value == "finish"){
+                    location.reload(true);
+                }
+                points.value = "";
+                $.ajax({
+                    type: form.attr('method'),  //post method
+                    url: form.attr('action'), //ajaxformexample url
+                    data: form.serialize(), // serialize input data values
+                    success:
+                        function(data, textStatus, jqXHR) {
+                            console.log(data);
+                            var dataString = data.split(',');
+                            t1Score     = dataString[0];
+                            t2Score     = dataString[1];
+                            t1p1Score   = dataString[2];
+                            t1p2Score   = dataString[3];
+                            t2p1Score   = dataString[4];
+                            t2p2Score   = dataString[5];
+                            t1p1Plunk   = dataString[6];
+                            t1p2Plunk   = dataString[7];
+                            t2p1Plunk   = dataString[8];
+                            t2p2Plunk   = dataString[9];
+
+                            updateData();
+                        },
+                    dataType: 'text'
+                });
+
+                return false; // not refreshing page
             }
-        }, 3000);  //Delay here = 5 seconds
+        }, 1000);  //Delay here = 5 seconds
     });
 
 $(function() {
@@ -173,6 +213,30 @@ function rebuildVal() {
     $('#team2-score').attr("data-score",team2score);
 }
 
+function updateData(){
+    //team 1 score
+    $('#team1-score').find('.score-text')[0].innerHTML = t1Score.toString();
+    $('#team2-score').find('.score-text')[0].innerHTML = t2Score.toString();
+    $('#team1-score').attr("data-score", t1Score.toString());
+    $('#team2-score').attr("data-score", t2Score.toString());
+
+    //team 1 p 1
+    $('#t1p1Card').find('.points')[0].innerHTML = t1p1Score.toString();
+    $('#t1p1Card').find('.plunks')[0].innerHTML = t1p1Plunk.toString();
+
+    //team 1 p 2
+    $('#t1p2Card').find('.points')[0].innerHTML = t1p2Score.toString();
+    $('#t1p2Card').find('.plunks')[0].innerHTML = t1p2Plunk.toString();
+
+    //team 2 p 1
+    $('#t2p1Card').find('.points')[0].innerHTML = t2p1Score.toString();
+    $('#t2p1Card').find('.plunks')[0].innerHTML = t2p1Plunk.toString();
+
+    //team 2 p 2
+    $('#t2p2Card').find('.points')[0].innerHTML = t2p2Score.toString();
+    $('#t2p2Card').find('.plunks')[0].innerHTML = t2p2Plunk.toString();
+}
+
 function finishGame() {
     points.value = "finish";
 }
@@ -194,18 +258,3 @@ form.submit(function () {
     return false; // not refreshing page
 
 });
-
-function refreshPage(){
-    $.ajax({
-        type: 'GET',  //post method
-        url: form.attr('action'), //ajaxformexample url
-        data: form.serialize(), // serialize input data values
-        success: function (data) {
-            var result=data;
-            $('#content').html(result); //showing result
-
-        }
-    });
-
-    return false; // not refreshing page
-}

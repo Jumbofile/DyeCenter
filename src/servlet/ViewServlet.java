@@ -118,16 +118,13 @@ public class ViewServlet extends HttpServlet {
             } else {
                 req.setAttribute("teamWon", "Draw.");
             }
-            req.setAttribute("caption", "This game has ended, stats can not be edited.");
+            req.setAttribute("caption", "This game has ended, scores are final.");
         }else{
             req.setAttribute("teamWon", "Game in progress.");
             req.setAttribute("caption", "This game is in progress, score will update live.");
         }
         //set hash value
         req.setAttribute("gameHash", game.getHash());
-
-        resp.setContentType("text/plain");
-        resp.getWriter().println(game.getTeam1Score()+","+game.getTeam2Score());
     }
 
     public void postData(HttpServletResponse resp) throws IOException{
@@ -145,7 +142,6 @@ public class ViewServlet extends HttpServlet {
         data = data + game.getTeam2Score() + ",";
 
         //player scores
-        System.out.println("GREG!" + game.getPlayer1Score());
         data = data + game.getPlayer1Score() + ",";
         data = data + game.getPlayer2Score() + ",";
         data = data + game.getPlayer3Score() + ",";

@@ -75,12 +75,10 @@
 								<div class="form-label-group">
 
 									<input type="email" name="e" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-									<label for="inputEmail">Email address</label>
 								</div>
 
 								<div class="form-label-group">
 									<input type="password" name="p" id="inputPassword" class="form-control" placeholder="Password" required>
-									<label for="inputPassword">Password</label>
 								</div>
 
 								<div id="errorDiv" class="text-center">
