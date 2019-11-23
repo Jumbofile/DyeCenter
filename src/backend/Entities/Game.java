@@ -197,6 +197,19 @@ public class Game {
 		return gid;
 	}
 
+	public int getGameWinner(int gid){
+		int winner = 0;
+		Game game = new Game(gid, getTIDFromGID(gid));
+
+		if (game.getTeam1Score() > game.getTeam2Score()) {
+			winner = 1;
+
+		} else if (game.getTeam1Score() < game.getTeam2Score()) {
+			winner = 2;
+		}
+		return winner;
+	}
+	
 	public int getTIDFromGID(int gid){
 		int rtn = -1;
 		try {
