@@ -209,7 +209,7 @@ public class Game {
 		}
 		return winner;
 	}
-	
+
 	public int getTIDFromGID(int gid){
 		int rtn = -1;
 		try {

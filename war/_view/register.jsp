@@ -74,29 +74,24 @@
 								<form>
 									<div class="form-label-group">
 
-										<input type="text" name="u" id="inputUsername" class="form-control" placeholder="username" required autofocus>
-										<label for="inputUsername">Username</label>
+										<input type="text" name="u" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
 									</div>
 
 									<div class="form-label-group">
 
-										<input type="text" name="n" id="inputName" class="form-control" placeholder="Your Name" required autofocus>
-										<label for="inputName">Your name</label>
+										<input type="text" name="n" id="inputName" class="form-control" placeholder="First Name" required autofocus>
 									</div>
 
 									<div class="form-label-group">
 
 										<input type="email" name="e" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-										<label for="inputEmail">Email address</label>
 									</div>
 
 									<div class="form-label-group">
 										<input type="password" name="p" id="inputPassword" class="form-control" placeholder="Password" required>
-										<label for="inputPassword">Password</label>
 									</div>
 									<div class="form-label-group">
 										<input type="password" name="p2" id="inputPassword2" class="form-control" placeholder="Password" required>
-										<label for="inputPassword2">Retype Password</label>
 									</div>
 
 									<div id="errorDiv" class="text-center">
