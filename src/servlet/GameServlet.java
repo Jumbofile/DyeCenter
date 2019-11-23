@@ -132,35 +132,66 @@ public class GameServlet extends HttpServlet {
             } else if (playerFocus != null && (!playerFocus.equals(""))) {
                 //cannot edit stats if status isnt 0
                 if(game.getStatus() == 0) {
-                    int pointAmount = Integer.parseInt(points);
-                    //see if the points are plunks
-                    if (Math.abs(pointAmount) == table.getPlunkAmount()) {
-                        if (pointAmount < 0) {
-                            game.updatePlayerPlunk(playerFocus, -1);
-                            game.updatePlayerScore(playerFocus, -1 * table.getPlunkAmount());
+                    if(!points.equals("")) {
+                        int pointAmount = Integer.parseInt(points);
+                        //see if the points are plunks
+                        if (Math.abs(pointAmount) == table.getPlunkAmount()) {
+                            if (pointAmount < 0) {
+                                game.updatePlayerPlunk(playerFocus, -1);
+                                game.updatePlayerScore(playerFocus, -1 * table.getPlunkAmount());
+                            } else {
+                                game.updatePlayerPlunk(playerFocus, 1);
+                                game.updatePlayerScore(playerFocus, table.getPlunkAmount());
+                            }
                         } else {
-                            game.updatePlayerPlunk(playerFocus, 1);
-                            game.updatePlayerScore(playerFocus, table.getPlunkAmount());
+                            if (pointAmount < 0) {
+                                game.updatePlayerScore(playerFocus, -1);
+                            } else {
+                                game.updatePlayerScore(playerFocus, 1);
+                            }
                         }
-                    } else {
-                        if (pointAmount < 0) {
-                            game.updatePlayerScore(playerFocus, -1);
-                        } else {
-                            game.updatePlayerScore(playerFocus, 1);
-                        }
+                        //call the db and update the game score
+                        game.updateGameScore(game);
                     }
-                    //call the db and update the game score
-                    game.updateGameScore(game);
                 }
             }
             if(game.getStatus() == 1){
-                resp.sendRedirect(req.getContextPath() + "/view");
+                req.getRequestDispatcher("/_view/view.jsp").forward(req, resp);
             }else {
-                resp.sendRedirect(req.getContextPath() + "/game");
+                postData(resp);
             }
             req.getSession().setAttribute("gid", gid);
         }
 
+    }
+    public void postData(HttpServletResponse resp) throws IOException{
+        Account account = new Account();
+        account.populateAccountData(Integer.parseInt(uid));
+        Player player = new Player(account.getUsername());
+
+        Table table = new Table(Integer.parseInt(tid));
+
+        Game game = new Game(Integer.parseInt(gid), table.getTID());
+        String data = new String();
+
+        //team scores
+        data = game.getTeam1Score() + ",";
+        data = data + game.getTeam2Score() + ",";
+
+        //player scores
+        data = data + game.getPlayer1Score() + ",";
+        data = data + game.getPlayer2Score() + ",";
+        data = data + game.getPlayer3Score() + ",";
+        data = data + game.getPlayer4Score() + ",";
+
+        //player plunks
+        data = data + game.getPlayer1Plunks() + ",";
+        data = data + game.getPlayer2Plunks() + ",";
+        data = data + game.getPlayer3Plunks() + ",";
+        data = data + game.getPlayer4Plunks() + ",";
+
+        resp.setContentType("text/plain");
+        resp.getWriter().println(data);
     }
 
 }
