@@ -102,7 +102,7 @@ public class TablesServlet extends HttpServlet {
                 if(req.getParameter("gamePressed") == null) {
                     if(req.getParameter("t1p1").equals("") || req.getParameter("t1p2").equals("")
                     ||req.getParameter("t2p1").equals("") || req.getParameter("t2p2").equals("")){
-                        if(!(req.getParameter("t1p1").equals(""))) {
+                        //if(!(req.getParameter("t1p1").equals(""))) {
                             //goto pre game
 
                             String players = new String();
@@ -118,17 +118,22 @@ public class TablesServlet extends HttpServlet {
                             if (!(req.getParameter("t2p2").equals(""))) {
                                 players = players + req.getParameter("t2p1") + ",";
                             }
-                            if (players.substring(players.length() - 1).equals(",")) {
-                                players = players.substring(0, players.length() - 1);
-                            }
-                            System.out.println(players);
+                            String[] playersArr = null;
+                            if(!players.isEmpty()) {
+                                if (players.substring(players.length() - 1).equals(",")) {
+                                    players = players.substring(0, players.length() - 1);
+                                }
+                                System.out.println(players);
 
-                            String[] playersArr = players.split(",");
+                                playersArr = players.split(",");
+                            }
                             ArrayList<Integer> playersInGame = new ArrayList<Integer>();
 
                             //get the uids of the players
-                            for (String username : playersArr) {
-                                playersInGame.add(new Player(username.toLowerCase()).UID);
+                            if(playersArr != null) {
+                                for (String username : playersArr) {
+                                    playersInGame.add(new Player(username.toLowerCase()).UID);
+                                }
                             }
 
                             //fill in empty spaces with -1
@@ -141,7 +146,7 @@ public class TablesServlet extends HttpServlet {
                             resp.sendRedirect(req.getContextPath() + "/pregame");
                             req.getSession().setAttribute("gid", game.getGID());
                             req.getSession().setAttribute("tid", tableID);
-                        }
+                        //}
                     }else {
                         //The user pressed the submit button so we can make a game
 
