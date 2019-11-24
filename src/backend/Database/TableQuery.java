@@ -121,6 +121,73 @@ public class TableQuery extends DatabaseFactory{
 			}
 		});
 	}
+
+	public int createGameWithIDs(int TID, int id1, int id2, int id3, int id4) throws SQLException {
+		return executeTransaction(new Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				try {
+					//TODO
+					StandardHash hashCreate = new StandardHash();
+					String hash = hashCreate.getAlphaNumericString();
+					while(isHashUnique(hash.toLowerCase()) == false){
+						hash = hashCreate.getAlphaNumericString();
+					}
+					//Create a table with the teams listed, there will need to be a method made that allows the players to be changed
+					//This needs to allow users to choose teams on the servlet/jsp side
+					java.util.Date myDate = new Date();
+					String date = sdf.format(myDate);
+					String sql = "insert into game(hash, TID, team_1, team_2, score_1, score_2," +
+							"player_1_points, player_2_points, player_3_points, player_4_points," +
+							"player_1_plunks, player_2_plunks, player_3_plunks, player_4_plunks," +
+							" status)values(?, ?, ?, ?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)";
+
+					stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+					stmt.setString(1, hash.toLowerCase());
+					stmt.setInt(2, TID);
+					stmt.setString(3, id1 +"," + id2);
+					stmt.setString(4, id3 +"," + id4);
+					stmt.executeUpdate();
+
+					ResultSet rs = stmt.getGeneratedKeys();
+					rs.next();
+					int gid = rs.getInt(1);
+
+					String players = new String();
+					int[] ids = {id1, id2, id3, id4};
+
+					for(int id : ids){
+						if(id != -1){
+							players = players + id + ",";
+						}
+					}
+					if(players.substring(players.length() - 1).equals(",")){
+						players = players.substring(0, players.length() - 1);
+					}
+
+					addPlayersToTable(TID, players);
+
+
+					//System.out.println("Team 1: "+ teamOne.get(0));
+					//System.out.println("Team 2: "+ teamTwo.get(0));
+
+					System.out.println("Game made. GID = " + gid);
+					return gid;
+				} catch (Exception e){
+					e.printStackTrace();
+					return -1;
+				}finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+
 	public Table getTableBasedOnID(int TID) throws SQLException{
 		return executeTransaction(new Transaction<Table>() {
 			@Override
@@ -280,6 +347,7 @@ public class TableQuery extends DatabaseFactory{
 			}
 		});
 	}
+
 
 	/***
 	 * Returns an array of game ids based on table id

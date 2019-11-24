@@ -141,8 +141,12 @@ public class GameQuery extends DatabaseFactory {
 				ArrayList<Player> playersOnTable = new ArrayList<Player>();
 				for(String id : players){
 					Account account = new Account();
-					account.populateAccountData(Integer.parseInt(id));
-					playersOnTable.add(new Player(account.getUsername()));
+					if(Integer.parseInt(id) != -1) {
+						account.populateAccountData(Integer.parseInt(id));
+						playersOnTable.add(new Player(account.getUsername()));
+					}else{
+						//playersOnTable.add(new Player())
+					}
 				}
 
 				DBUtil.closeQuietly(resultSet);

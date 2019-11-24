@@ -93,6 +93,26 @@ public class Table {
 		return newGame;
 	}
 
+	public Game createGameWithIDs (int id1, int id2, int id3, int id4){
+		Game newGame = new Game();
+		//todo
+		try {
+			int gid = db.createGameWithIDs(TID, id1, id2, id3, id4);
+			System.out.println("tables gid: " + gid);
+			newGame = new Game(gid, TID);
+
+			//populate table
+			Table table = new Table(TID);
+
+			table.setPlayersOnTable(newGame.getListOfPlayers());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		gamesOnTable.add(newGame);
+		return newGame;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}

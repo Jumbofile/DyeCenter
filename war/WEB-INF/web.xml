@@ -27,6 +27,12 @@
         <servlet-class>servlet.ViewServlet</servlet-class>
     </servlet>
 
+
+    <servlet>
+        <servlet-name>PreGameServlet</servlet-name>
+        <servlet-class>servlet.PreGameServlet</servlet-class>
+    </servlet>
+
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>servlet.LogoutServlet</servlet-class>
@@ -68,6 +74,12 @@
     <servlet-mapping>
         <servlet-name>ViewServlet</servlet-name>
         <url-pattern>/view</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet-mapping>
+        <servlet-name>PreGameServlet</servlet-name>
+        <url-pattern>/pregame</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
