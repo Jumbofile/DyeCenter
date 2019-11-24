@@ -11,12 +11,12 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 		String webappCodeBase = "war";
-		int port = 8080 ;
+		int port = 8081;
 		File warFile = new File(webappCodeBase);
 		Launcher launcher = new Launcher();
 		// get a server for port 8081
 		System.out.println("CREATING: web server on port " + port);
-		Server server = launcher.launch(true, new InetSocketAddress("127.0.0.1", port), warFile.getAbsolutePath(), "");
+		Server server = launcher.launch(true, port, warFile.getAbsolutePath(), "");
 		//Server server1 = launcher.launch()
 
         // Start things up!

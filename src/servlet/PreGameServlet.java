@@ -89,7 +89,7 @@ public class PreGameServlet extends HttpServlet {
 
 		uid = (String) req.getSession().getAttribute("uid"); //session stuff
 		gid = (String) req.getSession().getAttribute("gid");
-		System.out.println("View DoPost");
+		System.out.println("PreGame DoPost");
 
 		if (uid == null) {
 			resp.sendRedirect(req.getContextPath() + "/login");

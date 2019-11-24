@@ -41,10 +41,7 @@
 		</form>
 	</div>
 	<form id="ajaxform" action="${pageContext.servletContext.contextPath}/pregame" method="post">
-		<h1 id="player1">${p1}</h1>
-		<h1 id="player2">${p2}</h1>
-		<h1 id="player3">${p3}</h1>
-		<h1 id="player4">${p4}</h1>
+
 		<div class="row d-flex justify-content-center">
 			<div id="game-tag" class="input-group mb-3" style="width:185px;">
 				<div class="input-group-prepend">
@@ -53,6 +50,27 @@
 				<input type="text" style="background-color: white" class="form-control text-center font-weight-bold" value="${gameHash}" aria-label="Username" aria-describedby="basic-addon1" readonly>
 			</div>
 		</div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<h1 id="player1">${p1}</h1>
+		<input type="radio" name="teamSelectP1" value="team1"> Blue Team
+		<input type="radio" name="teamSelectP1" value="team2"> Red Team
+
+		<h1 id="player2">${p2}</h1>
+		<input type="radio" name="teamSelectP2" value="team1"> Blue Team
+		<input type="radio" name="teamSelectP2" value="team2"> Red Team
+
+		<h1 id="player3">${p3}</h1>
+		<input type="radio" name="teamSelectP3" value="team1"> Blue Team
+		<input type="radio" name="teamSelectP3" value="team2"> Red Team
+
+		<h1 id="player4">${p4}</h1>
+		<input type="radio" name="teamSelectP4" value="team1"> Blue Team
+		<input type="radio" name="teamSelectP4" value="team2"> Red Team
+
 	</form>
 </div>
 
