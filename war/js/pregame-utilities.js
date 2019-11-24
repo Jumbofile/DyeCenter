@@ -26,8 +26,8 @@ var back = document.getElementById("back-btn");
 var backValue = document.getElementById("backValue");
 
 //teamvalues
-var team1Value = document.getElementById("backValue");
-var team2Value = document.getElementById("backValue");
+var team1Value = document.getElementById("team1value");
+var team2Value = document.getElementById("team2value");
 
 //game values
 var p1;
