@@ -22,8 +22,22 @@
 .game-card-cont .game-card-header {
     grid-column-start: span 3;
     padding-top: 7px;
+    position: relative;
+    left: 1px;
 }
 
-.in-progress .game-card-cont .game-card-header{
-    background: linear-gradient(4deg, rgba(255,255,255,1) 21%, rgba(159,159,159,1) 100%);
+.in-progress .game-card-cont {
+    background: linear-gradient(0deg, rgba(255,255,255,1) 21%, rgba(159,159,159,1) 100%);
+}
+
+.t1-win .game-card-cont {
+    background: linear-gradient(0deg, rgba(255,255,255,1) 21%, rgb(0, 123, 255) 100%);
+}
+
+.t2-win .game-card-cont {
+    background: linear-gradient(0deg, rgba(255,255,255,1) 21%, rgba(255,79,79,1) 100%);
+}
+
+.draw .game-card-cont {
+    background: linear-gradient(0deg, rgba(255,255,255,1) 21%, rgba(255,247,79,1) 100%);
 }

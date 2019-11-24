@@ -9,6 +9,7 @@ for(var i = 0; i < gameArr.length; i++) {
     var names = gameArr[i].getAttribute("data-names").split(",") ;
     var scores = gameArr[i].getAttribute("data-scores").split(",") ;
     var plunks = gameArr[i].getAttribute("data-plunks").split(",") ;
+    var winningTeam = parseInt(gameArr[i].getAttribute("data-leader"));
 
     var t1p1score = parseInt(scores[0]);
     var t1p2score = parseInt(scores[1]);
@@ -32,6 +33,16 @@ for(var i = 0; i < gameArr.length; i++) {
 
     if(status != 0) {
         statusString = "Completed"
+        if(winningTeam == 1) {
+            $(gameArr[i]).addClass("t1-win") ;
+        }
+        else if(winningTeam == 2) {
+            $(gameArr[i]).addClass("t2-win") ;
+        }
+        else {
+            $(gameArr[i]).addClass("draw") ;
+        }
+
     } else {
         $(gameArr[i]).addClass("in-progress");
     }
