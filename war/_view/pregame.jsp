@@ -41,7 +41,10 @@
 		</form>
 	</div>
 	<form id="ajaxform" action="${pageContext.servletContext.contextPath}/pregame" method="post">
-
+		<h1 id="player1">${p1}</h1>
+		<h1 id="player2">${p2}</h1>
+		<h1 id="player3">${p3}</h1>
+		<h1 id="player4">${p4}</h1>
 		<div class="row d-flex justify-content-center">
 			<div id="game-tag" class="input-group mb-3" style="width:185px;">
 				<div class="input-group-prepend">
@@ -59,6 +62,6 @@
 <!-- Bootstrap core JavaScript-->
 <script src="js/widget_js/vendor/jquery/jquery.min.js"></script>
 <script src="js/widget_js/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="js/game-utilities.js"></script>
+<script src="js/pregame-utilities.js"></script>
 
 </html>
