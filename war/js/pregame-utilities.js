@@ -80,7 +80,7 @@ function updateData(){
 
 function dropOut(){
     backValue.value = 'true';
-    doRefresh = false;
+    window.location.href = "/table";
 }
 function teamSelect(button){
     console.log(button);

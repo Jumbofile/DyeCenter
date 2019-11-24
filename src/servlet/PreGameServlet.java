@@ -122,7 +122,6 @@ public class PreGameServlet extends HttpServlet {
 
 				game.setTeams(team1String, team2String);
 
-				resp.sendRedirect(req.getContextPath() + "/dashboard");
 				req.getSession().setAttribute("gid", gid);
 			}
 			else{
