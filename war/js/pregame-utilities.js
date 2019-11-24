@@ -51,7 +51,6 @@ $(document).ready(
                             p3  = dataString[2];
                             p4   = dataString[3];
 
-
                             updateData();
                         },
                     dataType: 'text'
