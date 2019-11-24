@@ -197,9 +197,13 @@ public class Game {
 		return gid;
 	}
 
-	public int[] returnAllUIDs(){
-		int[] ids = new int[4];
-		//ids[0] = player1
+	public ArrayList<Integer> returnAllUIDs(){
+		ArrayList<Integer> ids = new ArrayList<Integer>();
+		ids.add(player1.UID);
+		ids.add(player2.UID);
+		ids.add(player3.UID);
+		ids.add(player4.UID);
+
 		return ids;
 	}
 	public int getGameWinner(){
@@ -215,6 +219,25 @@ public class Game {
 		return winner;
 	}
 
+	public ArrayList<String> getTeams(){
+		ArrayList<String> teams = new ArrayList<String>();
+
+		try {
+			teams = db.getTeams(GID);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return teams;
+	}
+
+	public void setTeams(String team1, String team2){
+		try {
+			db.setTeams(GID, team1, team2);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	public int getTIDFromGID(int gid){
 		int rtn = -1;
 		try {
@@ -342,7 +365,11 @@ public class Game {
 	}
 
 	public void setStatus(int status){
-		this.status = status;
+		try {
+			db.setGameStatus(GID, status);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void setTeam1Score(int team1Score) {
