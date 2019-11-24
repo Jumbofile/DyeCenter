@@ -77,7 +77,7 @@ public class ViewServlet extends HttpServlet {
 
         String htmlForPage = "";
         tid = String.valueOf(table.getTID());
-        //todo - cant put 2 of the same usernames in the same game
+
         //player names
         req.setAttribute("t1p1Name", game.getPlayer1().getName());
         req.setAttribute("t1p2Name", game.getPlayer2().getName());
