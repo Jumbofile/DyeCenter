@@ -16,6 +16,9 @@ public class Player {
 	private int loss;
 	private PlayerQuery db;
 
+	public Player() {
+		db = new PlayerQuery();
+	}
 
 	public Player(String username){
 		//database controller instance

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PreGameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,6 +27,8 @@ public class PreGameServlet extends HttpServlet {
 		try {
 			gid = req.getSession().getAttribute("gid").toString();
 			tid = req.getSession().getAttribute("tid").toString();
+			System.out.println(gid);
+			System.out.println(tid);
 		}catch(Exception e){
 			req.getRequestDispatcher("/dashboard").forward(req, resp);
 		}
@@ -38,9 +41,39 @@ public class PreGameServlet extends HttpServlet {
 		} else {
 			Game game = new Game(Integer.parseInt(gid), Integer.parseInt(tid));
 
-			
-			getData(req, resp);
+			ArrayList<Integer> playerIDs = game.returnAllUIDs();
 
+			if(playerIDs.contains(Integer.parseInt(uid))){
+				req.getSession().setAttribute("gid", gid);
+				req.getSession().setAttribute("uid", uid);
+				req.getRequestDispatcher("/_view/pregame.jsp").forward(req, resp);
+			}else{
+				ArrayList<String> teamIds = game.getTeams();
+				String team1String = teamIds.get(0);
+				String team2String = teamIds.get(1);
+				String[] team1 = team1String.split(",");
+				String[] team2 = team2String.split(",");
+				int teamOpen = -1;
+
+				for(String ids: team1){
+					if(Integer.parseInt(ids) == -1){
+						teamOpen = 1;
+					}
+				}
+
+				for(String ids: team2){
+					if(Integer.parseInt(ids) == -1){
+						teamOpen = 2;
+					}
+				}
+
+				if(teamOpen == 1){
+					team1String.replace("-1", uid);
+				}else{
+					team2String.replace("-1", uid);
+				}
+				getData(req, resp);
+			}
 		}try {
 			req.getSession().setAttribute("gid", gid);
 			req.getSession().setAttribute("uid", uid);

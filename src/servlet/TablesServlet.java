@@ -79,6 +79,8 @@ public class TablesServlet extends HttpServlet {
                 Game game = new Game(Integer.parseInt(loadGame), Integer.parseInt(tableID));
                 if (game.getStatus() == 1) {
                     resp.sendRedirect(req.getContextPath() + "/view");
+                }if(game.getStatus()== -1){
+                    resp.sendRedirect(req.getContextPath() + "/pregame");
                 }else{
                     resp.sendRedirect(req.getContextPath() + "/game");
                 }
@@ -93,45 +95,46 @@ public class TablesServlet extends HttpServlet {
                 if(req.getParameter("gamePressed") == null) {
                     if(req.getParameter("t1p1").equals("") || req.getParameter("t1p2").equals("")
                     ||req.getParameter("t2p1").equals("") || req.getParameter("t2p2").equals("")){
-                        //goto pre game
+                        if(!(req.getParameter("t1p1").equals(""))) {
+                            //goto pre game
 
-                        resp.sendRedirect(req.getContextPath() + "/pregame");
-                        String players = new String();
-                        if(!(req.getParameter("t1p1").equals(""))){
-                            players = players + req.getParameter("t1p1") + ",";
-                        }
-                        if(!(req.getParameter("t1p2").equals(""))){
-                            players = players + req.getParameter("t1p2") + ",";
-                        }
-                        if(!(req.getParameter("t2p1").equals(""))){
-                            players = players + req.getParameter("t2p1") + ",";
-                        }
-                        if(!(req.getParameter("t2p2").equals(""))){
-                            players = players + req.getParameter("t2p1") + ",";
-                        }
-                        if(players.substring(players.length() - 1).equals(",")){
-                            players = players.substring(0, players.length() - 1);
-                        }
-                        System.out.println(players);
+                            String players = new String();
+                            if (!(req.getParameter("t1p1").equals(""))) {
+                                players = players + req.getParameter("t1p1") + ",";
+                            }
+                            if (!(req.getParameter("t1p2").equals(""))) {
+                                players = players + req.getParameter("t1p2") + ",";
+                            }
+                            if (!(req.getParameter("t2p1").equals(""))) {
+                                players = players + req.getParameter("t2p1") + ",";
+                            }
+                            if (!(req.getParameter("t2p2").equals(""))) {
+                                players = players + req.getParameter("t2p1") + ",";
+                            }
+                            if (players.substring(players.length() - 1).equals(",")) {
+                                players = players.substring(0, players.length() - 1);
+                            }
+                            System.out.println(players);
 
-                        String[] playersArr = players.split(",");
-                        ArrayList<Integer> playersInGame = new ArrayList<Integer>();
+                            String[] playersArr = players.split(",");
+                            ArrayList<Integer> playersInGame = new ArrayList<Integer>();
 
-                        //get the uids of the players
-                        for(String username:playersArr){
-                            playersInGame.add(new Player(username).UID);
+                            //get the uids of the players
+                            for (String username : playersArr) {
+                                playersInGame.add(new Player(username).UID);
+                            }
+
+                            //fill in empty spaces with -1
+                            for (int i = playersInGame.size() - 1; i < 4; i++) {
+                                playersInGame.add(-1);
+                            }
+
+                            Game game = table.createGameWithIDs(playersInGame.get(0), playersInGame.get(1), playersInGame.get(2), playersInGame.get(3));
+                            game.setStatus(-1);
+                            resp.sendRedirect(req.getContextPath() + "/pregame");
+                            req.getSession().setAttribute("gid", game.getGID());
+                            req.getSession().setAttribute("tid", tableID);
                         }
-
-                        //fill in empty spaces with -1
-                        for(int i = playersInGame.size() - 1; i < 4; i++ ){
-                            playersInGame.add(-1);
-                        }
-
-                        Game game = table.createGameWithIDs(playersInGame.get(0), playersInGame.get(1), playersInGame.get(2), playersInGame.get(3));
-
-                        resp.sendRedirect(req.getContextPath() + "/pregame");
-                        req.getSession().setAttribute("gid", game.getGID());
-                        req.getSession().setAttribute("tid", tableID);
                     }else {
                         //The user pressed the submit button so we can make a game
 

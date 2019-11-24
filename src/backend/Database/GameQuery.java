@@ -64,6 +64,28 @@ public class GameQuery extends DatabaseFactory {
 				return true;
 			}
 		});
+	}
+
+	public boolean setTeams(int GID, String team1, String team2) throws SQLException {
+		return executeTransaction(new DatabaseFactory.Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("UPDATE game set team_1 = ?, team_2 = ? where GID = ?" );
+				stmt.setString( 1, team1);
+				stmt.setString( 2, team2);
+				stmt.setInt( 3, GID);
+				stmt.executeUpdate();
+
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return true;
+			}
+		});
 
 	}
 
@@ -145,7 +167,9 @@ public class GameQuery extends DatabaseFactory {
 						account.populateAccountData(Integer.parseInt(id));
 						playersOnTable.add(new Player(account.getUsername()));
 					}else{
-						//playersOnTable.add(new Player())
+						Player invalid = new Player();
+						invalid.UID = -1;
+						playersOnTable.add(invalid);
 					}
 				}
 
@@ -154,6 +178,38 @@ public class GameQuery extends DatabaseFactory {
 				//DBUtil.closeQuietly(conn);
 				//System.out.println(rtnStats.toString());
 				return playersOnTable;
+			}
+		});
+
+	}
+
+	public ArrayList<String> getTeams(int gid) throws SQLException {
+		return executeTransaction(new DatabaseFactory.Transaction<ArrayList<String>>() {
+			@Override
+			public ArrayList<String> execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("SELECT team_1, team_2 from game where GID = ?" );
+				stmt.setInt( 1, gid);
+				resultSet = stmt.executeQuery();
+
+				resultSet.next();
+
+				String team_1 = resultSet.getString("team_1");
+				String team_2 = resultSet.getString("team_2");
+
+				ArrayList<String> teams = new ArrayList<String>();
+				teams.add(team_1);
+				teams.add(team_2);
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return teams;
 			}
 		});
 
