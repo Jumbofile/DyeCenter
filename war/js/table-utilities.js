@@ -35,10 +35,12 @@ for(var i = 0; i < gameArr.length; i++) {
         if(winningTeam == 1) {
             $(gameArr[i]).addClass("t1-win") ;
             statusString = "Blue Team Wins" ;
+            $($(gameArr[i]).find(".t1")).addClass(".winning-team");
         }
         else if(winningTeam == 2) {
             $(gameArr[i]).addClass("t2-win") ;
             statusString = "Red Team Wins" ;
+            $($(gameArr[i]).find(".t2")).addClass(".winning-team");
         }
         else {
             $(gameArr[i]).addClass("draw") ;
@@ -57,7 +59,7 @@ for(var i = 0; i < gameArr.length; i++) {
     }
 
 
-    gameArr[i].querySelector('.game-card-header').innerHTML = date.toLocaleString() + " - " + statusString;
+    gameArr[i].querySelector('.game-card-header').innerHTML = date.toLocaleString() + "&#10;" + statusString;
     gameArr[i].querySelector('#team1-score').innerHTML = t1score;
     gameArr[i].querySelector('#team2-score').innerHTML = t2score;
     for(var x = 0; x < names.length; x++) {

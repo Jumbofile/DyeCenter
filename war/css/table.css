@@ -44,10 +44,11 @@ body {
     height: 50vh;
     overflow-y: auto;
     overflow-x: hidden;
-    /*background-color: #dedede;*/
+
     padding: 13px;
     padding-bottom: 0;
     padding-top: 0;
+
     border-radius: 7px;
     width: 65vw;
     margin: auto;
@@ -171,6 +172,22 @@ body {
     border-top: 5px solid #ac3bff;
 }
 
-.game-grid-item:not(.game-card-header) {
+.game-grid-item:not(.game-card-header):not(p2):not(p4) {
     border-right: 2px solid #DDDDDD;
+}
+
+.winning-team {
+    background-color: #dededea3;
+}
+
+
+@media only screen and (max-width: 1000px) {
+    #page-container {
+        max-width: 100%;
+    }
+
+    #game-btn-container {
+        width: 98vw;
+        left: -16px;
+    }
 }
