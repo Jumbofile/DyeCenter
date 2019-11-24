@@ -22,6 +22,8 @@ var t2p2 = null;
 
 var doRefresh = true;
 var form = $('#ajaxform'); // id of form tag
+var back = document.getElementById("back-btn");
+var backValue = document.getElementById("backValue");
 
 //game values
 var p1;
@@ -43,6 +45,9 @@ $(document).ready(
     function() {
         setInterval(function () {
             if(doRefresh == true) {
+                if(backValue.value == "true"){
+                    location.reload(true);
+                }
                 $.ajax({
                     type: form.attr('method'),  //post method
                     url: form.attr('action'), //ajaxformexample url
@@ -73,6 +78,10 @@ function updateData(){
     $('#player4').text(p4.toString());
 }
 
+function dropOut(){
+    backValue.value = 'true';
+    doRefresh = false;
+}
 function teamSelect(button){
     console.log(button);
     var info = button.value.split(',');

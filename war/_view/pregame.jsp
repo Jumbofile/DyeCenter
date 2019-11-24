@@ -35,12 +35,14 @@
 
 	<div class="row">
 		<form action="${pageContext.servletContext.contextPath}/table" method="get">
-			<div id="back-btn-cover"></div>
-			<button id="back-btn" type="submit" name="back" value="back"></button>
-			<i id="back-btn-arrow" class="fas fa-arrow-left fa-w-12 fa-4x"></i>
+
 		</form>
 	</div>
 	<form id="ajaxform" action="${pageContext.servletContext.contextPath}/pregame" method="post">
+
+		<div id="back-btn-cover"></div>
+		<button id="back-btn" type="submit" name="button" value="" onclick="dropOut()"></button>
+		<i id="back-btn-arrow" class="fas fa-arrow-left fa-w-12 fa-4x"></i>
 
 		<div class="row d-flex justify-content-center">
 			<div id="game-tag" class="input-group mb-3" style="width:185px;">
@@ -79,6 +81,7 @@
 		<button type="button">Start Tossing</button><br>
 		<input type="text" id="team1value" name="team1value" value=""><br>
 		<input type="text" id="team2value" name="team2value" value=""><br>
+		<input type="text" id="backValue" name="backValue" value="false"><br>
 
 	</form>
 </div>
