@@ -78,14 +78,21 @@ public class TablesServlet extends HttpServlet {
                 //Game pressed below
                 Game game = new Game(Integer.parseInt(loadGame), Integer.parseInt(tableID));
                 if (game.getStatus() == 1) {
+                   // resp.sendRedirect(req.getContextPath() + "/view");
                     resp.sendRedirect(req.getContextPath() + "/view");
-                }if(game.getStatus()== -1){
+                    req.getSession().setAttribute("tid", tableID);
+                    req.getSession().setAttribute("gid", loadGame);
+                }else if(game.getStatus()== -1){
+                   // resp.sendRedirect(req.getContextPath() + "/pregame");
                     resp.sendRedirect(req.getContextPath() + "/pregame");
-                }else{
+                    req.getSession().setAttribute("tid", tableID);
+                    req.getSession().setAttribute("gid", loadGame);
+                }else if(game.getStatus()== 0){
+                   // resp.sendRedirect(req.getContextPath() + "/game");
                     resp.sendRedirect(req.getContextPath() + "/game");
+                    req.getSession().setAttribute("tid", tableID);
+                    req.getSession().setAttribute("gid", loadGame);
                 }
-                req.getSession().setAttribute("gid", loadGame);
-
 
             }else{
                 //The value boxes are empty, users possibly clicked the submit button
