@@ -29,15 +29,16 @@
 </head>
 
 <body>
+<%--<div class="row">--%>
+	<form action="${pageContext.servletContext.contextPath}/dashboard" method="get">
+		<div id="back-btn-cover"></div>
+		<button id="back-btn" type="submit" name="back" value="back"></button>
+		<i id="back-btn-arrow" class="fas fa-arrow-left fa-w-12 fa-4x"></i>
+	</form>
+<%--</div>--%>
 <div id="page-container" class="container col-md-6">
 	<br/>
-	<div class="row">
-		<form action="${pageContext.servletContext.contextPath}/dashboard" method="get">
-            <div id="back-btn-cover"></div>
-			<button id="back-btn" type="submit" name="back" value="back"></button>
-            <i id="back-btn-arrow" class="fas fa-arrow-left fa-w-12 fa-4x"></i>
-		</form>
-	</div>
+
 	<form action="${pageContext.servletContext.contextPath}/table" method="post">
 		<div id="create-game-container">
 			<h2 style="margin-bottom: 30px;">Create Game</h2>

@@ -227,8 +227,6 @@ public class TablesServlet extends HttpServlet {
             ArrayList<Game> gamesOnTable = table.getGamesOnTable();
             System.out.println("SIZE: " + gamesOnTable.size());
             for(int i = 0; i < gamesOnTable.size(); i++){
-                //System.out.println("Game :" + i);
-                //ArrayList<String> gameStats = db.getGameStats(gamesOnTable.get(i).) ;
 
                 ArrayList<Integer> scores = new ArrayList<>();
                 scores.add(gamesOnTable.get(i).getPlayer1Score());
