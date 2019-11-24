@@ -50,14 +50,13 @@ public class Game {
 		this.GID = GID;
 		this.TID = TID;
 		try {
+			ArrayList<Integer> stats =  db.getGameStats(GID);
 			ArrayList<Player> players = db.getPlayersFromGame(GID);
+
 			team1[0] = players.get(0);
 			team1[1] = players.get(1);
 			team2[0] = players.get(2);
 			team2[1] = players.get(3);
-
-			//scores
-			ArrayList<Integer> stats =  db.getGameStats(GID);
 
 			//team scores
 			team1Score = stats.get(0);
@@ -77,6 +76,7 @@ public class Game {
 
 			//status
 			status = stats.get(10);
+
 			hash = db.getHash(GID);
 			//timestamp
 			timeOfCreation = db.getTimestamp(GID);
@@ -197,6 +197,11 @@ public class Game {
 		return gid;
 	}
 
+	public int[] returnAllUIDs(){
+		int[] ids = new int[4];
+		//ids[0] = player1
+		return ids;
+	}
 	public int getGameWinner(){
 		int winner = 0;
 		Game game = new Game(GID, TID);
