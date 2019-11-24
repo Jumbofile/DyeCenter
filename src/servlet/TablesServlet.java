@@ -252,15 +252,44 @@ public class TablesServlet extends HttpServlet {
                         "data-time=\""+ gamesOnTable.get(i).getTimeOfCreation() + "\" data-scores = \""+ scoreString +"\" data-plunks=\""+ plunkString + "\" "+
                         "data-usernames=\""+ usernameString +"\" data-names=\""+ nameString +"\" value = \""+ gamesOnTable.get(i).getGID() +"\">" +
                             "<div class='game-card-cont'>" +
-                                "<div class='gamePrev-item game-card-header'>header</div>"+
-                                "<div class='gamePrev-item team-score' id='team1-score'></div>"+
-                                "<div class='gamePrev-item player p1'>2</div>"+
-                                "<div class='gamePrev-item player p2'>3</div>"+
-                                "<div class='gamePrev-item win t1'>4</div>"+
-                                "<div class='gamePrev-item team-score' id='team2-score'></div>"+
-                                "<div class='gamePrev-item player p3'>5</div>"+
-                                "<div class='gamePrev-item player p4'>6</div>"+
-                                "<div class='gamePrev-item win t2'>7</div>"+
+                                "<div class='game-grid-item game-card-header'>header</div>"+
+
+                                "<div class='t1 game-grid-item team-score' id='team1-score'></div>"+
+                                "<div class='t1 game-grid-item player p1'>" +
+                                    "<span class='player-name' id='p1-name'></span>" +
+                                        "<div class='player-stats'>" +
+                                            "<span class='stat' id='p1-points'></span>" +
+                                            "<span class='stat' id='p1-plunks'></span>" +
+                                        "</div>" +
+                                "</div>"+
+
+                                "<div class='t1 game-grid-item player p2'>" +
+                                    "<span class='player-name' id='p2-name'></span>" +
+                                    "<div class='player-stats'>" +
+                                        "<span class='stat' id='p2-points'></span>" +
+                                        "<span class='stat' id='p2-plunks'></span>" +
+                                    "</div>" +
+                                "</div>"+
+                                "<div class='t1 game-grid-item win t1-win-icon'>4</div>"+
+
+                                "<div class='t2 game-grid-item team-score' id='team2-score'></div>"+
+                                "<div class='t2 game-grid-item player p3'>" +
+                                    "<span class='player-name' id='p3-name'></span>" +
+                                    "<div class='player-stats'>" +
+                                        "<span class='stat' id='p3-points'></span>" +
+                                        "<span class='stat' id='p3-plunks'></span>" +
+                                    "</div>" +
+                                "</div>"+
+
+                                "<div class='t2 game-grid-item player p4'>" +
+                                    "<span class='player-name' id='p4-name'></span>" +
+                                    "<div class='player-stats'>" +
+                                        "<span class='stat' id='p4-points'></span>" +
+                                        "<span class='stat' id='p4-plunks'></span>" +
+                                    "</div>" +
+                                "</div>"+
+
+                                "<div class='t2 game-grid-item win t2-win-icon'>7</div>"+
                             "</div>"+
                         "</button>" +
                         "<br/>" ;

@@ -99,20 +99,30 @@ body {
     /*margin-bottom: 7px;*/
 }
 
+.t1 {
+    border-bottom: 2px solid #DDDDDD;
+}
+
 .team-score {
     text-align: center;
     font-size: 35px;
-    border-right: 2px solid #DDDDDD;
     font-weight: 600;
 }
 
 #team1-score {
     color: #007bff;
-    border-bottom: 2px solid #DDDDDD;
 }
 
 #team2-score {
     color: #ff4f4f;
+}
+
+.player {
+    display: flex;
+}
+
+.player .player-stats {
+    display: grid;
 }
 
 .in-progress {
@@ -128,5 +138,13 @@ body {
 }
 
 .draw {
-    border-top: 5px solid #FFFB81;
+    border-top: 5px solid #fff949;
+}
+
+.pre-game {
+    border-top: 5px solid #ac3bff;
+}
+
+.game-grid-item:not(.win):not(.game-card-header) {
+    border-right: 2px solid #DDDDDD;
 }

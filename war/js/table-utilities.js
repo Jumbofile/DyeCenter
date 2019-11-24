@@ -31,7 +31,7 @@ for(var i = 0; i < gameArr.length; i++) {
     var date = new Date(time + "UTC");
     console.log(scores[0]);
 
-    if(status != 0) {
+    if(status == 1) {
         if(winningTeam == 1) {
             $(gameArr[i]).addClass("t1-win") ;
             statusString = "Blue Team Wins" ;
@@ -45,7 +45,13 @@ for(var i = 0; i < gameArr.length; i++) {
             statusString = "Draw" ;
         }
 
-    } else {
+    }
+
+    else if(status == -1) {
+        $(gameArr[i]).addClass("pre-game") ;
+    }
+
+    else {
         $(gameArr[i]).addClass("in-progress");
     }
 
@@ -54,8 +60,8 @@ for(var i = 0; i < gameArr.length; i++) {
     gameArr[i].querySelector('#team1-score').innerHTML = t1score;
     gameArr[i].querySelector('#team2-score').innerHTML = t2score;
     for(var x = 0; x < names.length; x++) {
-        gameArr[i].querySelector('.p'+ (x+1)).innerHTML = names[x].trim();
-        gameArr[i].querySelector('.p'+ (x+1)).innerHTML += " Score: "+scores[x].trim();
-        gameArr[i].querySelector('.p'+ (x+1)).innerHTML += " Plunks: " + plunks[x].trim();
+        gameArr[i].querySelector('#p' + (x+1) + '-name').innerHTML = names[x].trim();
+        gameArr[i].querySelector('#p' + (x+1) + '-points').innerHTML = "Score: " + scores[x].trim();
+        gameArr[i].querySelector('#p' + (x+1) + '-plunks').innerHTML = "Plunks: " + plunks[x].trim();
     }
 }
