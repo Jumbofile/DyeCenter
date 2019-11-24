@@ -32,15 +32,17 @@ for(var i = 0; i < gameArr.length; i++) {
     console.log(scores[0]);
 
     if(status != 0) {
-        statusString = "Completed"
         if(winningTeam == 1) {
             $(gameArr[i]).addClass("t1-win") ;
+            statusString = "Blue Team Wins" ;
         }
         else if(winningTeam == 2) {
             $(gameArr[i]).addClass("t2-win") ;
+            statusString = "Red Team Wins" ;
         }
         else {
             $(gameArr[i]).addClass("draw") ;
+            statusString = "Draw" ;
         }
 
     } else {
@@ -49,8 +51,8 @@ for(var i = 0; i < gameArr.length; i++) {
 
 
     gameArr[i].querySelector('.game-card-header').innerHTML = date.toLocaleString() + " - " + statusString;
-    gameArr[i].querySelector('.team1').innerHTML = "Team 1 - " + t1score ;
-    gameArr[i].querySelector('.team2').innerHTML = "Team 2 - " + t2score ;
+    gameArr[i].querySelector('#team1-score').innerHTML = t1score;
+    gameArr[i].querySelector('#team2-score').innerHTML = t2score;
     for(var x = 0; x < names.length; x++) {
         gameArr[i].querySelector('.p'+ (x+1)).innerHTML = names[x].trim();
         gameArr[i].querySelector('.p'+ (x+1)).innerHTML += " Score: "+scores[x].trim();

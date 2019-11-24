@@ -81,10 +81,7 @@ body {
     border-radius: 8px 8px 8px 8px;
     box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.75);
 
-    padding-top: 0;
-    padding-right: 0;
-    padding-left: 0;
-    padding-bottom: 20px;
+    padding:0;
 }
 
 .game-card-cont {
@@ -93,10 +90,28 @@ body {
 }
 
 .game-card-cont .game-card-header {
-    grid-column-start: span 3;
+    grid-column-start: span 4;
     padding-top: 7px;
     position: relative;
-    left: 1px;
+    padding-left: 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #DDDDDD;
+    /*margin-bottom: 7px;*/
+}
+
+.team-score {
+    text-align: center;
+    font-size: 35px;
+    border-right: 2px solid #DDDDDD;
+}
+
+#team1-score {
+    color: #007bff;
+    border-bottom: 2px solid #DDDDDD;
+}
+
+#team2-score {
+    color: #ff4f4f;
 }
 
 .in-progress {

@@ -250,12 +250,14 @@ public class TablesServlet extends HttpServlet {
                         "data-usernames=\""+ usernameString +"\" data-names=\""+ nameString +"\" value = \""+ gamesOnTable.get(i).getGID() +"\">" +
                             "<div class='game-card-cont'>" +
                                 "<div class='gamePrev-item game-card-header'>header</div>"+
-                                "<div class='gamePrev-item team1'>team1</div>"+
+                                "<div class='gamePrev-item team-score' id='team1-score'></div>"+
                                 "<div class='gamePrev-item player p1'>2</div>"+
                                 "<div class='gamePrev-item player p2'>3</div>"+
-                                "<div class='gamePrev-item team2'>team2</div>"+
+                                "<div class='gamePrev-item win t1'>4</div>"+
+                                "<div class='gamePrev-item team-score' id='team2-score'></div>"+
                                 "<div class='gamePrev-item player p3'>5</div>"+
                                 "<div class='gamePrev-item player p4'>6</div>"+
+                                "<div class='gamePrev-item win t2'>7</div>"+
                             "</div>"+
                         "</button>" +
                         "<br/>" ;
