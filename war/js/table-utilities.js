@@ -49,6 +49,7 @@ for(var i = 0; i < gameArr.length; i++) {
 
     else if(status == -1) {
         $(gameArr[i]).addClass("pre-game") ;
+        statusString = "Waiting for players..." ;
     }
 
     else {
@@ -61,7 +62,7 @@ for(var i = 0; i < gameArr.length; i++) {
     gameArr[i].querySelector('#team2-score').innerHTML = t2score;
     for(var x = 0; x < names.length; x++) {
         gameArr[i].querySelector('#p' + (x+1) + '-name').innerHTML = names[x].trim();
-        gameArr[i].querySelector('#p' + (x+1) + '-points').innerHTML = "Score: " + scores[x].trim();
-        gameArr[i].querySelector('#p' + (x+1) + '-plunks').innerHTML = "Plunks: " + plunks[x].trim();
+        gameArr[i].querySelector('#p' + (x+1) + '-points').innerHTML = "<i class='icon fas fa-dice-five fa-1x'></i>\t" + scores[x].trim() ;
+        gameArr[i].querySelector('#p' + (x+1) + '-plunks').innerHTML = "<i class='icon fas fa-beer fa-1x'></i>\t" + plunks[x].trim() ;
     }
 }

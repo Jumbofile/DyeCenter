@@ -121,7 +121,7 @@ public class TablesServlet extends HttpServlet {
 
                             //get the uids of the players
                             for (String username : playersArr) {
-                                playersInGame.add(new Player(username).UID);
+                                playersInGame.add(new Player(username.toLowerCase()).UID);
                             }
 
                             //fill in empty spaces with -1
@@ -144,12 +144,12 @@ public class TablesServlet extends HttpServlet {
 
 						try {
                             //populate team 1
-                            t1[0] = new Player(req.getParameter("t1p1"));
-                            t1[1] = new Player(req.getParameter("t1p2"));
+                            t1[0] = new Player(req.getParameter("t1p1").toLowerCase());
+                            t1[1] = new Player(req.getParameter("t1p2").toLowerCase());
 
                             //populate team 2
-                            t2[0] = new Player(req.getParameter("t2p1"));
-                            t2[1] = new Player(req.getParameter("t2p2"));
+                            t2[0] = new Player(req.getParameter("t2p1").toLowerCase());
+                            t2[1] = new Player(req.getParameter("t2p2").toLowerCase());
                         }catch (Exception e){
 						    //that usersname doesnt exist
                             resp.sendRedirect(req.getContextPath() + "/table");
@@ -270,7 +270,6 @@ public class TablesServlet extends HttpServlet {
                                         "<span class='stat' id='p2-plunks'></span>" +
                                     "</div>" +
                                 "</div>"+
-                                "<div class='t1 game-grid-item win t1-win-icon'>4</div>"+
 
                                 "<div class='t2 game-grid-item team-score' id='team2-score'></div>"+
                                 "<div class='t2 game-grid-item player p3'>" +
@@ -288,8 +287,6 @@ public class TablesServlet extends HttpServlet {
                                         "<span class='stat' id='p4-plunks'></span>" +
                                     "</div>" +
                                 "</div>"+
-
-                                "<div class='t2 game-grid-item win t2-win-icon'>7</div>"+
                             "</div>"+
                         "</button>" +
                         "<br/>" ;
