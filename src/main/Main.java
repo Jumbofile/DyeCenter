@@ -11,7 +11,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 		String webappCodeBase = "war";
-		int port = 8081;
+		int port = 8080;
 		File warFile = new File(webappCodeBase);
 		Launcher launcher = new Launcher();
 		// get a server for port 8081
