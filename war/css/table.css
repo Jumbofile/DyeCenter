@@ -1,5 +1,5 @@
 body {
-    overflow-y: hidden;
+    /*overflow-y: hidden;*/
     background: #ff7e5f;
     background: -webkit-linear-gradient(to right, #ff7e5f, #feb47b);
     background: linear-gradient(to right, #ff7e5f, #feb47b);
@@ -51,7 +51,7 @@ body {
     padding-top: 0;
 
     border-radius: 7px;
-    width: 65vw;
+    width: 85vw;
     margin: auto;
 }
 
@@ -196,7 +196,7 @@ body {
 }
 
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 800px) {
     #page-container {
         max-width: 100%;
     }
