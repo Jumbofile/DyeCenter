@@ -18,7 +18,7 @@ public class PreGameServlet extends HttpServlet {
 	private String uid = null;
 	private String gid = null ;
 	private String tid = null ;
-
+	//todo make back button remove you from the game
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -98,10 +98,38 @@ public class PreGameServlet extends HttpServlet {
 			resp.sendRedirect(req.getContextPath() + "/login");
 		}else {
 			//getData(req, resp);
-			postData(resp);
-			getData(req, resp);
-			//resp.sendRedirect(req.getContextPath() + "/view");
-			req.getSession().setAttribute("gid", gid);
+			String back = req.getParameter("backValue");
+
+
+			System.out.println("Back: " + back);
+
+			if(back.equals("true")) {
+				Game game = new Game(Integer.parseInt(gid), Integer.parseInt(tid));
+				ArrayList<String> teamIds = game.getTeams();
+				String team1String = teamIds.get(0);
+				String team2String = teamIds.get(1);
+				String[] team1arr = team1String.split(",");
+				String[] team2arr = team2String.split(",");
+
+
+				if (team1arr[0].equals(uid) || team1arr[1].equals(uid)) {
+					team1String = team1String.replaceFirst(uid, "-1");
+				}
+
+				if (team2arr[0].equals(uid) || team2arr[1].equals(uid)) {
+					team2String = team2String.replaceFirst(uid, "-1");
+				}
+
+				game.setTeams(team1String, team2String);
+
+				resp.sendRedirect(req.getContextPath() + "/dashboard");
+				req.getSession().setAttribute("gid", gid);
+			}
+			else{
+				postData(resp);
+				getData(req, resp);
+			}
+
 		}
 	}
 
