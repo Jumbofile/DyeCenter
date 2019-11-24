@@ -61,6 +61,7 @@ public class DashboardServlet extends HttpServlet {
             } else {
                 String hash = new String();
                 hash = req.getParameter("loadGame");
+                hash = hash.toLowerCase();
                 if(!(hash.equals("")) && hash != null){
                     Game game = new Game();
                     try {
