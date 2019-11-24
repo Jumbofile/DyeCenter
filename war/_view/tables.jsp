@@ -59,7 +59,10 @@
 			</div>
 
 			<div style="text-align: center;">
-				<button style="width:100%;" name="submit" type="submit" class="btn btn-primary">Submit</button>
+				<button style="width:500px;" name="submit" type="submit" class="btn-card btn-primary btn".>Submit</button>
+				<div class="dropdown-content">
+
+				</div>
 			</div>
 		</div>
 		<br/>

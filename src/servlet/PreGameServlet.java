@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import javax.json.*;
 
 public class PreGameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -39,6 +42,7 @@ public class PreGameServlet extends HttpServlet {
 			}catch( IllegalStateException e){}
 
 		} else {
+
 			Game game = new Game(Integer.parseInt(gid), Integer.parseInt(tid));
 
 			ArrayList<Integer> playerIDs = game.returnAllUIDs();
@@ -145,27 +149,36 @@ public class PreGameServlet extends HttpServlet {
 		req.setAttribute("gameHash", game.getHash());
 
 		if(game.getPlayer1().UID == -1){
-			req.setAttribute("p1", "Waiting..." );
+			req.setAttribute("p1Name", "Waiting..." );
+			req.setAttribute("p1User", "guest1" );
 		}else{
-			req.setAttribute("p1", game.getPlayer1().getName());
+			req.setAttribute("p1Name", game.getPlayer1().getName());
+			req.setAttribute("p1User", game.getPlayer1().getUsername());
+
 		}
 
 		if(game.getPlayer2().UID == -1){
-			req.setAttribute("p2", "Waiting..." );
+			req.setAttribute("p2Name", "Waiting..." );
+			req.setAttribute("p2User", "guest2" );
 		}else{
-			req.setAttribute("p2", game.getPlayer2().getName());
+			req.setAttribute("p2Name", game.getPlayer2().getName());
+			req.setAttribute("p2User", game.getPlayer2().getUsername());
 		}
 
 		if(game.getPlayer3().UID == -1){
-			req.setAttribute("p3", "Waiting..." );
+			req.setAttribute("p3Name", "Waiting..." );
+			req.setAttribute("p3User", "guest3" );
 		}else{
-			req.setAttribute("p3", game.getPlayer3().getName());
+			req.setAttribute("p3Name", game.getPlayer3().getName());
+			req.setAttribute("p3User", game.getPlayer3().getUsername());
 		}
 
 		if(game.getPlayer4().UID == -1){
-			req.setAttribute("p4", "Waiting..." );
+			req.setAttribute("p4Name", "Waiting..." );
+			req.setAttribute("p4User", "guest4" );
 		}else{
-			req.setAttribute("p4", game.getPlayer4().getName());
+			req.setAttribute("p4Name", game.getPlayer4().getName());
+			req.setAttribute("p4User", game.getPlayer4().getUsername());
 		}
 
 
@@ -179,33 +192,85 @@ public class PreGameServlet extends HttpServlet {
 		Table table = new Table(Integer.parseInt(tid));
 
 		Game game = new Game(Integer.parseInt(gid), table.getTID());
-		String data = new String();
+
+		System.out.println(game.getTeams());
+
+		String p1Name ;
+		String p1User ;
+
+		String p2Name ;
+		String p2User ;
+
+		String p3Name ;
+		String p3User ;
+
+		String p4Name ;
+		String p4User ;
 
 		if(game.getPlayer1().UID == -1){
-			data = data + "Waiting..." + ",";
+			p1Name = "Waiting...";
+			p1User = "guest1" ;
 		}else{
-			data = data + game.getPlayer1().getName() + ",";
+			p1Name = game.getPlayer1().getName() ;
+			p1User = game.getPlayer1().getUsername() ;
 		}
 
 		if(game.getPlayer2().UID == -1){
-			data = data + "Waiting..." + ",";
+			p2Name = "Waiting...";
+			p2User = "guest2" ;
 		}else{
-			data = data + game.getPlayer2().getName() + ",";
+			p2Name = game.getPlayer2().getName() ;
+			p2User = game.getPlayer2().getUsername() ;
 		}
 
 		if(game.getPlayer3().UID == -1){
-			data = data + "Waiting..." + ",";
+			p3Name = "Waiting...";
+			p3User = "guest3" ;
 		}else{
-			data = data + game.getPlayer3().getName() + ",";
+			p3Name = game.getPlayer3().getName() ;
+			p3User = game.getPlayer3().getUsername() ;
 		}
 
 		if(game.getPlayer4().UID == -1){
-			data = data + "Waiting..." + ",";
+			p4Name = "Waiting...";
+			p4User = "guest4" ;
 		}else{
-			data = data + game.getPlayer4().getName() + ",";
+			p4Name = game.getPlayer4().getName() ;
+			p4User = game.getPlayer4().getUsername() ;
 		}
 
-		resp.setContentType("text/plain");
-		resp.getWriter().println(data);
+
+
+		try {
+			Map<String, Object> config = new HashMap<String, Object>();
+			JsonBuilderFactory factory = Json.createBuilderFactory(config);
+
+			JsonObject value = factory.createObjectBuilder()
+					.add("p1", factory.createObjectBuilder()
+							.add("name", p1Name)
+							.add("user", p1User)
+					)
+
+					.add("p2", factory.createObjectBuilder()
+							.add("name", p2Name)
+							.add("user", p2User)
+					)
+
+					.add("p3", factory.createObjectBuilder()
+							.add("name", p3Name)
+							.add("user", p3User)
+					)
+					.add("p4", factory.createObjectBuilder()
+							.add("name", p4Name)
+							.add("user", p4User)
+					)
+					.build();
+
+			resp.setContentType("json");
+			resp.getWriter().println(value);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

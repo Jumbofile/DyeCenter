@@ -21,6 +21,7 @@ var t2p1 = null;
 var t2p2 = null;
 
 var doRefresh = true;
+
 var form = $('#ajaxform'); // id of form tag
 var back = document.getElementById("back-btn");
 var backValue = document.getElementById("backValue");
@@ -30,44 +31,52 @@ var team1Value = document.getElementById("team1value");
 var team2Value = document.getElementById("team2value");
 
 //game values
-var p1;
-var p2;
-var p3;
-var p4;
+// var p1;
+// var p2;
+// var p3;
+// var p4;
 
-$('.modal').click(function (event)
-{
-    //&& !$(event.target).is('.modal-content')
-    if(!$(event.target).closest('.modal-content').length ) {
-        $('#statModal').modal('hide');
-        doRefresh = true;
-    }
-});
+var p1Name ;
+var p2Name ;
+var p3Name ;
+var p4Name ;
+
+var p1User ;
+var p2User ;
+var p3User ;
+var p4User ;
 
 //Refresh without reload function
 $(document).ready(
     function() {
         setInterval(function () {
-            if(doRefresh == false) {
+            if(doRefresh == true) {
                 if(backValue.value == "true"){
                     location.reload(true);
                 }
                 $.ajax({
                     type: form.attr('method'),  //post method
                     url: form.attr('action'), //ajaxformexample url
+                    dataType: 'json',
                     data: form.serialize(), // serialize input data values
                     success:
                         function(data, textStatus, jqXHR) {
                             console.log(data);
-                            var dataString = data.split(',');
-                            p1     = dataString[0];
-                            p2    = dataString[1];
-                            p3  = dataString[2];
-                            p4   = dataString[3];
+                            // var dataString = data.split(',');
+                            p1Name     = data.p1.name;
+                            p1User     = data.p1.user;
+
+                            p2Name     = data.p2.name;
+                            p2User     = data.p2.user;
+
+                            p3Name     = data.p3.name;
+                            p3User     = data.p3.user;
+
+                            p4Name     = data.p4.name;
+                            p4User     = data.p4.user;
 
                             updateData();
-                        },
-                    dataType: 'text'
+                        }
                 });
 
                 return false; // not refreshing page
@@ -76,10 +85,22 @@ $(document).ready(
     });
 
 function updateData(){
-    $('#player1').text(p1.toString());
-    $('#player2').text(p2.toString());
-    $('#player3').text(p3.toString());
-    $('#player4').text(p4.toString());
+    console.log(p1Name);
+    $('#player1').text(p1Name);
+    $('#player2').text(p2Name);
+    $('#player3').text(p3Name);
+    $('#player4').text(p4Name);
+
+    var playerUser  = [p1User, p2User, p3User, p4User] ;
+    var team1btns = $('body').find('.team1');
+    var team2btns = $('body').find('.team2')
+    var nonebtns = $('body').find('.none') ;
+
+    for(var i = 0; i < 4; i++) {
+        $(team1btns[i]).val("team1," + playerUser[i]) ;
+        $(team2btns[i]).val("team2," + playerUser[i]) ;
+        $(nonebtns[i]).val("none," + playerUser[i]) ;
+    }
 }
 
 function dropOut(){
@@ -109,6 +130,7 @@ function teamSelect(button){
     //team 1
     if(info[0] == 'team1'){
         if(!t1p1){
+            console.log(t1p1);
             t1p1 = info[1];
             if(t2p1 == info[1]){
                 t2p1 = null;

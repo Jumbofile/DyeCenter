@@ -57,25 +57,25 @@
 		<br>
 		<br>
 		<br>
-		<h1 id="player1">${p1}</h1>
-		<input type="radio" class="team1" name="teamSelectP1" value="team1,${p1}" onclick="teamSelect(this)"> Blue Team
-		<input type="radio" class="team2" name="teamSelectP1" value="team2,${p1}" onclick="teamSelect(this)"> Red Team
-		<input type="radio" class="none" name="teamSelectP1" value="none,${p1}" onclick="teamSelect(this)" checked> Undecided
+		<h1 id="player1">${p1Name}</h1>
+		<input type="radio" class="team1" name="teamSelectP1" value="team1,${p1User}" onclick="teamSelect(this)"> Blue Team
+		<input type="radio" class="team2" name="teamSelectP1" value="team2,${p1User}" onclick="teamSelect(this)"> Red Team
+		<input type="radio" class="none" name="teamSelectP1" value="none,${p1User}" onclick="teamSelect(this)" checked> Undecided
 
-		<h1 id="player2">${p2}</h1>
-		<input type="radio" class="team1" name="teamSelectP2" value="team1,${p2}" onclick="teamSelect(this)"> Blue Team
-		<input type="radio" class="team2" name="teamSelectP2" value="team2,${p2}" onclick="teamSelect(this)"> Red Team
-		<input type="radio" class="none" name="teamSelectP2" value="none,${p2}" onclick="teamSelect(this)" checked> Undecided
+		<h1 id="player2">${p2Name}</h1>
+		<input type="radio" class="team1" name="teamSelectP2" value="team1,${p2User}" onclick="teamSelect(this)"> Blue Team
+		<input type="radio" class="team2" name="teamSelectP2" value="team2,${p2User}" onclick="teamSelect(this)"> Red Team
+		<input type="radio" class="none" name="teamSelectP2" value="none,${p2User}" onclick="teamSelect(this)" checked> Undecided
 
-		<h1 id="player3">${p3}</h1>
-		<input type="radio" class="team1" name="teamSelectP3" value="team1,${p3}" onclick="teamSelect(this)"> Blue Team
-		<input type="radio" class="team2" name="teamSelectP3" value="team2,${p3}" onclick="teamSelect(this)"> Red Team
-		<input type="radio" class="none" name="teamSelectP3" value="none,${p3}" onclick="teamSelect(this)" checked> Undecided
+		<h1 id="player3">${p3Name}</h1>
+		<input type="radio" class="team1" name="teamSelectP3" value="team1,${p3User}" onclick="teamSelect(this)"> Blue Team
+		<input type="radio" class="team2" name="teamSelectP3" value="team2,${p3User}" onclick="teamSelect(this)"> Red Team
+		<input type="radio" class="none" name="teamSelectP3" value="none,${p3User}" onclick="teamSelect(this)" checked> Undecided
 
-		<h1 id="player4">${p4}</h1>
-		<input type="radio" class="team1" name="teamSelectP4" value="team1,${p4}" onclick="teamSelect(this)"> Blue Team
-		<input type="radio" class="team2" name="teamSelectP4" value="team2,${p4}" onclick="teamSelect(this)"> Red Team
-		<input type="radio" class="none" name="teamSelectP4" value="none,${p4}" onclick="teamSelect(this)" checked> Undecided
+		<h1 id="player4">${p4Name}</h1>
+		<input type="radio" class="team1" name="teamSelectP4" value="team1,${p4User}" onclick="teamSelect(this)"> Blue Team
+		<input type="radio" class="team2" name="teamSelectP4" value="team2,${p4User}" onclick="teamSelect(this)"> Red Team
+		<input type="radio" class="none" name="teamSelectP4" value="none,${p4User}" onclick="teamSelect(this)" checked> Undecided
 		<br>
 
 		<button type="button">Start Tossing</button><br>
