@@ -44,9 +44,7 @@ public class PreGameServlet extends HttpServlet {
 			ArrayList<Integer> playerIDs = game.returnAllUIDs();
 			getData(req, resp);
 			if(playerIDs.contains(Integer.parseInt(uid))){
-				req.getSession().setAttribute("gid", gid);
-				req.getSession().setAttribute("uid", uid);
-				req.getRequestDispatcher("/_view/pregame.jsp").forward(req, resp);
+
 			}else{
 				ArrayList<String> teamIds = game.getTeams();
 				String team1String = teamIds.get(0);
@@ -80,6 +78,11 @@ public class PreGameServlet extends HttpServlet {
 				game.setTeams(team1String, team2String);
 
 			}
+			String gameID;
+			gameID = game.getGID() + "";
+			req.getRequestDispatcher("/_view/pregame.jsp").forward(req, resp);
+			req.getSession().setAttribute("gid", gameID);
+			req.getSession().setAttribute("tid", tid);
 		}
 	}
 
@@ -89,7 +92,7 @@ public class PreGameServlet extends HttpServlet {
 
 		uid = (String) req.getSession().getAttribute("uid"); //session stuff
 		gid = (String) req.getSession().getAttribute("gid");
-		System.out.println("View DoPost");
+		System.out.println("PreGame DoPost");
 
 		if (uid == null) {
 			resp.sendRedirect(req.getContextPath() + "/login");
@@ -135,7 +138,7 @@ public class PreGameServlet extends HttpServlet {
 		if(game.getPlayer4().UID == -1){
 			req.setAttribute("p4", "Waiting..." );
 		}else{
-			req.setAttribute("p4", game.getPlayer3().getName());
+			req.setAttribute("p4", game.getPlayer4().getName());
 		}
 
 

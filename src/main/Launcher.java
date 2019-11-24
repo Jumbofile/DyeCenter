@@ -14,10 +14,9 @@ public class Launcher {
 	 * Create a {@link Server}, but do not start it.
 	 * 
 	 * @param fromEclipse true if launching interactively (rather than from uberjar)
-	 * @param port which port to listen on
 	 * @param warUrl the URL of the webapp war directory
 	 */
-	public Server launch(boolean fromEclipse, InetSocketAddress address, String warUrl, String contextPath) throws Exception {
+	public Server launch(boolean fromEclipse, int port, String warUrl, String contextPath) throws Exception {
 		// This is adapted from the Embedded Jetty example from Jetty 9.4.x:
 		//	    https://www.eclipse.org/jetty/documentation/9.4.x/embedded-examples.html#embedded-webapp-jsp
 
@@ -25,7 +24,7 @@ public class Launcher {
         // Note that if you set this to port 0 then a randomly available port
 		// will be assigned that you can either look in the logs for the port,
         // or programmatically obtain it for use in test cases.		
-		Server server = new Server(address);
+		Server server = new Server(port);
 		
         // Setup JMX
 		MBeanContainer mbContainer = new MBeanContainer(ManagementFactory.getPlatformMBeanServer());
