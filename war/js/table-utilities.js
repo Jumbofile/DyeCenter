@@ -10,6 +10,7 @@ for(var i = 0; i < gameArr.length; i++) {
     var scores = gameArr[i].getAttribute("data-scores").split(",") ;
     var plunks = gameArr[i].getAttribute("data-plunks").split(",") ;
     var winningTeam = parseInt(gameArr[i].getAttribute("data-leader"));
+    var gamehash = gameArr[i].getAttribute("data-hash");
 
     var t1p1score = parseInt(scores[0]);
     var t1p2score = parseInt(scores[1]);
@@ -35,12 +36,12 @@ for(var i = 0; i < gameArr.length; i++) {
         if(winningTeam == 1) {
             $(gameArr[i]).addClass("t1-win") ;
             statusString = "Blue Team Wins" ;
-            $($(gameArr[i]).find(".t1")).addClass(".winning-team");
+            $($(gameArr[i]).find(".t1")).addClass("winning-team");
         }
         else if(winningTeam == 2) {
             $(gameArr[i]).addClass("t2-win") ;
             statusString = "Red Team Wins" ;
-            $($(gameArr[i]).find(".t2")).addClass(".winning-team");
+            $($(gameArr[i]).find(".t2")).addClass("winning-team");
         }
         else {
             $(gameArr[i]).addClass("draw") ;
@@ -59,11 +60,15 @@ for(var i = 0; i < gameArr.length; i++) {
     }
 
 
-    gameArr[i].querySelector('.game-card-header').innerHTML = date.toLocaleString() + "&#10;" + statusString;
+    gameArr[i].querySelector('.game-card-header').innerHTML = "<span>" + date.toLocaleString() + "<span class='game-hash-span'>" + gamehash + "</span></span><span>" + statusString + "</span>";
     gameArr[i].querySelector('#team1-score').innerHTML = t1score;
     gameArr[i].querySelector('#team2-score').innerHTML = t2score;
     for(var x = 0; x < names.length; x++) {
-        gameArr[i].querySelector('#p' + (x+1) + '-name').innerHTML = names[x].trim();
+        var name = names[x].trim();
+        if(name == "null") {
+            name = "TBD...";
+        }
+        gameArr[i].querySelector('#p' + (x+1) + '-name').innerHTML = name;
         gameArr[i].querySelector('#p' + (x+1) + '-points').innerHTML = "<i class='icon fas fa-dice-five fa-1x'></i>\t" + scores[x].trim() ;
         gameArr[i].querySelector('#p' + (x+1) + '-plunks').innerHTML = "<i class='icon fas fa-beer fa-1x'></i>\t" + plunks[x].trim() ;
     }
