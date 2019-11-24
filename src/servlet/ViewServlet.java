@@ -71,6 +71,9 @@ public class ViewServlet extends HttpServlet {
         account.populateAccountData(Integer.parseInt(uid));
         Player player = new Player(account.getUsername());
 
+        gid = req.getSession().getAttribute("gid").toString();
+        tid = req.getSession().getAttribute("tid").toString();
+
         Table table = new Table(Integer.parseInt(tid));
 
         Game game = new Game(Integer.parseInt(gid), table.getTID());

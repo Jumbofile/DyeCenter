@@ -165,8 +165,10 @@ public class TableQuery extends DatabaseFactory{
 							players = players + id + ",";
 						}
 					}
-					if(players.substring(players.length() - 1).equals(",")){
-						players = players.substring(0, players.length() - 1);
+					if(!players.isEmpty()) {
+						if (players.substring(players.length() - 1).equals(",")) {
+							players = players.substring(0, players.length() - 1);
+						}
 					}
 
 					addPlayersToTable(TID, players);
