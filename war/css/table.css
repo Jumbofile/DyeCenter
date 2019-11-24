@@ -90,7 +90,7 @@ body {
 }
 
 .game-card-cont .game-card-header {
-    grid-column-start: span 4;
+    grid-column-start: span 3;
     padding-top: 7px;
     position: relative;
     padding-left: 14px;
@@ -118,7 +118,33 @@ body {
 }
 
 .player {
-    display: flex;
+    position: relative;
+    display: block;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.player .player-name {
+    line-height: 62px;
+    padding-left: 10px;
+    font-size: 20px;
+    font-weight: 500;
+}
+.icon {
+    color: #b0b0b4;
+}
+
+.stat:not(.icon) {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.player .player-stats {
+    display: grid;
+    position: relative;
+    float: right;
+    padding-right: 5px;
 }
 
 .player .player-stats {
@@ -145,6 +171,6 @@ body {
     border-top: 5px solid #ac3bff;
 }
 
-.game-grid-item:not(.win):not(.game-card-header) {
+.game-grid-item:not(.game-card-header) {
     border-right: 2px solid #DDDDDD;
 }

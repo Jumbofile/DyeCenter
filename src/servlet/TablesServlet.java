@@ -270,7 +270,6 @@ public class TablesServlet extends HttpServlet {
                                         "<span class='stat' id='p2-plunks'></span>" +
                                     "</div>" +
                                 "</div>"+
-                                "<div class='t1 game-grid-item win t1-win-icon'>4</div>"+
 
                                 "<div class='t2 game-grid-item team-score' id='team2-score'></div>"+
                                 "<div class='t2 game-grid-item player p3'>" +
@@ -288,8 +287,6 @@ public class TablesServlet extends HttpServlet {
                                         "<span class='stat' id='p4-plunks'></span>" +
                                     "</div>" +
                                 "</div>"+
-
-                                "<div class='t2 game-grid-item win t2-win-icon'>7</div>"+
                             "</div>"+
                         "</button>" +
                         "<br/>" ;
