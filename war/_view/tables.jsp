@@ -13,9 +13,10 @@
 	<!-- Bootstrap core CSS -->
 	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/table.css" rel="stylesheet">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link rel="apple-touch-icon" sizes="180x180" href="webresources/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="webresources/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="webresources/favicon-16x16.png">
@@ -23,34 +24,21 @@
 	<link rel="mask-icon" href="webresources/safari-pinned-tab.svg" color="#5bbad5">
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">
-	<!-- Custom fonts for this template
-	<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-	<link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-	-->
-	<!-- Custom styles for this template
-	<link href="css/agency.css" rel="stylesheet">
--->
-	<!-- Custom styles for this template
-	<link href="css/dashboard.css" rel="stylesheet">
-	-->
 
 </head>
 
 <body>
-<div class="container col-md-6">
+<div id="page-container" class="container col-md-6">
 	<br/>
 	<div class="row">
 		<form action="${pageContext.servletContext.contextPath}/dashboard" method="get">
-			<button type="submit" name="back" value="back" class="btn btn-primary">Back</button>
+            <div id="back-btn-cover"></div>
+			<button id="back-btn" type="submit" name="back" value="back"></button>
+            <i id="back-btn-arrow" class="fas fa-arrow-left fa-w-12 fa-4x"></i>
 		</form>
 	</div>
 	<form action="${pageContext.servletContext.contextPath}/table" method="post">
-
-
-		<div style="margin-top: 15vh;">
+		<div id="create-game-container">
 			<h2 style="margin-bottom: 30px;">Create Game</h2>
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
@@ -74,11 +62,12 @@
 		</div>
 		<br/>
 		<hr>
-		<div id="gameList">
-			<br/>
-			<h2>Games</h2>
-			${gameButtons}
-		</div>
+        <br/>
+        <div id="game-btn-container">
+            <h2>Games</h2>
+            <hr/>
+            ${gameButtons}
+        </div>
 	</form>
 </div>
 </body>

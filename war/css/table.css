@@ -1,3 +1,60 @@
+body {
+    overflow-y: hidden;
+    background: #ff7e5f;
+    background: -webkit-linear-gradient(to right, #ff7e5f, #feb47b);
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    min-height: 100vh;
+}
+
+#page-container {
+    position: static;
+    max-width: 80%;
+}
+
+#back-btn {
+    z-index: 10;
+    position: absolute;
+    top: -9px;
+    left: -11px;
+    height: 127px;
+    width: 156px;
+    background: none;
+    border: none;
+}
+
+#back-btn-cover {
+    position: absolute;
+    top: -27px;
+    left: -7px;
+    width: 201px;
+    height: 170px;
+    background: rgb(0,0,0);
+    background: linear-gradient(142deg, rgba(0,0,0,0.4458158263305322) 17%, rgba(255,255,255,0) 55%);
+}
+
+#back-btn-arrow {
+    color: #FFF;
+    position: absolute;
+    top: 16px;
+    left: 18px;
+}
+
+#game-btn-container {
+    position: relative;
+    height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #dedede;
+    padding: 13px;
+    border-radius: 7px;
+    width: 65vw;
+    margin: auto;
+}
+
+#create-game-container {
+    margin-top: 4vh;
+}
+
 .game-card {
     position: relative;
     width: 100%;
@@ -5,8 +62,8 @@
     color: #000;
     background: #FFF;
     margin-bottom: 10px;
-    border: solid #9f9fb1 2px;
-    border-radius: 7px;
+    border: none;
+    border-radius: 8px 8px 4px 4px;
 
     padding-top: 0;
     padding-right: 0;
@@ -26,18 +83,18 @@
     left: 1px;
 }
 
-.in-progress .game-card-cont {
-    background: linear-gradient(0deg, rgba(255,255,255,1) 21%, rgba(159,159,159,1) 100%);
+.in-progress {
+    border-top: 5px solid #858585;
 }
 
-.t1-win .game-card-cont {
-    background: linear-gradient(0deg, rgba(255,255,255,1) 21%, rgb(0, 123, 255) 100%);
+.t1-win {
+    border-top: 5px solid #007bff;
 }
 
-.t2-win .game-card-cont {
-    background: linear-gradient(0deg, rgba(255,255,255,1) 21%, rgba(255,79,79,1) 100%);
+.t2-win {
+    border-top: 5px solid #ff4f4f;
 }
 
-.draw .game-card-cont {
-    background: linear-gradient(0deg, rgba(255,255,255,1) 21%, rgba(255,247,79,1) 100%);
+.draw {
+    border-top: 5px solid #FFFB81;
 }

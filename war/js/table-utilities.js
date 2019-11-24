@@ -1,5 +1,5 @@
 
-var gameArr = $('#gameList').children("button");
+var gameArr = $('#game-btn-container').children("button");
 
 
 for(var i = 0; i < gameArr.length; i++) {
