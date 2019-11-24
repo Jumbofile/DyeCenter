@@ -25,6 +25,10 @@ var form = $('#ajaxform'); // id of form tag
 var back = document.getElementById("back-btn");
 var backValue = document.getElementById("backValue");
 
+//teamvalues
+var team1Value = document.getElementById("backValue");
+var team2Value = document.getElementById("backValue");
+
 //game values
 var p1;
 var p2;
@@ -44,7 +48,7 @@ $('.modal').click(function (event)
 $(document).ready(
     function() {
         setInterval(function () {
-            if(doRefresh == true) {
+            if(doRefresh == false) {
                 if(backValue.value == "true"){
                     location.reload(true);
                 }
@@ -85,6 +89,8 @@ function dropOut(){
 function teamSelect(button){
     console.log(button);
     var info = button.value.split(',');
+
+
     //undecided
     if(info[0] == 'none') {
         if(t1p1 == info[1]){
@@ -102,7 +108,7 @@ function teamSelect(button){
     }
     //team 1
     if(info[0] == 'team1'){
-        if(t1p1 == null){
+        if(!t1p1){
             t1p1 = info[1];
             if(t2p1 == info[1]){
                 t2p1 = null;
@@ -110,7 +116,7 @@ function teamSelect(button){
             if(t2p2 == info[1]){
                 t2p2 = null;
             }
-        }else if(t1p2 == null){
+        }else if(!t1p2){
             t1p2 = info[1];
             if(t2p1 == info[1]){
                 t2p1 = null;
@@ -118,17 +124,13 @@ function teamSelect(button){
             if(t2p2 == info[1]){
                 t2p2 = null;
             }
-            var inputs = document.querySelectorAll('.team1');
 
-            for (var i = 0; i < inputs.length; i++) {
-                inputs[i].disabled = true;
-            }
         }
     }
 
     //team 2
     if(info[0] == 'team2'){
-        if(t2p1 == null){
+        if(!t2p1){
             t2p1 = info[1];
             if(t1p1 == info[1]){
                 t1p1 = null;
@@ -136,7 +138,7 @@ function teamSelect(button){
             if(t1p2 == info[1]){
                 t1p2 = null;
             }
-        }else if(t2p2 == null){
+        }else if(!t2p2){
             t2p2 = info[1];
             if(t1p1 == info[1]){
                 t1p1 = null;
@@ -144,15 +146,33 @@ function teamSelect(button){
             if(t1p2 == info[1]){
                 t1p2 = null;
             }
-            var inputs = document.querySelectorAll('.team2');
 
-            for (var i = 0; i < inputs.length; i++) {
-                inputs[i].disabled = true;
-            }
         }
 
     }
-    if(t1p1 == null || t1p2 == null){
+    console.log(t1p1);
+    console.log(t1p2);
+    console.log(t2p1);
+    console.log(t2p2);
+    //disable
+    if(t1p1 && t1p2){
+        var inputs = document.querySelectorAll('.team1');
+
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].disabled = true;
+        }
+    }
+
+    if(t2p1 && t2p2){
+        var inputs = document.querySelectorAll('.team2');
+
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].disabled = true;
+        }
+    }
+
+    //re eanble
+    if(!t1p1 || !t1p2){
         var inputs = document.querySelectorAll('.team1');
 
         for (var i = 0; i < inputs.length; i++) {
@@ -160,18 +180,43 @@ function teamSelect(button){
         }
     }
 
-    if(t2p1 == null || t2p2 == null){
+    if(!t2p1 || !t2p2){
         var inputs = document.querySelectorAll('.team2');
 
         for (var i = 0; i < inputs.length; i++) {
             inputs[i].disabled = false;
         }
     }
+    var t1p1temp;
+    var t1p2temp;
+    var t2p1temp;
+    var t2p2temp;
 
-    console.log(t1p1);
-    console.log(t1p2);
-    console.log(t2p1);
-    console.log(t2p2);
+    if(!t1p1){
+        t1p1temp = '-1';
+    }else{
+        t1p1temp = t1p1;
+    }
+    if(!t1p2){
+        t1p2temp = '-1';
+    }else{
+        t1p2temp = t1p2;
+    }
+    if(!t2p1){
+        t2p1temp = '-1';
+    }else{
+        t2p1temp = t2p1;
+    }
+    if(!t2p2){
+        t2p2temp = '-1';
+    }else{
+        t2p2temp = t2p2;
+    }
+
+    console.log(team1Value.value = t1p1temp +',' + t1p2temp);
+    console.log(team2Value.value = t2p1temp +',' + t2p2temp);
+
+
 
     }
 //AJAX post
