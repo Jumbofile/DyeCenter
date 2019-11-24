@@ -69,9 +69,16 @@ public class DashboardServlet extends HttpServlet {
                         System.out.println("DB GID: " + gid);
                         System.out.println("DB TID: " + tid);
                         if (gid != -1) {
-                            resp.sendRedirect(req.getContextPath() + "/view");
-                            req.getSession().setAttribute("tid", tid);
-                            req.getSession().setAttribute("gid", gid);
+                            Game gameToLoad = new Game(gid, tid);
+                            if(gameToLoad.getStatus() == -1){
+                                resp.sendRedirect(req.getContextPath() + "/pregame");
+                                req.getSession().setAttribute("tid", tid);
+                                req.getSession().setAttribute("gid", gid);
+                            }else {
+                                resp.sendRedirect(req.getContextPath() + "/view");
+                                req.getSession().setAttribute("tid", tid);
+                                req.getSession().setAttribute("gid", gid);
+                            }
                         }
                     }catch (PersistenceException e){
                         resp.sendRedirect(req.getContextPath() + "/dashboard");

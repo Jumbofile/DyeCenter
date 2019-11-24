@@ -42,7 +42,7 @@ public class PreGameServlet extends HttpServlet {
 			Game game = new Game(Integer.parseInt(gid), Integer.parseInt(tid));
 
 			ArrayList<Integer> playerIDs = game.returnAllUIDs();
-
+			getData(req, resp);
 			if(playerIDs.contains(Integer.parseInt(uid))){
 				req.getSession().setAttribute("gid", gid);
 				req.getSession().setAttribute("uid", uid);
@@ -55,36 +55,34 @@ public class PreGameServlet extends HttpServlet {
 				String[] team2 = team2String.split(",");
 				int teamOpen = -1;
 
+				//check each team for a -1 in the roster
 				for(String ids: team1){
 					if(Integer.parseInt(ids) == -1){
 						teamOpen = 1;
 					}
 				}
-
-				for(String ids: team2){
-					if(Integer.parseInt(ids) == -1){
-						teamOpen = 2;
+				if(teamOpen != 1) {
+					for (String ids : team2) {
+						if (Integer.parseInt(ids) == -1) {
+							teamOpen = 2;
+						}
 					}
 				}
 
+				//based on the team that had a -1, replace the -1 with the uid
 				if(teamOpen == 1){
-					team1String.replace("-1", uid);
+					team1String = team1String.replaceFirst("-1", uid);
 				}else{
-					team2String.replace("-1", uid);
+					team2String = team2String.replaceFirst("-1", uid);
 				}
-				getData(req, resp);
+
+				//add the new player to the table
+				game.setTeams(team1String, team2String);
+
 			}
-		}try {
-			req.getSession().setAttribute("gid", gid);
-			req.getSession().setAttribute("uid", uid);
-			req.getRequestDispatcher("/_view/pregame.jsp").forward(req, resp);
-		}catch (Exception e){
-			//should really try to name this exception or possible remove it
-			e.printStackTrace();
 		}
 	}
 
-	//todo - dont allow score change when game status = 1
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -98,6 +96,7 @@ public class PreGameServlet extends HttpServlet {
 		}else {
 			//getData(req, resp);
 			postData(resp);
+			getData(req, resp);
 			//resp.sendRedirect(req.getContextPath() + "/view");
 			req.getSession().setAttribute("gid", gid);
 		}
@@ -112,9 +111,34 @@ public class PreGameServlet extends HttpServlet {
 
 		Game game = new Game(Integer.parseInt(gid), table.getTID());
 
-
 		//set hash value
 		req.setAttribute("gameHash", game.getHash());
+
+		if(game.getPlayer1().UID == -1){
+			req.setAttribute("p1", "Waiting..." );
+		}else{
+			req.setAttribute("p1", game.getPlayer1().getName());
+		}
+
+		if(game.getPlayer2().UID == -1){
+			req.setAttribute("p2", "Waiting..." );
+		}else{
+			req.setAttribute("p2", game.getPlayer2().getName());
+		}
+
+		if(game.getPlayer3().UID == -1){
+			req.setAttribute("p3", "Waiting..." );
+		}else{
+			req.setAttribute("p3", game.getPlayer3().getName());
+		}
+
+		if(game.getPlayer4().UID == -1){
+			req.setAttribute("p4", "Waiting..." );
+		}else{
+			req.setAttribute("p4", game.getPlayer3().getName());
+		}
+
+
 	}
 
 	public void postData(HttpServletResponse resp) throws IOException{
@@ -126,6 +150,30 @@ public class PreGameServlet extends HttpServlet {
 
 		Game game = new Game(Integer.parseInt(gid), table.getTID());
 		String data = new String();
+
+		if(game.getPlayer1().UID == -1){
+			data = data + "Waiting..." + ",";
+		}else{
+			data = data + game.getPlayer1().getName() + ",";
+		}
+
+		if(game.getPlayer2().UID == -1){
+			data = data + "Waiting..." + ",";
+		}else{
+			data = data + game.getPlayer2().getName() + ",";
+		}
+
+		if(game.getPlayer3().UID == -1){
+			data = data + "Waiting..." + ",";
+		}else{
+			data = data + game.getPlayer3().getName() + ",";
+		}
+
+		if(game.getPlayer4().UID == -1){
+			data = data + "Waiting..." + ",";
+		}else{
+			data = data + game.getPlayer4().getName() + ",";
+		}
 
 		resp.setContentType("text/plain");
 		resp.getWriter().println(data);
