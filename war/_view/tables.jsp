@@ -61,11 +61,9 @@
 			</div>
 		</div>
 		<br/>
-		<hr>
-        <br/>
+        <h2>Recent Games</h2>
+        <hr/>
         <div id="game-btn-container">
-            <h2>Games</h2>
-            <hr/>
             ${gameButtons}
         </div>
 	</form>
