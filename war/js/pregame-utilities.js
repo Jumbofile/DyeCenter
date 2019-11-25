@@ -31,10 +31,6 @@ var team1Value = document.getElementById("team1value");
 var team2Value = document.getElementById("team2value");
 
 //game values
-// var p1;
-// var p2;
-// var p3;
-// var p4;
 
 var p1Name ;
 var p2Name ;
@@ -239,9 +235,27 @@ function teamSelect(button){
     console.log(team2Value.value = t2p1temp +',' + t2p2temp);
 
 
+    //AJAX post
+    form.submit(function () {
 
-    }
-//AJAX post
+        $.ajax({
+            type: form.attr('method'),  //post method
+            url: form.attr('action'), //ajaxformexample url
+            data: $('#ajaxGet').serialize(), // serialize input data values
+            success: function (data) {
+                console.log(data);
+
+            }
+        });
+
+        return false; // not refreshing page
+
+    });
+
+
+
+}
+// //AJAX post
 form.submit(function () {
 
     $.ajax({
@@ -258,3 +272,26 @@ form.submit(function () {
     return false; // not refreshing page
 
 });
+
+// $(function(){
+//     function getData() {
+//         var dataToBeSent  = {
+//             uName : $("#userName").val() , //
+//             passwd: $("#password").val()
+//         }; // you can change parameter name
+//
+//         $.ajax({
+//             url : 'getDataServlet', // Your Servlet mapping or JSP(not suggested)
+//             data :dataToBeSent,
+//             type : 'POST',
+//             dataType : 'html', // Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+//             success : function(response) {
+//                 $('#outputDiv').html(response); // create an empty div in your page with some id
+//             },
+//             error : function(request, textStatus, errorThrown) {
+//                 alert(errorThrown);
+//             }
+//         });
+//     }
+//
+// });

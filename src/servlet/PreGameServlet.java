@@ -10,11 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import javax.json.*;
+
+import utilities.Util;
 
 public class PreGameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -125,14 +128,77 @@ public class PreGameServlet extends HttpServlet {
 				}
 
 				game.setTeams(team1String, team2String);
-
 				req.getSession().setAttribute("gid", gid);
 			}
 			else{
+				System.out.println(req.getParameter("teamSelectP1"));
+				System.out.println(req.getParameter("teamSelectP2"));
+				System.out.println(req.getParameter("teamSelectP3"));
+				System.out.println(req.getParameter("teamSelectP4"));
+
+				String[] teamSelect = {req.getParameter("teamSelectP1"), req.getParameter("teamSelectP2"), req.getParameter("teamSelectP3"), req.getParameter("teamSelectP4")};
+
+				Game game = new Game(Integer.parseInt(gid), Integer.parseInt(tid));
+				Util util = new Util();
+
+				ArrayList<String> team1 = new ArrayList<>() ;
+				ArrayList<String> team2 = new ArrayList<>() ;
+
+				for(int i = 0; i < teamSelect.length; i++) {
+					String[] playerSelectData = teamSelect[i].split(",");
+					if(playerSelectData[0].equals("team1")) {
+						if(playerSelectData[1].indexOf("guest") == 0) {
+							team1.add("-1");
+						}
+						else {
+							team1.add(playerSelectData[1]);
+						}
+					}
+
+					else if(playerSelectData[0].equals("team2")) {
+						if(playerSelectData[1].indexOf("guest") == 0) {
+							team2.add("-1");
+						}
+						else {
+							team2.add(playerSelectData[1]);
+						}
+					}
+				}
+
+				while (team1.size() < 2) {
+					team1.add("-1") ;
+				}
+
+				while (team2.size() < 2) {
+					team2.add("-1") ;
+				}
+
+
+				for(int i = 0; i < team1.size(); i++) {
+					if(!team1.get(i).equals("-1")){
+						Player p = new Player(team1.get(i));
+						team1.set(i, p.UID + "");
+					}
+				}
+
+				for(int i = 0; i < team2.size(); i++) {
+					if(!team2.get(i).equals("-1")){
+						Player p = new Player(team2.get(i));
+						team2.set(i, p.UID + "");
+					}
+				}
+
+				// As UID's, -1 == guest
+				String team1String = team1.get(0) + "," + team1.get(1) ;
+				String team2String = team2.get(0) + "," + team2.get(1) ;
+
+				System.out.println("Team strings: " + team1String + "," + team2String);
+
+//				game.setTeams(team1String, team2String);
+
 				postData(resp);
 				getData(req, resp);
 			}
-
 		}
 	}
 
@@ -193,7 +259,6 @@ public class PreGameServlet extends HttpServlet {
 
 		Game game = new Game(Integer.parseInt(gid), table.getTID());
 
-		System.out.println(game.getTeams());
 
 		String p1Name ;
 		String p1User ;
