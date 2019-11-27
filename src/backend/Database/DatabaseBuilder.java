@@ -74,8 +74,7 @@ public class DatabaseBuilder extends DatabaseFactory {
 						"	player_3_plunks INT," +
 						"	player_4_plunks INT," +
 						"	status INT," +
-						"	timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"	+
-                        "   game_tmp VARCHAR(1024) NULL" +
+						"	timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP"	+
                         "   );"
 					);
 					stmt.executeUpdate();

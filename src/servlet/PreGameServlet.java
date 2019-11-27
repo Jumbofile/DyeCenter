@@ -338,39 +338,15 @@ public class PreGameServlet extends HttpServlet {
         }
 
 		try {
-            Map<String, Object> config = new HashMap<String, Object>();
-            JsonBuilderFactory factory = Json.createBuilderFactory(config);
 
-            System.out.println("Team String (push to db): " + teamString);
-
-			JsonObject value = factory.createObjectBuilder()
-                    .add("thisPlayer", player.getUsername())
-                    .add("teamString", teamString)
-					.add("p1", factory.createObjectBuilder()
-							.add("name", game.getPlayer1().getName())
-							.add("user", game.getPlayer1().getUsername())
-					)
-
-					.add("p2", factory.createObjectBuilder()
-							.add("name", game.getPlayer2().getName())
-							.add("user", game.getPlayer2().getUsername())
-					)
-
-					.add("p3", factory.createObjectBuilder()
-							.add("name", game.getPlayer3().getName())
-							.add("user", game.getPlayer3().getUsername())
-					)
-					.add("p4", factory.createObjectBuilder()
-							.add("name", game.getPlayer4().getName())
-							.add("user", game.getPlayer4().getUsername())
-					)
-					.build();
+            JsonObject value = game.generateJSON(Integer.parseInt(uid), teamString);
 
 			resp.setContentType("json");
 			resp.getWriter().println(value);
 
 			System.out.println(value.toString());
-			System.out.println("Updated team game object?: " + game.setTempGame(value.toString())) ;
+
+			System.out.println("Updated team game object?: " + game.setTempGame(value)) ;
 
 		}
 		catch (Exception e) {

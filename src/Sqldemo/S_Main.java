@@ -79,6 +79,7 @@ public class S_Main {
 				try {
 					Sqldemo.SQLDemo.accessDemo(statement);
 				}catch(Exception e1){
+					e1.printStackTrace();
 					consoleWin.append("Invalid statement \n");
 				}
                 index = history.size() - 1;

@@ -145,8 +145,12 @@ public class SQLDemo {
 				S_Main.consoleWin.append(" ");
 			}
 			String item = row.get(i);
-			S_Main.consoleWin.append(PAD.substring(0, colWidths.get(i) - item.length()));
-			S_Main.consoleWin.append(item);
+			try {
+				S_Main.consoleWin.append(PAD.substring(0, colWidths.get(i) - item.length()));
+				S_Main.consoleWin.append(item);
+			}catch(Exception e){
+				S_Main.consoleWin.append("...");
+			}
 		}
 		S_Main.consoleWin.append("\n");
 	}

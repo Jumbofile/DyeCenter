@@ -3,9 +3,15 @@ package backend.Entities;
 import backend.Database.GameQuery;
 import backend.Database.PlayerQuery;
 
+import javax.json.Json;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Game {
 	private int GID;
@@ -251,14 +257,10 @@ public class Game {
 		return rtn;
 	}
 
-	public Boolean setTempGame(String gameJson) {
-		try {
-			return db.setTempGameObj(getGID(), gameJson);
-		} catch(SQLException sqle) {
-			System.out.println("****** Tried to update temp game obj ********");
-			sqle.printStackTrace();
-			return false ;
-		}
+	public Boolean setTempGame(JsonObject gameJson) {
+		JsonReader reader;
+
+		return false;
 	}
 
 	public String getTempGame() {
@@ -277,6 +279,39 @@ public class Game {
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
+	}
+
+	public JsonObject generateJSON(int UID, String teamString){
+		Account account = new Account();
+		account.populateAccountData(UID);
+		Player player = new Player(account.getUsername());
+
+		//This method generates the JSON in lord zachs standard
+		Map<String, Object> config = new HashMap<String, Object>();
+		JsonBuilderFactory factory = Json.createBuilderFactory(config);
+		JsonObject value = factory.createObjectBuilder()
+				.add("thisPlayer", player.getUsername())
+				.add("teamString", teamString)
+				.add("p1", factory.createObjectBuilder()
+						.add("name", getPlayer1().getName())
+						.add("user", getPlayer1().getUsername())
+				)
+
+				.add("p2", factory.createObjectBuilder()
+						.add("name", getPlayer2().getName())
+						.add("user", getPlayer2().getUsername())
+				)
+
+				.add("p3", factory.createObjectBuilder()
+						.add("name", getPlayer3().getName())
+						.add("user", getPlayer3().getUsername())
+				)
+				.add("p4", factory.createObjectBuilder()
+						.add("name", getPlayer4().getName())
+						.add("user", getPlayer4().getUsername())
+				)
+				.build();
+		return value;
 	}
 
 	//getters
@@ -347,26 +382,18 @@ public class Game {
 	//setters
 	public void setPlayer1(Player player) {
 		this.player1 = player;
-		setPlayer1Score(player.getPoints());
-		setPlayer1Plunks(player.getPlunks());
 	}
 
 	public void setPlayer2(Player player) {
 		this.player2 = player;
-		setPlayer2Score(player.getPoints());
-		setPlayer2Plunks(player.getPlunks());
 	}
 
 	public void setPlayer3(Player player) {
 		this.player3 = player;
-		setPlayer3Score(player.getPoints());
-		setPlayer3Plunks(player.getPlunks());
 	}
 
 	public void setPlayer4(Player player) {
 		this.player4 = player;
-		setPlayer4Score(player.getPoints());
-		setPlayer4Plunks(player.getPlunks());
 	}
 
 

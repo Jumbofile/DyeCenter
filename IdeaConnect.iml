@@ -85,5 +85,6 @@
     <orderEntry type="library" name="activation" level="project" />
     <orderEntry type="library" name="javax.json-api-1.0" level="project" />
     <orderEntry type="library" name="javax.json-1.1" level="project" />
+    <orderEntry type="library" name="javax.json-1.1" level="project" />
   </component>
 </module>
