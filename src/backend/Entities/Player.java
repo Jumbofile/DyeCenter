@@ -1,5 +1,6 @@
 package backend.Entities;
 
+import backend.Database.GameQuery;
 import backend.Database.PlayerQuery;
 
 import java.sql.SQLException;
@@ -23,24 +24,36 @@ public class Player {
 	public Player(String username){
 		//database controller instance
 		db = new PlayerQuery();
-		this.username = username;
-		//database actions
-		try {
-			//get account tied to username
-			Account account = new Account();
-			UID = account.getUID(username);
-			account.populateAccountData(UID);
-			type = account.getType();
-			name = account.getName();
-			//update stats
-			ArrayList<Integer> stats = db.getUserStats(UID);
-			points = stats.get(0);
-			plunks = stats.get(1);
-			wins = stats.get(2);
-			loss = stats.get(3);
-		}catch (SQLException e){
-			System.out.println("Error setting player Object.");
-			e.printStackTrace();
+		if(!username.equals("<<empty>>")) {
+			this.username = username;
+			//database actions
+			try {
+				//get account tied to username
+				Account account = new Account();
+				UID = account.getUID(username);
+				account.populateAccountData(UID);
+				type = account.getType();
+				name = account.getName();
+				//update stats
+				ArrayList<Integer> stats = db.getUserStats(UID);
+				points = stats.get(0);
+				plunks = stats.get(1);
+				wins = stats.get(2);
+				loss = stats.get(3);
+			} catch (SQLException e) {
+				System.out.println("Error setting player Object.");
+				e.printStackTrace();
+			}
+		}
+		else {
+			UID = -1;
+			type = -1;
+			name = "Waiting..." ;
+			this.username = "<<empty>>" ;
+			points = 0;
+			plunks = 0;
+			wins = 0;
+			loss = 0;
 		}
 
 	}
@@ -51,6 +64,8 @@ public class Player {
 	public String getUsername() {
 		return username;
 	}
+
+	public int getUID() {return this.UID ;}
 
 	public int getType() {
 		return type;
@@ -73,12 +88,13 @@ public class Player {
 	}
 
 	public void updatePoints(int points, int plunks){
-		//todo add at the end of the game
-		try {
-			db.updateUserPoints(points, UID);
-			db.updateUserPlunks(plunks, UID);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if(getUID() != -1) {
+			try {
+				db.updateUserPoints(points, UID);
+				db.updateUserPlunks(plunks, UID);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

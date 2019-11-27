@@ -77,11 +77,10 @@ $(document).ready(
 
                 return false; // not refreshing page
             }
-        }, 1000);  //Delay here = 5 seconds
+        }, 3000);  //Delay here = 5 seconds
     });
 
 function updateData(){
-    console.log(p1Name);
     $('#player1').text(p1Name);
     $('#player2').text(p2Name);
     $('#player3').text(p3Name);
@@ -244,7 +243,6 @@ function teamSelect(button){
             data: $('#ajaxGet').serialize(), // serialize input data values
             success: function (data) {
                 console.log(data);
-
             }
         });
 
@@ -257,7 +255,6 @@ function teamSelect(button){
 }
 // //AJAX post
 form.submit(function () {
-
     $.ajax({
         type: form.attr('method'),  //post method
         url: form.attr('action'), //ajaxformexample url

@@ -5,6 +5,8 @@ import backend.Entities.Game;
 import backend.Entities.Player;
 import backend.Entities.Table;
 
+import javax.json.Json;
+import javax.json.JsonObject;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -137,7 +139,6 @@ public class GameQuery extends DatabaseFactory {
 				return game;
 			}
 		});
-
 	}
 
 	public ArrayList<Player> getPlayersFromGame(int GID) throws SQLException {
@@ -163,14 +164,14 @@ public class GameQuery extends DatabaseFactory {
 				ArrayList<Player> playersOnTable = new ArrayList<Player>();
 				for(String id : players){
 					Account account = new Account();
-					if(Integer.parseInt(id) != -1) {
+//					if(Integer.parseInt(id) != -1) {
 						account.populateAccountData(Integer.parseInt(id));
 						playersOnTable.add(new Player(account.getUsername()));
-					}else{
-						Player invalid = new Player();
-						invalid.UID = -1;
-						playersOnTable.add(invalid);
-					}
+//					}else{
+//						Player invalid = new Player();
+//						invalid.UID = -1;
+//						playersOnTable.add(invalid);
+//					}
 				}
 
 				DBUtil.closeQuietly(resultSet);
@@ -344,6 +345,61 @@ public class GameQuery extends DatabaseFactory {
 		});
 	}
 
+	public Boolean setTempGameObj(int gid, String gameJsonString) throws SQLException {
+		return executeTransaction(new DatabaseFactory.Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+					PreparedStatement stmt = null;
+				try {
+					// retreive username attribute from login
+					stmt = conn.prepareStatement("UPDATE game SET game_tmp = ? where GID = ?");
+					stmt.setString(1,gameJsonString);
+					stmt.setInt(2, gid);
 
+					int resultSetSize = stmt.executeUpdate();
+
+					DBUtil.closeQuietly(stmt);
+					//DBUtil.closeQuietly(conn);
+					//System.out.println(rtnStats.toString());
+					return resultSetSize == 1;
+				} catch (Exception e){
+					e.printStackTrace();
+					return false ;
+				}
+			}
+		});
+
+	}
+
+	public String getTempGameObj(int gid) throws SQLException {
+		return executeTransaction(new DatabaseFactory.Transaction<String>() {
+			@Override
+			public String execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet rs = null ;
+				try {
+					// retreive username attribute from login
+					stmt = conn.prepareStatement("SELECT game_tmp FROM game where GID = ?");
+					stmt.setInt(1, gid);
+
+					rs = stmt.executeQuery();
+					rs.next();
+					String JsonStr = rs.getString("game_tmp") ;
+
+					DBUtil.closeQuietly(rs);
+					DBUtil.closeQuietly(stmt);
+					//DBUtil.closeQuietly(conn);
+					//System.out.println(rtnStats.toString());
+					return JsonStr ;
+				} catch (Exception e){
+					e.printStackTrace();
+					return null ;
+				}
+			}
+		});
+
+	}
 
 }

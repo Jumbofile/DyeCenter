@@ -152,16 +152,16 @@ public class Game {
 
 	public void updatePlayerPlunk(String player, int value){
 		if(player.equals("t1p1Card")){
-			player1Plunks = player1Plunks + value;
+			setPlayer1Plunks(getPlayer1Plunks() + value);
 		}
 		if(player.equals("t1p2Card")){
-			player2Plunks = player2Plunks + value;
+			setPlayer2Plunks(getPlayer2Plunks() + value);
 		}
 		if(player.equals("t2p1Card")){
-			player3Plunks = player3Plunks + value;
+			setPlayer3Plunks(getPlayer3Plunks() + value);
 		}
 		if(player.equals("t2p2Card")){
-			player4Plunks = player4Plunks + value;
+			setPlayer4Plunks(getPlayer4Plunks() + value);
 		}
 	}
 	public ArrayList<Player> getListOfPlayers(){
@@ -199,10 +199,10 @@ public class Game {
 
 	public ArrayList<Integer> returnAllUIDs(){
 		ArrayList<Integer> ids = new ArrayList<Integer>();
-		ids.add(player1.UID);
-		ids.add(player2.UID);
-		ids.add(player3.UID);
-		ids.add(player4.UID);
+		ids.add(player1.getUID());
+		ids.add(player2.getUID());
+		ids.add(player3.getUID());
+		ids.add(player4.getUID());
 
 		return ids;
 	}
@@ -232,6 +232,7 @@ public class Game {
 	}
 
 	public void setTeams(String team1, String team2){
+
 		try {
 			db.setTeams(GID, team1, team2);
 		} catch (SQLException e) {
@@ -249,6 +250,35 @@ public class Game {
 
 		return rtn;
 	}
+
+	public Boolean setTempGame(String gameJson) {
+		try {
+			return db.setTempGameObj(getGID(), gameJson);
+		} catch(SQLException sqle) {
+			System.out.println("****** Tried to update temp game obj ********");
+			sqle.printStackTrace();
+			return false ;
+		}
+	}
+
+	public String getTempGame() {
+		try {
+			return db.getTempGameObj(getGID());
+		} catch(SQLException sqle) {
+			System.out.println("****** Tried to get temp game obj ********");
+			sqle.printStackTrace();
+			return null ;
+		}
+	}
+
+	public void updateGame() {
+		try {
+			db.updateGame(GID, this);
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+		}
+	}
+
 	//getters
 	public Player getPlayer1() {
 		return player1;
@@ -317,18 +347,26 @@ public class Game {
 	//setters
 	public void setPlayer1(Player player) {
 		this.player1 = player;
+		setPlayer1Score(player.getPoints());
+		setPlayer1Plunks(player.getPlunks());
 	}
 
 	public void setPlayer2(Player player) {
 		this.player2 = player;
+		setPlayer2Score(player.getPoints());
+		setPlayer2Plunks(player.getPlunks());
 	}
 
 	public void setPlayer3(Player player) {
 		this.player3 = player;
+		setPlayer3Score(player.getPoints());
+		setPlayer3Plunks(player.getPlunks());
 	}
 
 	public void setPlayer4(Player player) {
 		this.player4 = player;
+		setPlayer4Score(player.getPoints());
+		setPlayer4Plunks(player.getPlunks());
 	}
 
 

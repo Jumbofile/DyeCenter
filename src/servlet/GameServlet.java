@@ -105,7 +105,6 @@ public class GameServlet extends HttpServlet {
         }
     }
 
-    //todo - dont allow score change when game status = 1
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

@@ -44,22 +44,35 @@ public class Account {
 	}
 
 	public void populateAccountData(int UID){
-		try{
-			name = db.getAccountName(UID);
-			email = db.getAccountEmail(UID);
-			username = db.getAccountUserame(UID);
-			type = db.getAccountType(UID);
-			timeOfCreation = db.getAccountTimestamp(UID);
-			tableIds = db.getTables(UID);
+		if(UID != -1) {
+			try {
+				name = db.getAccountName(UID);
+				email = db.getAccountEmail(UID);
+				username = db.getAccountUserame(UID);
+				type = db.getAccountType(UID);
+				timeOfCreation = db.getAccountTimestamp(UID);
+				tableIds = db.getTables(UID);
 
-		}catch (SQLException e){
-			e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			name = "Waiting...";
+			email = "none@none.none" ;
+			username = "<<empty>>";
+			type = -1;
+			timeOfCreation = "00:00:00" ;
+			tableIds = new ArrayList<Integer>() ;
 		}
 	}
 
 
 	public int getUID(String username){
 		int uid = -1;
+		if(username.equals("<<empty>>")) {
+			return -1;
+		}
 		try {
 			uid =  db.getAccountIDFromUsername(username);
 		} catch (SQLException e) {
@@ -67,6 +80,7 @@ public class Account {
 		}
 		return uid;
 	}
+
 	public Player getPlayerFromAccount(){
 		return new Player(username);
 	}

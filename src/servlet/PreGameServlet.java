@@ -5,11 +5,16 @@ import backend.Entities.Game;
 import backend.Entities.Player;
 import backend.Entities.Table;
 
+import javax.json.spi.JsonProvider;
+import javax.json.stream.JsonParser;
+import javax.json.stream.JsonParserFactory;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.StringReader;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.json.*;
 
+import jdk.nashorn.internal.parser.JSONParser;
 import utilities.Util;
 
 public class PreGameServlet extends HttpServlet {
@@ -33,8 +39,6 @@ public class PreGameServlet extends HttpServlet {
 		try {
 			gid = req.getSession().getAttribute("gid").toString();
 			tid = req.getSession().getAttribute("tid").toString();
-			System.out.println(gid);
-			System.out.println(tid);
 		}catch(Exception e){
 			req.getRequestDispatcher("/dashboard").forward(req, resp);
 		}
@@ -49,15 +53,16 @@ public class PreGameServlet extends HttpServlet {
 			Game game = new Game(Integer.parseInt(gid), Integer.parseInt(tid));
 
 			ArrayList<Integer> playerIDs = game.returnAllUIDs();
-			getData(req, resp);
-			if(playerIDs.contains(Integer.parseInt(uid))){
 
-			}else{
+			getData(req, resp);
+
+			if(!playerIDs.contains(Integer.parseInt(uid))){
 				ArrayList<String> teamIds = game.getTeams();
 				String team1String = teamIds.get(0);
 				String team2String = teamIds.get(1);
 				String[] team1 = team1String.split(",");
 				String[] team2 = team2String.split(",");
+
 				int teamOpen = -1;
 
 				//check each team for a -1 in the roster
@@ -75,14 +80,21 @@ public class PreGameServlet extends HttpServlet {
 				}
 
 				//based on the team that had a -1, replace the -1 with the uid
+				System.out.println("Current UID: " + uid);
+				System.out.println("Team Open: " + teamOpen);
+				System.out.println("Team 1: " + team1String);
 				if(teamOpen == 1){
 					team1String = team1String.replaceFirst("-1", uid);
 				}else{
 					team2String = team2String.replaceFirst("-1", uid);
 				}
 
+				System.out.println("Team1String: " + team1String);
+
 				//add the new player to the table
 				game.setTeams(team1String, team2String);
+				game.updateGame();
+				System.out.println("Player1: " + game.getPlayer1().getUsername());
 
 			}
 			String gameID;
@@ -138,8 +150,12 @@ public class PreGameServlet extends HttpServlet {
 
 				String[] teamSelect = {req.getParameter("teamSelectP1"), req.getParameter("teamSelectP2"), req.getParameter("teamSelectP3"), req.getParameter("teamSelectP4")};
 
+				System.out.println("Team Select: " + teamSelect[0]);
+                System.out.println("Team Select: " + teamSelect[1]);
+                System.out.println("Team Select: " + teamSelect[2]);
+                System.out.println("Team Select: " + teamSelect[3]);
+
 				Game game = new Game(Integer.parseInt(gid), Integer.parseInt(tid));
-				Util util = new Util();
 
 				ArrayList<String> team1 = new ArrayList<>() ;
 				ArrayList<String> team2 = new ArrayList<>() ;
@@ -147,8 +163,8 @@ public class PreGameServlet extends HttpServlet {
 				for(int i = 0; i < teamSelect.length; i++) {
 					String[] playerSelectData = teamSelect[i].split(",");
 					if(playerSelectData[0].equals("team1")) {
-						if(playerSelectData[1].indexOf("guest") == 0) {
-							team1.add("-1");
+						if(playerSelectData[1].equals("<<empty>>")) {
+							team1.add("<<empty>>");
 						}
 						else {
 							team1.add(playerSelectData[1]);
@@ -156,8 +172,8 @@ public class PreGameServlet extends HttpServlet {
 					}
 
 					else if(playerSelectData[0].equals("team2")) {
-						if(playerSelectData[1].indexOf("guest") == 0) {
-							team2.add("-1");
+						if(playerSelectData[1].equals("<<empty>>")) {
+							team2.add("<<empty>>");
 						}
 						else {
 							team2.add(playerSelectData[1]);
@@ -166,23 +182,23 @@ public class PreGameServlet extends HttpServlet {
 				}
 
 				while (team1.size() < 2) {
-					team1.add("-1") ;
+					team1.add("<<empty>>") ;
 				}
 
 				while (team2.size() < 2) {
-					team2.add("-1") ;
+					team2.add("<<empty>>") ;
 				}
 
 
 				for(int i = 0; i < team1.size(); i++) {
-					if(!team1.get(i).equals("-1")){
+					if(!team1.get(i).equals("<<empty>>")){
 						Player p = new Player(team1.get(i));
 						team1.set(i, p.UID + "");
 					}
 				}
 
 				for(int i = 0; i < team2.size(); i++) {
-					if(!team2.get(i).equals("-1")){
+					if(!team2.get(i).equals("<<empty>>")){
 						Player p = new Player(team2.get(i));
 						team2.set(i, p.UID + "");
 					}
@@ -194,7 +210,7 @@ public class PreGameServlet extends HttpServlet {
 
 				System.out.println("Team strings: " + team1String + "," + team2String);
 
-//				game.setTeams(team1String, team2String);
+				//game.setTeams(team1String, team2String);
 
 				postData(resp);
 				getData(req, resp);
@@ -216,7 +232,7 @@ public class PreGameServlet extends HttpServlet {
 
 		if(game.getPlayer1().UID == -1){
 			req.setAttribute("p1Name", "Waiting..." );
-			req.setAttribute("p1User", "guest1" );
+			req.setAttribute("p1User", "<<empty>>" );
 		}else{
 			req.setAttribute("p1Name", game.getPlayer1().getName());
 			req.setAttribute("p1User", game.getPlayer1().getUsername());
@@ -225,7 +241,7 @@ public class PreGameServlet extends HttpServlet {
 
 		if(game.getPlayer2().UID == -1){
 			req.setAttribute("p2Name", "Waiting..." );
-			req.setAttribute("p2User", "guest2" );
+			req.setAttribute("p2User", "<<empty>>" );
 		}else{
 			req.setAttribute("p2Name", game.getPlayer2().getName());
 			req.setAttribute("p2User", game.getPlayer2().getUsername());
@@ -233,7 +249,7 @@ public class PreGameServlet extends HttpServlet {
 
 		if(game.getPlayer3().UID == -1){
 			req.setAttribute("p3Name", "Waiting..." );
-			req.setAttribute("p3User", "guest3" );
+			req.setAttribute("p3User", "<<empty>>" );
 		}else{
 			req.setAttribute("p3Name", game.getPlayer3().getName());
 			req.setAttribute("p3User", game.getPlayer3().getUsername());
@@ -241,7 +257,7 @@ public class PreGameServlet extends HttpServlet {
 
 		if(game.getPlayer4().UID == -1){
 			req.setAttribute("p4Name", "Waiting..." );
-			req.setAttribute("p4User", "guest4" );
+			req.setAttribute("p4User", "<<empty>>" );
 		}else{
 			req.setAttribute("p4Name", game.getPlayer4().getName());
 			req.setAttribute("p4User", game.getPlayer4().getUsername());
@@ -256,83 +272,106 @@ public class PreGameServlet extends HttpServlet {
 		Player player = new Player(account.getUsername());
 
 		Table table = new Table(Integer.parseInt(tid));
-
 		Game game = new Game(Integer.parseInt(gid), table.getTID());
 
 
-		String p1Name ;
-		String p1User ;
+		String p1Name = game.getPlayer1().getName();
+		String p1User = game.getPlayer1().getUsername();
 
-		String p2Name ;
-		String p2User ;
+		String p2Name = game.getPlayer2().getName();
+		String p2User = game.getPlayer2().getUsername();
 
-		String p3Name ;
-		String p3User ;
+		String p3Name = game.getPlayer3().getName();
+		String p3User = game.getPlayer3().getUsername();
 
-		String p4Name ;
-		String p4User ;
+		String p4Name = game.getPlayer4().getName();
+		String p4User = game.getPlayer4().getUsername();
 
-		if(game.getPlayer1().UID == -1){
-			p1Name = "Waiting...";
-			p1User = "guest1" ;
-		}else{
-			p1Name = game.getPlayer1().getName() ;
-			p1User = game.getPlayer1().getUsername() ;
-		}
+        String teamString = p1User + "," + p2User + "," + p3User + "," + p4User ;
+        System.out.println("Initial usernames: " + teamString);
 
-		if(game.getPlayer2().UID == -1){
-			p2Name = "Waiting...";
-			p2User = "guest2" ;
-		}else{
-			p2Name = game.getPlayer2().getName() ;
-			p2User = game.getPlayer2().getUsername() ;
-		}
+        Map<String, Object> parseConfig = new HashMap<String, Object>();
+		try {
+            String tmp_str = game.getTempGame() ;
+            System.out.println("String from DB: " + tmp_str);
+            if(tmp_str != null) {
+				JsonString json = Json.createValue(tmp_str);
+//            System.out.println("JsonString 'json': " + json) ;
+				JsonReader jsonReader = Json.createReader(new StringReader(tmp_str));
+				JsonObject tempGame = jsonReader.readObject();
+				jsonReader.close();
 
-		if(game.getPlayer3().UID == -1){
-			p3Name = "Waiting...";
-			p3User = "guest3" ;
-		}else{
-			p3Name = game.getPlayer3().getName() ;
-			p3User = game.getPlayer3().getUsername() ;
-		}
+				System.out.println("JsonObject 'tempGame': " + tempGame);
 
-		if(game.getPlayer4().UID == -1){
-			p4Name = "Waiting...";
-			p4User = "guest4" ;
-		}else{
-			p4Name = game.getPlayer4().getName() ;
-			p4User = game.getPlayer4().getUsername() ;
-		}
+				p1Name = tempGame.getJsonObject("p1").getString("name");
+				p1User = tempGame.getJsonObject("p1").getString("user");
 
+				p2Name = tempGame.getJsonObject("p2").getString("name");
+				p2User = tempGame.getJsonObject("p2").getString("user");
 
+				p3Name = tempGame.getJsonObject("p3").getString("name");
+				p3User = tempGame.getJsonObject("p3").getString("user");
+
+				p4Name = tempGame.getJsonObject("p4").getString("name");
+				p4User = tempGame.getJsonObject("p4").getString("user");
+
+				Player player1 = new Player(p1User);
+				Player player2 = new Player(p2User);
+				Player player3 = new Player(p3User);
+				Player player4 = new Player(p4User);
+
+				game.setPlayer1(player1);
+				game.setPlayer2(player2);
+				game.setPlayer3(player3);
+				game.setPlayer4(player4);
+
+				game.updateGame();
+				teamString =
+						game.getPlayer1().getUsername() + "," +
+								game.getPlayer2().getUsername() + "," +
+								game.getPlayer3().getUsername() + "," +
+								game.getPlayer4().getUsername();
+			}
+
+        } catch (Exception e) {
+		    e.printStackTrace();
+        }
 
 		try {
-			Map<String, Object> config = new HashMap<String, Object>();
-			JsonBuilderFactory factory = Json.createBuilderFactory(config);
+            Map<String, Object> config = new HashMap<String, Object>();
+            JsonBuilderFactory factory = Json.createBuilderFactory(config);
+
+            System.out.println("Team String (push to db): " + teamString);
 
 			JsonObject value = factory.createObjectBuilder()
+                    .add("thisPlayer", player.getUsername())
+                    .add("teamString", teamString)
 					.add("p1", factory.createObjectBuilder()
-							.add("name", p1Name)
-							.add("user", p1User)
+							.add("name", game.getPlayer1().getName())
+							.add("user", game.getPlayer1().getUsername())
 					)
 
 					.add("p2", factory.createObjectBuilder()
-							.add("name", p2Name)
-							.add("user", p2User)
+							.add("name", game.getPlayer2().getName())
+							.add("user", game.getPlayer2().getUsername())
 					)
 
 					.add("p3", factory.createObjectBuilder()
-							.add("name", p3Name)
-							.add("user", p3User)
+							.add("name", game.getPlayer3().getName())
+							.add("user", game.getPlayer3().getUsername())
 					)
 					.add("p4", factory.createObjectBuilder()
-							.add("name", p4Name)
-							.add("user", p4User)
+							.add("name", game.getPlayer4().getName())
+							.add("user", game.getPlayer4().getUsername())
 					)
 					.build();
 
 			resp.setContentType("json");
 			resp.getWriter().println(value);
+
+			System.out.println(value.toString());
+			System.out.println("Updated team game object?: " + game.setTempGame(value.toString())) ;
+
 		}
 		catch (Exception e) {
 			e.printStackTrace();
