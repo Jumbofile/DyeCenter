@@ -238,6 +238,18 @@ public class Game {
 	}
 
 	public void setTeams(String team1, String team2){
+		String[] team1Arr = team1.split(",");
+		String[] team2Arr = team2.split(",");
+
+		this.player1 = new Player(Integer.parseInt(team1Arr[0]));
+		this.player2 = new Player(Integer.parseInt(team1Arr[1]));
+		this.player3 = new Player(Integer.parseInt(team2Arr[0]));
+		this.player4 = new Player(Integer.parseInt(team2Arr[1]));
+
+		this.team1[0] = this.player1;
+		this.team1[1] = this.player2;
+		this.team2[0] = this.player3;
+		this.team2[1] = this.player4;
 
 		try {
 			db.setTeams(GID, team1, team2);
@@ -245,6 +257,7 @@ public class Game {
 			e.printStackTrace();
 		}
 	}
+	
 	public int getTIDFromGID(int gid){
 		int rtn = -1;
 		try {
@@ -257,21 +270,21 @@ public class Game {
 		return rtn;
 	}
 
-	public Boolean setTempGame(JsonObject gameJson) {
-		JsonReader reader;
+//	public Boolean setTempGame(JsonObject gameJson) {
+//		JsonReader reader;
+//
+//		return false;
+//	}
 
-		return false;
-	}
-
-	public String getTempGame() {
-		try {
-			return db.getTempGameObj(getGID());
-		} catch(SQLException sqle) {
-			System.out.println("****** Tried to get temp game obj ********");
-			sqle.printStackTrace();
-			return null ;
-		}
-	}
+//	public String getTempGame() {
+//		try {
+//			return db.getTempGameObj(getGID());
+//		} catch(SQLException sqle) {
+//			System.out.println("****** Tried to get temp game obj ********");
+//			sqle.printStackTrace();
+//			return null ;
+//		}
+//	}
 
 	public void updateGame() {
 		try {
@@ -281,7 +294,7 @@ public class Game {
 		}
 	}
 
-	public JsonObject generateJSON(int UID, String teamString){
+	public JsonObject generateJSON(int UID, String persistantTeamStr){
 		Account account = new Account();
 		account.populateAccountData(UID);
 		Player player = new Player(account.getUsername());
@@ -291,7 +304,7 @@ public class Game {
 		JsonBuilderFactory factory = Json.createBuilderFactory(config);
 		JsonObject value = factory.createObjectBuilder()
 				.add("thisPlayer", player.getUsername())
-				.add("teamString", teamString)
+				.add("teamString", persistantTeamStr)
 				.add("p1", factory.createObjectBuilder()
 						.add("name", getPlayer1().getName())
 						.add("user", getPlayer1().getUsername())
@@ -312,6 +325,12 @@ public class Game {
 				)
 				.build();
 		return value;
+	}
+
+	public JsonObject generateJSON(int UID) {
+		String teamString = player1.getUsername() + "," + player2.getUsername() + "," + player3.getUsername() + "," + player4.getUsername() ;
+
+		return generateJSON(UID, teamString);
 	}
 
 	//getters

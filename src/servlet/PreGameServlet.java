@@ -328,9 +328,9 @@ public class PreGameServlet extends HttpServlet {
 				game.updateGame();
 				teamString =
 						game.getPlayer1().getUsername() + "," +
-								game.getPlayer2().getUsername() + "," +
-								game.getPlayer3().getUsername() + "," +
-								game.getPlayer4().getUsername();
+						game.getPlayer2().getUsername() + "," +
+						game.getPlayer3().getUsername() + "," +
+						game.getPlayer4().getUsername();
 			}
 
         } catch (Exception e) {
