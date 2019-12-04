@@ -294,7 +294,8 @@ public class Game {
 		}
 	}
 
-	public JsonObject generateJSON(int UID, String persistantTeamStr){
+	public JsonObject generateJSON(int UID){
+		String teamString = player1.getUsername() + "," + player2.getUsername() + "," + player3.getUsername() + "," + player4.getUsername() ;
 		Account account = new Account();
 		account.populateAccountData(UID);
 		Player player = new Player(account.getUsername());
@@ -304,7 +305,7 @@ public class Game {
 		JsonBuilderFactory factory = Json.createBuilderFactory(config);
 		JsonObject value = factory.createObjectBuilder()
 				.add("thisPlayer", player.getUsername())
-				.add("teamString", persistantTeamStr)
+				.add("teamString", teamString)
 				.add("p1", factory.createObjectBuilder()
 						.add("name", getPlayer1().getName())
 						.add("user", getPlayer1().getUsername())
@@ -325,12 +326,6 @@ public class Game {
 				)
 				.build();
 		return value;
-	}
-
-	public JsonObject generateJSON(int UID) {
-		String teamString = player1.getUsername() + "," + player2.getUsername() + "," + player3.getUsername() + "," + player4.getUsername() ;
-
-		return generateJSON(UID, teamString);
 	}
 
 	//getters

@@ -292,11 +292,16 @@ public class PreGameServlet extends HttpServlet {
 
         Map<String, Object> parseConfig = new HashMap<String, Object>();
 		try {
-            String tmp_str = game.getTempGame() ;
+            //generate the JSON based on the uid of the player on the screen
+            String tmp_str = game.generateJSON(Integer.parseInt(uid)).toString();
+
+            //DEBUG PRINT
             System.out.println("String from DB: " + tmp_str);
+
+            //Parse throught the json
             if(tmp_str != null) {
 				JsonString json = Json.createValue(tmp_str);
-//            System.out.println("JsonString 'json': " + json) ;
+
 				JsonReader jsonReader = Json.createReader(new StringReader(tmp_str));
 				JsonObject tempGame = jsonReader.readObject();
 				jsonReader.close();
@@ -339,15 +344,12 @@ public class PreGameServlet extends HttpServlet {
 
 		try {
 
-            JsonObject value = game.generateJSON(Integer.parseInt(uid), teamString);
+            JsonObject value = game.generateJSON(Integer.parseInt(uid));
 
 			resp.setContentType("json");
 			resp.getWriter().println(value);
 
 			System.out.println(value.toString());
-
-			System.out.println("Updated team game object?: " + game.setTempGame(value)) ;
-
 		}
 		catch (Exception e) {
 			e.printStackTrace();

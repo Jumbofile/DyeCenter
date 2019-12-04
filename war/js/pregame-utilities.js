@@ -77,7 +77,7 @@ $(document).ready(
 
                 return false; // not refreshing page
             }
-        }, 3000);  //Delay here = 5 seconds
+        }, 2000);  //Delay here = 5 seconds
     });
 
 function updateData(){
