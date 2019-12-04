@@ -102,6 +102,10 @@ function dropOut(){
     backValue.value = 'true';
     window.location.href = "/table";
 }
+
+function startGame(){
+    //idk what im gonna do here, we will figure it out
+}
 function teamSelect(button){
     console.log(button);
     var info = button.value.split(',');
