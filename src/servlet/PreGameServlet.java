@@ -301,7 +301,7 @@ public class PreGameServlet extends HttpServlet {
             //Parse throught the json
             if(tmp_str != null) {
 				JsonString json = Json.createValue(tmp_str);
-
+//            System.out.println("JsonString 'json': " + json) ;
 				JsonReader jsonReader = Json.createReader(new StringReader(tmp_str));
 				JsonObject tempGame = jsonReader.readObject();
 				jsonReader.close();
@@ -344,12 +344,13 @@ public class PreGameServlet extends HttpServlet {
 
 		try {
 
-            JsonObject value = game.generateJSON(Integer.parseInt(uid));
+            JsonObject value = game.generateJSON(Integer.parseInt(uid), teamString);
 
 			resp.setContentType("json");
 			resp.getWriter().println(value);
 
 			System.out.println(value.toString());
+
 		}
 		catch (Exception e) {
 			e.printStackTrace();

@@ -54,37 +54,17 @@ public class Player {
 
 	}
 
-	public Player(int uid){
-
-		//database controller instance
-		db = new PlayerQuery();
-		if(!username.equals("<<empty>>")) {
-			this.username = username;
-			//database actions
-			try {
-				//get account tied to username
-				Account account = new Account();
-				account.populateAccountData(uid);
-				type = account.getType();
-				name = account.getName();
-				//update stats
-				ArrayList<Integer> stats = db.getUserStats(UID);
-				points = stats.get(0);
-				plunks = stats.get(1);
-				wins = stats.get(2);
-				loss = stats.get(3);
-			} catch (SQLException e) {
-				System.out.println("Error setting player Object.");
-				e.printStackTrace();
-			}
-		}
-		else {
-			UID = -1;
-			type = -1;
-			name = "Waiting..." ;
-			this.username = "<<empty>>" ;
+	public Player playerGetPlayerFromUID(int uid) {
+		Player player = null;
+		if (uid == -1) {
+			player = new Player("<<empty>>");
+		} else {
+			Account account = new Account();
+			account.populateAccountData(uid);
+			player = new Player(account.getUsername());
 		}
 
+		return player;
 	}
 	public int getTotalGames(){
 		return wins + loss;

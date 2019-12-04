@@ -241,10 +241,10 @@ public class Game {
 		String[] team1Arr = team1.split(",");
 		String[] team2Arr = team2.split(",");
 
-		this.player1 = new Player(Integer.parseInt(team1Arr[0]));
-		this.player2 = new Player(Integer.parseInt(team1Arr[1]));
-		this.player3 = new Player(Integer.parseInt(team2Arr[0]));
-		this.player4 = new Player(Integer.parseInt(team2Arr[1]));
+		this.player1 = new Player().playerGetPlayerFromUID(Integer.parseInt(team1Arr[0]));
+		this.player2 = new Player().playerGetPlayerFromUID(Integer.parseInt(team1Arr[1]));
+		this.player3 = new Player().playerGetPlayerFromUID(Integer.parseInt(team2Arr[0]));
+		this.player4 = new Player().playerGetPlayerFromUID(Integer.parseInt(team2Arr[1]));
 
 		this.team1[0] = this.player1;
 		this.team1[1] = this.player2;
@@ -294,8 +294,7 @@ public class Game {
 		}
 	}
 
-	public JsonObject generateJSON(int UID){
-		String teamString = player1.getUsername() + "," + player2.getUsername() + "," + player3.getUsername() + "," + player4.getUsername() ;
+	public JsonObject generateJSON(int UID, String persistantTeamStr){
 		Account account = new Account();
 		account.populateAccountData(UID);
 		Player player = new Player(account.getUsername());
@@ -305,7 +304,7 @@ public class Game {
 		JsonBuilderFactory factory = Json.createBuilderFactory(config);
 		JsonObject value = factory.createObjectBuilder()
 				.add("thisPlayer", player.getUsername())
-				.add("teamString", teamString)
+				.add("teamString", persistantTeamStr)
 				.add("p1", factory.createObjectBuilder()
 						.add("name", getPlayer1().getName())
 						.add("user", getPlayer1().getUsername())
@@ -326,6 +325,12 @@ public class Game {
 				)
 				.build();
 		return value;
+	}
+
+	public JsonObject generateJSON(int UID) {
+		String teamString = player1.getUsername() + "," + player2.getUsername() + "," + player3.getUsername() + "," + player4.getUsername() ;
+
+		return generateJSON(UID, teamString);
 	}
 
 	//getters
