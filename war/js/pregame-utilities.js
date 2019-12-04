@@ -210,22 +210,22 @@ function teamSelect(button){
     var t2p2temp;
 
     if(!t1p1){
-        t1p1temp = '-1';
+        t1p1temp = '<<empty>>';
     }else{
         t1p1temp = t1p1;
     }
     if(!t1p2){
-        t1p2temp = '-1';
+        t1p2temp = '<<empty>>';
     }else{
         t1p2temp = t1p2;
     }
     if(!t2p1){
-        t2p1temp = '-1';
+        t2p1temp = '<<empty>>';
     }else{
         t2p1temp = t2p1;
     }
     if(!t2p2){
-        t2p2temp = '-1';
+        t2p2temp = '<<empty>>';
     }else{
         t2p2temp = t2p2;
     }
