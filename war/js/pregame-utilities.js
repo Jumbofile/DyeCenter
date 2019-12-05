@@ -100,7 +100,9 @@ function updateData(){
         $(nonebtns[i]).val("none," + playerUser[i]) ;
     }
 
-    //update the checkboxes
+    //update the value boxes
+    team1Value.value = teamString[0] + ',' + teamString[1];
+    team2Value.value = teamString[2] + ',' + teamString[3];
     //player 1 checkboxes
     var p1b = document.getElementById("p1b");
     var p1r = document.getElementById("p1r");
