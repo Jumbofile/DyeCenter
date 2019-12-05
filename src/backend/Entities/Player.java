@@ -54,7 +54,7 @@ public class Player {
 
 	}
 
-	public Player playerGetPlayerFromUID(int uid) {
+	public Player getPlayerFromUID(int uid) {
 		Player player = null;
 		if (uid == -1) {
 			player = new Player("<<empty>>");

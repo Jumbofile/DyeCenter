@@ -241,10 +241,10 @@ public class Game {
 		String[] team1Arr = team1.split(",");
 		String[] team2Arr = team2.split(",");
 
-		this.player1 = new Player().playerGetPlayerFromUID(Integer.parseInt(team1Arr[0]));
-		this.player2 = new Player().playerGetPlayerFromUID(Integer.parseInt(team1Arr[1]));
-		this.player3 = new Player().playerGetPlayerFromUID(Integer.parseInt(team2Arr[0]));
-		this.player4 = new Player().playerGetPlayerFromUID(Integer.parseInt(team2Arr[1]));
+		this.player1 = new Player().getPlayerFromUID(Integer.parseInt(team1Arr[0]));
+		this.player2 = new Player().getPlayerFromUID(Integer.parseInt(team1Arr[1]));
+		this.player3 = new Player().getPlayerFromUID(Integer.parseInt(team2Arr[0]));
+		this.player4 = new Player().getPlayerFromUID(Integer.parseInt(team2Arr[1]));
 
 		this.team1[0] = this.player1;
 		this.team1[1] = this.player2;

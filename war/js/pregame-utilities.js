@@ -27,11 +27,11 @@ var back = document.getElementById("back-btn");
 var backValue = document.getElementById("backValue");
 
 //teamvalues
+var teamString;
 var team1Value = document.getElementById("team1value");
 var team2Value = document.getElementById("team2value");
 
 //game values
-
 var p1Name ;
 var p2Name ;
 var p3Name ;
@@ -71,6 +71,9 @@ $(document).ready(
                             p4Name     = data.p4.name;
                             p4User     = data.p4.user;
 
+                            teamString = data.teamString.split(',');
+                            console.log(teamString);
+
                             updateData();
                         }
                 });
@@ -95,6 +98,31 @@ function updateData(){
         $(team1btns[i]).val("team1," + playerUser[i]) ;
         $(team2btns[i]).val("team2," + playerUser[i]) ;
         $(nonebtns[i]).val("none," + playerUser[i]) ;
+    }
+
+    //update the checkboxes
+    //player 1 checkboxes
+    var p1b = document.getElementById("p1b");
+    var p1r = document.getElementById("p1r");
+    var p1u = document.getElementById("p1u");
+
+    //player 2 checkboxes
+    var p2b = document.getElementById("p2b");
+    var p2r = document.getElementById("p2r");
+    var p2u = document.getElementById("p2u");
+
+    //player 3 checkboxes
+    var p3b = document.getElementById("p3b");
+    var p3r = document.getElementById("p3r");
+    var p3u = document.getElementById("p3u");
+
+    //player 4 checkboxes
+    var p4b = document.getElementById("p4b");
+    var p4r = document.getElementById("p4r");
+    var p4u = document.getElementById("p4u");
+
+    if(teamString[0] == p1User){
+        p1b.checked = true;
     }
 }
 
