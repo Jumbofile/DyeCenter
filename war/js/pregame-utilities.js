@@ -162,7 +162,7 @@ function updateData(){
 
 function dropOut(){
     backValue.value = 'true';
-    window.location.href = "/table";
+    window.location.href = "/dashboard";
 }
 
 function startGame(){
