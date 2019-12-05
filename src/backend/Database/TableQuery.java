@@ -73,7 +73,6 @@ public class TableQuery extends DatabaseFactory{
 				ResultSet resultSet = null;
 
 				try {
-					//TODO
 					StandardHash hashCreate = new StandardHash();
 					String hash = hashCreate.getAlphaNumericString();
 					while(isHashUnique(hash.toLowerCase()) == false){
@@ -131,7 +130,6 @@ public class TableQuery extends DatabaseFactory{
 				ResultSet resultSet = null;
 
 				try {
-					//TODO
 					StandardHash hashCreate = new StandardHash();
 					String hash = hashCreate.getAlphaNumericString();
 					while(isHashUnique(hash.toLowerCase()) == false){
@@ -227,7 +225,6 @@ public class TableQuery extends DatabaseFactory{
 				rtnTable.setPlayersOnTable(playersOnTable);
 				rtnTable.setGamesOnTable(getGamesOnTable(TID));
 				//System.out.println("DB SIZE: " + rtnTable.getGamesOnTable().size());
-				//todo return the games on the table by looking up the games based on tid
 				//print stuff
 				System.out.println(rtnTable.getTID());
 				DBUtil.closeQuietly(resultSet);

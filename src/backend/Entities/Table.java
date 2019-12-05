@@ -75,7 +75,6 @@ public class Table {
 
 	public Game createGame(Player[] team1, Player[] team2){
 		Game newGame = new Game();
-		//todo
 		try {
 			int gid = db.createGame(TID, team1, team2);
 			System.out.println("tables gid: " + gid);
@@ -95,7 +94,6 @@ public class Table {
 
 	public Game createGameWithIDs (int id1, int id2, int id3, int id4){
 		Game newGame = new Game();
-		//todo
 		try {
 			int gid = db.createGameWithIDs(TID, id1, id2, id3, id4);
 			System.out.println("tables gid: " + gid);
@@ -125,7 +123,6 @@ public class Table {
 		this.plunkAmount = plunkAmount;
 	}
 
-	//todo fix this, what happens if there is only one player on the table
 	//this should be somewhere else
 	public void setPlayersOnTable(ArrayList<Player> playersOnTable) {
 		ArrayList<Player> playersOnTheTable = null;

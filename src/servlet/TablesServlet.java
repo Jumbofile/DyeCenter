@@ -44,7 +44,6 @@ public class TablesServlet extends HttpServlet {
         }
     }
 
-    //todo - when the game is complete bring to game complete view not game view
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

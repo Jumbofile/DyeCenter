@@ -13,7 +13,7 @@ public class DatabaseBuilder extends DatabaseFactory {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
-
+				//todo - make new table this is UID and GID, all games that the uid is in
 				try {
 					System.out.println("Making account table");
 

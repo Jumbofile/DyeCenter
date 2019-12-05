@@ -121,8 +121,40 @@ function updateData(){
     var p4r = document.getElementById("p4r");
     var p4u = document.getElementById("p4u");
 
-    if(teamString[0] == p1User){
+    //player 1
+    if(teamString[0] == p1User || teamString[1] == p1User){
         p1b.checked = true;
+    }
+
+    if(teamString[2] == p1User || teamString[3] == p1User){
+        p1r.checked = true;
+    }
+
+    //player 2
+    if(teamString[0] == p2User || teamString[1] == p2User){
+        p2b.checked = true;
+    }
+
+    if(teamString[2] == p2User || teamString[3] == p2User){
+        p2r.checked = true;
+    }
+
+    //player 3
+    if(teamString[0] == p3User || teamString[1] == p3User){
+        p3b.checked = true;
+    }
+
+    if(teamString[2] == p3User || teamString[3] == p3User){
+        p3r.checked = true;
+    }
+
+    //player 4
+    if(teamString[0] == p4User || teamString[1] == p4User){
+        p4b.checked = true;
+    }
+
+    if(teamString[2] == p4User || teamString[3] == p4User){
+        p4r.checked = true;
     }
 }
 

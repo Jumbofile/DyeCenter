@@ -30,7 +30,6 @@ public class PreGameServlet extends HttpServlet {
 	private String uid = null;
 	private String gid = null ;
 	private String tid = null ;
-	//todo make back button remove you from the game
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

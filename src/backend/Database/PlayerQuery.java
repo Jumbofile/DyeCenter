@@ -247,9 +247,6 @@ public class PlayerQuery extends DatabaseFactory{
 		});
 	}
 
-	/*
-    TODO
-     */
 	public String getGamesPlayed(int UID) throws SQLException{
 		return executeTransaction(new Transaction<String>() {
 			@Override
