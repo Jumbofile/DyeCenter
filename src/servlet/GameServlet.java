@@ -137,7 +137,7 @@ public class GameServlet extends HttpServlet {
                     if(!points.equals("")) {
 
                         //see if the points are plunks
-                        if (points.substring(0,1).equals("$")) {
+                        if (points.indexOf('$') != -1) {
                             int pointAmount = Integer.parseInt(points.substring(1));
                             if (pointAmount < 0) {
                                 game.updatePlayerPlunk(playerFocus, -1);
