@@ -135,9 +135,10 @@ public class GameServlet extends HttpServlet {
                 //cannot edit stats if status isnt 0
                 if(game.getStatus() == 0) {
                     if(!points.equals("")) {
-                        int pointAmount = Integer.parseInt(points);
+
                         //see if the points are plunks
-                        if (Math.abs(pointAmount) == table.getPlunkAmount()) {
+                        if (points.substring(0,1).equals("$")) {
+                            int pointAmount = Integer.parseInt(points.substring(1, 2));
                             if (pointAmount < 0) {
                                 game.updatePlayerPlunk(playerFocus, -1);
                                 game.updatePlayerScore(playerFocus, -1 * table.getPlunkAmount());
@@ -146,6 +147,7 @@ public class GameServlet extends HttpServlet {
                                 game.updatePlayerScore(playerFocus, table.getPlunkAmount());
                             }
                         } else {
+                            int pointAmount = Integer.parseInt(points);
                             if (pointAmount < 0) {
                                 game.updatePlayerScore(playerFocus, -1);
                             } else {

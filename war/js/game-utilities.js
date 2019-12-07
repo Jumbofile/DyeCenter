@@ -161,7 +161,7 @@ function delPoint() {
 function addPlunk() {
     playerPlunk += 1;
     playerScore = eval(parseInt(playerScore) + parseInt(plunkAmount));
-    points.value = plunkAmount;
+    points.value = '$' + plunkAmount;
 
     if(playerTeam == 1) {
         team1score += plunkAmount ;
@@ -176,7 +176,7 @@ function addPlunk() {
 function delPlunk() {
     playerPlunk -= 1;
     playerScore = eval(parseInt(playerScore) - parseInt(plunkAmount));
-    points.value = -plunkAmount;
+    points.value = '$' + -plunkAmount;
 
     if(playerTeam == 1) {
         team1score -= plunkAmount ;
