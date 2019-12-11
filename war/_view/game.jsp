@@ -76,9 +76,11 @@
 
 				</div>
 			</div>
-			<input id="playerInput" style="display: none"  type="input" name="playerFocus" value="">
-			<input id="points" style="display: none"  type="input" name="points" value="">
+
 		</div>
+
+		<input id="playerInput" style="display: block"  type="input" name="playerFocus" value="">
+		<input id="points" style="display: block"  type="input" name="points" value="">
 
 		<div id="game-content-container" class="row">
 
@@ -243,7 +245,26 @@
 
 		</div>
 
-		<button id="finish-game-btn" type="submit" name="finish" onclick="finishGame()" value="finish" class="btn btn-primary"></button>
+
+		<div class="modal fade" id="finishModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
+			<span class="close">x</span>
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Finish Game?</h5>
+					</div>
+					<div class="modal-body">
+						Are you sure you want to end this game?
+					</div>
+					<div class="modal-footer">
+						<button type="submit" name="finish" onclick="finishGame()" value="finish" class="btn btn-primary" data-dismiss="modal">Yea, I think we're done here</button>
+						<button onclick="closeFinishModal()" data-dismiss="modal" type="button" class="btn btn-secondary">No, there's more work to be done</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<button id="finish-game-btn" onclick="openFinishModal()" class="btn btn-primary"></button>
 		<div id="finish-btn-cover"></div>
 		<i id="finish-game-icon" class="fas fa-flag-checkered fa-w-16 fa-4x"></i>
 

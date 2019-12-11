@@ -129,7 +129,8 @@ public class GameServlet extends HttpServlet {
             if (points.equals("finish")) {
                 //finish the game
                 game.endGame();
-                resp.sendRedirect(req.getContextPath() + "/view");
+                req.getRequestDispatcher("/_view/view.jsp").forward(req, resp);
+//                resp.sendRedirect(req.getContextPath() + "/view");
                 req.getSession().setAttribute("gid", gid);
             } else if (playerFocus != null && (!playerFocus.equals(""))) {
                 //cannot edit stats if status isnt 0

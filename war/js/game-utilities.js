@@ -36,7 +36,7 @@ $('.modal').click(function (event)
 {
     //&& !$(event.target).is('.modal-content')
     if(!$(event.target).closest('.modal-content').length ) {
-        $('#statModal').modal('hide');
+        $('.modal').modal('hide');
         doRefresh = true;
     }
 });
@@ -239,6 +239,7 @@ function updateData(){
 
 function finishGame() {
     points.value = "finish";
+    console.log(points.value);
 }
 
 //AJAX post
@@ -258,3 +259,14 @@ form.submit(function () {
     return false; // not refreshing page
 
 });
+
+function openFinishModal() {
+    doRefresh = false;
+
+    $('#finishModal').modal({backdrop: 'static', keyboard: false});
+    $('#finishModal').modal('show');
+}
+
+function closeFinishModal() {
+    doRefresh = true;
+}
