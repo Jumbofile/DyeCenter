@@ -123,14 +123,14 @@ public class GameServlet extends HttpServlet {
             String points = (String) req.getParameter("points");
             System.out.println("Points: " + points);
             String playerFocus = (String) req.getParameter("playerFocus");
-            System.out.println("Player: " + playerFocus);
+            //System.out.println("Player: " + playerFocus);
 
             //game finish was requested
             if (points.equals("finish")) {
                 //finish the game
+                System.out.println("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEET");
                 game.endGame();
-                req.getRequestDispatcher("/_view/view.jsp").forward(req, resp);
-//                resp.sendRedirect(req.getContextPath() + "/view");
+                resp.sendRedirect(req.getContextPath() + "/view");
                 req.getSession().setAttribute("gid", gid);
             } else if (playerFocus != null && (!playerFocus.equals(""))) {
                 //cannot edit stats if status isnt 0

@@ -240,6 +240,17 @@ function updateData(){
 function finishGame() {
     points.value = "finish";
     console.log(points.value);
+        $.ajax({
+            type: form.attr('method'),  //post method
+            url: form.attr('action'), //ajaxformexample url
+            data: form.serialize(), // serialize input data values
+            success: function (data) {
+                var result=data;
+                $('#content').html(result); //showing result
+
+            }
+        });
+    window.location.href = "/view";
 }
 
 //AJAX post
