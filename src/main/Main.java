@@ -23,6 +23,7 @@ public class Main {
 		System.out.println("STARTING: web server on port " + port);
 		server.start();
 
+
 		// dump the console output - this will produce a lot of red text - no worries, that is normal
 		server.dumpStdErr();
 

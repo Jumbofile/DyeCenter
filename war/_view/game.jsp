@@ -79,8 +79,8 @@
 
 		</div>
 
-		<input id="playerInput" style="display: block"  type="input" name="playerFocus" value="">
-		<input id="points" style="display: block"  type="input" name="points" value="">
+		<input id="playerInput" style="display: none"  type="input" name="playerFocus" value="">
+		<input id="points" style="display: none"  type="input" name="points" value="">
 
 		<div id="game-content-container" class="row">
 
