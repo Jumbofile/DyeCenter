@@ -226,7 +226,7 @@ public class TableQuery extends DatabaseFactory{
 				rtnTable.setGamesOnTable(getGamesOnTable(TID));
 				//System.out.println("DB SIZE: " + rtnTable.getGamesOnTable().size());
 				//print stuff
-				System.out.println(rtnTable.getTID());
+				//System.out.println(rtnTable.getTID());
 				DBUtil.closeQuietly(resultSet);
 				DBUtil.closeQuietly(stmt);
 				//DBUtil.closeQuietly(conn);
