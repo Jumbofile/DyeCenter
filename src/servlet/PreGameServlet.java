@@ -79,21 +79,21 @@ public class PreGameServlet extends HttpServlet {
 				}
 
 				//based on the team that had a -1, replace the -1 with the uid
-				System.out.println("Current UID: " + uid);
-				System.out.println("Team Open: " + teamOpen);
-				System.out.println("Team 1: " + team1String);
+				//System.out.println("Current UID: " + uid);
+				//System.out.println("Team Open: " + teamOpen);
+				//System.out.println("Team 1: " + team1String);
 				if(teamOpen == 1){
 					team1String = team1String.replaceFirst("-1", uid);
 				}else{
 					team2String = team2String.replaceFirst("-1", uid);
 				}
 
-				System.out.println("Team1String: " + team1String);
+				//System.out.println("Team1String: " + team1String);
 
 				//add the new player to the table
 				game.setTeams(team1String, team2String);
 				game.updateGame();
-				System.out.println("Player1: " + game.getPlayer1().getUsername());
+				//System.out.println("Player1: " + game.getPlayer1().getUsername());
 
 			}
 			String gameID;
@@ -142,17 +142,17 @@ public class PreGameServlet extends HttpServlet {
 				req.getSession().setAttribute("gid", gid);
 			}
 			else{
-				System.out.println(req.getParameter("teamSelectP1"));
-				System.out.println(req.getParameter("teamSelectP2"));
-				System.out.println(req.getParameter("teamSelectP3"));
-				System.out.println(req.getParameter("teamSelectP4"));
+				//System.out.println(req.getParameter("teamSelectP1"));
+				//System.out.println(req.getParameter("teamSelectP2"));
+				//System.out.println(req.getParameter("teamSelectP3"));
+				//System.out.println(req.getParameter("teamSelectP4"));
 
 				String[] teamSelect = {req.getParameter("teamSelectP1"), req.getParameter("teamSelectP2"), req.getParameter("teamSelectP3"), req.getParameter("teamSelectP4")};
 
-				System.out.println("Team Select: " + teamSelect[0]);
-                System.out.println("Team Select: " + teamSelect[1]);
-                System.out.println("Team Select: " + teamSelect[2]);
-                System.out.println("Team Select: " + teamSelect[3]);
+				//System.out.println("Team Select: " + teamSelect[0]);
+               // System.out.println("Team Select: " + teamSelect[1]);
+               // System.out.println("Team Select: " + teamSelect[2]);
+                //System.out.println("Team Select: " + teamSelect[3]);
 
 				Game game = new Game(Integer.parseInt(gid), Integer.parseInt(tid));
 

@@ -98,7 +98,6 @@ public class GameServlet extends HttpServlet {
 
             req.getRequestDispatcher("/_view/game.jsp").forward(req, resp);
             req.getSession().setAttribute("gid", gid);
-            req.getSession().setAttribute("uid", uid);
         }catch (Exception e){
             //should really try to name this exception or possible remove it
             e.printStackTrace();
