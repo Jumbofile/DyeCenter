@@ -53,7 +53,7 @@ public class DashboardServlet extends HttpServlet {
         String tableID = req.getParameter("tid");
         if(tableID != null){
             resp.sendRedirect(req.getContextPath() + "/table");
-            req.getSession().setAttribute("tableID", tableID);
+            req.getSession().setAttribute("tid", tableID);
         }else{
             //username = "foobar";
             if (sessionuid == null) {

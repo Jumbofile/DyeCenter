@@ -30,7 +30,7 @@ public class TablesServlet extends HttpServlet {
         } else {
             String tableID = new String();
             try {
-                tableID = (String) req.getSession().getAttribute("tableID");
+                tableID = (String) req.getSession().getAttribute("tid");
             }catch (NullPointerException e){
                 req.getRequestDispatcher("/_view/dashboard.jsp").forward(req, resp);
             }
@@ -38,7 +38,7 @@ public class TablesServlet extends HttpServlet {
 
             getGameButton(req, resp);
 
-            req.setAttribute("tableID", tableID);
+            req.setAttribute("tid", tableID);
             req.getSession().setAttribute("tid", tableID);
             req.getRequestDispatcher("/_view/tables.jsp").forward(req, resp);
         }
@@ -54,7 +54,7 @@ public class TablesServlet extends HttpServlet {
             req.getRequestDispatcher("/login").forward(req, resp);
         }else {
             //int tableID = (int)req.getAttribute("tableId");
-            String tableID = (String)req.getSession().getAttribute("tableID");
+            String tableID = req.getSession().getAttribute("tid").toString();
             //System.out.println(tableID);
 
             //get game buttons
@@ -210,7 +210,7 @@ public class TablesServlet extends HttpServlet {
 
     private void getGameButton(HttpServletRequest req, HttpServletResponse resp) throws IOException{
         //int tableID = (int)req.getAttribute("tableId");
-        String tableID = (String)req.getSession().getAttribute("tableID");
+        String tableID = (String)req.getSession().getAttribute("tid");
         System.out.println("TABLE ID: " + tableID);
         int tid = -1;
         try {

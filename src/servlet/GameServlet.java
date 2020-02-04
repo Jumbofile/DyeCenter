@@ -120,14 +120,13 @@ public class GameServlet extends HttpServlet {
             Game game = new Game(Integer.parseInt(gid), table.getTID());
 
             String points = (String) req.getParameter("points");
-            System.out.println("Points: " + points);
+            //System.out.println("Points: " + points);
             String playerFocus = (String) req.getParameter("playerFocus");
             //System.out.println("Player: " + playerFocus);
 
             //game finish was requested
             if (points.equals("finish")) {
                 //finish the game
-                System.out.println("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEET");
                 game.endGame();
                 resp.sendRedirect(req.getContextPath() + "/view");
                 req.getSession().setAttribute("gid", gid);

@@ -51,7 +51,7 @@ public class CreateTablesServlet extends HttpServlet {
             Table table = new Table();
 
             String tableName = req.getParameter("tableName");
-            System.out.println(tableName);
+            //System.out.println(tableName);
 
             //Takes string and splits into players
             /*ArrayList<String> playerNames = new ArrayList<String>(Arrays.asList(req.getParameter("players").split(",")));
@@ -69,10 +69,10 @@ public class CreateTablesServlet extends HttpServlet {
                 System.out.println("FAILED TABLE CREATE.");
             }else{
                 tableID = table.getTID();
-                System.out.println(tableID);
+                //System.out.println(tableID);
 
                 resp.sendRedirect(req.getContextPath() + "/table");
-                req.getSession().setAttribute("tableID", Integer.toString(tableID));
+                req.getSession().setAttribute("tid", Integer.toString(tableID));
             }
 
         }
