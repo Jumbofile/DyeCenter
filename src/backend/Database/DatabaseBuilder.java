@@ -80,6 +80,24 @@ public class DatabaseBuilder extends DatabaseFactory {
 					);
 					stmt.executeUpdate();
 
+					System.out.println("Making log table");
+					stmt = conn.prepareStatement( //creates dyetable table
+							"create table dyelog ("  +
+									"	ID bigint auto_increment," +
+									"	timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
+									"   username varchar(255), " +
+									"   uid varchar(20), " +
+									"	servlet varchar(255),"+
+									"	method varchar(20),"+
+									"   dbaction varchar(255), " +
+									"   object varchar(255), " +
+									"   objectID varchar(255), " +
+									"   event varchar(255), " +
+									"   desc varchar(255) " +
+									")"
+					);
+					stmt.executeUpdate();
+
 					return true;
 				} finally {
 					DBUtil.closeQuietly(stmt);

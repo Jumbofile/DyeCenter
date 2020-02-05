@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 //import fakeDB.FakeUserDB;
 import backend.Database.DatabaseProvider;
 import backend.Database.DatabaseFactory;
+import backend.Database.Logger;
 import backend.Database.IDatabase;
 import backend.Entities.Account;
 
@@ -30,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		
+		Logger logger = new Logger();
 		System.out.println("Login Servlet: doPost");
 
 		Account account = new Account();
@@ -50,10 +51,13 @@ public class LoginServlet extends HttpServlet {
 		//If account is valid, continue, if it isnt, spit out error
 		if(validAccount == true){
 			// Forward to view to render the result HTML document
+
 			resp.sendRedirect(req.getContextPath() + "/dashboard");
 			System.out.println("Login Servlet: Login Successful");
 			try{
 				uid = account.getAccountID(email);
+				account.populateAccountData(uid);
+				logger.addLog(account.getUsername(), uid, "LoginServlet", "POST", "DB_ACCESS", "ACCOUNT", uid, "LOGIN", account.getUsername() + " logged in.");
 			}catch(Exception e){
 				e.printStackTrace();
 			}
