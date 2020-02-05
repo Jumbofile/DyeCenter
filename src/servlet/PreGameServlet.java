@@ -103,7 +103,11 @@ public class PreGameServlet extends HttpServlet {
 				String[] team1arr = team1String.split(",");
 				String[] team2arr = team2String.split(",");
 
+				//remove the player from the player string
+				String players = game.getPlayers().replaceFirst(uid, "-1");
+				game.updatePlayers(players);
 
+				//remove them from the teams if they are on any
 				if (team1arr[0].equals(uid) || team1arr[1].equals(uid)) {
 					team1String = team1String.replaceFirst(uid, "-1");
 				}
