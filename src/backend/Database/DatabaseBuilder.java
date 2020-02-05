@@ -63,6 +63,7 @@ public class DatabaseBuilder extends DatabaseFactory {
 						"   TID INT, " +
 						"	team_1 varchar(20)," +
 						"	team_2 varchar(20)," +
+						"	players varchar(20)," +
 						"	score_1 INT," +
 						"	score_2 INT," +
 						"	player_1_points INT," +

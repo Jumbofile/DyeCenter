@@ -91,6 +91,28 @@ public class GameQuery extends DatabaseFactory {
 
 	}
 
+	public boolean setPlayers(int GID, String players) throws SQLException {
+		return executeTransaction(new DatabaseFactory.Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("UPDATE game set players=? where GID = ?" );
+				stmt.setString( 1, players);
+				stmt.setInt( 2, GID);
+				stmt.executeUpdate();
+
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return true;
+			}
+		});
+
+	}
+
 	public Game updateGame(int GID, Game game) throws SQLException {
 		return executeTransaction(new DatabaseFactory.Transaction<Game>() {
 			@Override
@@ -150,16 +172,14 @@ public class GameQuery extends DatabaseFactory {
 				ResultSet resultSet = null;
 
 				// retreive username attribute from login
-				stmt = conn.prepareStatement("SELECT team_1, team_2 from game where GID = ?" );
+				stmt = conn.prepareStatement("SELECT players from game where GID = ?" );
 				stmt.setInt( 1, GID);
 				resultSet = stmt.executeQuery();
 
 				resultSet.next();
 
-				String team_1 = resultSet.getString("team_1");
-				String team_2 = resultSet.getString("team_2");
-				String playerCSV = team_1 + "," + team_2;
-				String[] players = playerCSV.split(",");
+				String player = resultSet.getString("players");
+				String[] players = player.split(",");
 
 				ArrayList<Player> playersOnTable = new ArrayList<Player>();
 				for(String id : players){
