@@ -142,17 +142,7 @@ public class PreGameServlet extends HttpServlet {
 				req.getSession().setAttribute("gid", gid);
 			}
 			else{
-				//System.out.println(req.getParameter("teamSelectP1"));
-				//System.out.println(req.getParameter("teamSelectP2"));
-				//System.out.println(req.getParameter("teamSelectP3"));
-				//System.out.println(req.getParameter("teamSelectP4"));
-
 				String[] teamSelect = {req.getParameter("teamSelectP1"), req.getParameter("teamSelectP2"), req.getParameter("teamSelectP3"), req.getParameter("teamSelectP4")};
-
-				//System.out.println("Team Select: " + teamSelect[0]);
-               // System.out.println("Team Select: " + teamSelect[1]);
-               // System.out.println("Team Select: " + teamSelect[2]);
-                //System.out.println("Team Select: " + teamSelect[3]);
 
 				Game game = new Game(Integer.parseInt(gid), Integer.parseInt(tid));
 
@@ -203,7 +193,7 @@ public class PreGameServlet extends HttpServlet {
 					}
 				}
 
-				// As UID's, -1 == guest
+
 				String team1String = team1.get(0) + "," + team1.get(1) ;
 				String team2String = team2.get(0) + "," + team2.get(1) ;
 
