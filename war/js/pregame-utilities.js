@@ -80,7 +80,7 @@ $(document).ready(
 
                 return false; // not refreshing page
             }
-        }, 2000);  //Delay here = 5 seconds
+        }, 2000);  //Delay here = 2 seconds
     });
 
 function updateData(){
@@ -103,60 +103,17 @@ function updateData(){
     //update the value boxes
     team1Value.value = teamString[0] + ',' + teamString[1];
     team2Value.value = teamString[2] + ',' + teamString[3];
-    //player 1 checkboxes
-    var p1b = document.getElementById("p1b");
-    var p1r = document.getElementById("p1r");
-    var p1u = document.getElementById("p1u");
 
-    //player 2 checkboxes
-    var p2b = document.getElementById("p2b");
-    var p2r = document.getElementById("p2r");
-    var p2u = document.getElementById("p2u");
 
-    //player 3 checkboxes
-    var p3b = document.getElementById("p3b");
-    var p3r = document.getElementById("p3r");
-    var p3u = document.getElementById("p3u");
-
-    //player 4 checkboxes
-    var p4b = document.getElementById("p4b");
-    var p4r = document.getElementById("p4r");
-    var p4u = document.getElementById("p4u");
-
-    //player 1
-    if(teamString[0] == p1User || teamString[1] == p1User){
-        p1b.checked = true;
-    }else if(teamString[2] == p1User || teamString[3] == p1User){
-        p1r.checked = true;
-    }else{
-        p1u.checked = true;
-    }
-
-    //player 2
-    if(teamString[0] == p2User || teamString[1] == p2User){
-        p2b.checked = true;
-    }else if(teamString[2] == p2User || teamString[3] == p2User){
-        p2r.checked = true;
-    }else{
-        p2u.checked = true;
-    }
-
-    //player 3
-    if(teamString[0] == p3User || teamString[1] == p3User){
-        p3b.checked = true;
-    }else if(teamString[2] == p3User || teamString[3] == p3User){
-        p3r.checked = true;
-    }else{
-        p3u.checked = true;
-    }
-
-    //player 4
-    if(teamString[0] == p4User || teamString[1] == p4User){
-        p4b.checked = true;
-    }else if(teamString[2] == p4User || teamString[3] == p4User){
-        p4r.checked = true;
-    }else{
-        p4u.checked = true;
+    for(var i = 1; i <= 4; i++) {
+        if (teamString[0] == playerUser[i] || teamString[1] == playerUser[i]){
+            document.getElementById('p'+i+'b').checked = true;
+        } else if(teamString[2] == playerUser[i] || teamString[3] == playerUser[i]) {
+            document.getElementById('p'+i+'r').checked = true;
+        }
+        else {
+            document.getElementById('p'+i+'u').checked = true;
+        }
     }
 }
 
@@ -170,69 +127,54 @@ function startGame(){
 }
 function teamSelect(button){
     console.log(button);
-    var info = button.value.split(',');
+
+    var info = $(button).val().split(',');
+
+    var teams = [t1p1, t1p2, t2p1, t2p2] ;
 
 
-    //undecided
     if(info[0] == 'none') {
-        if(t1p1 == info[1]){
-            t1p1 = null;
-        }
-        if(t1p2 == info[1]){
-            t1p2 = null;
-        }
-        if(t2p1 == info[1]){
-            t2p1 = null;
-        }
-        if(t2p2 == info[1]){
-            t2p2 = null;
-        }
-    }
-    //team 1
-    if(info[0] == 'team1'){
-        if(!t1p1){
-            console.log(t1p1);
-            t1p1 = info[1];
-            if(t2p1 == info[1]){
-                t2p1 = null;
+        for(var i = 0; i < teams.length; i++){
+            if(teams[i] == info[1]){
+                teams[i] = null;
             }
-            if(t2p2 == info[1]){
-                t2p2 = null;
-            }
-        }else if(!t1p2){
-            t1p2 = info[1];
-            if(t2p1 == info[1]){
-                t2p1 = null;
-            }
-            if(t2p2 == info[1]){
-                t2p2 = null;
-            }
-
         }
     }
 
-    //team 2
-    if(info[0] == 'team2'){
-        if(!t2p1){
-            t2p1 = info[1];
-            if(t1p1 == info[1]){
-                t1p1 = null;
+    if(info[0] == 'team1' && (!teams[0] || !teams[1])) {
+        for(var i = 0; i < teams.length; i++){
+            if(teams[i] == info[1]){
+                teams[i] = null;
             }
-            if(t1p2 == info[1]){
-                t1p2 = null;
-            }
-        }else if(!t2p2){
-            t2p2 = info[1];
-            if(t1p1 == info[1]){
-                t1p1 = null;
-            }
-            if(t1p2 == info[1]){
-                t1p2 = null;
-            }
-
         }
-
+        if(!teams[0]) {
+            teams[0] = info[1] ;
+        }
+        else {
+            teams[1] = info[1] ;
+        }
     }
+
+    if(info[0] == 'team2' && (!teams[2] || !teams[3])) {
+        for(var i = 0; i < teams.length; i++){
+            if(teams[i] == info[1]){
+                teams[i] = null;
+            }
+        }
+        if(!teams[2]) {
+            teams[2] = info[1] ;
+        }
+        else {
+            teams[3] = info[1] ;
+        }
+    }
+
+
+    t1p1 = teams[0] ;
+    t1p2 = teams[1] ;
+    t2p1 = teams[2] ;
+    t2p2 = teams[3] ;
+
     console.log(t1p1);
     console.log(t1p2);
     console.log(t2p1);
