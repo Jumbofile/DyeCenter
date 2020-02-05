@@ -203,6 +203,15 @@ public class Game {
 		return gid;
 	}
 
+	public String getPlayers(){
+		String players = new String();
+		try {
+			players = db.getPlayers(this.GID);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return players;
+	}
 	public ArrayList<Integer> returnAllUIDs(){
 		ArrayList<Integer> ids = new ArrayList<Integer>();
 		ids.add(player1.getUID());
@@ -237,6 +246,13 @@ public class Game {
 		return teams;
 	}
 
+	public void updatePlayers(String players){
+		try{
+			db.setPlayers(GID, players);
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
 	public void setTeams(String team1, String team2){
 		String[] team1Arr = team1.split(",");
 		String[] team2Arr = team2.split(",");

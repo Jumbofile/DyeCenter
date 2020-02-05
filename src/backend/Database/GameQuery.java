@@ -163,6 +163,34 @@ public class GameQuery extends DatabaseFactory {
 		});
 	}
 
+	public String getPlayers(int GID) throws SQLException {
+		return executeTransaction(new DatabaseFactory.Transaction<String>() {
+			@Override
+			public String execute(Connection conn) throws SQLException {
+				//Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+
+				// retreive username attribute from login
+				stmt = conn.prepareStatement("SELECT players from game where GID = ?" );
+				stmt.setInt( 1, GID);
+				resultSet = stmt.executeQuery();
+
+				resultSet.next();
+
+				String player = resultSet.getString("players");
+
+
+
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				//DBUtil.closeQuietly(conn);
+				//System.out.println(rtnStats.toString());
+				return player;
+			}
+		});
+
+	}
 	public ArrayList<Player> getPlayersFromGame(int GID) throws SQLException {
 		return executeTransaction(new DatabaseFactory.Transaction<ArrayList<Player>>() {
 			@Override

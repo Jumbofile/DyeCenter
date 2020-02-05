@@ -48,7 +48,7 @@ public class PreGameServlet extends HttpServlet {
 			}catch( IllegalStateException e){}
 
 		} else {
-
+			System.out.println("OOOO");
 			Game game = new Game(Integer.parseInt(gid), Integer.parseInt(tid));
 
 			ArrayList<Integer> playerIDs = game.returnAllUIDs();
@@ -56,42 +56,16 @@ public class PreGameServlet extends HttpServlet {
 			getData(req, resp);
 
 			if(!playerIDs.contains(Integer.parseInt(uid))){
-				ArrayList<String> teamIds = game.getTeams();
-				String team1String = teamIds.get(0);
-				String team2String = teamIds.get(1);
-				String[] team1 = team1String.split(",");
-				String[] team2 = team2String.split(",");
-
-				int teamOpen = -1;
-
-				//check each team for a -1 in the roster
-				for(String ids: team1){
-					if(Integer.parseInt(ids) == -1){
-						teamOpen = 1;
-					}
-				}
-				if(teamOpen != 1) {
-					for (String ids : team2) {
-						if (Integer.parseInt(ids) == -1) {
-							teamOpen = 2;
-						}
-					}
-				}
-
-				//based on the team that had a -1, replace the -1 with the uid
-				//System.out.println("Current UID: " + uid);
-				//System.out.println("Team Open: " + teamOpen);
-				//System.out.println("Team 1: " + team1String);
-				if(teamOpen == 1){
-					team1String = team1String.replaceFirst("-1", uid);
-				}else{
-					team2String = team2String.replaceFirst("-1", uid);
-				}
+				//get all players
+				String players = game.getPlayers();
+				System.out.println("1st " + players);
+				//add player to the player list
+				 players = players.replaceFirst("-1", uid);
 
 				//System.out.println("Team1String: " + team1String);
-
+				System.out.println("2st " + players);
 				//add the new player to the table
-				game.setTeams(team1String, team2String);
+				game.updatePlayers(players);
 				game.updateGame();
 				//System.out.println("Player1: " + game.getPlayer1().getUsername());
 
@@ -285,7 +259,7 @@ public class PreGameServlet extends HttpServlet {
             String tmp_str = game.generateJSON(Integer.parseInt(uid)).toString();
 
             //DEBUG PRINT
-            System.out.println("String from DB: " + tmp_str);
+            //System.out.println("String from DB: " + tmp_str);
 
             //Parse throught the json
             if(tmp_str != null) {

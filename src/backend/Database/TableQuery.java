@@ -85,13 +85,14 @@ public class TableQuery extends DatabaseFactory{
 					String sql = "insert into game(hash, TID, team_1, team_2, score_1, score_2," +
 							"player_1_points, player_2_points, player_3_points, player_4_points," +
 							"player_1_plunks, player_2_plunks, player_3_plunks, player_4_plunks," +
-							" status)values(?, ?, ?, ?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)";
+							" status)values(?, ?, ?, ?, ?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)";
 
 					stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 					stmt.setString(1, hash.toLowerCase());
 					stmt.setInt(2, TID);
 					stmt.setString(3, teamOne[0].UID +"," + teamOne[1].UID);
 					stmt.setString(4, teamTwo[0].UID +"," + teamTwo[1].UID);
+					stmt.setString(5,teamOne[0].UID+","+teamOne[1].UID+","+teamTwo[0].UID+","+teamTwo[1].UID);
 					stmt.executeUpdate();
 
 					ResultSet rs = stmt.getGeneratedKeys();
@@ -139,18 +140,25 @@ public class TableQuery extends DatabaseFactory{
 					//This needs to allow users to choose teams on the servlet/jsp side
 					java.util.Date myDate = new Date();
 					String date = sdf.format(myDate);
-					String sql = "insert into game(hash, TID, team_1, team_2, score_1, score_2," +
+					String sql = "insert into game(hash, TID, team_1, team_2, players, score_1, score_2," +
 							"player_1_points, player_2_points, player_3_points, player_4_points," +
 							"player_1_plunks, player_2_plunks, player_3_plunks, player_4_plunks," +
-							" status)values(?, ?, ?, ?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)";
+							" status)values(?, ?, ?, ?, ?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)";
 
 					stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 					stmt.setString(1, hash.toLowerCase());
 					stmt.setInt(2, TID);
-					stmt.setString(3, id1 +"," + id2);
-					stmt.setString(4, id3 +"," + id4);
-					stmt.executeUpdate();
-
+					if(id1 == -1 || id2 == -1 || id3 == -1 || id4 == -1){
+						stmt.setString(3, "-1,-1");
+						stmt.setString(4, "-1,-1");
+						stmt.setString(5, id1 + "," + id2 + "," + id3 + "," + id4);
+						stmt.executeUpdate();
+					}else {
+						stmt.setString(3, id1 + "," + id2);
+						stmt.setString(4, id3 + "," + id4);
+						stmt.setString(5, id1 + "," + id2 + "," + id3 + "," + id4);
+						stmt.executeUpdate();
+					}
 					ResultSet rs = stmt.getGeneratedKeys();
 					rs.next();
 					int gid = rs.getInt(1);
