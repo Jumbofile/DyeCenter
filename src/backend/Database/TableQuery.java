@@ -82,7 +82,7 @@ public class TableQuery extends DatabaseFactory{
 					//This needs to allow users to choose teams on the servlet/jsp side
 					java.util.Date myDate = new Date();
 					String date = sdf.format(myDate);
-					String sql = "insert into game(hash, TID, team_1, team_2, score_1, score_2," +
+					String sql = "insert into game(hash, TID, team_1, team_2, players, score_1, score_2," +
 							"player_1_points, player_2_points, player_3_points, player_4_points," +
 							"player_1_plunks, player_2_plunks, player_3_plunks, player_4_plunks," +
 							" status)values(?, ?, ?, ?, ?, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)";
