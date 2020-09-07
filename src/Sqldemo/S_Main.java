@@ -62,6 +62,11 @@ public class S_Main {
 		copyButton.setBounds(115, 538, 100, 30);
 		copyButton.setText("Copy");
 
+		//adds list button
+		JButton listButton = new JButton();
+		listButton.setBounds(764, 538, 120, 30);
+		listButton.setText("Show Tables");
+
 		
 		//is enter hit
         Action enterAction = new AbstractAction()
@@ -105,6 +110,28 @@ public class S_Main {
 
 				//Update console so you know something happened
 				consoleWin.append("Copied text.");
+			}
+		};
+
+		//is copy hit
+		Action listAction = new AbstractAction()
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				sqlTextBox.setText("SHOW TABLES");
+				String statement = sqlTextBox.getText();
+				try {
+					Sqldemo.SQLDemo.accessDemo(statement);
+				}catch(Exception e1){
+					e1.printStackTrace();
+					consoleWin.append("Invalid statement \n");
+				}
+				index = history.size() - 1;
+				//consoleWin.append(statement);
+				//sqlTextBox.setText("");
 			}
 		};
         
@@ -154,7 +181,9 @@ public class S_Main {
         enterButton.addActionListener( enterAction );
         frame.getContentPane().add(enterButton);
 		copyButton.addActionListener( copyAction );
+		listButton.addActionListener( listAction );
 		frame.getContentPane().add(copyButton);
+		frame.getContentPane().add(listButton);
 		frame.getContentPane().add(panel);
 		frame.setVisible(true);
 		

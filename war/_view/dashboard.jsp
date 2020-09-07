@@ -79,7 +79,7 @@
 
 		<!-- Heading -->
 		<div class="sidebar-heading">
-			Addons
+			Controls
 		</div>
 
 
@@ -295,6 +295,18 @@
 
 				</div>
 
+				<div class="row">
+					<div class="col-xl-8 col-lg-7">
+						<a role="button" class="btn btn-success" href="/create">
+							<i style="margin-right: 8px;" class="fas fa-plus text-white"></i>
+							<span>Create Table</span>
+						</a>
+						<a class="btn btn-primary" href="#" data-toggle="collapse" data-target="#collapseTables" aria-expanded="true" aria-controls="collapseTables">
+						<i style="margin-right: 8px;" class="fas fa-expand text-white"></i>
+							<span>View tables</span>
+						</a>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- End of Main Content -->
