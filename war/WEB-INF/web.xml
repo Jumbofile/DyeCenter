@@ -4,6 +4,10 @@
               http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5"
          xmlns="http://java.sun.com/xml/ns/javaee">
+    <context-param>
+        <param-name>org.eclipse.jetty.servlet.jspPackagePrefix</param-name>
+        <param-value>com.acme</param-value>
+    </context-param>
 
   <!-- Servlets -->
  

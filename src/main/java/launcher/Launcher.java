@@ -1,4 +1,4 @@
-package main;
+package launcher;
 
 import java.lang.management.ManagementFactory;
 import java.net.InetSocketAddress;
@@ -8,6 +8,8 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.webapp.Configuration;
 import org.eclipse.jetty.webapp.WebAppContext;
+
+import static sun.net.www.protocol.http.AuthCacheValue.Type.Server;
 
 public class Launcher {
 	/**

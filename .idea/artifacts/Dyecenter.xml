@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Dyecenter">
+    <output-path>$PROJECT_DIR$/classes/artifacts/Dyecenter</output-path>
+    <root id="archive" name="Dyecenter.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="library" level="project" name="annotations" />
+    </root>
+  </artifact>
+</component>
