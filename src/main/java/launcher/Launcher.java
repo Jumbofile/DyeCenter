@@ -41,6 +41,7 @@ public class Launcher {
         // PlusConfiguration) to choosing where the webapp will unpack itself.
 		WebAppContext webapp = new WebAppContext();
 		webapp.setContextPath(contextPath);
+		webapp.setDescriptor("war/WEB-INF/web.xml");
 		webapp.setWar(warUrl);
 
 		

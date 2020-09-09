@@ -40,6 +40,7 @@
 	<br/>
 
 	<form action="${pageContext.servletContext.contextPath}/table" method="post">
+		${error}
 		<div id="create-game-container">
 			<h2 style="margin-bottom: 30px;">Create Game</h2>
 			<div class="input-group mb-3">

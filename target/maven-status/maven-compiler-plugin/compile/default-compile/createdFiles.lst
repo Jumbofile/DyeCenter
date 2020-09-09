@@ -1,6 +1,7 @@
 backend\Database\GameQuery$6.class
 backend\Database\PlayerQuery$4.class
 backend\Database\TableQuery$4.class
+launcher\Main.class
 servlet\GameServlet.class
 backend\Database\GameQuery$14.class
 backend\Entities\Table.class
@@ -18,6 +19,7 @@ backend\Database\TableQuery$1.class
 backend\Database\PlayerQuery$1.class
 backend\Database\Logger$1.class
 backend\Database\PlayerQuery$3.class
+launcher\Launcher.class
 Sqldemo\SQLDemo$RowList.class
 utilities\Util.class
 backend\Database\GameQuery$5.class

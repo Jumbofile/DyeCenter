@@ -16,7 +16,7 @@ public class Main {
 		Launcher launcher = new Launcher();
 		// get a server for port 8081
 		System.out.println("CREATING: web server on port " + port);
-		Server server = launcher.launch(true, port, warFile.getAbsolutePath(), "");
+		Server server = launcher.launch(true, port, warFile.getAbsolutePath(), "/");
 		//Server server1 = launcher.launch()
 
         // Start things up!

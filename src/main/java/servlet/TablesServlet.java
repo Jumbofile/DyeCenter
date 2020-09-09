@@ -1,6 +1,7 @@
 package servlet;
 
 import backend.Database.DatabaseFactory;
+import backend.Entities.Account;
 import backend.Entities.Game;
 import backend.Entities.Player;
 import backend.Entities.Table;
@@ -19,6 +20,10 @@ public class TablesServlet extends HttpServlet {
     private String uid = null;
     private DatabaseFactory db = new DatabaseFactory();
     ArrayList<String> accountInfo = new ArrayList<>();
+    int account1Status = 0;
+    int account2Status = 0;
+    int account3Status = 0;
+    int account4Status = 0;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -35,10 +40,12 @@ public class TablesServlet extends HttpServlet {
                 req.getRequestDispatcher("/_view/dashboard.jsp").forward(req, resp);
             }
             //System.out.println("get: " + tableID);
-
             getGameButton(req, resp);
-
+            if(req.getSession().getAttribute("error") != null) {
+                req.setAttribute("error", "<div class=\"bg-danger border border-dark d-flex justify-content-center text-white\"><h5>" + req.getSession().getAttribute("error") + "</h5></div>");
+            }
             req.setAttribute("tid", tableID);
+            req.getSession().setAttribute("error", null);
             req.getSession().setAttribute("tid", tableID);
             req.getRequestDispatcher("/_view/tables.jsp").forward(req, resp);
         }
@@ -163,12 +170,37 @@ public class TablesServlet extends HttpServlet {
                             t2[1] = new Player(req.getParameter("t2p2").toLowerCase());
                         }catch (Exception e){
 						    //that usersname doesnt exist
+                            //which one doesnt exist
+                            String badUsernames = "The username ";
+                            Account testerAccount = new Account();
+                            account1Status = testerAccount.getUID(req.getParameter("t1p1").toLowerCase());
+                            account2Status = testerAccount.getUID(req.getParameter("t1p2").toLowerCase());
+                            account3Status = testerAccount.getUID(req.getParameter("t2p1").toLowerCase());
+                            account4Status = testerAccount.getUID(req.getParameter("t2p2").toLowerCase());
+                            if(account1Status == -1){
+                                badUsernames = badUsernames + req.getParameter("t1p1") + ", ";
+                            }
+                            if(account2Status == -1){
+                                badUsernames = badUsernames + req.getParameter("t1p2") + ", ";
+                            }
+                            if(account3Status == -1){
+                                badUsernames = badUsernames + req.getParameter("t2p1") + ", ";
+                            }
+                            if(account4Status == -1){
+                                badUsernames = badUsernames + req.getParameter("t2p2");
+                            }
+
+                            if(badUsernames.substring(badUsernames.length()-2).contains(",")){
+                                badUsernames = badUsernames.substring(0, badUsernames.length()-2);
+                            }
+                            badUsernames = badUsernames + " doesnt exist.";
+
+                            req.getSession().setAttribute("error", badUsernames);
                             resp.sendRedirect(req.getContextPath() + "/table");
                         }
                         Game game = null;
+
                         if(playersUnique(t1, t2)) {
-
-
                             //create game
                             game = table.createGame(t1, t2);
                         }
